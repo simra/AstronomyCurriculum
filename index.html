@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Astronomy Curriculum</title>
+  <style>
+    :root {
+      --ink: #17202a;
+      --muted: #5b6773;
+      --paper: #fbfcfd;
+      --panel: #ffffff;
+      --line: #d9e0e7;
+      --navy: #102a43;
+      --teal: #0f6b78;
+      --teal-soft: #e5f4f6;
+      --gold: #b87911;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.6;
+    }
+    header {
+      padding: 52px 24px 36px;
+      background: linear-gradient(135deg, var(--navy), var(--teal));
+      color: #fff;
+    }
+    header div, main {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      line-height: 1.08;
+    }
+    header p { margin: 0; opacity: .94; font-size: 1.1rem; }
+    main { padding: 34px 24px 64px; }
+    h2 { color: var(--navy); border-bottom: 2px solid var(--line); padding-bottom: 8px; margin-top: 34px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 18px;
+    }
+    .card h3 { margin-top: 0; color: var(--teal); }
+    a { color: var(--teal); font-weight: 700; }
+    .status {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--teal-soft);
+      color: var(--navy);
+      font-family: "Aptos", "Segoe UI", sans-serif;
+      font-size: .86rem;
+      font-weight: 700;
+    }
+    footer {
+      margin-top: 42px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      font-size: .95rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Undergraduate Astronomy Curriculum</h1>
+      <p>Four-year curriculum draft and generated course-material packages.</p>
+    </div>
+  </header>
+  <main>
+    <section>
+      <h2>Program</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Curriculum Overview</h3>
+          <p>Four-year undergraduate astronomy degree plan with course calendar entries, prerequisites, credits, and elective pathways.</p>
+          <p><a href="astronomy_curriculum.html">Open curriculum HTML</a></p>
+          <p><a href="astronomy_curriculum.json">Open structured JSON</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Course Materials</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>ASTR 101: Introduction to Astronomy with Observing Lab</h3>
+          <p>Review-release package with syllabus, schedule, slides, lecture notes, labs, problem sets, solution keys, assessment instructions, source references, and review metadata.</p>
+          <p><a href="materials/ASTR101/index.html">Open ASTR 101 materials</a></p>
+          <span class="status">Approved for review release</span>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Repository Metadata</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Templates</h3>
+          <p>Shared templates and style standards for course packages.</p>
+          <p><a href="templates/course-materials/STYLE_GUIDE.md">Open style guide</a></p>
+        </article>
+        <article class="card">
+          <h3>Review Status</h3>
+          <p>ASTR 101 is approved for review release but not yet approved for instructional use.</p>
+          <p><a href="materials/ASTR101/review-report.md">Open ASTR 101 review report</a></p>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      <p>This site is a curriculum development workspace. Course packages require human instructional review before classroom deployment.</p>
+    </footer>
+  </main>
+</body>
+</html>
