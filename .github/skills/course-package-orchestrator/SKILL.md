@@ -89,7 +89,7 @@ materials/<COURSECODE>/
 
 Use two-digit numbering for lectures, labs, and problem sets. Place course-specific source code, scripts, notebooks, plotting utilities, data generators, validation tools, and computational examples under `src/`. Place course-specific raw, processed, or synthetic datasets under `data/`, with provenance and license notes. Do not place generated source code or datasets at the repository root.
 
-The orchestrator is responsible for creating `materials/<COURSECODE>/index.html` during final assembly, after the package contents and review status are known. Use `templates/course-materials/course-index.template.html` so all course folders have a consistent landing page that links to the syllabus, schedule, reference log, lecture slides, lecture notes, labs, problem sets, solution keys, assessment instructions, source code, data, and manifest. The index should not imply incomplete artifacts are finished; mark pending items clearly or omit links until files exist.
+The orchestrator is responsible for creating `materials/<COURSECODE>/index.html` during final assembly, after the package contents and review status are known. Use `templates/course-materials/course-index.template.html` so all course folders have a consistent landing page that links to the syllabus, schedule, reference log, lecture slides, lecture notes, labs, problem sets, solution keys, assessment instructions, source code, data, and manifest. The index should not imply incomplete artifacts are finished; mark pending items clearly or omit links until files exist. Every lecture-slide/notes link must include the lecture's title alongside its number (see Final Assembly below).
 
 ## Core Principle
 
@@ -231,6 +231,9 @@ When review identifies defects, use this deterministic loop:
 ### 8. Final Assembly
 
 - Create or update `materials/<COURSECODE>/index.html` using `templates/course-materials/course-index.template.html` after review status and artifact availability are known.
+- Every lecture link in `index.html` (and any other generated index/schedule listing lectures) must include the lecture's actual title, not just its number, e.g. `Lecture 01: <Title> — slides`. Pull the title from the lecture's own content (its slide deck heading) rather than retyping it, so the link text cannot drift out of sync with the actual lecture.
+- Link the newly created or updated course package from the repository-wide navigation: add or update the course's entry under "Course Calendar Entries" in `astronomy_curriculum.html` to link to `materials/<COURSECODE>/index.html`, and add or update the corresponding row in the "Four-Year Course List" schedule table in the same file so the course name links to the same index page. Do this as soon as a course package exists, even if it is only partially complete, and update the link text/status if the review status changes.
+- Do not add or maintain a "Course Materials" section in the repository root `index.html` that enumerates individual course packages by card; that listing does not scale as courses are added. The root `index.html` should link to `astronomy_curriculum.html` as the single place course packages are discoverable, plus repository-wide metadata (templates, style guide) that is not course-specific.
 - Produce a release summary listing all artifacts, assumptions, verified references, unresolved risks, and recommended next review steps.
 - Do not claim completion without a fresh review result.
 

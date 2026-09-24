@@ -33,7 +33,9 @@ Before acting, load and follow `.github/skills/course-package-orchestrator/SKILL
 - Treat `Needs correction` as a trigger to repair the relevant stage, validate again, and re-run review; only clear the loop when the review agent marks the package approved for the requested release stage.
 - The review-release threshold is a quality floor, not a completion milestone. A package that is only structurally complete but weaker than the ASTR101/ASTR120 benchmark must remain in the correction loop. Review release should not be granted based on file counts or template completion alone.
 - Spawn focused agents for source indexing, visual verification, labs, problem sets, or other reviewer-designated issues.
-- Create `index.html` during final assembly using `templates/course-materials/course-index.template.html`.
+- Create `index.html` during final assembly using `templates/course-materials/course-index.template.html`; every lecture link must include the lecture's actual title (e.g. `Lecture 01: <Title> — slides`), pulled from the lecture content itself, not retyped.
+- Link every course package from `astronomy_curriculum.html`: update its "Course Calendar Entries" card and its row in the "Four-Year Course List" schedule table to link to `materials/<COURSECODE>/index.html`, as soon as the package exists.
+- Do not add course-material cards to the repository root `index.html`; it should point to `astronomy_curriculum.html` as the single place to find course packages.
 - Validate artifact counts, JSON parsing, HTML doctypes, local links, and manifest status before reporting completion.
 
 ## Output Standard

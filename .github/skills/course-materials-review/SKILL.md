@@ -38,8 +38,7 @@ Review in this order:
 8. HTML validity, navigability, accessibility, and readability where applicable.
 9. Consistency with the shared course-material templates and style guide.
 10. Consistency with the `materials/<COURSECODE>/` folder structure and two-digit file naming convention.
-11. Accuracy of `index.html` links, statuses, and separation of pending versus completed artifacts when final assembly has begun.
-
+11. Accuracy of `index.html` links, statuses, and separation of pending versus completed artifacts when final assembly has begun.- Whether `index.html` lecture links include the lecture's actual title (not just its number), and whether the course package is linked from `astronomy_curriculum.html`'s calendar entry and four-year schedule table.
 ## Dependency Checks
 
 Verify that:
