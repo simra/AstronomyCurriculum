@@ -1,0 +1,4 @@
+star,filter,counts,exptime_s,catalog_mag
+STD-A,V,150000,30,10.21
+STD-B,V,62000,30,11.17
+STD-C,V,24000,30,12.2

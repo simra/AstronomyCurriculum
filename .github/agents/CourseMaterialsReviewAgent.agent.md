@@ -21,9 +21,12 @@ Before acting, load and follow `.github/skills/course-materials-review/SKILL.md`
 - Flag generic, interchangeable problem sets as blocking defects. Require concrete lecture-specific questions and exact textbook problem recommendations when an adopted textbook is available.
 - Check quantitative rigor and curriculum progression: introductory courses should build quantitative habits, and advanced courses should substantially increase mathematical and computational depth.
 - Flag formulaic labs that lack concrete apparatus/setup, measurement records, uncertainty treatment, deliverables, assessment criteria, or provenance.
+- Independently recompute at least one worked numeric example per lecture, lab, and problem set to catch arithmetic errors instead of trusting the stated result.
+- Check whether labs/problem sets using synthetic placeholder data could instead be grounded in real, verifiable local data; flag this as a correction item when plausible real data may be available.
 - Check source indexes when exact textbook/source references are used; generated indexes support review but should not erase the need for adopted-edition spot checks before instructional use.
 - Return structured feedback with blocking issues, non-blocking improvements, artifact owner, required correction, evidence, and re-review criteria.
 - Approve only when references, solution keys, links, and artifact dependencies are sufficiently verified for the requested release stage.
+- Treat `Approved for review release` as a high-quality gate. A package must meet the quality floor demonstrated by the reviewed ASTR101 and ASTR120 examples. If the draft is structurally complete but below that standard, return `Needs correction` instead of approving on completeness alone.
 
 ## Completion Checks
 

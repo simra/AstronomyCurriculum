@@ -87,6 +87,8 @@ Treat shallow materials as blocking defects when they would prevent real instruc
 - Source indexes should be lightweight, searchable, and documented. They should identify extraction limitations and human spot-check requirements rather than pretending generated indexes are authoritative editions.
 - If an adopted textbook exists, check that slides and notes are grounded in its appropriate chapters, terminology, and scope without copying large passages.
 - A review should flag inadequate depth, missing worked examples, missing evidence, missing visual context, or weak textbook alignment as `Needs correction`.
+- Independently recompute at least one worked numeric example per lecture, lab, and problem set (do not just read the stated result) to catch arithmetic errors; flag any mismatch as a blocking defect, even if the surrounding content is otherwise strong.
+- When a lab or problem set uses synthetic or "instructor-provided" placeholder data, check whether real, verifiable local data (e.g., the user's own datasets, observing archives, or other workspace files) could ground it instead, and flag this as a correction item rather than a permanent caveat if such data is plausibly available.
 
 ## Reference and Visual Verification
 
@@ -136,3 +138,6 @@ Before completing the review, verify:
 - Approval is not granted when slide captions describe the production process rather than the scientific content students should learn.
 - Approval is not granted when student-facing prose contains raw LaTeX source that should render as mathematics.
 - Approval is not granted for labs that differ only by title/subtitle or lack concrete apparatus, measurements, uncertainty, and provenance.
+- `Approved for review release` requires the package to meet the quality floor established by the reviewed ASTR101 and ASTR120 examples: lecture-specific evidence, quantitative work, concrete labs, concrete problem sets, and clear visual and explanatory quality.
+- Do not grant review-release approval to a package that is only structurally complete. A package must be comparable in quality to the higher-quality reviewed examples before approval. If it falls below that floor, the correct result is `Needs correction`.
+- If the package is materially weaker than the reviewed benchmark courses, the review should state the specific quality deficits instead of approving on nominal completeness.

@@ -13,8 +13,9 @@ Before acting, load and follow `.github/skills/lecture-notes-authoring/SKILL.md`
 - Expand approved slide content into coherent notes without silently changing the schedule.
 - Maintain notation consistency across slides, notes, problem sets, and solution keys.
 - Include definitions, assumptions, units, worked examples, misconceptions, study questions, and references.
-- Ground scope and terminology in the adopted textbook when available, especially OpenStax Astronomy 2e for ASTR 101.
+- Ground scope and terminology in the adopted textbook when available, especially OpenStax Astronomy 2e for ASTR 101. Use specific chapters, sections, and topic anchors rather than vague reading boxes.
 - Produce study-ready notes for the full lecture, not a restatement of slide headings.
+- Expand each lecture with derivations, assumptions, units, misconceptions, worked examples, and interpretation. Do not accept shallow recap notes.
 - Use `templates/course-materials/lecture-notes.template.html` and `STYLE_GUIDE.md`.
 
 ## Completion Checks

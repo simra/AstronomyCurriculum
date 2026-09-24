@@ -11,7 +11,15 @@ The orchestrating agent remains responsible for end-to-end completion. Subagents
 
 When using a custom agent entry point, invoke `CoursePackageOrchestrator` for this workflow.
 
-The orchestrator has agency to keep the process moving through reviewer-designated issues. After any review returns `Needs correction`, the orchestrator must classify each issue by owner, delegate or perform the correction, validate the changed artifacts, and re-run review. Continue this loop until the reviewer approves the requested release stage or a concrete external blocker prevents progress.
+The orchestrator has agency to keep the process moving through reviewer-designated issues. After any review returns `Needs correction`, the orchestrator must classify each issue by owner, delegate or perform the correction, validate the changed artifacts, and re-run review. Continue this loop until the reviewer explicitly returns `Approved for review release` or the requested release stage is otherwise blocked by a concrete external constraint. Do not stop after file counts validate, after a draft package is created, or after a structural check passes; the loop ends only at review approval for the target release stage.
+
+## Review-Release Quality Floor
+
+`Approved for review release` is a quality gate, not a template-completion milestone. A package must meet the quality floor established by the reviewed ASTR101 and ASTR120 packages before approval. The benchmark is not merely "complete." It is: lecture-specific explanations, evidence-rich slide decks, concrete quantitative reasoning, lecture-appropriate depth, concrete labs, concrete and non-generic problem sets, verified references, and visually legible student-facing artifacts.
+
+If a package is only structurally complete but substantively shallow, the reviewer is instructed to return `Needs correction`. The orchestrator must not treat template completion as review-release approval, even when counts, manifest entries, and HTML links all validate.
+
+Any course that does not meet the ASTR101/ASTR120 benchmark must remain in the correction loop until a reviewer can reasonably defend its approval. This rule applies to all courses, including 200-level materials and later revisions.
 
 ## Coverage Checklist
 
@@ -32,6 +40,20 @@ Use the shared templates and standards in `templates/course-materials/` unless t
 - `course-index.template.html` for the course folder landing page created during final assembly.
 
 These templates enforce consistent look-and-feel, structure, accessibility, and reference discipline. They do not enforce a particular lecture trajectory; each authoring stage should shape the trajectory of slides, notes, labs, and problem sets to best meet the learning objectives and scientific dependencies of the course.
+
+## Specificity and Delegation Standards
+
+Do not allow generic or template-level generation to count as course content. The orchestrator must require substantive specificity from every production stage:
+
+- When an adopted textbook is available, first use `SourceMaterialIndexAgent` and require chapter/section-level or exact problem-level references before slides, notes, or problem sets cite the source.
+- Problem sets must be concrete and lecture-specific, with exact figures, quantities, scenarios, or datasets, not generic prompts.
+- Lab activities must include step-by-step apparatus/setup, data collection, calculations, uncertainty treatment, and deliverables.
+- Lecture slides and notes must contain lecture-specific explanation, evidence, worked examples, and quantitative reasoning, not template bullets.
+- If a specialized agent does not produce sufficiently specific content, the orchestrator must rewrite or directly improve the artifact instead of accepting a generic pass.
+- Compute every worked example, sample calculation, or numeric result shown in lectures, labs, or problem sets with a script rather than hand-typed arithmetic, and reuse the same underlying constants/data across the lecture, lab, and problem set that reference the same scenario, so numbers stay internally consistent and arithmetic errors cannot creep in silently.
+- Before defaulting to synthetic or "instructor-provided" placeholder data for a lab or problem set, check whether real, verifiable local data already exists (e.g., the user's own observing/imaging archives, institutional datasets, or other workspace files) and ground the artifact in it instead, with exact file, instrument, and provenance citations.
+
+The orchestrator is responsible for a quality floor, not a file-count milestone.
 
 ## Course Folder and File Naming Convention
 
@@ -108,12 +130,12 @@ If subagent output is advisory rather than directly written to the workspace, tr
 Recommended assignments:
 
 - Syllabus agent: invoke `CourseSyllabusScheduleAgent` and apply `course-syllabus-schedule`.
-- Source index agent: invoke `SourceMaterialIndexAgent` and apply `source-material-indexing` when exact textbook/source references are needed.
+- Source index agent: invoke `SourceMaterialIndexAgent` and apply `source-material-indexing` when exact textbook/source references are needed. This stage is mandatory before citing reading or problem recommendations from an adopted textbook if the artifact must be specific.
 - Slides agent: invoke `LectureSlideAuthorAgent` and apply `lecture-slide-authoring` after syllabus approval.
 - Visual research agent: invoke `VisualReferenceResearchAgent` when slide or note authors need Creative Commons, public-domain, mission, observatory, dataset, or other externally sourced visuals.
 - Notes agent: invoke `LectureNotesAuthorAgent` and apply `lecture-notes-authoring` after slide decks exist.
-- Lab agent: invoke `LabAuthorAgent` and apply `lab-authoring` for observing, instrumentation, data-analysis, and computational labs.
-- Problem set agent: invoke `ProblemSetAssessmentAgent` and apply `problem-set-assessment` after notes exist.
+- Lab agent: invoke `LabAuthorAgent` and apply `lab-authoring` for observing, instrumentation, data-analysis, and computational labs. Do not accept generic lab templates or title-only variants.
+- Problem set agent: invoke `ProblemSetAssessmentAgent` and apply `problem-set-assessment` after notes exist. Do not accept generic prompts or vague chapter recommendations.
 - Review agent: invoke `CourseMaterialsReviewAgent` and apply `course-materials-review` after a coherent package exists.
 
 Do not use a read-only exploration agent for production. Exploration agents may gather context, but course material creation and review should use the custom production agents above or be completed directly by the orchestrating agent.

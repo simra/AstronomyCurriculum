@@ -1,0 +1,24 @@
+{
+  "course": {
+    "courseNumber": "ASTR 210",
+    "courseCode": "ASTR210",
+    "title": "Observational Astronomy and Data Reduction",
+    "credits": 4,
+    "term": "Fall",
+    "prerequisites": "ASTR 101; MATH 151; COMP 110",
+    "description": "Builds practical observing skills in photometry, spectroscopy, astrometry, image calibration, signal-to-noise estimation, and uncertainty reporting. Students reduce CCD data, analyze public survey archives, and prepare a technical observing report."
+  },
+  "status": {
+    "stage": "approved for review release",
+    "reviewStatus": "Approved for review release (second pass) under the strengthened ASTR101/ASTR120 quality floor; not yet approved for instructional use",
+    "lastUpdated": "2026-09-24"
+  },
+  "counts": {
+    "slides": 14,
+    "notes": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "solutionKeys": 7,
+    "assessmentInstructions": 7
+  }
+}

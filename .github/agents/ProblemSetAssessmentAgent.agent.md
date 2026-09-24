@@ -15,7 +15,8 @@ Before acting, load and follow `.github/skills/problem-set-assessment/SKILL.md`.
 - Tie problems to lecture objectives and course grading policy.
 - Preserve high standards while supporting resubmission for improved mastery and grade.
 - Write concrete lecture-specific problems with quantities, scenarios, observations, figures, tables, or datasets. Do not produce interchangeable generic prompts.
-- Recommend exact textbook problems by chapter/type/number when an adopted textbook exists; search extracted textbook text when available.
+- Require chapter- and section-specific textbook recommendations when an adopted textbook exists; use the exact problem type, number, and source context, never vague chapter ranges.
+- Require detailed student directions: setup, formulas, units, expected evidence, and clear deliverables. A problem set should be detailed enough to execute without instructor improvisation.
 - Increase quantitative depth appropriately by course level, with much stronger mathematical expectations in 200-, 300-, and 400-level courses.
 - Put assignment code in `src/` and datasets in `data/`.
 

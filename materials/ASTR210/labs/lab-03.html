@@ -1,0 +1,23 @@
+<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><title>ASTR 210 Lab 03</title><script id='MathJax-script' async src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script><style>
+:root{--ink:#17202a;--muted:#5b6773;--paper:#fbfcfd;--panel:#fff;--line:#d9e0e7;--navy:#102a43;--teal:#0f6b78;--teal-soft:#e5f4f6;--gold:#b87911;--warning:#8a4b08}
+*{box-sizing:border-box}body{margin:0;font-family:Georgia,"Times New Roman",serif;color:var(--ink);background:var(--paper);line-height:1.6}header{padding:38px 24px 26px;background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff}header div,main{max-width:1080px;margin:0 auto}main{padding:30px 24px 64px}h1,h2,h3{line-height:1.15}h1{margin:0 0 8px;font-size:clamp(2rem,4vw,3.2rem)}h2{margin-top:34px;color:var(--navy);border-bottom:2px solid var(--line);padding-bottom:8px}h3{color:var(--teal)}section,article.problem{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px 18px;margin:16px 0}.notice{border-left:5px solid var(--teal);background:var(--teal-soft)}table{width:100%;border-collapse:collapse;margin:14px 0}th,td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}th{background:var(--teal-soft)}code{background:#eef3f5;padding:1px 4px;border-radius:3px}.points{color:var(--gold);font-weight:700}a{color:var(--teal);font-weight:700}
+</style></head><body><header><div><h1>Lab 03: Aperture Photometry</h1><p>Derive and verify a photometric zero point, then calibrate an unknown target.</p></div></header><main>
+<section><h2>Apparatus and Setup</h2><p>You will use <code>../data/photometry_standard_stars.csv</code>, containing V-band aperture counts for three photometric standard stars observed in the same field and night, plus one unidentified target measured with the identical aperture and sky annulus.</p></section>
+<section><h2>Materials and Data</h2><table><thead><tr><th>Star</th><th>Filter</th><th>Counts</th><th>Exp. time (s)</th><th>Catalog V mag</th></tr></thead><tbody>
+<tr><td>STD-A</td><td>V</td><td>150000</td><td>30</td><td>10.21</td></tr>
+<tr><td>STD-B</td><td>V</td><td>62000</td><td>30</td><td>11.17</td></tr>
+<tr><td>STD-C</td><td>V</td><td>24000</td><td>30</td><td>12.2</td></tr>
+<tr><td>TARGET-X (unknown)</td><td>V</td><td>45000</td><td>30</td><td>?</td></tr>
+</tbody></table></section>
+<section><h2>Procedure</h2><ol>
+<li>Compute the count rate (counts/exposure time) for STD-A and derive the zero point ZP using m = −2.5log10(rate) + ZP and the catalog magnitude.</li>
+<li>Apply your derived ZP to STD-B and STD-C and compare your predicted magnitudes to the catalog values. State the agreement in millimagnitudes.</li>
+<li>If the agreement for either star is worse than about 0.02 mag, identify a plausible cause (aperture too small, contaminating neighbor, misreported exposure time) before proceeding.</li>
+<li>Apply your verified ZP to TARGET-X and report its calibrated V magnitude.</li>
+<li>Estimate the uncertainty on the TARGET-X magnitude from Poisson statistics on its count rate, and combine it in quadrature with a zero-point uncertainty of ±0.02 mag (Lecture 13’s method).</li>
+</ol></section>
+<section><h2>Analysis and Uncertainty</h2><p>Report TARGET-X’s magnitude as m ± σ_total, following the quadrature-combination rule, not as a bare number.</p></section>
+<section><h2>Deliverables</h2><ul><li>Derived zero point with the arithmetic shown.</li><li>Verification table comparing predicted and catalog magnitudes for STD-B and STD-C.</li><li>TARGET-X magnitude with combined uncertainty.</li><li>One sentence stating whether you trust this zero point for other targets in the same field, and why.</li></ul></section>
+<section><h2>Assessment Criteria</h2><ul><li>Zero point correctly derived from STD-A.</li><li>Verification against STD-B/STD-C shown with numeric agreement stated.</li><li>TARGET-X magnitude correct to the precision of the input data, with an uncertainty explicitly combined in quadrature.</li></ul></section>
+<section><h2>References and Provenance</h2><ul><li>OpenStax Astronomy 2e (local reference copy: references/openstax-astronomy-2e.pdf), Chapter 17.1 (the brightness of stars).</li><li>Dataset: <code>materials/ASTR210/data/photometry_standard_stars.csv</code>, logged in <code>reference-log.md</code>.</li></ul></section>
+</main></body></html>
