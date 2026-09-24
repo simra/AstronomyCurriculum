@@ -31,6 +31,8 @@ HTML is acceptable for problem sets and solution keys. Keep the student-facing p
 
 Use `templates/course-materials/STYLE_GUIDE.md` for math notation, student-facing tone, accessibility, grading language, and resubmission framing. Use `templates/course-materials/problem-set.template.html` for student problem sets, `templates/course-materials/solution-key.template.html` for instructor solution keys, and `templates/course-materials/assessment-instructions.template.md` for grading-agent instructions. Track sources and datasets with `templates/course-materials/reference-log.template.md` or a course-specific copy of it.
 
+Write course-specific assignments under `materials/<COURSECODE>/problem-sets/` using two-digit names such as `problem-set-01.html`, `problem-set-01-solutions.html`, and `problem-set-01-assessment.md`. Place assignment code under `materials/<COURSECODE>/src/` and datasets under `materials/<COURSECODE>/data/`.
+
 ## Student Problem Set Requirements
 
 Include:
@@ -39,9 +41,19 @@ Include:
 - Learning objectives practiced by the assignment.
 - Instructions for units, significant figures, collaboration, citation, code submission, and data use.
 - A mix of conceptual, quantitative, computational, observational, and interpretive questions appropriate to the lecture.
+- Concrete lecture-specific problems. Do not use interchangeable prompts such as "choose one central idea" or "use the main equation" unless they are accompanied by specific quantities, evidence, scenarios, or datasets.
+- Recommended textbook problems by exact source, chapter, section if available, exercise type, and problem number. If the textbook has been extracted locally, search it rather than guessing.
 - Problems that require reasoning, not only substitution.
 - Extension or challenge problems for advanced students when appropriate.
 - Clear deliverables for written, mathematical, plotted, or coded responses.
+
+## Quantitative Emphasis
+
+- Every problem set should include meaningful quantitative work unless the lecture is explicitly non-quantitative.
+- For 100-level courses, include unit conversion, proportional reasoning, graph interpretation, order-of-magnitude estimates, and short calculations with uncertainty or assumptions.
+- For 200-level courses, increase algebraic manipulation, multi-step physical modeling, statistics, and computational exercises.
+- For 300- and 400-level courses, expect derivations, numerical modeling, data analysis, parameter estimation, and literature-connected problems where appropriate.
+- Problem sets should ramp mathematical difficulty through the course and across the curriculum.
 
 ## Solution Key Requirements
 
@@ -51,6 +63,7 @@ Include:
 - Rubric point allocation or mastery criteria.
 - Common valid alternative approaches.
 - Expected units, numerical tolerances, and reasoning standards.
+- Rationale for any recommended textbook problems and notes on whether those problems should be assigned, used for practice, or adapted.
 - Notes on common mistakes and how they should affect grading.
 - For computational problems, expected algorithm, validation checks, and interpretation of outputs.
 
@@ -90,6 +103,8 @@ Create instructions that another agent can use to assess submissions. Include:
 Before finishing, verify:
 
 - Every problem maps to lecture objectives.
+- Every problem is concrete and lecture-specific.
+- Textbook recommendations identify exact chapter/exercise numbers or are explicitly marked as needing verification.
 - Student and instructor artifacts are separate.
 - The solution key is complete and internally consistent.
 - Rubrics and assessment instructions match the course grading and resubmission policy.

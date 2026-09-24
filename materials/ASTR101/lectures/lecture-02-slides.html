@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASTR 101 Lecture 02 Slides</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+:root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; --warning:#8a4b08; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:"Aptos","Segoe UI",sans-serif; color:var(--ink); background:var(--paper); }
+.deck { scroll-snap-type:y mandatory; height:100vh; overflow-y:auto; }
+.slide { min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:50px 68px; border-bottom:1px solid var(--line); background:var(--panel); }
+.title { background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; }
+h1 { font-size:clamp(2.4rem,5vw,4.6rem); margin:0 0 18px; line-height:1.05; }
+h2 { font-size:clamp(1.8rem,3.2vw,3.1rem); margin:0 0 22px; color:var(--navy); }
+.title h2 { color:#fff; opacity:.94; }
+h3 { color:var(--teal); margin-bottom:8px; }
+p,li { font-size:clamp(1.03rem,1.55vw,1.45rem); line-height:1.35; }
+ul,ol { max-width:1050px; }
+.kicker { color:var(--gold); text-transform:uppercase; letter-spacing:.08em; font-weight:700; }
+.grid { display:grid; grid-template-columns:1.05fr .95fr; gap:30px; align-items:center; }
+.visual-grid { display:grid; grid-template-columns:.7fr 1.3fr; gap:30px; align-items:center; }
+.visual-figure svg { max-height:76vh; }
+.visual-figure img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(--line); background:#fff; }
+.image-pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:end; }
+.image-pair figure { margin:0; }
+.three { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.card { border:1px solid var(--line); background:#fff; border-radius:6px; padding:14px 16px; }
+.equation { font-size:1.34rem; padding:14px 18px; background:var(--teal-soft); border-left:5px solid var(--teal); margin:12px 0; }
+figcaption,.credit,.small { color:var(--muted); font-size:.95rem; line-height:1.35; margin-top:8px; }
+svg { width:100%; max-height:62vh; border:1px solid var(--line); background:#fff; }
+.warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
+@media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+</style>
+</head>
+<body>
+
+<main class="deck">
+    <section class="slide title"><p class="kicker">ASTR 101 · Lecture 02</p><h1>Coordinates, Seasons, Moon Phases, and Time</h1><h2>Evidence, model, and quantitative reasoning</h2></section>
+    <section class="slide"><h2>Learning Goals</h2><ol><li>Explain why this lecture&#x27;s central phenomenon matters: the sun, moon, planets, and stars follow predictable paths, yet their positions depend on date, time, and observer location.</li>
+<li>Use the key model idea that altitude-azimuth coordinates are local and time-dependent; right ascension and declination are tied to the celestial sphere.</li>
+<li>Apply the lecture&#x27;s quantitative tool with units, assumptions, and a physical interpretation.</li>
+<li>Correct the misconception: The Moon&#x27;s phases are not caused by Earth&#x27;s shadow. Earth&#x27;s shadow causes lunar eclipses, which require a full Moon near an orbital node.</li></ol><p class="small">Reading anchor: OpenStax Astronomy 2e, Chapter 2.2-2.6 on celestial coordinates, seasons, timekeeping, Moon phases, and eclipses.</p></section>
+    <section class="slide"><h2>Why This Question Matters</h2><p>Hipparchus and Ptolemy organized the sky with coordinates so observations could be compared across time. Modern RA and Dec continue that project: turning a moving local sky into a common map.</p></section>
+    <section class="slide"><h2>Opening Phenomenon</h2><p>The Sun, Moon, planets, and stars follow predictable paths, yet their positions depend on date, time, and observer location. Coordinate systems let astronomers make those predictions portable.</p><p class="warning"><strong>First question:</strong> what is directly observed, and what part is an explanation built from a model?</p></section>
+    <section class="slide"><h2>Vocabulary for Reasoning</h2><div class="three"><article class="card"><p>right ascension</p></article>
+<article class="card"><p>declination</p></article>
+<article class="card"><p>ecliptic</p></article>
+<article class="card"><p>local sidereal time</p></article>
+<article class="card"><p>phase</p></article>
+<article class="card"><p>node</p></article>
+<article class="card"><p>eclipse season</p></article></div><p class="small">Use these terms to describe evidence and relationships, not as isolated vocabulary.</p></section>
+  <section class="slide"><h2>Evidence We Need to Explain</h2><ul><li>The Sun&#x27;s noon altitude changes over the year.</li>
+<li>The Moon cycles through phases on a roughly monthly cadence.</li>
+<li>Eclipses are rarer than new and full moons, showing that lunar orbit geometry matters.</li></ul></section>
+  <section class="slide"><h2>Physical or Geometric Model</h2><ul><li>Altitude-azimuth coordinates are local and time-dependent; right ascension and declination are tied to the celestial sphere.</li>
+<li>Seasons result from axial tilt, not changing Earth-Sun distance.</li>
+<li>Moon phases result from changing viewing geometry of the sunlit lunar hemisphere.</li></ul></section>
+    <section class="slide"><h2>Quantitative Tool</h2><div class="equation">\[ \mathrm{hour\ angle} = \mathrm{local\ sidereal\ time} - \mathrm{right\ ascension} \]</div><p>Use hour angle to decide whether a coordinate is currently near the meridian, rising, setting, or below the horizon.</p></section>
+    <section class="slide"><h2>Worked Example</h2><ol><li>If local sidereal time is 8h, an object at RA 8h is crossing the meridian.</li>
+<li>An object at RA 6h crossed two sidereal hours earlier.</li>
+<li>The same coordinate can be observable or unobservable depending on local time and horizon.</li></ol><p class="small">The answer should state both the coordinate result and what it means for a real observer.</p></section>
+    <section class="slide visual-slide"><h2>Visual Reasoning</h2><div class="visual-grid"><div><p>Trace how a local sky direction becomes a coordinate that another observer can use at a different place or time.</p><ul><li>Which coordinate is tied to the celestial grid?</li>
+<li>Which path marks the Sun&#x27;s annual motion?</li>
+<li>Why does local time still matter for observability?</li></ul></div><figure class="visual-figure"><svg class="lecture-figure" data-lecture-figure="02" viewBox="0 0 980 620" role="img" aria-label="Lecture 02 visual model: Coordinates, Seasons, Moon Phases, and Time">
+    <rect width="980" height="620" fill="#fbfcfd"/>
+    <text x="34" y="48" font-size="28" fill="#102a43" font-family="Segoe UI, sans-serif">Lecture 02: Coordinates, Seasons, Moon Phases, and Time</text>
+  <circle cx="490" cy="330" r="210" fill="none" stroke="#0f6b78" stroke-width="5"/>
+    <ellipse cx="490" cy="330" rx="285" ry="65" fill="none" stroke="#b87911" stroke-width="4"/>
+    <line x1="490" y1="120" x2="490" y2="540" stroke="#102a43" stroke-width="3"/>
+    <line x1="210" y1="330" x2="770" y2="330" stroke="#102a43" stroke-width="3"/>
+    <circle cx="650" cy="290" r="12" fill="#102a43"/>
+    <path d="M490 330 L650 290" stroke="#5b6773" stroke-width="3"/>
+    <text x="670" y="295" font-size="20" fill="#102a43" font-family="Segoe UI, sans-serif">target RA/Dec</text>
+    <text x="610" y="405" font-size="20" fill="#b87911" font-family="Segoe UI, sans-serif">ecliptic</text>
+  <text x="34" y="590" font-size="17" fill="#5b6773" font-family="Segoe UI, sans-serif">Compare local coordinates with the reusable RA/Dec grid.</text>
+</svg><figcaption>Right ascension and declination provide a shared coordinate grid, while the ecliptic marks the Sun&#x27;s apparent annual path.</figcaption></figure></div></section>
+    <section class="slide"><h2>Common Misconception</h2><p class="warning">The Moon&#x27;s phases are not caused by Earth&#x27;s shadow. Earth&#x27;s shadow causes lunar eclipses, which require a full Moon near an orbital node.</p><p>Correct it by drawing the Sun-Earth-Moon geometry and the tilted lunar orbit.</p></section>
+    <section class="slide"><h2>Active Learning Segment</h2><p>Given a date and a target RA/Dec, students decide whether the target is reasonable for an evening observing session and justify the answer.</p><p class="small">Write a prediction first, compare reasoning with a neighbor, then revise your answer in one sentence.</p></section>
+    <section class="slide"><h2>Lab or Observing Connection</h2><p>Lab 02 uses sky charts and Stellarium to plan a naked-eye observing session. Your plan should show which coordinates and sky conditions make a target observable.</p></section>
+    <section class="slide"><h2>Synthesis</h2><p>Sky prediction combines geometry and timekeeping: coordinate systems are tools for turning the moving sky into a shared scientific map.</p><ul><li>How do RA/Dec differ from altitude/azimuth?</li>
+<li>Why do seasons follow from tilt rather than Earth-Sun distance?</li>
+<li>Why are eclipses not monthly events?</li></ul></section>
+    <section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax, <em>Astronomy 2e</em>: OpenStax Astronomy 2e, Chapter 2.2-2.6 on celestial coordinates, seasons, timekeeping, Moon phases, and eclipses.</li><li>Local reference copy: <code>references/openstax-astronomy-2e.pdf</code>.</li><li>Diagram: original explanatory schematic for this lecture&#x27;s physical or geometric model.</li></ul></section>
+</main>
+</body>
+</html>

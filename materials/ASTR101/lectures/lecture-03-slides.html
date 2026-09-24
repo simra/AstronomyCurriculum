@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASTR 101 Lecture 03 Slides</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+:root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; --warning:#8a4b08; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:"Aptos","Segoe UI",sans-serif; color:var(--ink); background:var(--paper); }
+.deck { scroll-snap-type:y mandatory; height:100vh; overflow-y:auto; }
+.slide { min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:50px 68px; border-bottom:1px solid var(--line); background:var(--panel); }
+.title { background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; }
+h1 { font-size:clamp(2.4rem,5vw,4.6rem); margin:0 0 18px; line-height:1.05; }
+h2 { font-size:clamp(1.8rem,3.2vw,3.1rem); margin:0 0 22px; color:var(--navy); }
+.title h2 { color:#fff; opacity:.94; }
+h3 { color:var(--teal); margin-bottom:8px; }
+p,li { font-size:clamp(1.03rem,1.55vw,1.45rem); line-height:1.35; }
+ul,ol { max-width:1050px; }
+.kicker { color:var(--gold); text-transform:uppercase; letter-spacing:.08em; font-weight:700; }
+.grid { display:grid; grid-template-columns:1.05fr .95fr; gap:30px; align-items:center; }
+.visual-grid { display:grid; grid-template-columns:.7fr 1.3fr; gap:30px; align-items:center; }
+.visual-figure svg { max-height:76vh; }
+.visual-figure img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(--line); background:#fff; }
+.image-pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:end; }
+.image-pair figure { margin:0; }
+.three { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.card { border:1px solid var(--line); background:#fff; border-radius:6px; padding:14px 16px; }
+.equation { font-size:1.34rem; padding:14px 18px; background:var(--teal-soft); border-left:5px solid var(--teal); margin:12px 0; }
+figcaption,.credit,.small { color:var(--muted); font-size:.95rem; line-height:1.35; margin-top:8px; }
+svg { width:100%; max-height:62vh; border:1px solid var(--line); background:#fff; }
+.warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
+@media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+</style>
+</head>
+<body>
+
+<main class="deck">
+    <section class="slide title"><p class="kicker">ASTR 101 · Lecture 03</p><h1>Astronomical Scales and Distances</h1><h2>Evidence, model, and quantitative reasoning</h2></section>
+    <section class="slide"><h2>Learning Goals</h2><ol><li>Explain why this lecture&#x27;s central phenomenon matters: astronomy studies objects too far away to touch.</li>
+<li>Use the key model idea that trigonometric parallax is direct geometry for nearby stars.</li>
+<li>Apply the lecture&#x27;s quantitative tool with units, assumptions, and a physical interpretation.</li>
+<li>Correct the misconception: A light-year is a distance, not a time. It is the distance light travels in one year.</li></ol><p class="small">Reading anchor: OpenStax Astronomy 2e, Chapter 1.4 on astronomical scale and Chapter 19.2 on stellar parallax and distances.</p></section>
+    <section class="slide"><h2>Why This Question Matters</h2><p>From Aristarchus to Bessel, distance was the central obstacle in astronomy. Parallax became powerful because it turned a tiny angular shift into geometry, giving astronomy its first direct stellar yardstick.</p></section>
+    <section class="slide"><h2>Opening Phenomenon</h2><p>Astronomy studies objects too far away to touch. Distance measurement therefore relies on geometric baselines, calibrated relationships, and careful uncertainty accounting.</p><p class="warning"><strong>First question:</strong> what is directly observed, and what part is an explanation built from a model?</p></section>
+    <section class="slide"><h2>Vocabulary for Reasoning</h2><div class="three"><article class="card"><p>astronomical unit</p></article>
+<article class="card"><p>light-year</p></article>
+<article class="card"><p>parsec</p></article>
+<article class="card"><p>parallax</p></article>
+<article class="card"><p>baseline</p></article>
+<article class="card"><p>standard candle</p></article>
+<article class="card"><p>order of magnitude</p></article></div><p class="small">Use these terms to describe evidence and relationships, not as isolated vocabulary.</p></section>
+  <section class="slide"><h2>Evidence We Need to Explain</h2><ul><li>Nearby stars shift position slightly against distant background stars over Earth&#x27;s orbit.</li>
+<li>Light travel time gives a physical meaning to distance.</li>
+<li>Different distance methods overlap, creating a distance ladder.</li></ul></section>
+  <section class="slide"><h2>Physical or Geometric Model</h2><ul><li>Trigonometric parallax is direct geometry for nearby stars.</li>
+<li>A parsec is defined by a parallax angle of one arcsecond.</li>
+<li>Order-of-magnitude checks catch impossible claims before detailed calculation.</li></ul></section>
+    <section class="slide"><h2>Quantitative Tool</h2><div class="equation">\[ d\,(\mathrm{pc}) = \frac{1}{p\,(\mathrm{arcsec})} \]</div><p>Treat parallax as an inverse relationship: halving the parallax doubles the inferred distance.</p></section>
+    <section class="slide"><h2>Worked Example</h2><ol><li>A star with parallax 0.050 arcsec has distance 20 pc.</li>
+<li>Using 1 pc = 3.26 ly, this is about 65 ly.</li>
+<li>If the parallax uncertainty is 0.005 arcsec, the fractional uncertainty is about 10 percent.</li></ol><p class="small">The answer should include distance, unit conversion, and a fractional uncertainty estimate.</p></section>
+    <section class="slide visual-slide"><h2>Visual Reasoning</h2><div class="visual-grid"><div><p>Identify the baseline, the angle, and the inferred distance; then ask which uncertainty dominates the result.</p><ul><li>What is the baseline?</li>
+<li>Where is the measured angular shift?</li>
+<li>How would a smaller parallax change the inferred distance?</li></ul></div><figure class="visual-figure"><img src="../assets/images/lecture-03-parallax.webp" alt="OpenStax parallax diagram showing Earth orbit baseline, apparent stellar shift, and parallax angle."><figcaption>Parallax turns a measured angular shift across Earth&#x27;s orbital baseline into an inferred stellar distance. Credit: OpenStax Astronomy 2e, Fig. 19.6, CC BY-NC-SA 4.0.</figcaption></figure></div></section>
+    <section class="slide"><h2>Common Misconception</h2><p class="warning">A light-year is a distance, not a time. It is the distance light travels in one year.</p><p>Correct it by translating light travel time into a distance unit.</p></section>
+    <section class="slide"><h2>Active Learning Segment</h2><p>Students rank Earth-Moon, Sun-Earth, nearest star, Milky Way diameter, and observable-universe scale on a logarithmic axis.</p><p class="small">Write a prediction first, compare reasoning with a neighbor, then revise your answer in one sentence.</p></section>
+    <section class="slide"><h2>Lab or Observing Connection</h2><p>Lab 03 uses a classroom parallax baseline and a scale-model activity. Your measurements should identify baseline, angular shift, scale conversion, and uncertainty.</p></section>
+    <section class="slide"><h2>Synthesis</h2><p>Every later physical claim depends on distance: luminosity, size, mass, and age all inherit distance uncertainty.</p><ul><li>Which distances were measured geometrically?</li>
+<li>Where did uncertainty enter the distance inference?</li>
+<li>How does scale affect every later physical claim?</li></ul></section>
+    <section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax, <em>Astronomy 2e</em>: OpenStax Astronomy 2e, Chapter 1.4 on astronomical scale and Chapter 19.2 on stellar parallax and distances.</li><li>Local reference copy: <code>references/openstax-astronomy-2e.pdf</code>.</li><li>Visual: Parallax turns a measured angular shift across Earth&#x27;s orbital baseline into an inferred stellar distance. Credit: OpenStax Astronomy 2e, Fig. 19.6, CC BY-NC-SA 4.0.</li></ul></section>
+</main>
+</body>
+</html>

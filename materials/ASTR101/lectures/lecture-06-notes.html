@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASTR 101 Lecture 06 Notes</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+:root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; --warning:#8a4b08; }
+body { margin:0; font-family:Georgia,"Times New Roman",serif; color:var(--ink); background:var(--paper); line-height:1.68; }
+header { padding:38px 24px 26px; background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; }
+header div, main { max-width:980px; margin:0 auto; }
+main { padding:32px 24px 72px; }
+h1,h2,h3 { line-height:1.15; }
+h1 { margin:0 0 8px; font-size:clamp(2rem,4vw,3.2rem); }
+h2 { margin-top:36px; color:var(--navy); border-bottom:2px solid var(--line); padding-bottom:8px; }
+h3 { color:var(--teal); }
+.box { background:var(--panel); border-left:5px solid var(--teal); padding:14px 18px; margin:18px 0; }
+.warning { background:#fff8e8; border-left:5px solid var(--warning); padding:14px 18px; margin:18px 0; }
+table { width:100%; border-collapse:collapse; margin:14px 0; }
+th,td { border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top; }
+th { background:var(--teal-soft); }
+svg { max-width:100%; border:1px solid var(--line); background:#fff; }
+.caption { color:var(--muted); font-size:.95rem; }
+</style>
+</head>
+<body>
+
+<header><div><h1>Lecture 06: Telescopes, Detectors, and Observing Limits</h1><p>Detailed notes for a 60-minute ASTR 101 lecture</p></div></header>
+<main>
+<section><h2>Reading Anchor</h2><p>OpenStax Astronomy 2e, Chapter 6.1-6.5 on telescopes, detectors, resolution, and multiwavelength observing. The local textbook reference is stored at <code>references/openstax-astronomy-2e.pdf</code>. These notes use the textbook for scope and terminology while presenting original explanations and examples.</p></section>
+<section><h2>Lecture Arc</h2><p>A telescope is not simply a magnifier. It is a measuring system whose aperture, optics, detector, atmosphere, and calibration determine what can be learned.</p><p>The lecture should begin by asking students what can be observed directly. Only after that should the explanatory model be introduced. This helps students distinguish evidence from interpretation, a distinction that becomes essential when the course moves from the night sky to stars, galaxies, and cosmology.</p></section>
+<section><h2>Key Vocabulary in Context</h2><p>The important terms for this lecture are: aperture, collecting area, resolution, seeing, field of view, detector, signal-to-noise. Each term should be introduced through use. Students should be able to write a sentence using each term to describe an observation or explain a model, rather than merely define it from memory.</p></section>
+<section><h2>Evidence Table</h2><table><thead><tr><th>#</th><th>Evidence or observation</th><th>How students should interrogate it</th></tr></thead><tbody><tr><td>1</td><td>Larger apertures collect more photons and can reveal fainter targets.</td><td>What measurement, image, spectrum, or sky observation would support this?</td></tr><tr><td>2</td><td>Atmospheric turbulence blurs images even when optics are excellent.</td><td>What measurement, image, spectrum, or sky observation would support this?</td></tr><tr><td>3</td><td>Detectors count photons with noise, bias, and calibration limits.</td><td>What measurement, image, spectrum, or sky observation would support this?</td></tr></tbody></table></section>
+<section><h2>Model Development</h2><p>The model for this lecture has three linked parts:</p><ol><li>Resolution is limited by diffraction and often by atmosphere.</li>
+<li>Signal-to-noise improves with more photons but not all noise averages away equally.</li>
+<li>The best instrument depends on the scientific question, wavelength, and target brightness.</li></ol><p>The instructor should emphasize where the model is a simplification. Introductory astronomy often works by adopting a useful first model, identifying its assumptions, and then refining it when new evidence demands more detail.</p></section>
+<section><h2>Quantitative Reasoning</h2><div class="box">\[ \theta \approx 1.22\frac{\lambda}{D} \qquad \text{and} \qquad A = \pi(D/2)^2 \]</div><p>This equation or proportionality is not just a formula to memorize. It is a compact statement of a physical or geometric relationship. A strong student solution defines each symbol, states the unit system, identifies the assumptions, and interprets the result in words.</p></section>
+<section><h2>Worked Example</h2><ol><li>A 1 m telescope has 100 times the collecting area of a 10 cm telescope.</li>
+<li>At the same wavelength, its diffraction limit is 10 times smaller.</li>
+<li>In practice, seeing may dominate for ground-based optical observations.</li></ol><p>After completing the calculation, students should ask whether the result is plausible. A numerical answer without a reasonableness check is not yet a scientific conclusion.</p></section>
+<section><h2>Visual Interpretation</h2><img src="../assets/images/lecture-06-orion-wavelengths.webp" alt="OpenStax multiwavelength comparison of the Orion region."><p class="caption">The same sky field becomes different evidence when detector wavelength changes. Credit: OpenStax Astronomy 2e, Fig. 6.2, CC BY-NC-SA 4.0; source credits include Howard McCallon/NASA/IRAS and Michael F. Corcoran.</p></section>
+<section><h2>Misconception and Boundary Condition</h2><div class="warning">More magnification is not always better; excessive magnification spreads limited light and does not overcome poor resolution.</div><p>The correction should not be presented as a slogan. It should be tied to the evidence and model from this lecture. Students should practice saying what would be different if the misconception were true.</p></section>
+<section><h2>Active Learning Plan</h2><p>Students choose an observing setup for a faint galaxy, a bright planet, and a wide star field, defending different instrument choices.</p><p>A suggested timing is 2 minutes individual prediction, 3 minutes peer comparison, and 3 minutes whole-class synthesis. The point is to make students commit to a model before seeing the instructor's full explanation.</p></section>
+<section><h2>Lab or Observing Connection</h2><p>Lab 05 connects telescope setup, field of view, image scale, and observing constraints.</p><p>Students should see the lab as a continuation of lecture reasoning. The lab does not merely demonstrate a concept; it asks students to collect, interpret, or critique evidence with uncertainty.</p></section>
+<section><h2>Synthesis and Study Questions</h2><p>Instrumentation defines the evidence. A measurement is only as meaningful as the observing system and calibration behind it.</p><ol><li>What was the central observation or evidence pattern?</li><li>What model explains it, and what assumptions does the model make?</li><li>Where did quantitative reasoning constrain the claim?</li><li>What uncertainty, limitation, or misconception remains important?</li></ol></section>
+<section><h2>References</h2><ul><li>OpenStax, <em>Astronomy 2e</em>: OpenStax Astronomy 2e, Chapter 6.1-6.5 on telescopes, detectors, resolution, and multiwavelength observing.</li><li>Course reference log: <code>../reference-log.md</code>.</li></ul></section>
+</main>
+</body>
+</html>

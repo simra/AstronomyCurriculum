@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASTR 101 Lecture 01 Slides</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+:root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; --warning:#8a4b08; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:"Aptos","Segoe UI",sans-serif; color:var(--ink); background:var(--paper); }
+.deck { scroll-snap-type:y mandatory; height:100vh; overflow-y:auto; }
+.slide { min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:50px 68px; border-bottom:1px solid var(--line); background:var(--panel); }
+.title { background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; }
+h1 { font-size:clamp(2.4rem,5vw,4.6rem); margin:0 0 18px; line-height:1.05; }
+h2 { font-size:clamp(1.8rem,3.2vw,3.1rem); margin:0 0 22px; color:var(--navy); }
+.title h2 { color:#fff; opacity:.94; }
+h3 { color:var(--teal); margin-bottom:8px; }
+p,li { font-size:clamp(1.03rem,1.55vw,1.45rem); line-height:1.35; }
+ul,ol { max-width:1050px; }
+.kicker { color:var(--gold); text-transform:uppercase; letter-spacing:.08em; font-weight:700; }
+.grid { display:grid; grid-template-columns:1.05fr .95fr; gap:30px; align-items:center; }
+.visual-grid { display:grid; grid-template-columns:.7fr 1.3fr; gap:30px; align-items:center; }
+.visual-figure svg { max-height:76vh; }
+.visual-figure img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(--line); background:#fff; }
+.image-pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:end; }
+.image-pair figure { margin:0; }
+.three { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.card { border:1px solid var(--line); background:#fff; border-radius:6px; padding:14px 16px; }
+.equation { font-size:1.34rem; padding:14px 18px; background:var(--teal-soft); border-left:5px solid var(--teal); margin:12px 0; }
+figcaption,.credit,.small { color:var(--muted); font-size:.95rem; line-height:1.35; margin-top:8px; }
+svg { width:100%; max-height:62vh; border:1px solid var(--line); background:#fff; }
+.warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
+@media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+</style>
+</head>
+<body>
+
+<main class="deck">
+    <section class="slide title"><p class="kicker">ASTR 101 · Lecture 01</p><h1>The Night Sky and the Practice of Astronomy</h1><h2>Evidence, model, and quantitative reasoning</h2></section>
+    <section class="slide"><h2>Learning Goals</h2><ol><li>Explain why this lecture&#x27;s central phenomenon matters: the sky appears to rotate nightly, the visible constellations change with season, and different cultures have mapped the same sky in different ways.</li>
+<li>Use the key model idea that the celestial sphere is a geometric model, not a physical shell around Earth.</li>
+<li>Apply the lecture&#x27;s quantitative tool with units, assumptions, and a physical interpretation.</li>
+<li>Correct the misconception: Constellations are not physical clusters of nearby stars. They are line-of-sight patterns whose member stars may be at very different distances.</li></ol><p class="small">Reading anchor: OpenStax Astronomy 2e, Chapter 2.1-2.2 on the sky above and celestial coordinates, with Chapter 1.2 on scientific reasoning.</p></section>
+    <section class="slide"><h2>Why This Question Matters</h2><p>Astronomy began as a human need to make time, direction, seasons, navigation, ritual calendars, and stories reliable. Ancient sky watchers did not begin with equations; they began by noticing repeatable patterns and building shared records of the sky.</p></section>
+    <section class="slide"><h2>Opening Phenomenon</h2><p>The sky appears to rotate nightly, the visible constellations change with season, and different cultures have mapped the same sky in different ways. The scientific task is to separate what is directly observed from the model that explains it.</p><p class="warning"><strong>First question:</strong> what is directly observed, and what part is an explanation built from a model?</p></section>
+    <section class="slide"><h2>Vocabulary for Reasoning</h2><div class="three"><article class="card"><p>celestial sphere</p></article>
+<article class="card"><p>horizon</p></article>
+<article class="card"><p>zenith</p></article>
+<article class="card"><p>meridian</p></article>
+<article class="card"><p>altitude</p></article>
+<article class="card"><p>azimuth</p></article>
+<article class="card"><p>angular size</p></article></div><p class="small">Use these terms to describe evidence and relationships, not as isolated vocabulary.</p></section>
+  <section class="slide"><h2>Evidence We Need to Explain</h2><ul><li>Stars rise and set in repeatable arcs whose tilt depends on observer latitude.</li>
+<li>Some stars remain circumpolar, while others are visible only during particular seasons.</li>
+<li>Angular separations can be measured before distances are known, making angular geometry the first language of sky observation.</li></ul></section>
+  <section class="slide"><h2>Physical or Geometric Model</h2><ul><li>The celestial sphere is a geometric model, not a physical shell around Earth.</li>
+<li>Daily sky motion is caused primarily by Earth&#x27;s rotation, while seasonal changes come from Earth&#x27;s orbit around the Sun.</li>
+<li>A reproducible observation records time, location, direction, sky conditions, and uncertainty.</li></ul></section>
+    <section class="slide"><h2>Quantitative Tool</h2><div class="equation">\[ 1^\circ = 60' = 3600'' \qquad \text{and} \qquad 360^\circ \approx 24\ \mathrm{h}\ \text{of sky rotation} \]</div><p>Convert angular motion into observing time: 15 degrees per hour is enough to decide whether an object will stay in view.</p></section>
+    <section class="slide"><h2>Worked Example</h2><ol><li>A star moves about 15 degrees per hour due to Earth&#x27;s rotation.</li>
+<li>If two observations are separated by 2 hours, the same star field shifts about 30 degrees westward.</li>
+<li>This estimate is enough to plan whether a target will remain visible during a lab period.</li></ol><p class="small">The answer should end with an observing decision: will the target remain usable during the lab window?</p></section>
+    <section class="slide visual-slide"><h2>Visual Reasoning</h2><div class="visual-grid"><div><p>Use the diagram to separate horizon-based observations from the celestial-sphere model that explains daily motion.</p><ul><li>Which directions are local horizon measurements?</li>
+<li>Which curved path is explained by Earth&#x27;s rotation?</li>
+<li>What would change for an observer at another latitude?</li></ul></div><figure class="visual-figure"><svg class="lecture-figure" data-lecture-figure="01" viewBox="0 0 980 620" role="img" aria-label="Lecture 01 visual model: The Night Sky and the Practice of Astronomy">
+    <rect width="980" height="620" fill="#fbfcfd"/>
+    <text x="34" y="48" font-size="28" fill="#102a43" font-family="Segoe UI, sans-serif">Lecture 01: The Night Sky and the Practice of Astronomy</text>
+  <line x1="80" y1="470" x2="900" y2="470" stroke="#102a43" stroke-width="4"/>
+    <path d="M160 470 A330 330 0 0 1 820 470" fill="none" stroke="#0f6b78" stroke-width="5"/>
+    <line x1="490" y1="470" x2="490" y2="140" stroke="#b87911" stroke-width="4" stroke-dasharray="10 8"/>
+    <text x="505" y="170" font-size="22" fill="#b87911" font-family="Segoe UI, sans-serif">zenith</text>
+    <circle cx="260" cy="335" r="8" fill="#102a43"/><circle cx="390" cy="255" r="7" fill="#102a43"/><circle cx="610" cy="230" r="9" fill="#102a43"/>
+    <path d="M260 335 C370 260 500 225 610 230" fill="none" stroke="#5b6773" stroke-width="3" stroke-dasharray="8 8"/>
+    <text x="120" y="505" font-size="20" fill="#102a43" font-family="Segoe UI, sans-serif">horizon</text>
+    <text x="650" y="225" font-size="20" fill="#102a43" font-family="Segoe UI, sans-serif">star path</text>
+  <text x="34" y="590" font-size="17" fill="#5b6773" font-family="Segoe UI, sans-serif">Relate local horizon measurements to the apparent rotation of the sky.</text>
+</svg><figcaption>Altitude, horizon, zenith, and star paths connect direct sky measurements to the celestial-sphere model.</figcaption></figure></div></section>
+    <section class="slide"><h2>Common Misconception</h2><p class="warning">Constellations are not physical clusters of nearby stars. They are line-of-sight patterns whose member stars may be at very different distances.</p><p>Correct it by distinguishing line-of-sight patterns from physical groups of stars.</p></section>
+    <section class="slide"><h2>Active Learning Segment</h2><p>Students sketch a horizon diagram for the current evening, mark north/east/south/west, estimate the altitude of a bright object, and write a reproducible observing note.</p><p class="small">Write a prediction first, compare reasoning with a neighbor, then revise your answer in one sentence.</p></section>
+    <section class="slide"><h2>Lab or Observing Connection</h2><p>Lab 01 begins the observing notebook and hand-angle measurement practice. Your observing log should record directions, angular estimates, time, location, sky conditions, and uncertainty.</p></section>
+    <section class="slide"><h2>Synthesis</h2><p>Astronomy begins with disciplined description: angles before distances, repeatability before explanation, and explicit uncertainty before interpretation.</p><ul><li>What did you measure directly in the sky?</li>
+<li>How did the celestial-sphere model explain the pattern?</li>
+<li>What uncertainty belongs in your observing log?</li></ul></section>
+    <section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax, <em>Astronomy 2e</em>: OpenStax Astronomy 2e, Chapter 2.1-2.2 on the sky above and celestial coordinates, with Chapter 1.2 on scientific reasoning.</li><li>Local reference copy: <code>references/openstax-astronomy-2e.pdf</code>.</li><li>Diagram: original explanatory schematic for this lecture&#x27;s physical or geometric model.</li></ul></section>
+</main>
+</body>
+</html>

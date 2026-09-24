@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASTR 101 Lecture 05 Slides</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+:root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; --warning:#8a4b08; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:"Aptos","Segoe UI",sans-serif; color:var(--ink); background:var(--paper); }
+.deck { scroll-snap-type:y mandatory; height:100vh; overflow-y:auto; }
+.slide { min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:50px 68px; border-bottom:1px solid var(--line); background:var(--panel); }
+.title { background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; }
+h1 { font-size:clamp(2.4rem,5vw,4.6rem); margin:0 0 18px; line-height:1.05; }
+h2 { font-size:clamp(1.8rem,3.2vw,3.1rem); margin:0 0 22px; color:var(--navy); }
+.title h2 { color:#fff; opacity:.94; }
+h3 { color:var(--teal); margin-bottom:8px; }
+p,li { font-size:clamp(1.03rem,1.55vw,1.45rem); line-height:1.35; }
+ul,ol { max-width:1050px; }
+.kicker { color:var(--gold); text-transform:uppercase; letter-spacing:.08em; font-weight:700; }
+.grid { display:grid; grid-template-columns:1.05fr .95fr; gap:30px; align-items:center; }
+.visual-grid { display:grid; grid-template-columns:.7fr 1.3fr; gap:30px; align-items:center; }
+.visual-figure svg { max-height:76vh; }
+.visual-figure img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(--line); background:#fff; }
+.image-pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:end; }
+.image-pair figure { margin:0; }
+.three { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.card { border:1px solid var(--line); background:#fff; border-radius:6px; padding:14px 16px; }
+.equation { font-size:1.34rem; padding:14px 18px; background:var(--teal-soft); border-left:5px solid var(--teal); margin:12px 0; }
+figcaption,.credit,.small { color:var(--muted); font-size:.95rem; line-height:1.35; margin-top:8px; }
+svg { width:100%; max-height:62vh; border:1px solid var(--line); background:#fff; }
+.warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
+@media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+</style>
+</head>
+<body>
+
+<main class="deck">
+    <section class="slide title"><p class="kicker">ASTR 101 · Lecture 05</p><h1>Light, Spectra, and Astronomical Evidence</h1><h2>Evidence, model, and quantitative reasoning</h2></section>
+    <section class="slide"><h2>Learning Goals</h2><ol><li>Explain why this lecture&#x27;s central phenomenon matters: almost everything we know about distant objects arrives as light.</li>
+<li>Use the key model idea that light behaves as both wave and photon depending on the measurement.</li>
+<li>Apply the lecture&#x27;s quantitative tool with units, assumptions, and a physical interpretation.</li>
+<li>Correct the misconception: Color alone is not a complete temperature measurement; filters, extinction, detector response, and calibration matter.</li></ol><p class="small">Reading anchor: OpenStax Astronomy 2e, Chapter 5.1-5.5 on light, spectra, atoms, blackbody radiation, and Doppler shifts.</p></section>
+    <section class="slide"><h2>Why This Question Matters</h2><p>Kirchhoff, Bunsen, Fraunhofer, and later quantum physicists transformed astronomy by showing that spectra are physical fingerprints. After spectroscopy, stars became laboratories rather than just lights.</p></section>
+    <section class="slide"><h2>Opening Phenomenon</h2><p>Almost everything we know about distant objects arrives as light. Spectra transform light from a picture into a physical measurement of temperature, composition, and motion.</p><p class="warning"><strong>First question:</strong> what is directly observed, and what part is an explanation built from a model?</p></section>
+    <section class="slide"><h2>Vocabulary for Reasoning</h2><div class="three"><article class="card"><p>wavelength</p></article>
+<article class="card"><p>frequency</p></article>
+<article class="card"><p>photon</p></article>
+<article class="card"><p>blackbody</p></article>
+<article class="card"><p>emission line</p></article>
+<article class="card"><p>absorption line</p></article>
+<article class="card"><p>Doppler shift</p></article></div><p class="small">Use these terms to describe evidence and relationships, not as isolated vocabulary.</p></section>
+  <section class="slide"><h2>Evidence We Need to Explain</h2><ul><li>Hot dense objects produce continuous spectra whose peak color depends on temperature.</li>
+<li>Thin gases emit or absorb light at characteristic wavelengths.</li>
+<li>Shifted spectral lines reveal radial motion.</li></ul></section>
+  <section class="slide"><h2>Physical or Geometric Model</h2><ul><li>Light behaves as both wave and photon depending on the measurement.</li>
+<li>Atoms have quantized energy levels, producing diagnostic line spectra.</li>
+<li>A spectrum must be calibrated before line position or intensity can be trusted.</li></ul></section>
+    <section class="slide"><h2>Quantitative Tool</h2><div class="equation">\[ c = \lambda\nu \qquad \text{and} \qquad \frac{\Delta\lambda}{\lambda_0} \approx \frac{v_r}{c} \]</div><p>A line shift is meaningful only after identifying the rest wavelength and preserving the sign of the shift.</p></section>
+    <section class="slide"><h2>Worked Example</h2><ol><li>A line with rest wavelength 656.3 nm observed at 657.0 nm is redshifted.</li>
+<li>The fractional shift is 0.7/656.3, about 0.00107.</li>
+<li>The radial speed is therefore about 320 km/s away from the observer.</li></ol><p class="small">The answer should identify redshift or blueshift, compute the speed, and interpret the direction of motion.</p></section>
+    <section class="slide visual-slide"><h2>Visual Reasoning</h2><div class="visual-grid"><div><p>Treat the schematic as a path from photon measurement to physical interpretation: wavelength, energy, line identity, and motion.</p><ul><li>Which features are continuum light?</li>
+<li>Which features encode atomic transitions?</li>
+<li>How would motion shift the line positions?</li></ul></div><figure class="visual-figure"><img src="../assets/images/lecture-05-three-spectra.webp" alt="OpenStax diagram comparing continuous, absorption-line, and emission-line spectra."><figcaption>Continuous, absorption, and emission spectra depend on source geometry and gas excitation. Credit: OpenStax Astronomy 2e, Fig. 5.21, CC BY-NC-SA 4.0.</figcaption></figure></div></section>
+    <section class="slide"><h2>Common Misconception</h2><p class="warning">Color alone is not a complete temperature measurement; filters, extinction, detector response, and calibration matter.</p><p>Correct it by naming calibration, extinction, filters, and detector response as parts of color measurement.</p></section>
+    <section class="slide"><h2>Active Learning Segment</h2><p>Students classify three spectra as continuous, emission, or absorption and state what physical situation could produce each.</p><p class="small">Write a prediction first, compare reasoning with a neighbor, then revise your answer in one sentence.</p></section>
+    <section class="slide"><h2>Lab or Observing Connection</h2><p>Lab 04 uses spectra to infer composition and motion with explicit uncertainty. Your analysis should connect line positions and patterns to composition or motion.</p></section>
+    <section class="slide"><h2>Synthesis</h2><p>Spectroscopy is astronomy&#x27;s remote laboratory: it links photons to matter, motion, and physical conditions.</p><ul><li>Which spectral features diagnose temperature, composition, and motion?</li>
+<li>What calibration does a spectrum need?</li>
+<li>What physical claim can the data support?</li></ul></section>
+    <section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax, <em>Astronomy 2e</em>: OpenStax Astronomy 2e, Chapter 5.1-5.5 on light, spectra, atoms, blackbody radiation, and Doppler shifts.</li><li>Local reference copy: <code>references/openstax-astronomy-2e.pdf</code>.</li><li>Visual: Continuous, absorption, and emission spectra depend on source geometry and gas excitation. Credit: OpenStax Astronomy 2e, Fig. 5.21, CC BY-NC-SA 4.0.</li></ul></section>
+</main>
+</body>
+</html>

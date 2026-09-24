@@ -20,6 +20,8 @@ If slides are missing, stop and request slide creation first unless the user exp
 
 Use `templates/course-materials/STYLE_GUIDE.md` for document structure, MathJax notation, figure handling, and reference standards. Use `templates/course-materials/lecture-notes.template.html` as the starting structure for HTML lecture notes. Keep references synchronized with `templates/course-materials/reference-log.template.md` or a course-specific copy of it.
 
+Write course-specific lecture notes under `materials/<COURSECODE>/lectures/` using two-digit names such as `lecture-01-notes.html`. Place any support code under `materials/<COURSECODE>/src/` and any datasets under `materials/<COURSECODE>/data/`.
+
 ## Notes Structure
 
 For each lecture, produce notes that include:
@@ -43,6 +45,9 @@ For each lecture, produce notes that include:
 - When deriving results, state boundary conditions, approximations, coordinate systems, and units.
 - For observational topics, distinguish raw data, calibrated data, inferred quantities, and model-dependent conclusions.
 - For computational topics, explain numerical assumptions and sources of error.
+- Notes accompanying a 60-minute lecture should be substantial enough for independent study: develop the lecture arc, expand definitions, include worked reasoning, identify misconceptions, and connect the topic to readings.
+- When an adopted textbook is available, especially OpenStax Astronomy 2e for ASTR 101, use it to anchor chapter mapping, terminology, and standard scope while writing original notes.
+- Do not produce notes that merely restate slide titles or short slide bullets. Shallow notes should be treated as incomplete.
 
 ## Rigor Standards
 
@@ -70,6 +75,7 @@ For each lecture, produce notes that include:
 Before finishing, verify:
 
 - Notes align with the lecture objectives and slide deck.
+- Notes are substantive enough to support independent study after a 60-minute lecture.
 - Equations and variables use consistent notation.
 - Examples are dimensionally correct.
 - References are real or explicitly flagged for verification.

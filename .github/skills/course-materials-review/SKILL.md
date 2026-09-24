@@ -18,8 +18,11 @@ Inspect all available course artifacts:
 - Problem sets.
 - Solution keys.
 - Agent assessment instructions.
+- Course folder `index.html` landing page when the package is at final assembly or review-release stage.
 - Reference lists, visual credits, datasets, and software requirements.
+- Source indexes under `references/source-indexes/` when source-exact readings, figures, images, datasets, or textbook problems are cited.
 - Applicable templates and standards from `templates/course-materials/STYLE_GUIDE.md` and `templates/course-materials/`.
+- The expected course folder under `materials/<COURSECODE>/`, including `course-manifest.json`, `lectures/`, `labs/`, `problem-sets/`, `src/`, and `data/` where applicable.
 
 ## Review Priorities
 
@@ -34,6 +37,8 @@ Review in this order:
 7. Grading standards, resubmission policy, and student-facing clarity.
 8. HTML validity, navigability, accessibility, and readability where applicable.
 9. Consistency with the shared course-material templates and style guide.
+10. Consistency with the `materials/<COURSECODE>/` folder structure and two-digit file naming convention.
+11. Accuracy of `index.html` links, statuses, and separation of pending versus completed artifacts when final assembly has begun.
 
 ## Dependency Checks
 
@@ -45,6 +50,7 @@ Verify that:
 - Problem sets depend on lecture notes and slides already created.
 - Solution keys correspond exactly to problem sets.
 - Assessment instructions correspond to the correct problem set and solution key.
+- `index.html` is created only after enough package status is known and does not present pending materials as complete.
 - Review feedback is resolved before final release.
 
 ## Correctness Checks
@@ -58,11 +64,36 @@ Evaluate:
 - Consistency of notation, symbols, coordinate systems, units, and terminology.
 - Whether prerequisites actually prepare students for the expected work.
 
+## Depth and Pedagogical Substance Checks
+
+Treat shallow materials as blocking defects when they would prevent real instruction:
+
+- Slide decks for lecture courses should contain enough detail for a typical 60-minute class unless the course format justifies otherwise.
+- Decks should not simply follow the template trajectory with generic bullets. They need a real lecture arc, explanatory content, evidence, quantitative reasoning, worked examples, and synthesis.
+- Student-facing prose must not expose raw LaTeX commands such as `\qquad`, `\mathrm`, `\frac`, `\text`, or unwrapped equation source. Math belongs in MathJax-rendered equation blocks or clean prose.
+- Introductory course materials should include appropriate historical and motivational context: why the subject matters, who developed key questions or methods, and how observations led to formulas or models.
+- Slide decks are student-facing artifacts. Flag lecturer-facing or production-facing commentary on slides as a correction item.
+- If a slide says what the instructor, authoring agent, reviewer, or future course team should do, request replacement with student-directed explanation, evidence, examples, questions, or figures.
+- Flag meta labels such as "lecture-specific reasoning figure", "student task", "instructor-created", "verify against", "placeholder", or "to be replaced" when they appear on student-facing slides.
+- Repeated visual-reasoning or template slides that do not change meaningfully between lectures should be flagged for lecture-specific replacement.
+- Figures that are too small to inspect during lecture should be flagged as blocking defects for slide quality.
+- Generic repeated schematics across multiple lectures should be rejected unless each instance carries lecture-specific scientific content.
+- Review slide quality against the standard of a serious undergraduate astronomy course at institutions such as MIT or Stanford: rigorous, visually legible, conceptually precise, and worthy of classroom use.
+- Lecture notes should expand slides into study-ready explanations, not merely repeat slide headings.
+- Problem sets should contain concrete, lecture-specific questions and should not reuse generic interchangeable prompts across assignments.
+- Problem sets should include exact textbook problem recommendations when a textbook is adopted and available. Vague textbook references are a correction item.
+- Quantitative rigor should match course level and should ramp upward across the curriculum; upper-division astronomy courses should not be mostly conceptual unless the course design explicitly justifies it.
+- Labs should not be formulaic; formulaic labs are a correction item. Each lab must include lab-specific apparatus or software, concrete setup instructions, exact measurements or classifications, uncertainty treatment, deliverables, assessment criteria, and source/data provenance.
+- Source indexes should be lightweight, searchable, and documented. They should identify extraction limitations and human spot-check requirements rather than pretending generated indexes are authoritative editions.
+- If an adopted textbook exists, check that slides and notes are grounded in its appropriate chapters, terminology, and scope without copying large passages.
+- A review should flag inadequate depth, missing worked examples, missing evidence, missing visual context, or weak textbook alignment as `Needs correction`.
+
 ## Reference and Visual Verification
 
 - Flag any citation, visual, dataset, mission fact, or URL that cannot be verified.
 - Identify fabricated or suspicious references explicitly.
 - Check that visual credits are present and tied to the correct image or dataset.
+- Check that Creative Commons or public-domain visuals have source, creator/institution, license or usage note, object/context, and access date where practical.
 - Prefer authoritative sources for corrections: textbooks, peer-reviewed papers, observatory or mission documentation, and public archive documentation.
 
 ## Feedback Protocol
@@ -99,3 +130,9 @@ Before completing the review, verify:
 - Blocking issues are separated from improvements.
 - Corrections are routed to the right authoring stage.
 - Approval is not granted if references, solutions, or scientific claims remain unverified.
+- Approval is not granted for template-complete but substantively shallow slides or notes.
+- Approval is not granted for template-complete but substantively shallow or non-specific problem sets.
+- Approval is not granted when student-facing slides contain instructor-only commentary that should live in notes or review artifacts.
+- Approval is not granted when slide captions describe the production process rather than the scientific content students should learn.
+- Approval is not granted when student-facing prose contains raw LaTeX source that should render as mathematics.
+- Approval is not granted for labs that differ only by title/subtitle or lack concrete apparatus, measurements, uncertainty, and provenance.

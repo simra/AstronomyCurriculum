@@ -4,6 +4,8 @@ Use this guide for all generated course artifacts: syllabi, schedules, lecture s
 
 The templates are presentation scaffolds for consistent look-and-feel, artifact structure, accessibility, and source tracking. They do not enforce a particular lecture trajectory, conceptual order, or pedagogical storyline. Shape the trajectory of slides, notes, labs, and problem sets to best meet the course learning objectives, prerequisite background, and scientific logic of the topic.
 
+Each completed course folder should include an `index.html` landing page based on `course-index.template.html`. The index exists to make the assembled package navigable and to show artifact status; it should link accurately to available materials and clearly mark pending items.
+
 ## Format Recommendation
 
 Default to HTML with MathJax for reviewable web artifacts. Use LaTeX when the requested deliverable is a print-first packet, a mathematically dense handout, an exam, or a publication-quality PDF.

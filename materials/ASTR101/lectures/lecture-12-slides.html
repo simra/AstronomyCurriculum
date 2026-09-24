@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASTR 101 Lecture 12 Slides</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+:root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; --warning:#8a4b08; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:"Aptos","Segoe UI",sans-serif; color:var(--ink); background:var(--paper); }
+.deck { scroll-snap-type:y mandatory; height:100vh; overflow-y:auto; }
+.slide { min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:50px 68px; border-bottom:1px solid var(--line); background:var(--panel); }
+.title { background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; }
+h1 { font-size:clamp(2.4rem,5vw,4.6rem); margin:0 0 18px; line-height:1.05; }
+h2 { font-size:clamp(1.8rem,3.2vw,3.1rem); margin:0 0 22px; color:var(--navy); }
+.title h2 { color:#fff; opacity:.94; }
+h3 { color:var(--teal); margin-bottom:8px; }
+p,li { font-size:clamp(1.03rem,1.55vw,1.45rem); line-height:1.35; }
+ul,ol { max-width:1050px; }
+.kicker { color:var(--gold); text-transform:uppercase; letter-spacing:.08em; font-weight:700; }
+.grid { display:grid; grid-template-columns:1.05fr .95fr; gap:30px; align-items:center; }
+.visual-grid { display:grid; grid-template-columns:.7fr 1.3fr; gap:30px; align-items:center; }
+.visual-figure svg { max-height:76vh; }
+.visual-figure img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(--line); background:#fff; }
+.image-pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:end; }
+.image-pair figure { margin:0; }
+.three { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.card { border:1px solid var(--line); background:#fff; border-radius:6px; padding:14px 16px; }
+.equation { font-size:1.34rem; padding:14px 18px; background:var(--teal-soft); border-left:5px solid var(--teal); margin:12px 0; }
+figcaption,.credit,.small { color:var(--muted); font-size:.95rem; line-height:1.35; margin-top:8px; }
+svg { width:100%; max-height:62vh; border:1px solid var(--line); background:#fff; }
+.warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
+@media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+</style>
+</head>
+<body>
+
+<main class="deck">
+    <section class="slide title"><p class="kicker">ASTR 101 · Lecture 12</p><h1>Galaxies: Types, Interactions, and Evolution</h1><h2>Evidence, model, and quantitative reasoning</h2></section>
+    <section class="slide"><h2>Learning Goals</h2><ol><li>Explain why this lecture&#x27;s central phenomenon matters: galaxies are not isolated static islands.</li>
+<li>Use the key model idea that morphology is a useful description but not a complete evolutionary sequence.</li>
+<li>Apply the lecture&#x27;s quantitative tool with units, assumptions, and a physical interpretation.</li>
+<li>Correct the misconception: The Hubble tuning fork is a classification diagram, not a simple evolutionary path from one type to another.</li></ol><p class="small">Reading anchor: OpenStax Astronomy 2e, Chapters 26.1-26.5 and 27.1-27.4 on galaxy types, distances, active galaxies, and galaxy evolution.</p></section>
+    <section class="slide"><h2>Why This Question Matters</h2><p>The Curtis-Shapley debate and Hubble&#x27;s distance measurements moved galaxies from &#x27;spiral nebulae&#x27; to island universes. Morphology became a clue, not the whole story.</p></section>
+    <section class="slide"><h2>Opening Phenomenon</h2><p>Galaxies are not isolated static islands. Their shapes, colors, star formation, and activity carry evidence of environment and history.</p><p class="warning"><strong>First question:</strong> what is directly observed, and what part is an explanation built from a model?</p></section>
+    <section class="slide"><h2>Vocabulary for Reasoning</h2><div class="three"><article class="card"><p>spiral galaxy</p></article>
+<article class="card"><p>elliptical galaxy</p></article>
+<article class="card"><p>irregular galaxy</p></article>
+<article class="card"><p>redshift</p></article>
+<article class="card"><p>starburst</p></article>
+<article class="card"><p>active galactic nucleus</p></article>
+<article class="card"><p>merger</p></article></div><p class="small">Use these terms to describe evidence and relationships, not as isolated vocabulary.</p></section>
+  <section class="slide"><h2>Evidence We Need to Explain</h2><ul><li>Galaxy colors and spectra trace stellar populations and star formation.</li>
+<li>Tidal tails, bridges, and disturbed shapes reveal interactions.</li>
+<li>Redshift connects spectra to motion and, in cosmology, distance scale.</li></ul></section>
+  <section class="slide"><h2>Physical or Geometric Model</h2><ul><li>Morphology is a useful description but not a complete evolutionary sequence.</li>
+<li>Interactions redistribute gas and stars and can trigger star formation.</li>
+<li>Supermassive black hole accretion can produce active galactic nuclei.</li></ul></section>
+    <section class="slide"><h2>Quantitative Tool</h2><div class="equation">\[ z = \frac{\lambda_{\mathrm{obs}} - \lambda_0}{\lambda_0} \]</div><p>At low redshift, redshift can approximate recession speed; at larger redshift, cosmology matters.</p></section>
+    <section class="slide"><h2>Worked Example</h2><ol><li>A spectral line with rest wavelength 500.7 nm observed at 550.8 nm has z about 0.10.</li>
+<li>At low redshift, this corresponds approximately to recession speed 0.10c.</li>
+<li>For larger redshift, cosmological interpretation requires a more careful model.</li></ol><p class="small">The answer should explain when the low-redshift approximation is adequate and when it is not.</p></section>
+    <section class="slide visual-slide"><h2>Visual Reasoning</h2><div class="visual-grid"><div><p>Use morphology, color, spectra, and environment as evidence for galaxy history, not as labels alone.</p><ul><li>Which features indicate interaction?</li>
+<li>What evidence traces recent star formation?</li>
+<li>Why is morphology not a full evolutionary history?</li></ul></div><figure class="visual-figure"><img src="../assets/images/lecture-12-antennae.jpg" alt="ESA/Hubble image of the interacting Antennae Galaxies."><figcaption>Tidal distortion and compact blue star clusters show that galaxy morphology can record interaction history. Credit: NASA, ESA, and the Hubble Heritage Team (STScI/AURA)-ESA/Hubble Collaboration; acknowledgement B. Whitmore and James Long; CC BY 4.0.</figcaption></figure></div></section>
+    <section class="slide"><h2>Common Misconception</h2><p class="warning">The Hubble tuning fork is a classification diagram, not a simple evolutionary path from one type to another.</p><p>Correct it by treating morphology as classification, not a required evolutionary sequence.</p></section>
+    <section class="slide"><h2>Active Learning Segment</h2><p>Students classify galaxy images, justify criteria, and identify at least one ambiguous or interaction-disturbed case.</p><p class="small">Write a prediction first, compare reasoning with a neighbor, then revise your answer in one sentence.</p></section>
+    <section class="slide"><h2>Lab or Observing Connection</h2><p>Lab 08 applies documented morphology criteria and simple redshift interpretation. Your classifications should cite morphology criteria and note ambiguous or interacting systems.</p></section>
+    <section class="slide"><h2>Synthesis</h2><p>Galaxies connect local astrophysics to cosmic history: stars, gas, black holes, dark matter, and environment all matter.</p><ul><li>What can morphology tell us?</li>
+<li>What can spectra and color add?</li>
+<li>What evidence reveals interaction or activity?</li></ul></section>
+    <section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax, <em>Astronomy 2e</em>: OpenStax Astronomy 2e, Chapters 26.1-26.5 and 27.1-27.4 on galaxy types, distances, active galaxies, and galaxy evolution.</li><li>Local reference copy: <code>references/openstax-astronomy-2e.pdf</code>.</li><li>Visual: Tidal distortion and compact blue star clusters show that galaxy morphology can record interaction history. Credit: NASA, ESA, and the Hubble Heritage Team (STScI/AURA)-ESA/Hubble Collaboration; acknowledgement B. Whitmore and James Long; CC BY 4.0.</li></ul></section>
+</main>
+</body>
+</html>

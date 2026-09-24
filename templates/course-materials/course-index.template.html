@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{COURSE_CODE}} Course Materials Index</title>
+  <style>
+    :root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; --warning:#8a4b08; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Georgia,"Times New Roman",serif; color:var(--ink); background:var(--paper); line-height:1.6; }
+    header { padding:42px 24px 30px; background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; }
+    header div, main { max-width:1120px; margin:0 auto; }
+    h1,h2,h3 { line-height:1.15; }
+    h1 { margin:0 0 8px; font-size:clamp(2rem,4vw,3.4rem); }
+    header p { margin:0; opacity:.94; }
+    main { padding:32px 24px 64px; }
+    h2 { margin-top:36px; padding-bottom:8px; border-bottom:2px solid var(--line); color:var(--navy); }
+    .summary { background:var(--panel); border-left:5px solid var(--teal); padding:14px 18px; margin:18px 0; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin-top:18px; }
+    .card { background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:16px; }
+    .card h3 { margin-top:0; color:var(--teal); }
+    a { color:var(--teal); font-weight:700; }
+    ul { padding-left:1.2rem; }
+    .status { display:inline-block; padding:2px 8px; border-radius:999px; background:var(--teal-soft); color:var(--navy); font-size:.85rem; font-family:"Aptos","Segoe UI",sans-serif; }
+    .meta { color:var(--muted); font-size:.95rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>{{COURSE_CODE}}: {{COURSE_TITLE}}</h1>
+      <p>{{CREDITS}} credits · {{TERM_OR_SEQUENCE}} · Course Materials Index</p>
+    </div>
+  </header>
+  <main>
+    <section class="summary">
+      <p><strong>Status:</strong> <span class="status">{{PACKAGE_STATUS}}</span></p>
+      <p>{{COURSE_DESCRIPTION}}</p>
+      <p class="meta">Last updated: {{LAST_UPDATED}} · Manifest: <a href="course-manifest.json">course-manifest.json</a></p>
+    </section>
+
+    <section>
+      <h2>Planning Documents</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Syllabus</h3>
+          <p>{{SYLLABUS_STATUS}}</p>
+          <p><a href="syllabus.html">Open syllabus</a></p>
+        </article>
+        <article class="card">
+          <h3>Schedule</h3>
+          <p>{{SCHEDULE_STATUS}}</p>
+          <p><a href="schedule.html">Open schedule</a></p>
+        </article>
+        <article class="card">
+          <h3>References</h3>
+          <p>{{REFERENCE_LOG_STATUS}}</p>
+          <p><a href="reference-log.md">Open reference log</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Lecture Materials</h2>
+      <ul>
+        <li><a href="lectures/lecture-01-slides.html">Lecture 01 slides</a> · <a href="lectures/lecture-01-notes.html">notes</a> · {{LECTURE_01_STATUS}}</li>
+        <li>{{ADDITIONAL_LECTURE_LINKS}}</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Labs and Observing</h2>
+      <ul>
+        <li><a href="labs/lab-01.html">Lab 01</a> · {{LAB_01_STATUS}}</li>
+        <li>{{ADDITIONAL_LAB_LINKS}}</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Problem Sets</h2>
+      <ul>
+        <li><a href="problem-sets/problem-set-01.html">Problem Set 01</a> · <a href="problem-sets/problem-set-01-solutions.html">solutions</a> · <a href="problem-sets/problem-set-01-assessment.md">assessment instructions</a> · {{PROBLEM_SET_01_STATUS}}</li>
+        <li>{{ADDITIONAL_PROBLEM_SET_LINKS}}</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Source Code and Data</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Source</h3>
+          <p>Course-specific scripts, notebooks, and generators.</p>
+          <p><a href="src/README.md">Open source README</a></p>
+        </article>
+        <article class="card">
+          <h3>Data</h3>
+          <p>Course-specific datasets with provenance notes.</p>
+          <p><a href="data/README.md">Open data README</a></p>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

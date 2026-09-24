@@ -1,0 +1,43 @@
+{
+  "course": {
+    "courseNumber": "ASTR 101",
+    "courseCode": "ASTR101",
+    "title": "Introduction to Astronomy with Observing Lab",
+    "credits": 4,
+    "term": "Fall",
+    "description": "Introduces the night sky, astronomical scales, gravity, light, telescopes, the solar system, stars, galaxies, and cosmology. Laboratory work develops naked-eye observing, telescope use, sky coordinates, simple image capture, and scientific notebook practice."
+  },
+  "folderConvention": {
+    "root": "materials/ASTR101/",
+    "index": "materials/ASTR101/index.html",
+    "lectures": "materials/ASTR101/lectures/",
+    "labs": "materials/ASTR101/labs/",
+    "problemSets": "materials/ASTR101/problem-sets/",
+    "sourceCode": "materials/ASTR101/src/",
+    "data": "materials/ASTR101/data/",
+    "numbering": "Two-digit numbering for lecture, lab, and problem-set files."
+  },
+  "status": {
+    "stage": "approved for review release",
+    "lastUpdated": "2026-09-23",
+    "reviewStatus": "Approved for review release; not yet approved for instructional use"
+  },
+  "counts": {
+    "lectureSlides": 14,
+    "lectureNotes": 14,
+    "labs": 8,
+    "problemSets": 7,
+    "solutionKeys": 7,
+    "assessmentInstructions": 7
+  },
+  "artifacts": [
+    "index.html",
+    "README.md",
+    "course-manifest.json",
+    "syllabus.html",
+    "schedule.html",
+    "reference-log.md",
+    "review-report.md"
+  ],
+  "resubmissionPolicy": "High grading standards apply. Students may revise and resubmit eligible work to improve mastery and grade according to syllabus rules."
+}

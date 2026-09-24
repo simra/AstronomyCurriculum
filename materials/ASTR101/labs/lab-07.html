@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASTR 101 Lab 07</title>
+  <style>
+:root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; --warning:#8a4b08; }
+body { margin:0; font-family:Georgia,"Times New Roman",serif; color:var(--ink); background:var(--paper); line-height:1.6; }
+header { padding:38px 24px 26px; background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; }
+header div, main { max-width:1040px; margin:0 auto; }
+main { padding:30px 24px 64px; }
+h1,h2,h3 { line-height:1.15; }
+h1 { margin:0 0 8px; font-size:clamp(2rem,4vw,3.2rem); }
+h2 { margin-top:34px; color:var(--navy); border-bottom:2px solid var(--line); padding-bottom:8px; }
+h3 { color:var(--teal); }
+section { background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:16px 18px; margin:16px 0; }
+.notice { border-left:5px solid var(--teal); background:var(--teal-soft); }
+table { width:100%; border-collapse:collapse; margin:14px 0; }
+th,td { border:1px solid var(--line); padding:8px 10px; vertical-align:top; text-align:left; }
+th { background:var(--teal-soft); }
+code { background:#eef3f5; padding:1px 4px; border-radius:3px; }
+</style>
+</head>
+<body>
+<header><div><h1>Lab 07: H-R Diagram and Cluster Age</h1><p>Use curated stellar data to construct an H-R diagram and infer stellar populations and cluster age.</p></div></header>
+<main>
+<section class="notice"><h2>Learning Objectives</h2><ul><li>Use curated stellar data to construct an H-R diagram and infer stellar populations and cluster age.</li><li>Make measurements or classifications with explicit uncertainty.</li><li>Separate direct evidence from model-dependent interpretation.</li></ul></section>
+<section><h2>Preparation</h2><ul><li>Read OpenStax Astronomy 2e section 18.4 on the H-R diagram and the assigned stellar evolution sections.</li></ul></section>
+<section><h2>Materials and Data</h2><ul><li>Instructor-provided CSV of stellar temperature/color and luminosity/absolute magnitude</li><li>Spreadsheet or plotting tool</li><li>OpenStax H-R diagram reference</li></ul></section>
+<section><h2>Apparatus and Setup</h2><ul><li>Provide a CSV with columns for star ID, color or temperature, luminosity or absolute magnitude, and optional cluster membership.</li><li>Provide plotting instructions for spreadsheet and Python users.</li><li>Give one reference H-R diagram for comparison but require students to generate their own plot.</li></ul></section>
+<section><h2>Procedure</h2><ol><li>Import or open the provided stellar dataset and identify columns for temperature or color and luminosity or absolute magnitude.</li><li>Create an H-R style plot with temperature increasing to the left if using temperature.</li><li>Mark the main sequence, likely giants/supergiants, and possible white dwarfs.</li><li>For a cluster dataset, identify the approximate turnoff location and compare it with a younger or older reference cluster.</li><li>Record plotting choices, axis units, and any data cleaning or exclusions.</li></ol></section>
+<section><h2>Measurement Record</h2><p>Use this structure or an equivalent table in your lab notebook.</p><table><thead><tr><th>star or bin</th><th>temperature/color</th><th>luminosity/magnitude</th><th>diagram region</th><th>population</th><th>evidence</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table></section>
+<section><h2>Analysis and Uncertainty</h2><ul><li>Explain why the H-R diagram is physical rather than just descriptive.</li><li>Use turnoff position to infer relative cluster age.</li><li>Identify one selection effect or uncertainty in the dataset.</li></ul></section>
+<section><h2>Deliverables</h2><ul><li>H-R diagram plot</li><li>Population labels</li><li>Cluster-age interpretation</li><li>Short data/provenance note</li></ul></section>
+<section><h2>Assessment Criteria</h2><ul><li>Correct axes and orientation</li><li>Reasonable population identification</li><li>Turnoff reasoning</li><li>Data documentation</li></ul></section>
+<section><h2>References, Software, and Data Provenance</h2><ul><li>OpenStax Astronomy 2e, section 18.4</li><li>OpenStax Fig. 18.14 H-R diagram</li></ul><p>Any additional dataset, image, or software source used by an instructor should be added to <code>../reference-log.md</code> with source, access date, license or usage note, and processing steps.</p></section>
+</main></body>
+</html>

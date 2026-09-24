@@ -1,0 +1,728 @@
+{
+  "program": {
+    "title": "Bachelor of Science in Astronomy: Four-Year Curriculum Draft",
+    "degreeTargetCredits": 120,
+    "summary": "A review-ready undergraduate astronomy curriculum that begins with mathematics, physics, chemistry, computing, and sky-observation fundamentals, then advances through astrophysics, instrumentation, planetary science, cosmology, electives, and original research.",
+    "creditDistribution": {
+      "astronomyMathematicsPhysicsChemistryComputingAndResearchPreparation": 86,
+      "generalEducation": 22,
+      "freeOrSubjectAreaElectives": 12
+    },
+    "creditAudit": {
+      "statedDegreeTargetCredits": 120,
+      "degreePlanCreditsAsListed": 135,
+      "status": "The structured JSON preserves the HTML as written; the listed semester plan currently sums to 135 credits while the program overview states a 120-credit target."
+    },
+    "programArc": "Years 1 and 2 establish calculus, mechanics, electromagnetism, chemistry, computation, and observational practice. Years 3 and 4 move into astrophysics, stellar and galactic astronomy, planetary science, cosmology, instrumentation, data analysis, seminars, electives, and capstone research."
+  },
+  "degreePlan": [
+    {
+      "year": 1,
+      "theme": "Foundations in Science, Mathematics, and the Sky",
+      "semesters": [
+        {
+          "term": "Fall",
+          "courses": [
+            { "courseNumber": "ASTR 101", "title": "Introduction to Astronomy with Observing Lab", "credits": 4 },
+            { "courseNumber": "MATH 151", "title": "Calculus I", "credits": 4 },
+            { "courseNumber": "CHEM 101", "title": "General Chemistry I", "credits": 4 },
+            { "courseNumber": "COMP 110", "title": "Scientific Computing for Physical Sciences", "credits": 3 },
+            { "courseNumber": "WRIT 101", "title": "Academic Writing and Research", "credits": 3 }
+          ]
+        },
+        {
+          "term": "Spring",
+          "courses": [
+            { "courseNumber": "ASTR 120", "title": "The Solar System", "credits": 3 },
+            { "courseNumber": "MATH 152", "title": "Calculus II", "credits": 4 },
+            { "courseNumber": "PHYS 171", "title": "University Physics I: Mechanics", "credits": 4 },
+            { "courseNumber": "CHEM 102", "title": "General Chemistry II", "credits": 4 },
+            { "courseNumber": "GE 101", "title": "Humanities or Social Science Elective", "credits": 3 }
+          ]
+        }
+      ]
+    },
+    {
+      "year": 2,
+      "theme": "Core Physical Methods",
+      "semesters": [
+        {
+          "term": "Fall",
+          "courses": [
+            { "courseNumber": "ASTR 210", "title": "Observational Astronomy and Data Reduction", "credits": 4 },
+            { "courseNumber": "MATH 251", "title": "Calculus III", "credits": 4 },
+            { "courseNumber": "PHYS 172", "title": "University Physics II: Electricity, Magnetism, and Waves", "credits": 4 },
+            { "courseNumber": "STAT 220", "title": "Statistics for Physical Scientists", "credits": 3 },
+            { "courseNumber": "GE 201", "title": "Arts, Culture, or Language Elective", "credits": 3 }
+          ]
+        },
+        {
+          "term": "Spring",
+          "courses": [
+            { "courseNumber": "ASTR 230", "title": "Stars, Galaxies, and the Universe", "credits": 3 },
+            { "courseNumber": "MATH 255", "title": "Differential Equations and Linear Algebra", "credits": 4 },
+            { "courseNumber": "PHYS 271", "title": "Modern Physics", "credits": 4 },
+            { "courseNumber": "PHYS 275", "title": "Experimental Physics Laboratory", "credits": 3 },
+            { "courseNumber": "GE 202", "title": "Ethics, Society, and Science Elective", "credits": 3 }
+          ]
+        }
+      ]
+    },
+    {
+      "year": 3,
+      "theme": "Astrophysics Core and Subject Electives",
+      "semesters": [
+        {
+          "term": "Fall",
+          "courses": [
+            { "courseNumber": "ASTR 310", "title": "Astrophysics I: Radiation, Matter, and Orbits", "credits": 4 },
+            { "courseNumber": "ASTR 320", "title": "Planetary Science", "credits": 3 },
+            { "courseNumber": "PHYS 331", "title": "Classical Mechanics", "credits": 4 },
+            { "courseNumber": "COMP 260", "title": "Scientific Programming and Numerical Methods", "credits": 3 },
+            { "courseNumber": "GE 301", "title": "Global Perspectives Elective", "credits": 3 }
+          ]
+        },
+        {
+          "term": "Spring",
+          "courses": [
+            { "courseNumber": "ASTR 330", "title": "Astrophysics II: Stellar Structure and Evolution", "credits": 4 },
+            { "courseNumber": "ASTR 340", "title": "Astronomical Instrumentation", "credits": 3 },
+            { "courseNumber": "PHYS 341", "title": "Electromagnetic Theory", "credits": 4 },
+            { "courseNumber": "ASTR 3XX", "title": "Subject Elective", "credits": 3, "placeholder": true },
+            { "courseNumber": "GE 302", "title": "Communication Intensive Elective", "credits": 3 }
+          ]
+        }
+      ],
+      "recommendedSubjectElectives": [
+        "ASTR 350 Exoplanets and Astrobiology",
+        "ASTR 360 The Interstellar Medium",
+        "ASTR 370 Solar Physics and Space Weather",
+        "PHYS 361 Thermodynamics and Statistical Physics",
+        "CHEM 230 Organic and Prebiotic Chemistry"
+      ]
+    },
+    {
+      "year": 4,
+      "theme": "Advanced Topics, Research, and Capstone",
+      "semesters": [
+        {
+          "term": "Fall",
+          "courses": [
+            { "courseNumber": "ASTR 410", "title": "Galactic Astronomy", "credits": 3 },
+            { "courseNumber": "ASTR 420", "title": "Cosmology", "credits": 3 },
+            { "courseNumber": "ASTR 430", "title": "Research Methods in Astronomy", "credits": 3 },
+            { "courseNumber": "ASTR 4XX", "title": "Advanced Astronomy Elective", "credits": 3, "placeholder": true },
+            { "courseNumber": "FREE 401", "title": "Free Elective", "credits": 3 }
+          ]
+        },
+        {
+          "term": "Spring",
+          "courses": [
+            { "courseNumber": "ASTR 450", "title": "Senior Capstone in Astronomy", "credits": 4 },
+            { "courseNumber": "ASTR 460", "title": "Seminar in Current Astrophysics", "credits": 2 },
+            { "courseNumber": "ASTR 4XX", "title": "Advanced Astronomy Elective", "credits": 3, "placeholder": true },
+            { "courseNumber": "FREE 402", "title": "Free Elective", "credits": 3 },
+            { "courseNumber": "GE 401", "title": "Advanced Writing, Policy, or Society Elective", "credits": 3 }
+          ]
+        }
+      ],
+      "recommendedAdvancedElectives": [
+        "ASTR 470 High-Energy Astrophysics",
+        "ASTR 472 Radio Astronomy",
+        "ASTR 474 Computational Astrophysics",
+        "ASTR 476 Observational Cosmology",
+        "ASTR 478 Space Mission Design",
+        "ASTR 480 Independent Research in Astronomy"
+      ]
+    }
+  ],
+  "courses": [
+    {
+      "courseNumber": "ASTR 101",
+      "subject": "ASTR",
+      "level": 100,
+      "title": "Introduction to Astronomy with Observing Lab",
+      "credits": 4,
+      "prerequisites": "None",
+      "prerequisiteCourses": [],
+      "category": "Astronomy Core and Electives",
+      "elective": false,
+      "description": "Introduces the night sky, astronomical scales, gravity, light, telescopes, the solar system, stars, galaxies, and cosmology. Laboratory work develops naked-eye observing, telescope use, sky coordinates, simple image capture, and scientific notebook practice."
+    },
+    {
+      "courseNumber": "ASTR 120",
+      "subject": "ASTR",
+      "level": 100,
+      "title": "The Solar System",
+      "credits": 3,
+      "prerequisites": "ASTR 101 or permission of instructor",
+      "prerequisiteCourses": ["ASTR 101"],
+      "category": "Astronomy Core and Electives",
+      "elective": false,
+      "description": "Surveys planetary formation, orbital dynamics, terrestrial planets, giant planets, small bodies, planetary atmospheres, surfaces, interiors, comparative planetology, spacecraft exploration, and habitability in the solar system."
+    },
+    {
+      "courseNumber": "ASTR 210",
+      "subject": "ASTR",
+      "level": 200,
+      "title": "Observational Astronomy and Data Reduction",
+      "credits": 4,
+      "prerequisites": "ASTR 101; MATH 151; COMP 110",
+      "prerequisiteCourses": ["ASTR 101", "MATH 151", "COMP 110"],
+      "category": "Astronomy Core and Electives",
+      "elective": false,
+      "description": "Builds practical observing skills in photometry, spectroscopy, astrometry, image calibration, signal-to-noise estimation, and uncertainty reporting. Students reduce CCD data, analyze public survey archives, and prepare a technical observing report."
+    },
+    {
+      "courseNumber": "ASTR 230",
+      "subject": "ASTR",
+      "level": 200,
+      "title": "Stars, Galaxies, and the Universe",
+      "credits": 3,
+      "prerequisites": "ASTR 101; PHYS 171 or concurrent enrollment",
+      "prerequisiteCourses": ["ASTR 101", "PHYS 171"],
+      "category": "Astronomy Core and Electives",
+      "elective": false,
+      "description": "Introduces stellar properties, stellar evolution, the interstellar medium, the Milky Way, galaxy classification, galaxy evolution, large-scale structure, dark matter, dark energy, and the observational foundations of modern cosmology."
+    },
+    {
+      "courseNumber": "ASTR 310",
+      "subject": "ASTR",
+      "level": 300,
+      "title": "Astrophysics I: Radiation, Matter, and Orbits",
+      "credits": 4,
+      "prerequisites": "ASTR 230; MATH 251; PHYS 172",
+      "prerequisiteCourses": ["ASTR 230", "MATH 251", "PHYS 172"],
+      "category": "Astronomy Core and Electives",
+      "elective": false,
+      "description": "Covers radiative processes, blackbody radiation, spectra, hydrostatic equilibrium, gravitational potentials, two-body motion, tidal effects, virial arguments, and the physical interpretation of astronomical measurements."
+    },
+    {
+      "courseNumber": "ASTR 320",
+      "subject": "ASTR",
+      "level": 300,
+      "title": "Planetary Science",
+      "credits": 3,
+      "prerequisites": "ASTR 120; CHEM 102; PHYS 172",
+      "prerequisiteCourses": ["ASTR 120", "CHEM 102", "PHYS 172"],
+      "category": "Astronomy Core and Electives",
+      "elective": false,
+      "description": "Examines planetary system formation, geophysics, atmospheres, climate evolution, magnetic fields, impacts, rings, satellites, exoplanet comparisons, and the chemical and physical conditions that shape planetary environments."
+    },
+    {
+      "courseNumber": "ASTR 330",
+      "subject": "ASTR",
+      "level": 300,
+      "title": "Astrophysics II: Stellar Structure and Evolution",
+      "credits": 4,
+      "prerequisites": "ASTR 310; MATH 255; PHYS 271",
+      "prerequisiteCourses": ["ASTR 310", "MATH 255", "PHYS 271"],
+      "category": "Astronomy Core and Electives",
+      "elective": false,
+      "description": "Develops the physics of stellar interiors, opacity, energy transport, nuclear burning, stellar atmospheres, main sequence evolution, late-stage evolution, compact remnants, supernovae, and nucleosynthesis."
+    },
+    {
+      "courseNumber": "ASTR 340",
+      "subject": "ASTR",
+      "level": 300,
+      "title": "Astronomical Instrumentation",
+      "credits": 3,
+      "prerequisites": "ASTR 210; PHYS 275",
+      "prerequisiteCourses": ["ASTR 210", "PHYS 275"],
+      "category": "Astronomy Core and Electives",
+      "elective": false,
+      "description": "Studies telescope optics, detectors, filters, spectrographs, adaptive optics, calibration systems, observatory operations, space-based instruments, error budgets, and instrument proposal design."
+    },
+    {
+      "courseNumber": "ASTR 350",
+      "subject": "ASTR",
+      "level": 300,
+      "title": "Exoplanets and Astrobiology",
+      "credits": 3,
+      "prerequisites": "ASTR 320 or ASTR 310",
+      "prerequisiteCourses": ["ASTR 320", "ASTR 310"],
+      "category": "Astronomy Core and Electives",
+      "elective": true,
+      "description": "Explores exoplanet detection, demographics, orbital architectures, atmospheres, biosignatures, habitable zone models, extremophiles, prebiotic chemistry, and the scientific limits of life detection."
+    },
+    {
+      "courseNumber": "ASTR 360",
+      "subject": "ASTR",
+      "level": 300,
+      "title": "The Interstellar Medium",
+      "credits": 3,
+      "prerequisites": "ASTR 310; PHYS 271",
+      "prerequisiteCourses": ["ASTR 310", "PHYS 271"],
+      "category": "Astronomy Core and Electives",
+      "elective": true,
+      "description": "Covers gas and dust in galaxies, atomic and molecular clouds, emission and absorption lines, H II regions, star formation, shocks, cosmic rays, magnetic fields, and multiwavelength ISM diagnostics."
+    },
+    {
+      "courseNumber": "ASTR 370",
+      "subject": "ASTR",
+      "level": 300,
+      "title": "Solar Physics and Space Weather",
+      "credits": 3,
+      "prerequisites": "PHYS 172; ASTR 230",
+      "prerequisiteCourses": ["PHYS 172", "ASTR 230"],
+      "category": "Astronomy Core and Electives",
+      "elective": true,
+      "description": "Introduces solar structure, magnetic activity, sunspots, flares, coronal mass ejections, the solar wind, heliophysics missions, magnetospheric response, and space weather impacts on technology."
+    },
+    {
+      "courseNumber": "ASTR 410",
+      "subject": "ASTR",
+      "level": 400,
+      "title": "Galactic Astronomy",
+      "credits": 3,
+      "prerequisites": "ASTR 330; PHYS 331",
+      "prerequisiteCourses": ["ASTR 330", "PHYS 331"],
+      "category": "Astronomy Core and Electives",
+      "elective": false,
+      "description": "Studies the Milky Way as a galaxy, including stellar populations, kinematics, rotation curves, spiral structure, chemical evolution, dark matter, the Galactic center, and comparisons with nearby galaxies."
+    },
+    {
+      "courseNumber": "ASTR 420",
+      "subject": "ASTR",
+      "level": 400,
+      "title": "Cosmology",
+      "credits": 3,
+      "prerequisites": "ASTR 310; MATH 255; PHYS 271",
+      "prerequisiteCourses": ["ASTR 310", "MATH 255", "PHYS 271"],
+      "category": "Astronomy Core and Electives",
+      "elective": false,
+      "description": "Introduces relativistic cosmology at an undergraduate level, including expansion, redshift, distance measures, the cosmic microwave background, nucleosynthesis, structure formation, dark matter, dark energy, and observational tests."
+    },
+    {
+      "courseNumber": "ASTR 430",
+      "subject": "ASTR",
+      "level": 400,
+      "title": "Research Methods in Astronomy",
+      "credits": 3,
+      "prerequisites": "ASTR 210; STAT 220; junior or senior standing",
+      "prerequisiteCourses": ["ASTR 210", "STAT 220"],
+      "category": "Astronomy Core and Electives",
+      "elective": false,
+      "description": "Prepares students for independent research through literature review, proposal writing, reproducible analysis, data archives, observational planning, ethical conduct, scientific visualization, and conference-style communication."
+    },
+    {
+      "courseNumber": "ASTR 450",
+      "subject": "ASTR",
+      "level": 400,
+      "title": "Senior Capstone in Astronomy",
+      "credits": 4,
+      "prerequisites": "ASTR 430; senior standing",
+      "prerequisiteCourses": ["ASTR 430"],
+      "category": "Astronomy Core and Electives",
+      "elective": false,
+      "description": "Students complete an original research, instrumentation, data analysis, education, or mission-design project under faculty supervision and present written, oral, and poster-format results."
+    },
+    {
+      "courseNumber": "ASTR 460",
+      "subject": "ASTR",
+      "level": 400,
+      "title": "Seminar in Current Astrophysics",
+      "credits": 2,
+      "prerequisites": "Senior standing or permission of instructor",
+      "prerequisiteCourses": [],
+      "category": "Astronomy Core and Electives",
+      "elective": false,
+      "description": "A reading and discussion seminar on recent literature, major survey results, mission discoveries, open problems, and professional pathways in astronomy and astrophysics."
+    },
+    {
+      "courseNumber": "ASTR 470",
+      "subject": "ASTR",
+      "level": 400,
+      "title": "High-Energy Astrophysics",
+      "credits": 3,
+      "prerequisites": "ASTR 330; PHYS 341 recommended",
+      "prerequisiteCourses": ["ASTR 330", "PHYS 341"],
+      "category": "Astronomy Core and Electives",
+      "elective": true,
+      "description": "Examines compact objects, accretion disks, supernova remnants, pulsars, black holes, active galactic nuclei, cosmic rays, X-ray and gamma-ray instrumentation, and high-energy transient phenomena."
+    },
+    {
+      "courseNumber": "ASTR 472",
+      "subject": "ASTR",
+      "level": 400,
+      "title": "Radio Astronomy",
+      "credits": 3,
+      "prerequisites": "ASTR 340; PHYS 341 recommended",
+      "prerequisiteCourses": ["ASTR 340", "PHYS 341"],
+      "category": "Astronomy Core and Electives",
+      "elective": true,
+      "description": "Covers radio emission mechanisms, antennas, receivers, interferometry, aperture synthesis, calibration, spectral line observations, pulsars, neutral hydrogen mapping, and radio survey analysis."
+    },
+    {
+      "courseNumber": "ASTR 474",
+      "subject": "ASTR",
+      "level": 400,
+      "title": "Computational Astrophysics",
+      "credits": 3,
+      "prerequisites": "COMP 260; ASTR 310; MATH 255",
+      "prerequisiteCourses": ["COMP 260", "ASTR 310", "MATH 255"],
+      "category": "Astronomy Core and Electives",
+      "elective": true,
+      "description": "Applies numerical methods to astronomical problems including N-body integration, hydrodynamics concepts, radiative transfer approximations, Monte Carlo methods, parameter estimation, and reproducible simulation workflows."
+    },
+    {
+      "courseNumber": "ASTR 476",
+      "subject": "ASTR",
+      "level": 400,
+      "title": "Observational Cosmology",
+      "credits": 3,
+      "prerequisites": "ASTR 420 or concurrent enrollment",
+      "prerequisiteCourses": ["ASTR 420"],
+      "category": "Astronomy Core and Electives",
+      "elective": true,
+      "description": "Focuses on cosmological measurements from galaxy surveys, supernovae, baryon acoustic oscillations, weak lensing, the cosmic microwave background, survey systematics, and inference of cosmological parameters."
+    },
+    {
+      "courseNumber": "ASTR 478",
+      "subject": "ASTR",
+      "level": 400,
+      "title": "Space Mission Design",
+      "credits": 3,
+      "prerequisites": "ASTR 340; PHYS 331 recommended",
+      "prerequisiteCourses": ["ASTR 340", "PHYS 331"],
+      "category": "Astronomy Core and Electives",
+      "elective": true,
+      "description": "Introduces mission concepts, payload selection, orbital constraints, spacecraft subsystems, operations planning, risk, cost, launch environments, and science traceability matrices for astronomy and planetary missions."
+    },
+    {
+      "courseNumber": "ASTR 480",
+      "subject": "ASTR",
+      "level": 400,
+      "title": "Independent Research in Astronomy",
+      "credits": "1-3",
+      "prerequisites": "Permission of instructor",
+      "prerequisiteCourses": [],
+      "category": "Astronomy Core and Electives",
+      "elective": true,
+      "repeatable": true,
+      "description": "Faculty-supervised independent research in observational astronomy, theory, instrumentation, science communication, or data-intensive astrophysics. May be repeated for credit with different project scope."
+    },
+    {
+      "courseNumber": "MATH 151",
+      "subject": "MATH",
+      "level": 100,
+      "title": "Calculus I",
+      "credits": 4,
+      "prerequisites": "Precalculus placement or equivalent",
+      "prerequisiteCourses": [],
+      "category": "Mathematics, Computing, Statistics, Physics, and Chemistry",
+      "elective": false,
+      "description": "Limits, derivatives, applications of differentiation, optimization, related rates, antiderivatives, the definite integral, and mathematical modeling for physical science contexts."
+    },
+    {
+      "courseNumber": "MATH 152",
+      "subject": "MATH",
+      "level": 100,
+      "title": "Calculus II",
+      "credits": 4,
+      "prerequisites": "MATH 151",
+      "prerequisiteCourses": ["MATH 151"],
+      "category": "Mathematics, Computing, Statistics, Physics, and Chemistry",
+      "elective": false,
+      "description": "Integration techniques, applications of integration, sequences and series, Taylor series, polar coordinates, parametric curves, and introductory differential equations."
+    },
+    {
+      "courseNumber": "MATH 251",
+      "subject": "MATH",
+      "level": 200,
+      "title": "Calculus III",
+      "credits": 4,
+      "prerequisites": "MATH 152",
+      "prerequisiteCourses": ["MATH 152"],
+      "category": "Mathematics, Computing, Statistics, Physics, and Chemistry",
+      "elective": false,
+      "description": "Vectors, multivariable functions, partial derivatives, multiple integrals, vector fields, line and surface integrals, and the theorems of Green, Gauss, and Stokes."
+    },
+    {
+      "courseNumber": "MATH 255",
+      "subject": "MATH",
+      "level": 200,
+      "title": "Differential Equations and Linear Algebra",
+      "credits": 4,
+      "prerequisites": "MATH 152",
+      "prerequisiteCourses": ["MATH 152"],
+      "category": "Mathematics, Computing, Statistics, Physics, and Chemistry",
+      "elective": false,
+      "description": "First and second order differential equations, systems of equations, matrices, eigenvalues, eigenvectors, numerical methods, Fourier ideas, and applications to oscillations, waves, and orbital models."
+    },
+    {
+      "courseNumber": "COMP 110",
+      "subject": "COMP",
+      "level": 100,
+      "title": "Scientific Computing for Physical Sciences",
+      "credits": 3,
+      "prerequisites": "None",
+      "prerequisiteCourses": [],
+      "category": "Mathematics, Computing, Statistics, Physics, and Chemistry",
+      "elective": false,
+      "description": "Introduces programming for scientific work using variables, control flow, functions, arrays, plotting, file input and output, notebooks, version control basics, and simple astronomical data examples."
+    },
+    {
+      "courseNumber": "COMP 260",
+      "subject": "COMP",
+      "level": 200,
+      "title": "Scientific Programming and Numerical Methods",
+      "credits": 3,
+      "prerequisites": "COMP 110; MATH 152",
+      "prerequisiteCourses": ["COMP 110", "MATH 152"],
+      "category": "Mathematics, Computing, Statistics, Physics, and Chemistry",
+      "elective": false,
+      "description": "Covers numerical precision, interpolation, integration, root finding, differential equation solvers, optimization, linear algebra routines, data pipelines, and reproducible computational projects."
+    },
+    {
+      "courseNumber": "STAT 220",
+      "subject": "STAT",
+      "level": 200,
+      "title": "Statistics for Physical Scientists",
+      "credits": 3,
+      "prerequisites": "MATH 151",
+      "prerequisiteCourses": ["MATH 151"],
+      "category": "Mathematics, Computing, Statistics, Physics, and Chemistry",
+      "elective": false,
+      "description": "Probability, distributions, uncertainty propagation, confidence intervals, hypothesis testing, regression, Bayesian reasoning, model comparison, and statistics for experimental and observational measurements."
+    },
+    {
+      "courseNumber": "PHYS 171",
+      "subject": "PHYS",
+      "level": 100,
+      "title": "University Physics I: Mechanics",
+      "credits": 4,
+      "prerequisites": "MATH 151 or concurrent enrollment",
+      "prerequisiteCourses": ["MATH 151"],
+      "category": "Mathematics, Computing, Statistics, Physics, and Chemistry",
+      "elective": false,
+      "description": "Calculus-based mechanics including kinematics, Newton's laws, energy, momentum, rotation, gravitation, oscillations, fluids, and laboratory measurement techniques."
+    },
+    {
+      "courseNumber": "PHYS 172",
+      "subject": "PHYS",
+      "level": 100,
+      "title": "University Physics II: Electricity, Magnetism, and Waves",
+      "credits": 4,
+      "prerequisites": "PHYS 171; MATH 152 or concurrent enrollment",
+      "prerequisiteCourses": ["PHYS 171", "MATH 152"],
+      "category": "Mathematics, Computing, Statistics, Physics, and Chemistry",
+      "elective": false,
+      "description": "Electric fields, potentials, circuits, magnetic fields, induction, Maxwell's equations in conceptual form, electromagnetic waves, geometric optics, physical optics, and laboratory applications."
+    },
+    {
+      "courseNumber": "PHYS 271",
+      "subject": "PHYS",
+      "level": 200,
+      "title": "Modern Physics",
+      "credits": 4,
+      "prerequisites": "PHYS 172; MATH 152",
+      "prerequisiteCourses": ["PHYS 172", "MATH 152"],
+      "category": "Mathematics, Computing, Statistics, Physics, and Chemistry",
+      "elective": false,
+      "description": "Special relativity, early quantum theory, wave-particle duality, Schroedinger equation concepts, atoms, molecules, nuclei, particles, lasers, and connections to astrophysical spectra and compact objects."
+    },
+    {
+      "courseNumber": "PHYS 275",
+      "subject": "PHYS",
+      "level": 200,
+      "title": "Experimental Physics Laboratory",
+      "credits": 3,
+      "prerequisites": "PHYS 172 or concurrent enrollment",
+      "prerequisiteCourses": ["PHYS 172"],
+      "category": "Mathematics, Computing, Statistics, Physics, and Chemistry",
+      "elective": false,
+      "description": "Experimental design, measurement uncertainty, sensors, electronics, data acquisition, fitting, technical writing, and laboratory projects in mechanics, optics, electromagnetism, and modern physics."
+    },
+    {
+      "courseNumber": "PHYS 331",
+      "subject": "PHYS",
+      "level": 300,
+      "title": "Classical Mechanics",
+      "credits": 4,
+      "prerequisites": "PHYS 171; MATH 255 or concurrent enrollment",
+      "prerequisiteCourses": ["PHYS 171", "MATH 255"],
+      "category": "Mathematics, Computing, Statistics, Physics, and Chemistry",
+      "elective": false,
+      "description": "Newtonian dynamics, central forces, oscillations, non-inertial frames, Lagrangian mechanics, coupled systems, rigid bodies, chaos, and applications to orbital and celestial dynamics."
+    },
+    {
+      "courseNumber": "PHYS 341",
+      "subject": "PHYS",
+      "level": 300,
+      "title": "Electromagnetic Theory",
+      "credits": 4,
+      "prerequisites": "PHYS 172; MATH 251",
+      "prerequisiteCourses": ["PHYS 172", "MATH 251"],
+      "category": "Mathematics, Computing, Statistics, Physics, and Chemistry",
+      "elective": false,
+      "description": "Electrostatics, magnetostatics, boundary value problems, Maxwell's equations, electromagnetic waves, radiation, waveguides, and physical foundations of astronomical instrumentation."
+    },
+    {
+      "courseNumber": "PHYS 361",
+      "subject": "PHYS",
+      "level": 300,
+      "title": "Thermodynamics and Statistical Physics",
+      "credits": 3,
+      "prerequisites": "PHYS 271; MATH 255",
+      "prerequisiteCourses": ["PHYS 271", "MATH 255"],
+      "category": "Mathematics, Computing, Statistics, Physics, and Chemistry",
+      "elective": true,
+      "description": "Thermodynamic laws, entropy, kinetic theory, ensembles, partition functions, blackbody radiation, phase transitions, and statistical foundations used in stellar and planetary interiors."
+    },
+    {
+      "courseNumber": "CHEM 101",
+      "subject": "CHEM",
+      "level": 100,
+      "title": "General Chemistry I",
+      "credits": 4,
+      "prerequisites": "High school chemistry or placement",
+      "prerequisiteCourses": [],
+      "category": "Mathematics, Computing, Statistics, Physics, and Chemistry",
+      "elective": false,
+      "description": "Atomic structure, stoichiometry, bonding, periodic trends, thermochemistry, gases, molecular geometry, and laboratory methods for quantitative chemical analysis."
+    },
+    {
+      "courseNumber": "CHEM 102",
+      "subject": "CHEM",
+      "level": 100,
+      "title": "General Chemistry II",
+      "credits": 4,
+      "prerequisites": "CHEM 101",
+      "prerequisiteCourses": ["CHEM 101"],
+      "category": "Mathematics, Computing, Statistics, Physics, and Chemistry",
+      "elective": false,
+      "description": "Chemical kinetics, equilibrium, acids and bases, thermodynamics, electrochemistry, solubility, coordination chemistry, and laboratory techniques relevant to planetary and astrochemical systems."
+    },
+    {
+      "courseNumber": "CHEM 230",
+      "subject": "CHEM",
+      "level": 200,
+      "title": "Organic and Prebiotic Chemistry",
+      "credits": 3,
+      "prerequisites": "CHEM 102",
+      "prerequisiteCourses": ["CHEM 102"],
+      "category": "Mathematics, Computing, Statistics, Physics, and Chemistry",
+      "elective": true,
+      "description": "Introduces organic structure, functional groups, reaction mechanisms, spectroscopy, carbon chemistry in planetary environments, prebiotic pathways, and chemical constraints on habitability."
+    },
+    {
+      "courseNumber": "WRIT 101",
+      "subject": "WRIT",
+      "level": 100,
+      "title": "Academic Writing and Research",
+      "credits": 3,
+      "prerequisites": "None",
+      "prerequisiteCourses": [],
+      "category": "General Education and Free Electives",
+      "elective": false,
+      "description": "Develops academic reading, argument, research, revision, citation, and evidence-based writing skills with assignments that may be adapted to science and society topics."
+    },
+    {
+      "courseNumber": "GE 101",
+      "subject": "GE",
+      "level": 100,
+      "title": "Humanities or Social Science Elective",
+      "credits": 3,
+      "prerequisites": "None",
+      "prerequisiteCourses": [],
+      "category": "General Education and Free Electives",
+      "elective": true,
+      "description": "Introduces interpretive, historical, social, or cultural inquiry outside the natural sciences. Departments may approve astronomy-relevant options such as history of science or environmental studies."
+    },
+    {
+      "courseNumber": "GE 201",
+      "subject": "GE",
+      "level": 200,
+      "title": "Arts, Culture, or Language Elective",
+      "credits": 3,
+      "prerequisites": "Varies by selected course",
+      "prerequisiteCourses": [],
+      "category": "General Education and Free Electives",
+      "elective": true,
+      "description": "Broadens degree study through creative practice, cultural analysis, language learning, or comparative traditions. Students are encouraged to choose courses supporting communication across communities."
+    },
+    {
+      "courseNumber": "GE 202",
+      "subject": "GE",
+      "level": 200,
+      "title": "Ethics, Society, and Science Elective",
+      "credits": 3,
+      "prerequisites": "None unless specified by selected course",
+      "prerequisiteCourses": [],
+      "category": "General Education and Free Electives",
+      "elective": true,
+      "description": "Examines ethical reasoning and societal dimensions of scientific work, including technology, public policy, environmental responsibility, data ethics, or Indigenous and community relationships to sky knowledge."
+    },
+    {
+      "courseNumber": "GE 301",
+      "subject": "GE",
+      "level": 300,
+      "title": "Global Perspectives Elective",
+      "credits": 3,
+      "prerequisites": "Sophomore standing or equivalent",
+      "prerequisiteCourses": [],
+      "category": "General Education and Free Electives",
+      "elective": true,
+      "description": "Develops global and comparative understanding through history, geography, politics, culture, or environmental change, with recommended options in climate, space policy, or global science institutions."
+    },
+    {
+      "courseNumber": "GE 302",
+      "subject": "GE",
+      "level": 300,
+      "title": "Communication Intensive Elective",
+      "credits": 3,
+      "prerequisites": "WRIT 101",
+      "prerequisiteCourses": ["WRIT 101"],
+      "category": "General Education and Free Electives",
+      "elective": true,
+      "description": "Strengthens oral, written, visual, or digital communication. Recommended options include science communication, technical writing, public speaking, journalism, or data storytelling."
+    },
+    {
+      "courseNumber": "GE 401",
+      "subject": "GE",
+      "level": 400,
+      "title": "Advanced Writing, Policy, or Society Elective",
+      "credits": 3,
+      "prerequisites": "Junior standing or equivalent",
+      "prerequisiteCourses": [],
+      "category": "General Education and Free Electives",
+      "elective": true,
+      "description": "Upper-level integrative elective connecting scientific knowledge with policy, education, ethics, environment, communication, or public engagement. Suitable for students preparing capstone outreach or policy projects."
+    },
+    {
+      "courseNumber": "FREE 401",
+      "subject": "FREE",
+      "level": 400,
+      "title": "Free Elective",
+      "credits": 3,
+      "prerequisites": "Varies by selected course",
+      "prerequisiteCourses": [],
+      "category": "General Education and Free Electives",
+      "elective": true,
+      "description": "Open elective selected in consultation with an advisor. Recommended options include additional mathematics, computer science, geoscience, engineering, education, statistics, or approved astronomy electives."
+    },
+    {
+      "courseNumber": "FREE 402",
+      "subject": "FREE",
+      "level": 400,
+      "title": "Free Elective",
+      "credits": 3,
+      "prerequisites": "Varies by selected course",
+      "prerequisiteCourses": [],
+      "category": "General Education and Free Electives",
+      "elective": true,
+      "description": "Open elective supporting student goals in graduate study, teaching, public communication, data science, instrumentation, planetary science, or interdisciplinary science."
+    }
+  ],
+  "advisingNotes": [
+    "Students planning graduate study in astrophysics should strongly consider PHYS 361, ASTR 474, and additional mathematics or computer science electives.",
+    "Students interested in planetary science should consider CHEM 230, ASTR 350, ASTR 478, geoscience electives, and summer field or mission-data projects.",
+    "Students interested in observational astronomy should consider ASTR 472, ASTR 476, additional statistics, and repeated ASTR 480 research credits where permitted.",
+    "The course sequence assumes calculus readiness in the first semester. Students beginning in precalculus would need a modified five-year or summer-supported plan."
+  ],
+  "reviewStatus": {
+    "status": "Draft prepared for curriculum review",
+    "institutionalScope": "This document is not tied to a specific institution and can be adapted to local credit, general education, laboratory, and accreditation requirements."
+  }
+}

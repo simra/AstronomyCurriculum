@@ -23,6 +23,8 @@ If required information is missing, make conservative assumptions and label them
 
 Use the shared standards in `templates/course-materials/STYLE_GUIDE.md` and start from `templates/course-materials/syllabus.template.html` when producing an HTML syllabus. Track recommended resources, visuals, datasets, and readings in `templates/course-materials/reference-log.template.md` or a course-specific copy of it.
 
+Write course-specific outputs under `materials/<COURSECODE>/`, using the repository convention from `course-package-orchestrator`. The syllabus goes in `syllabus.html`, the lecture/lab calendar goes in `schedule.html` when separate from the syllabus, and source/data dependencies are recorded in `course-manifest.json`, `src/`, and `data/`.
+
 ## Output Artifacts
 
 Create a complete syllabus package, preferably in HTML when a durable artifact is requested:
