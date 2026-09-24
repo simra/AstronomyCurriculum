@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{COURSE_CODE}} Problem Set {{PROBLEM_SET_NUMBER}}</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    :root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; }
+    body { margin:0; font-family:Georgia, "Times New Roman", serif; color:var(--ink); background:var(--paper); line-height:1.6; }
+    main { max-width:960px; margin:0 auto; padding:40px 24px 72px; }
+    h1 { color:var(--navy); font-size:clamp(2rem,4vw,3rem); }
+    h2 { margin-top:34px; color:var(--navy); border-bottom:1px solid var(--line); padding-bottom:6px; }
+    .meta,.instructions { background:var(--panel); border-left:5px solid var(--teal); padding:14px 18px; margin:18px 0; }
+    .problem { background:var(--panel); border:1px solid var(--line); padding:18px; margin:18px 0; }
+    .points { color:var(--gold); font-weight:700; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>{{COURSE_CODE}} Problem Set {{PROBLEM_SET_NUMBER}}: {{TITLE}}</h1>
+    <div class="meta">
+      <p><strong>Lecture:</strong> {{LECTURE_NUMBER_AND_TITLE}}</p>
+      <p><strong>Due:</strong> {{DUE_DATE_PLACEHOLDER}}</p>
+      <p><strong>Objectives:</strong> {{OBJECTIVES}}</p>
+    </div>
+
+    <section class="instructions">
+      <h2>Instructions</h2>
+      <p>{{SUBMISSION_UNITS_COLLABORATION_CITATION_CODE_AND_DATA_INSTRUCTIONS}}</p>
+      <p><strong>Revision policy:</strong> {{RESUBMISSION_POLICY}}</p>
+    </section>
+
+    <section>
+      <h2>Problems</h2>
+      <article class="problem">
+        <h3>Problem {{PROBLEM_NUMBER}} <span class="points">{{POINTS}} points</span></h3>
+        <p>{{PROBLEM_PROMPT}}</p>
+        <p><strong>Deliverables:</strong> {{DELIVERABLES}}</p>
+      </article>
+    </section>
+
+    <section>
+      <h2>References and Data Sources</h2>
+      <ul>
+        <li>{{VERIFIED_REFERENCE_OR_DATA_SOURCE}}</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

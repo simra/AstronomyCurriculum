@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{COURSE_CODE}} Lecture {{LECTURE_NUMBER}} Notes</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    :root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; }
+    body { margin:0; font-family:Georgia, "Times New Roman", serif; color:var(--ink); background:var(--paper); line-height:1.65; }
+    main { max-width:920px; margin:0 auto; padding:40px 24px 72px; }
+    header { border-bottom:3px solid var(--teal); margin-bottom:28px; }
+    h1 { color:var(--navy); font-size:clamp(2rem,4vw,3.2rem); margin-bottom:8px; }
+    h2 { margin-top:36px; color:var(--navy); border-bottom:1px solid var(--line); padding-bottom:6px; }
+    h3 { color:var(--teal); margin-top:28px; }
+    .meta { color:var(--muted); }
+    .box { background:var(--panel); border-left:5px solid var(--teal); padding:14px 18px; margin:18px 0; }
+    figure { margin:24px 0; }
+    img,svg,canvas { max-width:100%; border:1px solid var(--line); background:#fff; }
+    figcaption { color:var(--muted); font-size:.95rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="meta">{{COURSE_CODE}} · Lecture {{LECTURE_NUMBER}} · {{WEEK_OR_DATE}}</p>
+      <h1>{{LECTURE_TITLE}}</h1>
+      <p>{{LECTURE_OVERVIEW}}</p>
+    </header>
+
+    <section>
+      <h2>Learning Objectives</h2>
+      <ol>
+        <li>{{OBJECTIVE_1}}</li>
+        <li>{{OBJECTIVE_2}}</li>
+        <li>{{OBJECTIVE_3}}</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Connection to the Course</h2>
+      <p>{{PRIOR_AND_NEXT_CONNECTIONS}}</p>
+    </section>
+
+    <section>
+      <h2>Core Concepts</h2>
+      <h3>{{CONCEPT_TITLE}}</h3>
+      <p>{{CONCEPT_EXPLANATION}}</p>
+      <div class="box">\[ {{KEY_EQUATION}} \]</div>
+      <p>{{VARIABLE_DEFINITIONS_ASSUMPTIONS_AND_UNITS}}</p>
+    </section>
+
+    <section>
+      <h2>Worked Example</h2>
+      <p>{{PROBLEM_STATEMENT}}</p>
+      <p>{{STEP_BY_STEP_SOLUTION_WITH_UNITS}}</p>
+    </section>
+
+    <section>
+      <h2>Observational or Computational Connection</h2>
+      <p>{{DATA_MISSION_LAB_OR_SIMULATION_CONTEXT}}</p>
+    </section>
+
+    <section>
+      <h2>Common Misconceptions</h2>
+      <ul>
+        <li>{{MISCONCEPTION_AND_CORRECTION}}</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Study Questions</h2>
+      <ol>
+        <li>{{STUDY_QUESTION}}</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>References</h2>
+      <ul>
+        <li>{{VERIFIED_REFERENCE}}</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

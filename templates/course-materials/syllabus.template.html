@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{COURSE_CODE}} {{COURSE_TITLE}} Syllabus</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    :root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; }
+    body { margin:0; font-family: Georgia, "Times New Roman", serif; color:var(--ink); background:var(--paper); line-height:1.55; }
+    header { padding:40px 24px 28px; background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; }
+    main { max-width:1080px; margin:0 auto; padding:32px 24px 64px; }
+    h1,h2,h3 { line-height:1.15; }
+    h1 { max-width:1080px; margin:0 auto 8px; font-size:clamp(2rem,4vw,3.2rem); }
+    header p { max-width:1080px; margin:0 auto; opacity:.94; }
+    h2 { margin-top:36px; padding-bottom:8px; border-bottom:2px solid var(--line); color:var(--navy); }
+    table { width:100%; border-collapse:collapse; margin:16px 0 24px; background:var(--panel); }
+    th,td { border:1px solid var(--line); padding:10px 12px; text-align:left; vertical-align:top; }
+    th { background:var(--teal-soft); }
+    .notice { border-left:5px solid var(--teal); background:var(--panel); padding:14px 18px; margin:18px 0; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>{{COURSE_CODE}} {{COURSE_TITLE}}</h1>
+    <p>{{TERM}} · {{CREDITS}} credits · {{MEETING_PATTERN}}</p>
+  </header>
+  <main>
+    <section>
+      <h2>Course Information</h2>
+      <p><strong>Prerequisites:</strong> {{PREREQUISITES}}</p>
+      <p><strong>Catalog Description:</strong> {{CATALOG_DESCRIPTION}}</p>
+      <p><strong>Instructor:</strong> {{INSTRUCTOR_PLACEHOLDER}}</p>
+    </section>
+
+    <section>
+      <h2>Learning Outcomes</h2>
+      <ol>
+        <li>{{OUTCOME_1}}</li>
+        <li>{{OUTCOME_2}}</li>
+        <li>{{OUTCOME_3}}</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Resources</h2>
+      <p>{{REQUIRED_AND_RECOMMENDED_RESOURCES_WITH_VERIFIED_REFERENCES}}</p>
+    </section>
+
+    <section>
+      <h2>Assessment</h2>
+      <table>
+        <thead><tr><th>Component</th><th>Weight</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>{{ASSESSMENT_COMPONENT}}</td><td>{{WEIGHT}}</td><td>{{ASSESSMENT_NOTES}}</td></tr>
+        </tbody>
+      </table>
+      <div class="notice"><strong>Revision policy:</strong> {{RESUBMISSION_POLICY_HIGH_STANDARDS}}</div>
+    </section>
+
+    <section>
+      <h2>Lecture and Lab Schedule</h2>
+      <table>
+        <thead><tr><th>Week</th><th>Lecture Topics</th><th>Lab/Activity</th><th>Readings</th><th>Assessments</th></tr></thead>
+        <tbody>
+          <tr><td>{{WEEK}}</td><td>{{LECTURE_TOPICS}}</td><td>{{LAB_OR_ACTIVITY}}</td><td>{{READINGS}}</td><td>{{DUE_ITEMS}}</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Course Policies</h2>
+      <p>{{COLLABORATION_INTEGRITY_ACCESSIBILITY_SAFETY_POLICIES}}</p>
+    </section>
+  </main>
+</body>
+</html>

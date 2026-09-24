@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Undergraduate Astronomy Curriculum</title>
+  <style>
+    :root {
+      --ink: #17202a;
+      --muted: #5b6773;
+      --line: #d9e0e7;
+      --paper: #fbfcfd;
+      --panel: #ffffff;
+      --accent: #0f6b78;
+      --accent-soft: #e5f4f6;
+      --gold: #b87911;
+    }
+
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.55;
+    }
+
+    header {
+      padding: 48px 24px 32px;
+      background: linear-gradient(135deg, #102a43 0%, #0f6b78 72%, #b87911 100%);
+      color: white;
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+    }
+
+    h1, h2, h3 {
+      line-height: 1.15;
+    }
+
+    h1 {
+      max-width: 980px;
+      margin: 0 auto 12px;
+      font-size: clamp(2rem, 4vw, 3.8rem);
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    header p {
+      max-width: 980px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      opacity: 0.94;
+    }
+
+    h2 {
+      margin-top: 44px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--line);
+      color: #102a43;
+    }
+
+    h3 {
+      margin: 28px 0 10px;
+      color: var(--accent);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 28px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+    }
+
+    th, td {
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      background: var(--accent-soft);
+      font-weight: 700;
+    }
+
+    .note, .summary {
+      background: var(--panel);
+      border-left: 5px solid var(--accent);
+      padding: 14px 18px;
+      margin: 18px 0;
+      box-shadow: 0 1px 4px rgba(16, 42, 67, 0.08);
+    }
+
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+    }
+
+    .course {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 16px;
+      box-shadow: 0 1px 3px rgba(16, 42, 67, 0.07);
+    }
+
+    .course h4 {
+      margin: 0 0 8px;
+      color: #102a43;
+      font-size: 1.05rem;
+    }
+
+    .meta {
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 7px;
+      margin-left: 6px;
+      border-radius: 999px;
+      background: #fff3d8;
+      color: #714900;
+      font-size: 0.78rem;
+      font-family: Arial, sans-serif;
+      vertical-align: 1px;
+    }
+
+    .credits {
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    footer {
+      margin-top: 56px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Bachelor of Science in Astronomy: Four-Year Curriculum Draft</h1>
+    <p>A review-ready undergraduate astronomy curriculum that begins with mathematics, physics, chemistry, computing, and sky-observation fundamentals, then advances through astrophysics, instrumentation, planetary science, cosmology, electives, and original research.</p>
+  </header>
+
+  <main>
+    <section aria-labelledby="overview">
+      <h2 id="overview">Program Overview</h2>
+      <div class="summary">
+        <p><strong>Degree target:</strong> 120 credits over eight semesters. The curriculum below includes 86 credits of astronomy, mathematics, physics, chemistry, computing, and research preparation; 22 credits of general education; and 12 credits of free or subject-area electives.</p>
+        <p><strong>Program arc:</strong> Years 1 and 2 establish calculus, mechanics, electromagnetism, chemistry, computation, and observational practice. Years 3 and 4 move into astrophysics, stellar and galactic astronomy, planetary science, cosmology, instrumentation, data analysis, seminars, electives, and capstone research.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="degree-plan">
+      <h2 id="degree-plan">Four-Year Course List</h2>
+
+      <h3>Year 1: Foundations in Science, Mathematics, and the Sky</h3>
+      <table>
+        <thead>
+          <tr><th>Semester</th><th>Course</th><th>Credits</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Fall</td><td>ASTR 101 Introduction to Astronomy with Observing Lab</td><td>4</td></tr>
+          <tr><td>Fall</td><td>MATH 151 Calculus I</td><td>4</td></tr>
+          <tr><td>Fall</td><td>CHEM 101 General Chemistry I</td><td>4</td></tr>
+          <tr><td>Fall</td><td>COMP 110 Scientific Computing for Physical Sciences</td><td>3</td></tr>
+          <tr><td>Fall</td><td>WRIT 101 Academic Writing and Research</td><td>3</td></tr>
+          <tr><td>Spring</td><td>ASTR 120 The Solar System</td><td>3</td></tr>
+          <tr><td>Spring</td><td>MATH 152 Calculus II</td><td>4</td></tr>
+          <tr><td>Spring</td><td>PHYS 171 University Physics I: Mechanics</td><td>4</td></tr>
+          <tr><td>Spring</td><td>CHEM 102 General Chemistry II</td><td>4</td></tr>
+          <tr><td>Spring</td><td>GE 101 Humanities or Social Science Elective</td><td>3</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Year 2: Core Physical Methods</h3>
+      <table>
+        <thead>
+          <tr><th>Semester</th><th>Course</th><th>Credits</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Fall</td><td>ASTR 210 Observational Astronomy and Data Reduction</td><td>4</td></tr>
+          <tr><td>Fall</td><td>MATH 251 Calculus III</td><td>4</td></tr>
+          <tr><td>Fall</td><td>PHYS 172 University Physics II: Electricity, Magnetism, and Waves</td><td>4</td></tr>
+          <tr><td>Fall</td><td>STAT 220 Statistics for Physical Scientists</td><td>3</td></tr>
+          <tr><td>Fall</td><td>GE 201 Arts, Culture, or Language Elective</td><td>3</td></tr>
+          <tr><td>Spring</td><td>ASTR 230 Stars, Galaxies, and the Universe</td><td>3</td></tr>
+          <tr><td>Spring</td><td>MATH 255 Differential Equations and Linear Algebra</td><td>4</td></tr>
+          <tr><td>Spring</td><td>PHYS 271 Modern Physics</td><td>4</td></tr>
+          <tr><td>Spring</td><td>PHYS 275 Experimental Physics Laboratory</td><td>3</td></tr>
+          <tr><td>Spring</td><td>GE 202 Ethics, Society, and Science Elective</td><td>3</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Year 3: Astrophysics Core and Subject Electives</h3>
+      <table>
+        <thead>
+          <tr><th>Semester</th><th>Course</th><th>Credits</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Fall</td><td>ASTR 310 Astrophysics I: Radiation, Matter, and Orbits</td><td>4</td></tr>
+          <tr><td>Fall</td><td>ASTR 320 Planetary Science</td><td>3</td></tr>
+          <tr><td>Fall</td><td>PHYS 331 Classical Mechanics</td><td>4</td></tr>
+          <tr><td>Fall</td><td>COMP 260 Scientific Programming and Numerical Methods</td><td>3</td></tr>
+          <tr><td>Fall</td><td>GE 301 Global Perspectives Elective</td><td>3</td></tr>
+          <tr><td>Spring</td><td>ASTR 330 Astrophysics II: Stellar Structure and Evolution</td><td>4</td></tr>
+          <tr><td>Spring</td><td>ASTR 340 Astronomical Instrumentation</td><td>3</td></tr>
+          <tr><td>Spring</td><td>PHYS 341 Electromagnetic Theory</td><td>4</td></tr>
+          <tr><td>Spring</td><td>ASTR 3XX Subject Elective</td><td>3</td></tr>
+          <tr><td>Spring</td><td>GE 302 Communication Intensive Elective</td><td>3</td></tr>
+        </tbody>
+      </table>
+      <div class="note">
+        <p><strong>Recommended Year 3 subject electives:</strong> ASTR 350 Exoplanets and Astrobiology; ASTR 360 The Interstellar Medium; ASTR 370 Solar Physics and Space Weather; PHYS 361 Thermodynamics and Statistical Physics; CHEM 230 Organic and Prebiotic Chemistry.</p>
+      </div>
+
+      <h3>Year 4: Advanced Topics, Research, and Capstone</h3>
+      <table>
+        <thead>
+          <tr><th>Semester</th><th>Course</th><th>Credits</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Fall</td><td>ASTR 410 Galactic Astronomy</td><td>3</td></tr>
+          <tr><td>Fall</td><td>ASTR 420 Cosmology</td><td>3</td></tr>
+          <tr><td>Fall</td><td>ASTR 430 Research Methods in Astronomy</td><td>3</td></tr>
+          <tr><td>Fall</td><td>ASTR 4XX Advanced Astronomy Elective</td><td>3</td></tr>
+          <tr><td>Fall</td><td>FREE 401 Free Elective</td><td>3</td></tr>
+          <tr><td>Spring</td><td>ASTR 450 Senior Capstone in Astronomy</td><td>4</td></tr>
+          <tr><td>Spring</td><td>ASTR 460 Seminar in Current Astrophysics</td><td>2</td></tr>
+          <tr><td>Spring</td><td>ASTR 4XX Advanced Astronomy Elective</td><td>3</td></tr>
+          <tr><td>Spring</td><td>FREE 402 Free Elective</td><td>3</td></tr>
+          <tr><td>Spring</td><td>GE 401 Advanced Writing, Policy, or Society Elective</td><td>3</td></tr>
+        </tbody>
+      </table>
+      <div class="note">
+        <p><strong>Recommended Year 4 advanced electives:</strong> ASTR 470 High-Energy Astrophysics; ASTR 472 Radio Astronomy; ASTR 474 Computational Astrophysics; ASTR 476 Observational Cosmology; ASTR 478 Space Mission Design; ASTR 480 Independent Research in Astronomy.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="catalog">
+      <h2 id="catalog">Course Calendar Entries</h2>
+
+      <h3>Astronomy Core and Electives</h3>
+      <div class="course-grid">
+        <article class="course">
+          <h4>ASTR 101 Introduction to Astronomy with Observing Lab</h4>
+          <p class="meta"><span class="credits">4 credits.</span> Prerequisites: None.</p>
+          <p>Introduces the night sky, astronomical scales, gravity, light, telescopes, the solar system, stars, galaxies, and cosmology. Laboratory work develops naked-eye observing, telescope use, sky coordinates, simple image capture, and scientific notebook practice.</p>
+        </article>
+        <article class="course">
+          <h4>ASTR 120 The Solar System</h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: ASTR 101 or permission of instructor.</p>
+          <p>Surveys planetary formation, orbital dynamics, terrestrial planets, giant planets, small bodies, planetary atmospheres, surfaces, interiors, comparative planetology, spacecraft exploration, and habitability in the solar system.</p>
+        </article>
+        <article class="course">
+          <h4>ASTR 210 Observational Astronomy and Data Reduction</h4>
+          <p class="meta"><span class="credits">4 credits.</span> Prerequisites: ASTR 101; MATH 151; COMP 110.</p>
+          <p>Builds practical observing skills in photometry, spectroscopy, astrometry, image calibration, signal-to-noise estimation, and uncertainty reporting. Students reduce CCD data, analyze public survey archives, and prepare a technical observing report.</p>
+        </article>
+        <article class="course">
+          <h4>ASTR 230 Stars, Galaxies, and the Universe</h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: ASTR 101; PHYS 171 or concurrent enrollment.</p>
+          <p>Introduces stellar properties, stellar evolution, the interstellar medium, the Milky Way, galaxy classification, galaxy evolution, large-scale structure, dark matter, dark energy, and the observational foundations of modern cosmology.</p>
+        </article>
+        <article class="course">
+          <h4>ASTR 310 Astrophysics I: Radiation, Matter, and Orbits</h4>
+          <p class="meta"><span class="credits">4 credits.</span> Prerequisites: ASTR 230; MATH 251; PHYS 172.</p>
+          <p>Covers radiative processes, blackbody radiation, spectra, hydrostatic equilibrium, gravitational potentials, two-body motion, tidal effects, virial arguments, and the physical interpretation of astronomical measurements.</p>
+        </article>
+        <article class="course">
+          <h4>ASTR 320 Planetary Science</h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: ASTR 120; CHEM 102; PHYS 172.</p>
+          <p>Examines planetary system formation, geophysics, atmospheres, climate evolution, magnetic fields, impacts, rings, satellites, exoplanet comparisons, and the chemical and physical conditions that shape planetary environments.</p>
+        </article>
+        <article class="course">
+          <h4>ASTR 330 Astrophysics II: Stellar Structure and Evolution</h4>
+          <p class="meta"><span class="credits">4 credits.</span> Prerequisites: ASTR 310; MATH 255; PHYS 271.</p>
+          <p>Develops the physics of stellar interiors, opacity, energy transport, nuclear burning, stellar atmospheres, main sequence evolution, late-stage evolution, compact remnants, supernovae, and nucleosynthesis.</p>
+        </article>
+        <article class="course">
+          <h4>ASTR 340 Astronomical Instrumentation</h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: ASTR 210; PHYS 275.</p>
+          <p>Studies telescope optics, detectors, filters, spectrographs, adaptive optics, calibration systems, observatory operations, space-based instruments, error budgets, and instrument proposal design.</p>
+        </article>
+        <article class="course">
+          <h4>ASTR 350 Exoplanets and Astrobiology <span class="tag">Elective</span></h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: ASTR 320 or ASTR 310.</p>
+          <p>Explores exoplanet detection, demographics, orbital architectures, atmospheres, biosignatures, habitable zone models, extremophiles, prebiotic chemistry, and the scientific limits of life detection.</p>
+        </article>
+        <article class="course">
+          <h4>ASTR 360 The Interstellar Medium <span class="tag">Elective</span></h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: ASTR 310; PHYS 271.</p>
+          <p>Covers gas and dust in galaxies, atomic and molecular clouds, emission and absorption lines, H II regions, star formation, shocks, cosmic rays, magnetic fields, and multiwavelength ISM diagnostics.</p>
+        </article>
+        <article class="course">
+          <h4>ASTR 370 Solar Physics and Space Weather <span class="tag">Elective</span></h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: PHYS 172; ASTR 230.</p>
+          <p>Introduces solar structure, magnetic activity, sunspots, flares, coronal mass ejections, the solar wind, heliophysics missions, magnetospheric response, and space weather impacts on technology.</p>
+        </article>
+        <article class="course">
+          <h4>ASTR 410 Galactic Astronomy</h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: ASTR 330; PHYS 331.</p>
+          <p>Studies the Milky Way as a galaxy, including stellar populations, kinematics, rotation curves, spiral structure, chemical evolution, dark matter, the Galactic center, and comparisons with nearby galaxies.</p>
+        </article>
+        <article class="course">
+          <h4>ASTR 420 Cosmology</h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: ASTR 310; MATH 255; PHYS 271.</p>
+          <p>Introduces relativistic cosmology at an undergraduate level, including expansion, redshift, distance measures, the cosmic microwave background, nucleosynthesis, structure formation, dark matter, dark energy, and observational tests.</p>
+        </article>
+        <article class="course">
+          <h4>ASTR 430 Research Methods in Astronomy</h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: ASTR 210; STAT 220; junior or senior standing.</p>
+          <p>Prepares students for independent research through literature review, proposal writing, reproducible analysis, data archives, observational planning, ethical conduct, scientific visualization, and conference-style communication.</p>
+        </article>
+        <article class="course">
+          <h4>ASTR 450 Senior Capstone in Astronomy</h4>
+          <p class="meta"><span class="credits">4 credits.</span> Prerequisites: ASTR 430; senior standing.</p>
+          <p>Students complete an original research, instrumentation, data analysis, education, or mission-design project under faculty supervision and present written, oral, and poster-format results.</p>
+        </article>
+        <article class="course">
+          <h4>ASTR 460 Seminar in Current Astrophysics</h4>
+          <p class="meta"><span class="credits">2 credits.</span> Prerequisites: Senior standing or permission of instructor.</p>
+          <p>A reading and discussion seminar on recent literature, major survey results, mission discoveries, open problems, and professional pathways in astronomy and astrophysics.</p>
+        </article>
+        <article class="course">
+          <h4>ASTR 470 High-Energy Astrophysics <span class="tag">Elective</span></h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: ASTR 330; PHYS 341 recommended.</p>
+          <p>Examines compact objects, accretion disks, supernova remnants, pulsars, black holes, active galactic nuclei, cosmic rays, X-ray and gamma-ray instrumentation, and high-energy transient phenomena.</p>
+        </article>
+        <article class="course">
+          <h4>ASTR 472 Radio Astronomy <span class="tag">Elective</span></h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: ASTR 340; PHYS 341 recommended.</p>
+          <p>Covers radio emission mechanisms, antennas, receivers, interferometry, aperture synthesis, calibration, spectral line observations, pulsars, neutral hydrogen mapping, and radio survey analysis.</p>
+        </article>
+        <article class="course">
+          <h4>ASTR 474 Computational Astrophysics <span class="tag">Elective</span></h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: COMP 260; ASTR 310; MATH 255.</p>
+          <p>Applies numerical methods to astronomical problems including N-body integration, hydrodynamics concepts, radiative transfer approximations, Monte Carlo methods, parameter estimation, and reproducible simulation workflows.</p>
+        </article>
+        <article class="course">
+          <h4>ASTR 476 Observational Cosmology <span class="tag">Elective</span></h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: ASTR 420 or concurrent enrollment.</p>
+          <p>Focuses on cosmological measurements from galaxy surveys, supernovae, baryon acoustic oscillations, weak lensing, the cosmic microwave background, survey systematics, and inference of cosmological parameters.</p>
+        </article>
+        <article class="course">
+          <h4>ASTR 478 Space Mission Design <span class="tag">Elective</span></h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: ASTR 340; PHYS 331 recommended.</p>
+          <p>Introduces mission concepts, payload selection, orbital constraints, spacecraft subsystems, operations planning, risk, cost, launch environments, and science traceability matrices for astronomy and planetary missions.</p>
+        </article>
+        <article class="course">
+          <h4>ASTR 480 Independent Research in Astronomy <span class="tag">Elective</span></h4>
+          <p class="meta"><span class="credits">1-3 credits.</span> Prerequisites: Permission of instructor.</p>
+          <p>Faculty-supervised independent research in observational astronomy, theory, instrumentation, science communication, or data-intensive astrophysics. May be repeated for credit with different project scope.</p>
+        </article>
+      </div>
+
+      <h3>Mathematics, Computing, Statistics, Physics, and Chemistry</h3>
+      <div class="course-grid">
+        <article class="course">
+          <h4>MATH 151 Calculus I</h4>
+          <p class="meta"><span class="credits">4 credits.</span> Prerequisites: Precalculus placement or equivalent.</p>
+          <p>Limits, derivatives, applications of differentiation, optimization, related rates, antiderivatives, the definite integral, and mathematical modeling for physical science contexts.</p>
+        </article>
+        <article class="course">
+          <h4>MATH 152 Calculus II</h4>
+          <p class="meta"><span class="credits">4 credits.</span> Prerequisites: MATH 151.</p>
+          <p>Integration techniques, applications of integration, sequences and series, Taylor series, polar coordinates, parametric curves, and introductory differential equations.</p>
+        </article>
+        <article class="course">
+          <h4>MATH 251 Calculus III</h4>
+          <p class="meta"><span class="credits">4 credits.</span> Prerequisites: MATH 152.</p>
+          <p>Vectors, multivariable functions, partial derivatives, multiple integrals, vector fields, line and surface integrals, and the theorems of Green, Gauss, and Stokes.</p>
+        </article>
+        <article class="course">
+          <h4>MATH 255 Differential Equations and Linear Algebra</h4>
+          <p class="meta"><span class="credits">4 credits.</span> Prerequisites: MATH 152.</p>
+          <p>First and second order differential equations, systems of equations, matrices, eigenvalues, eigenvectors, numerical methods, Fourier ideas, and applications to oscillations, waves, and orbital models.</p>
+        </article>
+        <article class="course">
+          <h4>COMP 110 Scientific Computing for Physical Sciences</h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: None.</p>
+          <p>Introduces programming for scientific work using variables, control flow, functions, arrays, plotting, file input and output, notebooks, version control basics, and simple astronomical data examples.</p>
+        </article>
+        <article class="course">
+          <h4>COMP 260 Scientific Programming and Numerical Methods</h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: COMP 110; MATH 152.</p>
+          <p>Covers numerical precision, interpolation, integration, root finding, differential equation solvers, optimization, linear algebra routines, data pipelines, and reproducible computational projects.</p>
+        </article>
+        <article class="course">
+          <h4>STAT 220 Statistics for Physical Scientists</h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: MATH 151.</p>
+          <p>Probability, distributions, uncertainty propagation, confidence intervals, hypothesis testing, regression, Bayesian reasoning, model comparison, and statistics for experimental and observational measurements.</p>
+        </article>
+        <article class="course">
+          <h4>PHYS 171 University Physics I: Mechanics</h4>
+          <p class="meta"><span class="credits">4 credits.</span> Prerequisites: MATH 151 or concurrent enrollment.</p>
+          <p>Calculus-based mechanics including kinematics, Newton's laws, energy, momentum, rotation, gravitation, oscillations, fluids, and laboratory measurement techniques.</p>
+        </article>
+        <article class="course">
+          <h4>PHYS 172 University Physics II: Electricity, Magnetism, and Waves</h4>
+          <p class="meta"><span class="credits">4 credits.</span> Prerequisites: PHYS 171; MATH 152 or concurrent enrollment.</p>
+          <p>Electric fields, potentials, circuits, magnetic fields, induction, Maxwell's equations in conceptual form, electromagnetic waves, geometric optics, physical optics, and laboratory applications.</p>
+        </article>
+        <article class="course">
+          <h4>PHYS 271 Modern Physics</h4>
+          <p class="meta"><span class="credits">4 credits.</span> Prerequisites: PHYS 172; MATH 152.</p>
+          <p>Special relativity, early quantum theory, wave-particle duality, Schroedinger equation concepts, atoms, molecules, nuclei, particles, lasers, and connections to astrophysical spectra and compact objects.</p>
+        </article>
+        <article class="course">
+          <h4>PHYS 275 Experimental Physics Laboratory</h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: PHYS 172 or concurrent enrollment.</p>
+          <p>Experimental design, measurement uncertainty, sensors, electronics, data acquisition, fitting, technical writing, and laboratory projects in mechanics, optics, electromagnetism, and modern physics.</p>
+        </article>
+        <article class="course">
+          <h4>PHYS 331 Classical Mechanics</h4>
+          <p class="meta"><span class="credits">4 credits.</span> Prerequisites: PHYS 171; MATH 255 or concurrent enrollment.</p>
+          <p>Newtonian dynamics, central forces, oscillations, non-inertial frames, Lagrangian mechanics, coupled systems, rigid bodies, chaos, and applications to orbital and celestial dynamics.</p>
+        </article>
+        <article class="course">
+          <h4>PHYS 341 Electromagnetic Theory</h4>
+          <p class="meta"><span class="credits">4 credits.</span> Prerequisites: PHYS 172; MATH 251.</p>
+          <p>Electrostatics, magnetostatics, boundary value problems, Maxwell's equations, electromagnetic waves, radiation, waveguides, and physical foundations of astronomical instrumentation.</p>
+        </article>
+        <article class="course">
+          <h4>PHYS 361 Thermodynamics and Statistical Physics <span class="tag">Elective</span></h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: PHYS 271; MATH 255.</p>
+          <p>Thermodynamic laws, entropy, kinetic theory, ensembles, partition functions, blackbody radiation, phase transitions, and statistical foundations used in stellar and planetary interiors.</p>
+        </article>
+        <article class="course">
+          <h4>CHEM 101 General Chemistry I</h4>
+          <p class="meta"><span class="credits">4 credits.</span> Prerequisites: High school chemistry or placement.</p>
+          <p>Atomic structure, stoichiometry, bonding, periodic trends, thermochemistry, gases, molecular geometry, and laboratory methods for quantitative chemical analysis.</p>
+        </article>
+        <article class="course">
+          <h4>CHEM 102 General Chemistry II</h4>
+          <p class="meta"><span class="credits">4 credits.</span> Prerequisites: CHEM 101.</p>
+          <p>Chemical kinetics, equilibrium, acids and bases, thermodynamics, electrochemistry, solubility, coordination chemistry, and laboratory techniques relevant to planetary and astrochemical systems.</p>
+        </article>
+        <article class="course">
+          <h4>CHEM 230 Organic and Prebiotic Chemistry <span class="tag">Elective</span></h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: CHEM 102.</p>
+          <p>Introduces organic structure, functional groups, reaction mechanisms, spectroscopy, carbon chemistry in planetary environments, prebiotic pathways, and chemical constraints on habitability.</p>
+        </article>
+      </div>
+
+      <h3>General Education and Free Electives</h3>
+      <div class="course-grid">
+        <article class="course">
+          <h4>WRIT 101 Academic Writing and Research</h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: None.</p>
+          <p>Develops academic reading, argument, research, revision, citation, and evidence-based writing skills with assignments that may be adapted to science and society topics.</p>
+        </article>
+        <article class="course">
+          <h4>GE 101 Humanities or Social Science Elective</h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: None.</p>
+          <p>Introduces interpretive, historical, social, or cultural inquiry outside the natural sciences. Departments may approve astronomy-relevant options such as history of science or environmental studies.</p>
+        </article>
+        <article class="course">
+          <h4>GE 201 Arts, Culture, or Language Elective</h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: Varies by selected course.</p>
+          <p>Broadens degree study through creative practice, cultural analysis, language learning, or comparative traditions. Students are encouraged to choose courses supporting communication across communities.</p>
+        </article>
+        <article class="course">
+          <h4>GE 202 Ethics, Society, and Science Elective</h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: None unless specified by selected course.</p>
+          <p>Examines ethical reasoning and societal dimensions of scientific work, including technology, public policy, environmental responsibility, data ethics, or Indigenous and community relationships to sky knowledge.</p>
+        </article>
+        <article class="course">
+          <h4>GE 301 Global Perspectives Elective</h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: Sophomore standing or equivalent.</p>
+          <p>Develops global and comparative understanding through history, geography, politics, culture, or environmental change, with recommended options in climate, space policy, or global science institutions.</p>
+        </article>
+        <article class="course">
+          <h4>GE 302 Communication Intensive Elective</h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: WRIT 101.</p>
+          <p>Strengthens oral, written, visual, or digital communication. Recommended options include science communication, technical writing, public speaking, journalism, or data storytelling.</p>
+        </article>
+        <article class="course">
+          <h4>GE 401 Advanced Writing, Policy, or Society Elective</h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: Junior standing or equivalent.</p>
+          <p>Upper-level integrative elective connecting scientific knowledge with policy, education, ethics, environment, communication, or public engagement. Suitable for students preparing capstone outreach or policy projects.</p>
+        </article>
+        <article class="course">
+          <h4>FREE 401 Free Elective</h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: Varies by selected course.</p>
+          <p>Open elective selected in consultation with an advisor. Recommended options include additional mathematics, computer science, geoscience, engineering, education, statistics, or approved astronomy electives.</p>
+        </article>
+        <article class="course">
+          <h4>FREE 402 Free Elective</h4>
+          <p class="meta"><span class="credits">3 credits.</span> Prerequisites: Varies by selected course.</p>
+          <p>Open elective supporting student goals in graduate study, teaching, public communication, data science, instrumentation, planetary science, or interdisciplinary science.</p>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="notes">
+      <h2 id="notes">Advising Notes for Review</h2>
+      <ul>
+        <li>Students planning graduate study in astrophysics should strongly consider PHYS 361, ASTR 474, and additional mathematics or computer science electives.</li>
+        <li>Students interested in planetary science should consider CHEM 230, ASTR 350, ASTR 478, geoscience electives, and summer field or mission-data projects.</li>
+        <li>Students interested in observational astronomy should consider ASTR 472, ASTR 476, additional statistics, and repeated ASTR 480 research credits where permitted.</li>
+        <li>The course sequence assumes calculus readiness in the first semester. Students beginning in precalculus would need a modified five-year or summer-supported plan.</li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>Draft prepared for curriculum review. This document is not tied to a specific institution and can be adapted to local credit, general education, laboratory, and accreditation requirements.</p>
+    </footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{COURSE_CODE}} Problem Set {{PROBLEM_SET_NUMBER}} Solution Key</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    :root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; --warning:#8a4b08; }
+    body { margin:0; font-family:Georgia, "Times New Roman", serif; color:var(--ink); background:var(--paper); line-height:1.6; }
+    main { max-width:960px; margin:0 auto; padding:40px 24px 72px; }
+    h1 { color:var(--navy); font-size:clamp(2rem,4vw,3rem); }
+    h2 { margin-top:34px; color:var(--navy); border-bottom:1px solid var(--line); padding-bottom:6px; }
+    .instructor { background:#fff8e8; border-left:5px solid var(--gold); padding:14px 18px; margin:18px 0; }
+    .solution { background:var(--panel); border:1px solid var(--line); padding:18px; margin:18px 0; }
+    table { width:100%; border-collapse:collapse; margin:12px 0; }
+    th,td { border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top; }
+    th { background:var(--teal-soft); }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>{{COURSE_CODE}} Problem Set {{PROBLEM_SET_NUMBER}} Solution Key</h1>
+    <div class="instructor"><strong>Instructor-facing artifact.</strong> Do not distribute unless solutions are intended for release.</div>
+
+    <section class="solution">
+      <h2>Problem {{PROBLEM_NUMBER}}</h2>
+      <p><strong>Expected approach:</strong> {{EXPECTED_APPROACH}}</p>
+      <p>{{STEP_BY_STEP_WORKED_SOLUTION}}</p>
+      <p><strong>Final answer:</strong> {{FINAL_ANSWER_WITH_UNITS}}</p>
+      <h3>Rubric</h3>
+      <table>
+        <thead><tr><th>Criterion</th><th>Points</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>{{CRITERION}}</td><td>{{POINTS}}</td><td>{{GRADING_NOTES}}</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Common errors:</strong> {{COMMON_ERRORS_AND_FEEDBACK}}</p>
+      <p><strong>Valid alternatives:</strong> {{ALTERNATIVE_METHODS}}</p>
+    </section>
+
+    <section>
+      <h2>Reference and Verification Notes</h2>
+      <ul>
+        <li>{{VERIFIED_REFERENCE_OR_DATA_CHECK}}</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
