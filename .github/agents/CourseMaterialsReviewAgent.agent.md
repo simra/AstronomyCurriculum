@@ -21,8 +21,9 @@ Before acting, load and follow `.github/skills/course-materials-review/SKILL.md`
 - Flag generic, interchangeable problem sets as blocking defects. Require concrete lecture-specific questions and exact textbook problem recommendations when an adopted textbook is available.
 - Check quantitative rigor and curriculum progression: introductory courses should build quantitative habits, and advanced courses should substantially increase mathematical and computational depth.
 - Flag formulaic labs that lack concrete apparatus/setup, measurement records, uncertainty treatment, deliverables, assessment criteria, or provenance.
-- Independently recompute at least one worked numeric example per lecture, lab, and problem set to catch arithmetic errors instead of trusting the stated result.
+- Independently recompute at least one worked numeric example per lecture, lab, and problem set to catch arithmetic errors instead of trusting the stated result; pay particular attention to unit conversions in large-number or logarithmic calculations, a recurring source of silent errors.
 - Check whether labs/problem sets using synthetic placeholder data could instead be grounded in real, verifiable local data; flag this as a correction item when plausible real data may be available.
+- Check that dataset provenance is labeled at the correct level (live-verified this session, standard literature value not re-verified, or synthetic) and flag mislabeling in either direction.
 - Check source indexes when exact textbook/source references are used; generated indexes support review but should not erase the need for adopted-edition spot checks before instructional use.
 - Return structured feedback with blocking issues, non-blocking improvements, artifact owner, required correction, evidence, and re-review criteria.
 - Approve only when references, solution keys, links, and artifact dependencies are sufficiently verified for the requested release stage.

@@ -24,11 +24,14 @@ Before acting, load and follow `.github/skills/course-package-orchestrator/SKILL
   - `CourseMaterialsReviewAgent`
 - Treat subagents as helpers, not blockers. If a subagent returns advice only, write or correct the actual files yourself.
 - Enforce dependency order: syllabus and schedule before slides, slides before notes, notes before problem sets, review before final assembly.
+- Before drafting the first lecture, read the full `review-report.md` of at least one prior approved benchmark course (not just its templates) so the depth/specificity/provenance standard is internalized before writing, not discovered during correction.
 - Reject shallow slide or note generation even when file counts validate; the package must be instructionally usable.
 - Require specificity at every stage. If a textbook is available, use `SourceMaterialIndexAgent` before citing textbook chapters, sections, figures, or problem numbers. Do not accept generic chapter references or broad ranges.
 - Require detailed labs and problem sets from the specialized agents: concrete apparatus/setup, step-by-step procedure, uncertainty treatment, explicit measurements or calculations, and exact question wording.
 - Require every worked example and sample calculation to be computed programmatically (not hand-typed), with shared constants/data reused across the lecture, lab, and problem set that reference the same scenario.
 - Before accepting synthetic/placeholder lab or problem-set data, check whether real, verifiable local data already exists in the workspace or the user's own files and ground the artifact in it instead.
+- Label every real-world dataset's provenance at one of three explicit levels in `reference-log.md`: live-verified this session, standard published/literature value not re-verified this session (flagged for human spot-check), or synthetic/instructor-provided. Never present level-2 as level-1, and never mislabel real literature values as synthetic just because they weren't re-fetched.
+- When lab/problem-set counts don't match the lecture count 1:1, or the cadence choice isn't obvious, document the rationale explicitly in `syllabus.html`.
 - Keep looping through reviewer-identified defects until the reviewer explicitly marks the course as `Approved for review release` or a concrete blocker prevents progress. Do not stop after a partial generation pass, file-count validation, or structural completeness check.
 - Treat `Needs correction` as a trigger to repair the relevant stage, validate again, and re-run review; only clear the loop when the review agent marks the package approved for the requested release stage.
 - The review-release threshold is a quality floor, not a completion milestone. A package that is only structurally complete but weaker than the ASTR101/ASTR120 benchmark must remain in the correction loop. Review release should not be granted based on file counts or template completion alone.
@@ -37,6 +40,7 @@ Before acting, load and follow `.github/skills/course-package-orchestrator/SKILL
 - Link every course package from `astronomy_curriculum.html`: update its "Course Calendar Entries" card and its row in the "Four-Year Course List" schedule table to link to `materials/<COURSECODE>/index.html`, as soon as the package exists.
 - Do not add course-material cards to the repository root `index.html`; it should point to `astronomy_curriculum.html` as the single place to find course packages.
 - Validate artifact counts, JSON parsing, HTML doctypes, local links, and manifest status before reporting completion.
+- Once review-release is genuinely approved: identify any concrete, generalizable lessons from this course's production (recurring defect classes, provenance judgment calls, cadence decisions, ambiguous instructions that had to be resolved by judgment) and update the relevant skill/agent files directly; do not pad this step with invented lessons if none apply. Then stage, commit, and push the course package together with any skill updates before considering the next course.
 
 ## Output Standard
 

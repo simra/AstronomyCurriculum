@@ -21,6 +21,8 @@ If a package is only structurally complete but substantively shallow, the review
 
 Any course that does not meet the ASTR101/ASTR120 benchmark must remain in the correction loop until a reviewer can reasonably defend its approval. This rule applies to all courses, including 200-level materials and later revisions.
 
+Before drafting the first lecture of a new course, read the full `review-report.md` of at least one prior approved benchmark course (not just its templates or final structure) so the depth, specificity, and data-provenance standard is internalized before writing, not discovered during correction. A course engineered from the outset to the benchmark reaches approval faster than one that is corrected into shape after a shallow first pass.
+
 ## Coverage Checklist
 
 This orchestrator coordinates syllabus, lecture schedule, lab schedule, lecture slides, visuals, real references, source indexes, lecture notes, lab activities, problem set, solution key, assessment instructions, review feedback, dependencies, high standards, resubmission, and final assembly.
@@ -52,6 +54,8 @@ Do not allow generic or template-level generation to count as course content. Th
 - If a specialized agent does not produce sufficiently specific content, the orchestrator must rewrite or directly improve the artifact instead of accepting a generic pass.
 - Compute every worked example, sample calculation, or numeric result shown in lectures, labs, or problem sets with a script rather than hand-typed arithmetic, and reuse the same underlying constants/data across the lecture, lab, and problem set that reference the same scenario, so numbers stay internally consistent and arithmetic errors cannot creep in silently.
 - Before defaulting to synthetic or "instructor-provided" placeholder data for a lab or problem set, check whether real, verifiable local data already exists (e.g., the user's own observing/imaging archives, institutional datasets, or other workspace files) and ground the artifact in it instead, with exact file, instrument, and provenance citations.
+- Label the provenance of every real-world dataset or measurement at one of three explicit levels, and disclose the level in `reference-log.md`: (1) live-verified this session (fetched or extracted directly from a primary/authoritative source during production), (2) standard published/literature or textbook value presented from training knowledge but not independently re-verified this session (flag for human spot-check against a named catalog or source), or (3) synthetic/instructor-provided placeholder. Do not present level-2 values as if they were level-1, and do not label real literature values as "synthetic" merely because they were not re-fetched.
+- When a lab/problem-set count does not match the lecture count 1:1, or does match but the cadence choice is not obvious, document the cadence rationale explicitly in `syllabus.html` (see the ASTR210 biweekly-cadence and ASTR230 matched-cadence precedents).
 
 The orchestrator is responsible for a quality floor, not a file-count milestone.
 
@@ -105,6 +109,7 @@ Respect artifact dependency order. Later artifacts must be based on approved ear
 8. Full-course consistency and correctness review.
 9. Corrections and re-review.
 10. Final assembly and release summary.
+11. Continuous improvement and handoff (see below) before moving to the next course.
 
 ## Required Inputs
 
@@ -236,6 +241,16 @@ When review identifies defects, use this deterministic loop:
 - Do not add or maintain a "Course Materials" section in the repository root `index.html` that enumerates individual course packages by card; that listing does not scale as courses are added. The root `index.html` should link to `astronomy_curriculum.html` as the single place course packages are discoverable, plus repository-wide metadata (templates, style guide) that is not course-specific.
 - Produce a release summary listing all artifacts, assumptions, verified references, unresolved risks, and recommended next review steps.
 - Do not claim completion without a fresh review result.
+
+### 9. Continuous Improvement and Handoff
+
+Once the review agent has genuinely returned `Approved for review release`, before moving to another course:
+
+- Review the just-completed production and review cycle for concrete, generalizable lessons: recurring defect classes the reviewer caught (e.g., a specific type of arithmetic/unit error), data-provenance judgment calls that were not clearly covered by existing rules, cadence or structural decisions that needed ad hoc justification, or any point where existing skill/agent instructions were ambiguous or insufficient and had to be resolved by judgment during this course's production.
+- If a lesson is genuinely generalizable (would help the next course avoid the same issue or reach approval faster), update the relevant `.github/skills/*/SKILL.md` and `.github/agents/*.agent.md` files directly. Do not create new skill files for a single course-specific quirk; prefer small, targeted additions to existing rules.
+- Do not invent lessons to pad this step; if the course's production surfaced nothing new beyond what the skills already cover, say so explicitly and skip straight to committing.
+- Stage, commit, and push the completed course package together with any skill/agent updates from this step, using a commit message that names the course and summarizes both the content and any skill changes.
+- Only after committing and pushing should the orchestrator consider itself ready to begin the next course.
 
 ## Rigor and Grading Policy
 

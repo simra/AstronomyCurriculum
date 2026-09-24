@@ -36,6 +36,7 @@ Useful outputs include:
 - If extraction is imperfect, preserve uncertainty in the index and in generated course artifacts.
 - Cite exact source title, section or chapter when verified, exercise type, problem number, figure number, extracted line/page location, and a short excerpt when useful.
 - Mark items requiring edition spot-check before instructional use.
+- If extracted chapter/section numbering could be offset from the adopted edition's actual numbering (a known risk with OCR/plain-text extraction), cross-check the extracted chapter label against numbering embedded directly in the text itself (e.g., figure captions like "Figure 18.11" or table labels like "Table 22.2") rather than trusting a chapter-heading count alone; document any resolved or unresolved offset explicitly in the index.
 
 ## Quality Checklist
 

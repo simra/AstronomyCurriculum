@@ -1,0 +1,41 @@
+{
+  "course": {
+    "courseNumber": "ASTR 230",
+    "courseCode": "ASTR230",
+    "title": "Stars, Galaxies, and the Universe",
+    "credits": 3,
+    "term": "Spring",
+    "yearInCurriculum": 2,
+    "prerequisites": "ASTR 101; PHYS 171 or concurrent enrollment",
+    "description": "Introduces stellar properties, stellar evolution, the interstellar medium, the Milky Way, galaxy classification, galaxy evolution, large-scale structure, dark matter, dark energy, and the observational foundations of modern cosmology."
+  },
+  "status": {
+    "stage": "approved for review release",
+    "reviewStatus": "Approved for review release; not yet approved for instructional use",
+    "lastUpdated": "2026-09-24"
+  },
+  "counts": {
+    "slides": 14,
+    "notes": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "solutionKeys": 7,
+    "assessmentInstructions": 7
+  },
+  "cadence": {
+    "lectures": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "rationale": "Matched 1:1 biweekly cadence: each lab and its paired problem set both follow the same two-lecture unit (see syllabus.html Lab and Problem-Set Cadence)."
+  },
+  "dataProvenance": {
+    "src": "materials/ASTR230/src/generate_astr230_content.py and generate_astr230_labs_psets.py generate all worked examples, lecture slides/notes, labs, and problem sets programmatically from shared constants.",
+    "realData": [
+      "Sirius B mass/radius/luminosity/temperature (Bond et al. 2017 ApJ 840, 70; Hipparcos parallax) - verified via live web fetch this session.",
+      "Nearby/bright star catalog values (Sirius A, Vega, Rigel, Betelgeuse, Proxima Centauri, Alpha Centauri A, Barnard's Star, the Sun, and others) used for the Lab 01/02 HR-diagram and distance-modulus sample - standard Hipparcos-era literature values, not independently re-verified via live fetch this session; flagged for human spot-check in reference-log.md.",
+      "Milky Way rotation curve values (Lab 05) - representative of published flat rotation curve (~220-235 km/s, R = 5-25 kpc; e.g. Eilers et al. 2019, Sofue 2020) - flagged for spot-check.",
+      "Galaxy morphological classifications (Lab 06: M31, M87, M101, M104, M82, NGC 1300) - well-documented public astronomical facts - flagged for spot-check.",
+      "Five-cluster Hubble diagram data (Lab 07: Virgo, Ursa Major, Corona Borealis, Bootes, Hydra) - classic pedagogical redshift-distance data set reproduced in many introductory textbooks - flagged for spot-check against the adopted edition or NED."
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><title>ASTR 230 Lab 04</title><script id='MathJax-script' async src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script><style>
+:root{--ink:#17202a;--muted:#5b6773;--paper:#fbfcfd;--panel:#fff;--line:#d9e0e7;--navy:#102a43;--teal:#0f6b78;--teal-soft:#e5f4f6;--gold:#b87911;--warning:#8a4b08}
+*{box-sizing:border-box}body{margin:0;font-family:Georgia,"Times New Roman",serif;color:var(--ink);background:var(--paper);line-height:1.6}header{padding:38px 24px 26px;background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff}header div,main{max-width:1080px;margin:0 auto}main{padding:30px 24px 64px}h1,h2,h3{line-height:1.15}h1{margin:0 0 8px;font-size:clamp(2rem,4vw,3.2rem)}h2{margin-top:34px;color:var(--navy);border-bottom:2px solid var(--line);padding-bottom:8px}h3{color:var(--teal)}section,article.problem{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px 18px;margin:16px 0}.notice{border-left:5px solid var(--teal);background:var(--teal-soft)}table{width:100%;border-collapse:collapse;margin:14px 0}th,td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}th{background:var(--teal-soft)}code{background:#eef3f5;padding:1px 4px;border-radius:3px}.points{color:var(--gold);font-weight:700}a{color:var(--teal);font-weight:700}
+</style></head><body><header><div><h1>Lab 04: White Dwarf Density and the Chandrasekhar Limit: Sirius B</h1><p>Compute Sirius B&#x27;s density from real measured mass and radius and compare it to the Chandrasekhar limit.</p></div></header><main>
+<section><h2>Apparatus and Setup</h2><p>This lab uses Sirius B's independently measured mass, radius, luminosity, and temperature (Bond et al. 2017, <em>ApJ</em> 840, 70, combined with the Hipparcos parallax of 2.637 pc; see <code>../reference-log.md</code>) to compute its density and compare it to the Chandrasekhar limit and to familiar densities.</p></section>
+<section><h2>Materials and Data</h2><table><thead><tr><th>Quantity</th><th>Value</th></tr></thead><tbody>
+<tr><td>Sirius B mass</td><td>1.018 &plusmn; 0.011 M&#9737; = 2.0248e+30 kg</td></tr>
+<tr><td>Sirius B radius</td><td>0.008098 R&#9737; = 5.6338e+06 m (5,634 km)</td></tr>
+<tr><td>Sirius B luminosity</td><td>0.02448 L&#9737;</td></tr>
+<tr><td>Sirius B effective temperature</td><td>25,000 K</td></tr>
+<tr><td>Chandrasekhar limit</td><td>1.4 M&#9737;</td></tr>
+<tr><td>Water density (comparison)</td><td>1,000 kg/m&#179;</td></tr>
+<tr><td>Earth's average density (comparison)</td><td>5,510 kg/m&#179;</td></tr>
+</tbody></table></section>
+<section><h2>Procedure</h2><ol>
+<li>Compute Sirius B's volume, V = (4/3)&#960;R&#179;, from its measured radius.</li>
+<li>Compute Sirius B's average density, &#961; = M/V, in kg/m&#179; and convert to g/cm&#179;.</li>
+<li>Compute the ratio of Sirius B's density to water's and to Earth's average density.</li>
+<li>Using Stefan-Boltzmann (L = 4&#960;R&#178;&#963;T&#8308;), independently verify Sirius B's quoted luminosity (0.02448 L&#9737;) from its measured radius and temperature. Report the percent agreement with the quoted value.</li>
+<li>State Sirius B's mass as a fraction of the Chandrasekhar limit, and explain what would need to happen (physically) for Sirius B to approach that limit, referencing Lecture 08's Type Ia supernova mechanism.</li>
+<li>A hypothetical second white dwarf has a measured radius of 0.0050 R&#9737; and the same average density you computed for Sirius B. Compute its implied mass, and state whether that mass is physically plausible for a white dwarf (compare to the Chandrasekhar limit).</li>
+</ol></section>
+<section><h2>Analysis and Uncertainty</h2><p>Sirius B's mass carries a published uncertainty of &plusmn;0.011 M&#9737; (about 1%) and its radius carries an uncertainty of about &plusmn;0.6%. Propagate these into density uncertainty using &#963;_&#961;/&#961; = &#8730;[(&#963;_M/M)&#178; + (3&#963;_R/R)&#178;] (the factor of 3 arises because density depends on R&#179;), and report the resulting percent uncertainty on the density you computed.</p></section>
+<section><h2>Deliverables</h2><ul><li>Sirius B volume and density calculation (kg/m&#179; and g/cm&#179;), with density uncertainty propagated.</li><li>Density ratio to water and to Earth.</li><li>Stefan-Boltzmann luminosity cross-check with percent agreement to the quoted value.</li><li>Mass-to-Chandrasekhar-limit ratio and physical discussion.</li><li>Hypothetical second-white-dwarf mass calculation and plausibility judgment.</li></ul></section>
+<section><h2>Assessment Criteria</h2><ul><li>Correct volume and density arithmetic with units at each step.</li><li>Correct density-uncertainty propagation using the R&#179; scaling factor of 3.</li><li>Stefan-Boltzmann cross-check computed correctly and compared quantitatively to the quoted luminosity.</li><li>Physically sound discussion of the Chandrasekhar limit and the hypothetical white dwarf's plausibility.</li></ul></section>
+<section><h2>References and Provenance</h2><ul><li>OpenStax Astronomy 2e (local reference copy: references/openstax-astronomy-2e-extracted.txt), Chapter 23.1.</li><li>Sirius B measurements: Bond, H. E. et al. (2017), <em>ApJ</em> 840, 70; verified via live retrieval, logged in <code>materials/ASTR230/reference-log.md</code>.</li></ul></section>
+</main></body></html>

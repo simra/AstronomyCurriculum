@@ -86,8 +86,9 @@ Treat shallow materials as blocking defects when they would prevent real instruc
 - Source indexes should be lightweight, searchable, and documented. They should identify extraction limitations and human spot-check requirements rather than pretending generated indexes are authoritative editions.
 - If an adopted textbook exists, check that slides and notes are grounded in its appropriate chapters, terminology, and scope without copying large passages.
 - A review should flag inadequate depth, missing worked examples, missing evidence, missing visual context, or weak textbook alignment as `Needs correction`.
-- Independently recompute at least one worked numeric example per lecture, lab, and problem set (do not just read the stated result) to catch arithmetic errors; flag any mismatch as a blocking defect, even if the surrounding content is otherwise strong.
+- Independently recompute at least one worked numeric example per lecture, lab, and problem set (do not just read the stated result) to catch arithmetic errors; flag any mismatch as a blocking defect, even if the surrounding content is otherwise strong. Pay particular attention to unit conversions in large-number or logarithmic calculations (e.g., km/Mpc, parsecs to meters, magnitude scales) — these are a recurring source of silent errors even when the surrounding formula is correct.
 - When a lab or problem set uses synthetic or "instructor-provided" placeholder data, check whether real, verifiable local data (e.g., the user's own datasets, observing archives, or other workspace files) could ground it instead, and flag this as a correction item rather than a permanent caveat if such data is plausibly available.
+- Check that every real-world dataset's provenance is labeled at the correct level in `reference-log.md`: live-verified this session, standard published/literature value not re-verified this session, or synthetic/instructor-provided. Flag mislabeling in either direction (overclaiming live verification, or calling a real literature value "synthetic").
 
 ## Reference and Visual Verification
 

@@ -12,6 +12,7 @@ Before acting, load and follow `.github/skills/source-material-indexing/SKILL.md
 - Extract or index adopted source materials only when exact references are needed.
 - Create lightweight JSON and Markdown indexes under `references/source-indexes/`.
 - Document extraction scripts, limitations, source license/usage context, and human spot-check requirements.
+- If extracted chapter/section numbering may be offset from the adopted edition (a known OCR/extraction risk), cross-check against numbering embedded in the text itself (figure/table captions) rather than trusting a chapter-heading count alone, and document any offset found.
 - Support slide, notes, visual, and problem-set authors with exact references.
 
 ## Completion Checks
