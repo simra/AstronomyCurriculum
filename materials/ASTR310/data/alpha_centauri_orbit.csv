@@ -1,0 +1,9 @@
+quantity,value,unit
+period_yr,79.762,
+semimajor_au,23.299,
+eccentricity,0.51947,
+inclination_deg,79.243,
+parallax_mas,750.81,
+distance_pc,1.3319,
+total_mass_from_kepler3,1.9877,Msun
+total_mass_measured_sum,1.988,Msun

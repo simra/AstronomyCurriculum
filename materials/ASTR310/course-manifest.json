@@ -1,0 +1,42 @@
+{
+  "course": {
+    "courseNumber": "ASTR 310",
+    "courseCode": "ASTR310",
+    "title": "Astrophysics I: Radiation, Matter, and Orbits",
+    "credits": 4,
+    "term": "Fall",
+    "yearInCurriculum": 3,
+    "prerequisites": "ASTR 230; MATH 251; PHYS 172",
+    "description": "Covers radiative processes, blackbody radiation, spectra, hydrostatic equilibrium, gravitational potentials, two-body motion, tidal effects, virial arguments, and the physical interpretation of astronomical measurements."
+  },
+  "status": {
+    "stage": "approved for review release",
+    "reviewStatus": "Approved for review release; not yet approved for instructional use",
+    "lastUpdated": "2026-09-24"
+  },
+  "counts": {
+    "slides": 14,
+    "notes": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "solutionKeys": 7,
+    "assessmentInstructions": 7
+  },
+  "cadence": {
+    "lectures": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "rationale": "Matched 1:1 biweekly cadence, following the ASTR210 precedent of a similarly credit-weighted (4-credit) 14-lecture course, but paired lab/problem-set-per-unit like ASTR230 rather than ASTR210's uneven capstone cadence, because ASTR310's units build one cumulative derivation toolkit toward a single capstone (Lab/PS 07). See syllabus.html Lecture, Lab, and Problem-Set Cadence."
+  },
+  "dataProvenance": {
+    "src": "materials/ASTR310/src/generate_astr310_content.py and generate_astr310_labs_psets.py generate all worked examples, lecture slides/notes, labs, and problem sets programmatically from shared constants.",
+    "realData": [
+      "Alpha Centauri A and B stellar parameters and AB orbital elements - live-verified via direct web fetch this session (Wikipedia \"Alpha Centauri\", citing Akeson et al. 2021, AJ 162, 14 and the Sixth Catalog of Orbits of Visual Binary Stars).",
+      "Proxima Centauri's orbit about the Alpha Centauri AB barycenter - live-verified via the same fetch this session (citing Kervella, Thevenin & Lovis 2017, A&A 598, L7).",
+      "Sirius A/B parameters and Sirius AB orbital elements (Problem Sets 01, 04, 05, 07) - Sirius B independently verified in ASTR230's production (Bond et al. 2017, ApJ 840, 70); Sirius A and the AB orbital elements are standard published Hipparcos-era/visual-binary literature values, not independently re-verified this session - flagged for human spot-check.",
+      "M15 and 47 Tucanae globular-cluster velocity dispersions, half-light radii, and dynamical masses (Lecture 06/Lab 03, PS 03) - standard published literature values, not independently re-verified this session - flagged for spot-check against the Harris (1996, 2010 revision) Galactic globular cluster catalog.",
+      "Io, Europa, and Jupiter parameters (Lecture 10/Lab 05, PS 05) - standard published solar-system values, not independently re-verified this session - flagged for spot-check.",
+      "Standard solar-model central pressure and core temperature (Lecture 05-06/Lab 03) - standard published values, not independently re-verified this session - flagged for spot-check."
+    ]
+  }
+}

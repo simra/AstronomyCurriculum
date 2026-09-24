@@ -1,0 +1,7 @@
+quantity,value,unit
+jupiter_mass_kg,1.89819e+27,kg
+io_mass_kg,8.9319e+22,kg
+io_radius_m,1821600.0,m
+io_semimajor_m,421700000.0,m
+io_eccentricity,0.0041,
+io_tidal_acceleration_ms2,0.00615457535825613,m/s^2
