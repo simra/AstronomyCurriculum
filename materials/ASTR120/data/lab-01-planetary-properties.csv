@@ -1,0 +1,9 @@
+object,type,semimajor_axis_au,mean_radius_km,mass_10e24_kg,bulk_density_g_cm3,surface_gravity_m_s2,known_moons,primary_source
+Mercury,terrestrial,0.387,2439.7,0.3301,5.43,3.70,0,NASA Planetary Fact Sheet
+Venus,terrestrial,0.723,6051.8,4.867,5.24,8.87,0,NASA Planetary Fact Sheet
+Earth,terrestrial,1.000,6371.0,5.972,5.51,9.80,1,NASA Planetary Fact Sheet
+Mars,terrestrial,1.524,3389.5,0.6417,3.93,3.71,2,NASA Planetary Fact Sheet
+Jupiter,giant planet,5.203,69911,1898.0,1.33,24.79,95,NASA Planetary Fact Sheet
+Saturn,giant planet,9.537,58232,568.0,0.69,10.44,146,NASA Planetary Fact Sheet
+Uranus,ice giant,19.191,25362,86.8,1.27,8.87,28,NASA Planetary Fact Sheet
+Neptune,ice giant,30.069,24622,102.0,1.64,11.15,16,NASA Planetary Fact Sheet

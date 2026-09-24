@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASTR 120 Lab 06: Icy Moon Habitability</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+:root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; --warning:#8a4b08; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:Georgia,"Times New Roman",serif; color:var(--ink); background:var(--paper); line-height:1.6; }
+header { padding:38px 24px 26px; background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; }
+header div, main { max-width:1060px; margin:0 auto; }
+main { padding:30px 24px 64px; }
+h1,h2,h3 { line-height:1.15; }
+h1 { margin:0 0 8px; font-size:clamp(2rem,4vw,3.2rem); }
+h2 { margin-top:34px; color:var(--navy); border-bottom:2px solid var(--line); padding-bottom:8px; }
+h3 { color:var(--teal); }
+section, article.card, article.problem { background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:16px 18px; margin:16px 0; }
+.notice { border-left:5px solid var(--teal); background:var(--teal-soft); }
+.meta { color:var(--muted); }
+table { width:100%; border-collapse:collapse; margin:14px 0; }
+th,td { border:1px solid var(--line); padding:8px 10px; vertical-align:top; text-align:left; }
+th { background:var(--teal-soft); }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+a { color:var(--teal); font-weight:700; }
+.points { color:var(--gold); font-weight:700; }
+code { background:#eef3f5; padding:1px 4px; border-radius:3px; }
+</style>
+</head>
+<body>
+<header><div><h1>Lab 06: Icy Moon Habitability</h1><p>Build a transparent habitability score for ocean worlds using evidence for liquid water, energy, chemistry, and material exchange.</p></div></header>
+<main>
+<section><h2>Learning Objectives</h2><ul><li>Compare Europa, Enceladus, Ganymede, Titan, and Callisto using measured and categorical evidence.</li><li>Create a weighted score that is reproducible rather than impressionistic.</li><li>Explain how confirmed plumes, induced magnetic fields, surface exchange, and energy sources affect habitability claims.</li></ul></section>
+<section><h2>Preparation</h2><p>Review Lectures 10 and 13 on icy moons, subsurface oceans, astrobiological habitability, and planetary protection.</p></section>
+<section><h2>Materials and Data</h2><ul><li><code>../data/lab-06-icy-moon-habitability.csv</code>, a comparative table of icy-world size, density, temperature, ocean evidence, energy evidence, material exchange, and plume status.</li><li>Spreadsheet for weighted scoring.</li><li>NASA Europa Clipper, Cassini, Cassini-Huygens, and Solar System Exploration pages.</li></ul></section>
+<section><h2>Apparatus and Setup</h2><ol><li>Open the CSV and add columns for water score, energy score, chemistry/exchange score, accessibility score, total score, and confidence flag.</li><li>Use a 0-3 scale for each score: 0 = absent or unknown, 1 = weak/indirect, 2 = moderate, 3 = strong/direct.</li><li>Adopt weights before scoring: water 35%, energy 25%, chemistry/exchange 25%, accessibility 15%.</li></ol></section>
+<section><h2>Procedure</h2><ol><li>Score each world in all four categories using only evidence in the CSV.</li><li>Calculate a weighted total out of 3.0 for each world.</li><li>Mark confidence as high, medium, or low depending on whether the evidence is direct measurement, model inference, or sparse/ambiguous.</li><li>Recalculate totals with accessibility weight doubled and chemistry/exchange weight reduced. Note which rank changes.</li><li>Choose one flagship mission target and one lower-cost reconnaissance target based on the two rankings.</li></ol></section>
+<section><h2>Measurement Record</h2><table><thead><tr><th>World</th><th>Water score</th><th>Energy score</th><th>Chemistry/exchange score</th><th>Accessibility score</th><th>Weighted total</th></tr></thead><tbody><tr><td>Europa</td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>Enceladus</td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>Ganymede</td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>Titan</td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>Callisto</td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></section>
+<section><h2>Analysis and Uncertainty</h2><p>Because several entries are categorical, uncertainty is represented as score sensitivity. For any score based on indirect evidence, recalculate the total with that score plus or minus 1, bounded by 0 and 3. Report whether the top-ranked world remains top-ranked under that plausible scoring change. This is classification uncertainty, not measurement noise.</p></section>
+<section><h2>Deliverables</h2><ul><li>Completed weighted score table and alternate-weight sensitivity table.</li><li>One ranked bar chart with confidence flags.</li><li>Mission-target recommendation that identifies the measurement most needed to reduce uncertainty.</li><li>Provenance note citing NASA mission pages and <code>lab-06-icy-moon-habitability.csv</code>.</li></ul></section>
+<section><h2>Assessment Criteria</h2><ul><li>Scoring rubric is applied consistently and transparently: 30%.</li><li>Sensitivity analysis changes one assumption at a time: 20%.</li><li>Recommendation follows from both score and uncertainty: 25%.</li><li>Habitability language distinguishes evidence from desire for life detection: 15%.</li><li>Complete provenance note: 10%.</li></ul></section>
+<section><h2>References, Software, and Data Provenance</h2><p>Data file: <code>materials/ASTR120/data/lab-06-icy-moon-habitability.csv</code>. Sources: NASA Europa Clipper mission science pages, NASA Cassini Enceladus science pages, NASA Cassini-Huygens Titan pages, and NASA Solar System Exploration pages for Ganymede and Callisto. Processing state: curated comparative teaching table with simplified categorical evidence fields.</p></section>
+</main></body>
+</html>

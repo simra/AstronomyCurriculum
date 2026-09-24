@@ -1,0 +1,6 @@
+site_or_feature,mission_or_instrument,evidence_type,measured_quantity,value,uncertainty_or_ambiguity,water_interpretation,primary_source
+Jezero delta,Perseverance Mastcam-Z and orbital HiRISE,delta stratigraphy,fan_front_width_km,3.0,estimate from mapped teaching outline +/-0.3 km,persistent lake inflow or delta,NASA Mars 2020 Jezero crater science pages
+Meridiani Planum,Opportunity APXS and Pancam,hematite spherules,outcrop_spherule_abundance_percent,8,field-of-view count +/-2 percentage points,groundwater or diagenetic alteration,NASA MER Opportunity science results
+Mawrth Vallis,MRO CRISM,hydrated clay minerals,phyllosilicate_units_detected,3,classification depends on spectral band depth,aqueous alteration of crust,NASA MRO CRISM mineral maps
+Recurring slope lineae candidate,MRO HiRISE,dark seasonal slope streaks,typical_slope_degrees,28,ambiguous dry granular flow vs brine,not secure evidence for present liquid water,NASA MRO HiRISE RSL observations
+Gale crater mudstone,Curiosity SAM and ChemCam,lacustrine mudstone beds,mudstone_interval_m,75,stratigraphic estimate +/-10 m,long-lived lake environment,NASA MSL Curiosity science results

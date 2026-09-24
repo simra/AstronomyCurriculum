@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASTR 120 Lecture 08 Slides</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+:root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; --warning:#8a4b08; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:"Aptos","Segoe UI",sans-serif; color:var(--ink); background:var(--paper); }
+.deck { scroll-snap-type:y mandatory; height:100vh; overflow-y:auto; }
+.slide { min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:50px 68px; border-bottom:1px solid var(--line); background:var(--panel); }
+.title { background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; }
+h1 { font-size:clamp(2.4rem,5vw,4.6rem); margin:0 0 18px; line-height:1.05; }
+h2 { font-size:clamp(1.8rem,3.2vw,3.1rem); margin:0 0 22px; color:var(--navy); }
+.title h2 { color:#fff; opacity:.94; }
+p,li { font-size:clamp(1.03rem,1.55vw,1.45rem); line-height:1.35; }
+.kicker { color:var(--gold); text-transform:uppercase; letter-spacing:.08em; font-weight:700; }
+.grid { display:grid; grid-template-columns:.75fr 1.25fr; gap:30px; align-items:center; }
+.three { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.card { border:1px solid var(--line); background:#fff; border-radius:6px; padding:14px 16px; }
+.equation { font-size:1.32rem; padding:14px 18px; background:var(--teal-soft); border-left:5px solid var(--teal); margin:12px 0; }
+figcaption,.small { color:var(--muted); font-size:.95rem; line-height:1.35; margin-top:8px; }
+svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(--line); background:#fff; }
+.warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
+@media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+</style>
+</head>
+<body>
+<main class="deck">
+<section class="slide title"><p class="kicker">ASTR 120 · Lecture 08</p><h1>Mars: Water, Climate, and Exploration</h1><h2>Solar-system evidence, physics, and exploration</h2></section>
+<section class="slide"><h2>Why This Question Matters</h2><p>Mariner, Viking, Mars Global Surveyor, Spirit, Opportunity, Curiosity, and Perseverance changed Mars from a canal myth into a data-rich planet.</p></section>
+<section class="slide"><h2>Learning Goals</h2><ul><li>Evaluate evidence for past water and habitability on Mars.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section>
+<section class="slide"><h2>Opening Phenomenon</h2><p>Mars preserves evidence for ancient water, climate change, volcanism, and habitability tests.</p></section>
+<section class="slide"><h2>Mars Water Evidence Comes in Layers</h2><div class="three"><article class="card"><p><strong>Landforms:</strong> valleys, fans, deltas, and shore-like margins record possible flow.</p></article><article class="card"><p><strong>Minerals:</strong> clays, sulfates, and hematite require specific alteration environments.</p></article><article class="card"><p><strong>Stratigraphy:</strong> rover and orbital context can show whether water was persistent or brief.</p></article></div></section>
+<section class="slide"><h2>The Hard Question Is Duration</h2><p>Finding that water was present is easier than proving how long it persisted, whether it was stable at the surface, and whether the environment was habitable.</p></section>
+<section class="slide"><h2>Evidence We Need</h2><ul><li>Valley networks, deltas, and hydrated minerals point to past water.</li><li>Current Mars has low pressure and cold mean temperature.</li><li>Rover measurements provide ground truth for orbital interpretations.</li></ul></section>
+<section class="slide"><h2>Converging Evidence at Jezero</h2><div class="grid"><div><p>A fan shape alone could mislead. A stronger case combines delta geometry, layered deposits, orbital imaging, rover texture, and mineral measurements.</p></div><figure><svg class="lecture-visual" data-astr120-visual="08" viewBox="0 0 960 560" role="img" aria-label="Mars Water Evidence diagram">
+  <rect width="960" height="560" fill="#fbfcfd"/>
+  <text x="42" y="58" font-size="30" fill="#102a43" font-family="Segoe UI, sans-serif">Mars Water Evidence</text>
+  <circle cx="205" cy="280" r="70" fill="#0f6b78" opacity="0.88"/>
+  <rect x="400" y="210" width="180" height="140" rx="18" fill="#b87911" opacity="0.78"/>
+  <polygon points="740,190 840,280 740,370 640,280" fill="#102a43" opacity="0.82"/>
+  <path d="M280 280 L400 280 M580 280 L640 280" stroke="#5b6773" stroke-width="5" marker-end="url(#arrow8)"/>
+  <defs><marker id="arrow8" markerWidth="12" markerHeight="12" refX="10" refY="4" orient="auto"><path d="M0,0 L0,8 L12,4 z" fill="#5b6773"/></marker></defs>
+  <text x="145" y="405" font-size="22" fill="#102a43" font-family="Segoe UI, sans-serif">valley network</text>
+  <text x="420" y="405" font-size="22" fill="#102a43" font-family="Segoe UI, sans-serif">delta deposit</text>
+  <text x="650" y="405" font-size="22" fill="#102a43" font-family="Segoe UI, sans-serif">hydrated minerals</text>
+  <text x="42" y="515" font-size="19" fill="#5b6773" font-family="Segoe UI, sans-serif">Geomorphology plus mineralogy is stronger than either alone.</text>
+</svg><figcaption>Geomorphology plus mineralogy is stronger than either alone.</figcaption></figure></div></section>
+<section class="slide"><h2>Evidence Matrix: Stronger Than One Clue</h2><div class="equation">\[ \mathrm{confidence}\uparrow\quad \mathrm{when}\quad \mathrm{landform}+\mathrm{mineral}+\mathrm{stratigraphy}\quad \mathrm{agree} \]</div><p>The local Mars water table contrasts Jezero delta stratigraphy, Meridiani hematite, Mawrth clays, Gale mudstones, and ambiguous recurring slope lineae candidates.</p></section>
+<section class="slide"><h2>Worked Case: Jezero Delta</h2><ul><li>A fan-front width of about 3 km gives a mapped, testable landform scale.</li><li>Layering supports repeated sediment deposition rather than one isolated event.</li><li>Perseverance samples can connect orbital interpretation to grain-scale chemistry.</li></ul></section>
+<section class="slide"><h2>Ambiguous Evidence: Recurring Slope Lineae</h2><p class="warning">Dark seasonal slope streaks once seemed like possible brines, but dry granular flows remain plausible. Modern Mars water claims need mineral, thermal, and geomorphic support, not just shape and seasonality.</p></section>
+<section class="slide"><h2>Reasoning Prompt: Rank the Water Claims</h2><p>Rank Jezero delta, Gale mudstone, Mawrth clays, and recurring slope lineae from strongest to weakest evidence for persistent liquid water. Name the measurement type that most controls each ranking.</p></section>
+<section class="slide"><h2>Evidence Bridge: Habitability Adds Requirements</h2><p>Past water is necessary for many Mars habitability arguments, but it is not sufficient. A stronger case also needs duration, chemical energy, pH or salinity constraints, and preservation of biosignature-bearing materials.</p></section>
+<section class="slide"><h2>Synthesis: Water Evidence Is a Chain</h2><ul><li>Landforms suggest process but rarely settle duration by themselves.</li><li>Hydrated minerals constrain water-rock chemistry.</li><li>Habitability claims require persistence, energy, chemistry, and preservation context.</li></ul></section>
+<section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax Astronomy 2e solar-system chapters and local reference copy.</li><li>NASA/OpenStax/ESA sources recorded in reference-log.md where external visuals are used.</li></ul></section>
+</main></body>
+</html>

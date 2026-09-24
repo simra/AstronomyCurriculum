@@ -1,0 +1,6 @@
+body,solar_flux_relative_earth,bond_albedo,effective_temperature_k,surface_temperature_k,surface_pressure_bar,escape_velocity_km_s,mean_molecular_mass_amu,dominant_gases,primary_source
+Venus,1.91,0.75,232,737,92.0,10.36,43.5,CO2 N2,NASA Planetary Fact Sheet
+Earth,1.00,0.306,255,288,1.013,11.19,28.97,N2 O2 Ar,NASA Planetary Fact Sheet
+Mars,0.43,0.25,210,210,0.006,5.03,43.3,CO2 N2 Ar,NASA Planetary Fact Sheet
+Titan,0.011,0.22,82,94,1.47,2.64,28.6,N2 CH4,NASA Planetary Fact Sheet - Saturnian Satellites
+Mercury,6.67,0.12,440,440,0.0,4.25,variable,exosphere only,NASA Planetary Fact Sheet

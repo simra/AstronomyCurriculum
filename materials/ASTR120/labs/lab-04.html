@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASTR 120 Lab 04: Atmospheres, Escape, and Climate</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+:root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; --warning:#8a4b08; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:Georgia,"Times New Roman",serif; color:var(--ink); background:var(--paper); line-height:1.6; }
+header { padding:38px 24px 26px; background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; }
+header div, main { max-width:1060px; margin:0 auto; }
+main { padding:30px 24px 64px; }
+h1,h2,h3 { line-height:1.15; }
+h1 { margin:0 0 8px; font-size:clamp(2rem,4vw,3.2rem); }
+h2 { margin-top:34px; color:var(--navy); border-bottom:2px solid var(--line); padding-bottom:8px; }
+h3 { color:var(--teal); }
+section, article.card, article.problem { background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:16px 18px; margin:16px 0; }
+.notice { border-left:5px solid var(--teal); background:var(--teal-soft); }
+.meta { color:var(--muted); }
+table { width:100%; border-collapse:collapse; margin:14px 0; }
+th,td { border:1px solid var(--line); padding:8px 10px; vertical-align:top; text-align:left; }
+th { background:var(--teal-soft); }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+a { color:var(--teal); font-weight:700; }
+.points { color:var(--gold); font-weight:700; }
+code { background:#eef3f5; padding:1px 4px; border-radius:3px; }
+</style>
+</head>
+<body>
+<header><div><h1>Lab 04: Atmospheres, Escape, and Climate</h1><p>Compare greenhouse warming and atmospheric retention for Venus, Earth, Mars, Titan, and Mercury using measured planetary properties.</p></div></header>
+<main>
+<section><h2>Learning Objectives</h2><ul><li>Calculate greenhouse offset from effective and observed surface temperatures.</li><li>Estimate thermal molecular speeds and compare them with escape velocity.</li><li>Evaluate why pressure, composition, albedo, and gravity must be interpreted together.</li></ul></section>
+<section><h2>Preparation</h2><p>Review Lecture 6 on radiative balance, greenhouse warming, atmospheric pressure, and atmospheric escape.</p></section>
+<section><h2>Materials and Data</h2><ul><li><code>../data/lab-04-atmospheres-climate.csv</code>, containing solar flux, albedo, effective temperature, surface temperature, pressure, escape velocity, and atmospheric composition.</li><li>Spreadsheet or calculator with square-root function.</li><li>NASA Planetary Fact Sheet values and Titan satellite fact-sheet values; see <code>../data/lab-data-provenance.md</code>.</li></ul></section>
+<section><h2>Apparatus and Setup</h2><ol><li>Open the CSV and create columns for greenhouse offset, molecular thermal speed, and escape-speed ratio.</li><li>For mean molecular mass, convert atomic mass units to kg using 1 amu = 1.6605 x 10<sup>-27</sup> kg.</li><li>Use surface temperature for molecular-speed estimates and mark Mercury as exosphere-only rather than a stable lower atmosphere.</li></ol></section>
+<section><h2>Procedure</h2><ol><li>Calculate greenhouse offset as \(T_{surface} - T_{effective}\) for every body with both temperatures listed.</li><li>Estimate root-mean-square molecular speed using \(v_{rms}=\sqrt{3kT/m}\), where \(k=1.380649\times10^{-23}\) J K<sup>-1</sup>.</li><li>Compute \(v_{escape}/v_{rms}\) for Venus, Earth, Mars, and Titan. Exclude Mercury from the ratio table if you cannot assign a single atmospheric molecular mass.</li><li>Make a two-axis comparison table: greenhouse offset and escape-speed ratio.</li><li>Classify each world as greenhouse-dominated, escape-limited, pressure-limited, or exosphere-only, and defend the classification with measurements.</li></ol></section>
+<section><h2>Measurement Record</h2><table><thead><tr><th>Body</th><th>Greenhouse offset (K)</th><th>v<sub>rms</sub> (km/s)</th><th>v<sub>esc</sub>/v<sub>rms</sub></th><th>Climate/escape classification</th></tr></thead><tbody><tr><td>Venus</td><td></td><td></td><td></td><td></td></tr><tr><td>Earth</td><td></td><td></td><td></td><td></td></tr><tr><td>Mars</td><td></td><td></td><td></td><td></td></tr><tr><td>Titan</td><td></td><td></td><td></td><td></td></tr></tbody></table></section>
+<section><h2>Analysis and Uncertainty</h2><p>Use +/-3 K for effective and surface temperatures unless your instructor supplies more precise values. Propagate greenhouse-offset uncertainty by adding temperature uncertainties in quadrature. For molecular speed, evaluate sensitivity by recalculating with mean molecular mass +/-1 amu; for mixed atmospheres this is a model uncertainty, not an instrumental measurement error.</p></section>
+<section><h2>Deliverables</h2><ul><li>Completed calculation table for greenhouse offset and escape-speed ratio.</li><li>Scatter plot of surface pressure versus greenhouse offset, with labels for all five bodies.</li><li>Short classification paragraph comparing Venus, Mars, and Titan.</li><li>Provenance note citing NASA Planetary Fact Sheet and <code>lab-04-atmospheres-climate.csv</code>.</li></ul></section>
+<section><h2>Assessment Criteria</h2><ul><li>Correct greenhouse and molecular-speed calculations: 30%.</li><li>Classification uses multiple measured quantities: 25%.</li><li>Uncertainty and model sensitivity are explicitly treated: 20%.</li><li>Plot has units, labels, and readable scaling: 15%.</li><li>Complete provenance note: 10%.</li></ul></section>
+<section><h2>References, Software, and Data Provenance</h2><p>Data file: <code>materials/ASTR120/data/lab-04-atmospheres-climate.csv</code>. Sources: NASA Planetary Fact Sheet and Saturnian satellite fact-sheet entries for Titan. Processing state: real public reference values selected and rounded for instruction. Software: spreadsheet or calculator.</p></section>
+</main></body>
+</html>

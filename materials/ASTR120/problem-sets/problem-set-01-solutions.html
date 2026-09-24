@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASTR 120 Problem Set 01 Solution Key</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    :root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#fff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; --warning:#8a4b08; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Georgia,"Times New Roman",serif; color:var(--ink); background:var(--paper); line-height:1.6; }
+    header { padding:38px 24px 26px; background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; }
+    header div, main { max-width:1060px; margin:0 auto; }
+    main { padding:30px 24px 64px; }
+    h1,h2,h3 { line-height:1.15; }
+    h1 { margin:0 0 8px; font-size:clamp(2rem,4vw,3.2rem); }
+    h2 { margin-top:34px; color:var(--navy); border-bottom:2px solid var(--line); padding-bottom:8px; }
+    section, article.solution { background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:16px 18px; margin:16px 0; }
+    .instructor { border-left:5px solid var(--gold); background:#fff8e8; }
+    table { width:100%; border-collapse:collapse; margin:12px 0; }
+    th,td { border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top; }
+    th { background:var(--teal-soft); }
+    code { background:#eef3f5; padding:1px 4px; border-radius:3px; }
+  </style>
+</head>
+<body>
+<header><div><h1>ASTR 120 Problem Set 01 Solution Key</h1><p>Instructor-facing worked solutions</p></div></header>
+<main>
+  <section class="instructor">
+    <h2>Instructor Notes</h2>
+    <p>Do not distribute with the student problem set. The calculations below use rounded instructional values, so accept small rounding differences when units, method, and interpretation are correct.</p>
+  </section>
+
+  <article class="solution">
+    <h2>Problem 1. A Scale Model with Evidence Tags</h2>
+    <p><strong>Expected approach:</strong> multiply AU by 10.0 m for orbital distance. For scaled diameter, compute real diameter, convert the model scale consistently, and express the tiny value in millimeters.</p>
+    <p>Scaled distances: Mercury \(0.39\times10.0=3.9\) m; Earth \(1.00\times10.0=10.0\) m; Jupiter \(5.20\times10.0=52.0\) m; Neptune \(30.1\times10.0=301\) m.</p>
+    <p>For Earth, the real diameter is \(2R=12,742\) km. In this model, \(1\) AU = \(1.496\times10^8\) km becomes 10.0 m, so the scale is \(10.0\,\mathrm{m}/1.496\times10^8\,\mathrm{km}=6.68\times10^{-8}\,\mathrm{m\ km^{-1}}\). Earth's scaled diameter is \(12,742\,\mathrm{km}\times6.68\times10^{-8}=8.52\times10^{-4}\) m = 0.852 mm. Equivalent calculations for other worlds are acceptable if units are explicit.</p>
+    <p>Evidence tags should distinguish apparent positions and brightnesses as observations, spacecraft/radar-derived distances and radii as calibrated measurements, and composition categories as interpretations from density, spectra, samples, and formation models. Good limitations include finite measurement precision, incomplete sampling, model degeneracy, and the fact that bulk categories hide internal layering.</p>
+    <table><thead><tr><th>Criterion</th><th>Points</th><th>Notes</th></tr></thead><tbody><tr><td>Scaled orbital distances with units</td><td>8</td><td>Allow minor rounding only.</td></tr><tr><td>Scaled diameter with consistent scale conversion</td><td>7</td><td>Must not confuse radius and diameter.</td></tr><tr><td>Evidence categories</td><td>6</td><td>Credit distinctions among observation, calibrated measurement, and inference.</td></tr><tr><td>Uncertainty/limitation discussion</td><td>4</td><td>Must be specific to the evidence type.</td></tr></tbody></table>
+    <p><strong>Common errors:</strong> using 1 AU = 10 km instead of 10 m, dropping the diameter factor of two, or treating composition as directly observed.</p>
+  </article>
+
+  <article class="solution">
+    <h2>Problem 2. Density as a Comparative Planetology Tool</h2>
+    <p><strong>Expected approach:</strong> convert radius to meters, compute spherical volume, divide mass by volume, then compare to Earth by both absolute and ratio methods.</p>
+    <p>For the body, \(R=3390\) km = \(3.390\times10^6\) m. The volume is</p>
+    <p>\[V=\frac{4\pi R^3}{3}=\frac{4\pi(3.390\times10^6\,\mathrm{m})^3}{3}=1.63\times10^{20}\,\mathrm{m^3}.\]</p>
+    <p>Then \(\rho=6.4\times10^{23}\,\mathrm{kg}/1.63\times10^{20}\,\mathrm{m^3}=3.92\times10^3\,\mathrm{kg\ m^{-3}}=3.92\,\mathrm{g\ cm^{-3}}\).</p>
+    <p>For Earth, \(V_E=4\pi(6.371\times10^6\,\mathrm{m})^3/3=1.08\times10^{21}\,\mathrm{m^3}\), so \(\rho_E=5.97\times10^{24}/1.08\times10^{21}=5.51\times10^3\,\mathrm{kg\ m^{-3}}\). The density ratio is \(3920/5510=0.711\). The ratio method gives \((6.4\times10^{23}/5.97\times10^{24})/(3390/6371)^3=0.107/(0.532)^3=0.713\), agreeing to rounding precision.</p>
+    <p>Interpretation: the body is less dense than Earth, consistent with less metal fraction, more silicate/volatile material, or different compression. Density alone cannot uniquely determine core size, temperature, porosity, hydration, or detailed chemistry. Magnetic, seismic, gravity-field, moment-of-inertia, and composition measurements would reduce those degeneracies.</p>
+    <table><thead><tr><th>Criterion</th><th>Points</th><th>Notes</th></tr></thead><tbody><tr><td>Volume and density calculation</td><td>9</td><td>Units must be carried and converted.</td></tr><tr><td>Earth comparison by absolute values</td><td>5</td><td>Accept \(\rho_E\) near 5.5 g cm\(^{-3}\).</td></tr><tr><td>Ratio method verification</td><td>5</td><td>Must use cubed radius ratio.</td></tr><tr><td>Interior interpretation and degeneracies</td><td>6</td><td>Requires more than "rocky" or "not rocky."</td></tr></tbody></table>
+    <p><strong>Common errors:</strong> forgetting to cube radius, mixing km and m, or overclaiming core composition from a single mean density.</p>
+  </article>
+
+  <article class="solution">
+    <h2>Problem 3. Frost-Line Condensation Model</h2>
+    <p><strong>Expected approach:</strong> rearrange \(T=280(r/1\,\mathrm{AU})^{-1/2}\) to \(r=(280/T)^2\) AU.</p>
+    <p>For water ice, \(r=(280/170)^2\,\mathrm{AU}=2.71\) AU. For ammonia-rich ice, \(r=(280/90)^2\,\mathrm{AU}=9.68\) AU.</p>
+    <p>Mercury and Earth are inside the water frost line in this model, so abundant water ice would not condense locally. Jupiter at 5.20 AU is beyond the water line but inside the 90 K ammonia-rich line; water ice is plausible as solid building material, while ammonia-rich ice is less favored by this simple temperature law. Neptune at 30.1 AU is beyond both boundaries and is consistent with volatile-rich solids.</p>
+    <p>The limitation paragraph should note that present-day orbit is not necessarily formation location. Planet migration, scattering of icy planetesimals, radial drift of solids, time-varying luminosity, disk opacity, and local pressure all alter condensation boundaries.</p>
+    <table><thead><tr><th>Criterion</th><th>Points</th><th>Notes</th></tr></thead><tbody><tr><td>Algebraic rearrangement</td><td>6</td><td>Must solve for \(r\), not substitute by trial only.</td></tr><tr><td>Water and ammonia radii</td><td>8</td><td>Units in AU required.</td></tr><tr><td>Classification of four worlds</td><td>6</td><td>Must compare to both condensation boundaries.</td></tr><tr><td>Model limitation</td><td>5</td><td>Credit physically relevant complications.</td></tr></tbody></table>
+    <p><strong>Common errors:</strong> reversing inside/outside interpretation or using a linear rather than squared temperature-radius relation.</p>
+  </article>
+
+  <article class="solution">
+    <h2>Problem 4. From Nebular Prediction to Testable Evidence</h2>
+    <p><strong>Expected approach:</strong> construct a falsifiable claim and evaluate three evidence streams without pretending any single measurement is decisive.</p>
+    <p>Example prediction: if condensation across the frost line shaped planetesimal composition, then bodies formed beyond roughly 2.7 AU should, on average, show lower bulk densities or direct volatile-rich compositions than bodies formed well inside 2.7 AU, after accounting for giant-planet gas accretion and later migration.</p>
+    <p>Evidence table should include: bulk density, with expected lower densities for ice-rich bodies but ambiguity from compression and H/He envelopes; meteorites/samples, with primitive or hydrated materials preserving nebular solids but ambiguity from parent-body alteration and collection bias; young-star disks, with rings/gaps/dust temperatures showing where solids exist but ambiguity in translating observed dust to final planets.</p>
+    <p>The Problems 1-3 data broadly support the prediction at a coarse level: inner Mercury/Earth are rocky/metal-rich, Jupiter is beyond the water frost line, and Neptune is beyond the colder volatile boundary. The support is limited because only four present-day objects are used, Jupiter's low-density envelope is not the same as a simple ice-rock mixture, and migration/scattering can move bodies after formation.</p>
+    <table><thead><tr><th>Criterion</th><th>Points</th><th>Notes</th></tr></thead><tbody><tr><td>Falsifiable prediction</td><td>5</td><td>Must be testable with a possible contrary outcome.</td></tr><tr><td>Three evidence types</td><td>9</td><td>Each needs measurement, expected result, and ambiguity.</td></tr><tr><td>Conclusion tied to previous calculations</td><td>7</td><td>Should not be a generic nebular-summary paragraph.</td></tr><tr><td>Separation of evidence and interpretation</td><td>4</td><td>Look for careful wording and caveats.</td></tr></tbody></table>
+    <p><strong>Common errors:</strong> presenting the model as proven, ignoring migration, or using disk images as direct photographs of finished planets.</p>
+  </article>
+
+  <section>
+    <h2>OpenStax Companion Practice Notes</h2>
+    <p>The recommended OpenStax entries reinforce, but do not replace, this assignment. Chapter 7 Review Questions 8, 13, 14, and 20 support comparative planetology and nebular formation; Thought Questions 21, 22, and 27 support formation evidence and differentiation; Figuring for Yourself 31-33 and 36 provide density and radioactive-decay practice. Verify numbering against the adopted PDF before assigning them in the LMS.</p>
+  </section>
+</main>
+</body>
+</html>

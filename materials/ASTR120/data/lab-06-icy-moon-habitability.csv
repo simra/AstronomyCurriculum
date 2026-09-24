@@ -1,0 +1,6 @@
+world,parent,radius_km,bulk_density_g_cm3,surface_temperature_k,ocean_evidence,energy_evidence,material_exchange_evidence,known_plumes,primary_source
+Europa,Jupiter,1560.8,3.01,102,induced magnetic field and young fractured ice,strong tidal heating and Laplace resonance,chaos terrain and possible surface salts,possible,NASA Europa Clipper mission science pages
+Enceladus,Saturn,252.1,1.61,75,gravity and libration support global ocean,tiger-stripe heat flow and tidal flexing,active plume samples by Cassini,confirmed,NASA Cassini Enceladus science pages
+Ganymede,Jupiter,2634.1,1.94,110,induced magnetic field and auroral rocking,modest tidal/radiogenic heating,limited surface-ocean exchange evidence,no confirmed plumes,NASA Solar System Exploration
+Titan,Saturn,2574.7,1.88,94,gravity/topography models allow subsurface ocean,radiogenic and possible tidal energy,organic-rich surface-atmosphere chemistry,no confirmed water plumes,NASA Cassini-Huygens Titan science pages
+Callisto,Jupiter,2410.3,1.83,134,magnetic induction suggests salty layer,weak internal energy and old surface,limited exchange evidence,no,NASA Solar System Exploration

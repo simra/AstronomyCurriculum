@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASTR 120 Lab 05: Mars Water Evidence</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+:root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; --warning:#8a4b08; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:Georgia,"Times New Roman",serif; color:var(--ink); background:var(--paper); line-height:1.6; }
+header { padding:38px 24px 26px; background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; }
+header div, main { max-width:1060px; margin:0 auto; }
+main { padding:30px 24px 64px; }
+h1,h2,h3 { line-height:1.15; }
+h1 { margin:0 0 8px; font-size:clamp(2rem,4vw,3.2rem); }
+h2 { margin-top:34px; color:var(--navy); border-bottom:2px solid var(--line); padding-bottom:8px; }
+h3 { color:var(--teal); }
+section, article.card, article.problem { background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:16px 18px; margin:16px 0; }
+.notice { border-left:5px solid var(--teal); background:var(--teal-soft); }
+.meta { color:var(--muted); }
+table { width:100%; border-collapse:collapse; margin:14px 0; }
+th,td { border:1px solid var(--line); padding:8px 10px; vertical-align:top; text-align:left; }
+th { background:var(--teal-soft); }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+a { color:var(--teal); font-weight:700; }
+.points { color:var(--gold); font-weight:700; }
+code { background:#eef3f5; padding:1px 4px; border-radius:3px; }
+</style>
+</head>
+<body>
+<header><div><h1>Lab 05: Mars Water Evidence</h1><p>Classify multiple Mars observations by the strength and ambiguity of their evidence for past or present water.</p></div></header>
+<main>
+<section><h2>Learning Objectives</h2><ul><li>Distinguish geomorphic, mineralogical, stratigraphic, and in situ chemical evidence for water.</li><li>Assign confidence levels while acknowledging ambiguous interpretations.</li><li>Connect Mars mission measurements to habitability claims without overstating the evidence.</li></ul></section>
+<section><h2>Preparation</h2><p>Review Lecture 8 on Mars water, climate evolution, rover exploration, and habitability evidence.</p></section>
+<section><h2>Materials and Data</h2><ul><li><code>../data/lab-05-mars-water-evidence.csv</code>, a curated table of named Mars sites, missions, evidence types, measured quantities, and uncertainty notes.</li><li>Colored pens or annotation software for an evidence matrix.</li><li>NASA Mars mission science summaries for Mars 2020, MER Opportunity, MRO CRISM/HiRISE, and MSL Curiosity.</li></ul></section>
+<section><h2>Apparatus and Setup</h2><ol><li>Open the CSV and create columns for evidence class, water timescale, confidence score, and alternate explanation.</li><li>Use this confidence scale: 3 = strong evidence for sustained past liquid water, 2 = water-related but environment or duration uncertain, 1 = ambiguous or contested, 0 = not water evidence by itself.</li><li>Prepare a one-page matrix with rows for sites and columns for geomorphology, mineralogy, chemistry, stratigraphy, and ambiguity.</li></ol></section>
+<section><h2>Procedure</h2><ol><li>Classify each site or feature by evidence type: geomorphic, mineralogical, stratigraphic, chemical, or seasonal surface-change observation.</li><li>Assign a confidence score using the scale in the setup. Justify every score with a measured quantity from the CSV.</li><li>Identify the strongest case for a long-lived habitable environment and the weakest case for present liquid water.</li><li>For Jezero delta and Gale crater mudstone, compare whether the evidence is primarily shape-based, composition-based, or stratigraphic.</li><li>Write a mission recommendation: which one site should receive a follow-up sample or measurement, and what measurement would reduce the largest uncertainty?</li></ol></section>
+<section><h2>Measurement Record</h2><table><thead><tr><th>Site or feature</th><th>Evidence class</th><th>Measured quantity used</th><th>Confidence score</th><th>Primary ambiguity</th></tr></thead><tbody><tr><td>Jezero delta</td><td></td><td>fan front width</td><td></td><td></td></tr><tr><td>Meridiani Planum</td><td></td><td>spherule abundance</td><td></td><td></td></tr><tr><td>Mawrth Vallis</td><td></td><td>phyllosilicate units</td><td></td><td></td></tr><tr><td>Recurring slope lineae candidate</td><td></td><td>slope angle</td><td></td><td></td></tr><tr><td>Gale crater mudstone</td><td></td><td>mudstone interval</td><td></td><td></td></tr></tbody></table></section>
+<section><h2>Analysis and Uncertainty</h2><p>Treat numerical uncertainty as listed in the CSV. Treat confidence score as classification uncertainty: if two students could reasonably differ by one point, mark the score as plus or minus 1 and explain the disputed assumption. Present-water claims require stricter evidence than ancient-water claims because salts, slope streaks, and dry granular flows can mimic liquid-related features.</p></section>
+<section><h2>Deliverables</h2><ul><li>Completed evidence matrix with confidence scores and ambiguity notes.</li><li>Ranked list of the five sites from strongest to weakest water evidence.</li><li>One 300-word recommendation for a follow-up measurement or sample target.</li><li>Provenance note naming the NASA mission pages and <code>lab-05-mars-water-evidence.csv</code>.</li></ul></section>
+<section><h2>Assessment Criteria</h2><ul><li>Evidence classes and confidence scores are justified with data: 30%.</li><li>Uncertainty discussion distinguishes measurement error from interpretive ambiguity: 25%.</li><li>Ranking separates ancient water evidence from present liquid-water claims: 20%.</li><li>Follow-up recommendation targets a real unresolved measurement: 15%.</li><li>Complete provenance note: 10%.</li></ul></section>
+<section><h2>References, Software, and Data Provenance</h2><p>Data file: <code>materials/ASTR120/data/lab-05-mars-water-evidence.csv</code>. Sources: NASA Mars 2020 Jezero crater science pages, MER Opportunity results, MRO CRISM and HiRISE observations, and MSL Curiosity science results. Processing state: curated teaching table assembled from public mission summaries with simplified measurement fields.</p></section>
+</main></body>
+</html>

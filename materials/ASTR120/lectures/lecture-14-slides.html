@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASTR 120 Lecture 14 Slides</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+:root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; --warning:#8a4b08; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:"Aptos","Segoe UI",sans-serif; color:var(--ink); background:var(--paper); }
+.deck { scroll-snap-type:y mandatory; height:100vh; overflow-y:auto; }
+.slide { min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:50px 68px; border-bottom:1px solid var(--line); background:var(--panel); }
+.title { background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; }
+h1 { font-size:clamp(2.4rem,5vw,4.6rem); margin:0 0 18px; line-height:1.05; }
+h2 { font-size:clamp(1.8rem,3.2vw,3.1rem); margin:0 0 22px; color:var(--navy); }
+.title h2 { color:#fff; opacity:.94; }
+p,li { font-size:clamp(1.03rem,1.55vw,1.45rem); line-height:1.35; }
+.kicker { color:var(--gold); text-transform:uppercase; letter-spacing:.08em; font-weight:700; }
+.grid { display:grid; grid-template-columns:.75fr 1.25fr; gap:30px; align-items:center; }
+.three { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.card { border:1px solid var(--line); background:#fff; border-radius:6px; padding:14px 16px; }
+.equation { font-size:1.32rem; padding:14px 18px; background:var(--teal-soft); border-left:5px solid var(--teal); margin:12px 0; }
+figcaption,.small { color:var(--muted); font-size:.95rem; line-height:1.35; margin-top:8px; }
+svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(--line); background:#fff; }
+.warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
+@media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+</style>
+</head>
+<body>
+<main class="deck">
+<section class="slide title"><p class="kicker">ASTR 120 · Lecture 14</p><h1>Mission Design, Synthesis, and Open Questions</h1><h2>Solar-system evidence, physics, and exploration</h2></section>
+<section class="slide"><h2>Why This Question Matters</h2><p>Every mission design encodes scientific priorities: what to measure, at what precision, from what orbit or flyby, with what risk.</p></section>
+<section class="slide"><h2>Learning Goals</h2><ul><li>Design a simple mission concept tied to testable solar-system science.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section>
+<section class="slide"><h2>Opening Phenomenon</h2><p>Space missions turn questions into payloads, trajectories, measurements, and tradeoffs.</p></section>
+<section class="slide"><h2>Mission Design Is Scientific Traceability</h2><div class="three"><article class="card"><p><strong>Question:</strong> one testable claim that changes planetary understanding.</p></article><article class="card"><p><strong>Measurement:</strong> observable quantity with needed precision, coverage, and context.</p></article><article class="card"><p><strong>Payload and trajectory:</strong> instruments and operations that can actually acquire the measurement.</p></article></div></section>
+<section class="slide"><h2>Review the Course Arc</h2><p>Every topic in ASTR 120 used the same discipline: connect a physical model to evidence, name the uncertainty, and choose the next observation that could discriminate among explanations.</p></section>
+<section class="slide"><h2>Evidence We Need</h2><ul><li>Science traceability links question, measurement, instrument, and trajectory.</li><li>Mission design trades risk, cost, resolution, and coverage.</li><li>A payload should test a hypothesis, not just take pretty pictures.</li></ul></section>
+<section class="slide"><h2>Traceability Matrix as a Reasoning Tool</h2><div class="grid"><div><p>Read the mission chain from left to right and right to left. If the instrument cannot make the needed measurement, the science question has not been converted into an executable mission.</p></div><figure><svg class="lecture-visual" data-astr120-visual="14" viewBox="0 0 960 560" role="img" aria-label="Mission Traceability diagram">
+  <rect width="960" height="560" fill="#fbfcfd"/>
+  <text x="42" y="58" font-size="30" fill="#102a43" font-family="Segoe UI, sans-serif">Mission Traceability</text>
+  <circle cx="205" cy="280" r="70" fill="#0f6b78" opacity="0.88"/>
+  <rect x="400" y="210" width="180" height="140" rx="18" fill="#b87911" opacity="0.78"/>
+  <polygon points="740,190 840,280 740,370 640,280" fill="#102a43" opacity="0.82"/>
+  <path d="M280 280 L400 280 M580 280 L640 280" stroke="#5b6773" stroke-width="5" marker-end="url(#arrow14)"/>
+  <defs><marker id="arrow14" markerWidth="12" markerHeight="12" refX="10" refY="4" orient="auto"><path d="M0,0 L0,8 L12,4 z" fill="#5b6773"/></marker></defs>
+  <text x="145" y="405" font-size="22" fill="#102a43" font-family="Segoe UI, sans-serif">science question</text>
+  <text x="420" y="405" font-size="22" fill="#102a43" font-family="Segoe UI, sans-serif">measurement</text>
+  <text x="650" y="405" font-size="22" fill="#102a43" font-family="Segoe UI, sans-serif">instrument</text>
+  <text x="42" y="515" font-size="19" fill="#5b6773" font-family="Segoe UI, sans-serif">A mission succeeds when each payload measurement tests a defined claim.</text>
+</svg><figcaption>A mission succeeds when each payload measurement tests a defined claim.</figcaption></figure></div></section>
+<section class="slide"><h2>Trade Metric from the Local Mission Table</h2><div class="equation">\[ \mathrm{priority}\sim {\mathrm{science\ return}\over \mathrm{technical\ risk}+\mathrm{operations\ complexity}+\mathrm{protection\ burden}} \]</div><p>This simplified score is not a NASA formula. It helps compare why a high-return plume sample return can still be harder to justify than a lower-risk flyby or scout mission.</p></section>
+<section class="slide"><h2>Worked Concept: Europa Plume Flythrough</h2><ul><li>Question: can plume material reveal ocean composition?</li><li>Measurements: dust composition, ultraviolet plume structure, magnetic context.</li><li>Risks: uncertain plume activity, planetary protection burden, and limited flyby geometry.</li></ul></section>
+<section class="slide"><h2>Evidence Comparison Across Mission Concepts</h2><p>A Venus cloud microprobe tests chemistry quickly but in a harsh environment. A Trojan asteroid flyby is lower risk but answers a more archival formation question. An Enceladus sample-return concept has high scientific return and high complexity.</p></section>
+<section class="slide"><h2>Mission Pitfall: Payload Lists Are Not Science Cases</h2><p class="warning">A mission concept is weak if it starts with favorite instruments and only later invents science. Start with the discriminating question, then derive measurement requirements and payload.</p></section>
+<section class="slide"><h2>Capstone Prompt: Defend One Mission</h2><p>Choose Venus clouds, Europa plume flythrough, Enceladus plume sample return, Mars polar ice drill, or Trojan asteroid flyby. State the question, decisive measurement, biggest risk, and the result that would most change the field.</p></section>
+<section class="slide"><h2>Synthesis: ASTR 120 Reasoning Toolkit</h2><ul><li>Use scale, density, spectra, dynamics, geology, and climate as linked evidence systems.</li><li>Separate what was measured from what was inferred.</li><li>Design the next observation to discriminate among physical explanations.</li></ul></section>
+<section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax Astronomy 2e solar-system chapters and local reference copy.</li><li>NASA/OpenStax/ESA sources recorded in reference-log.md where external visuals are used.</li></ul></section>
+</main></body>
+</html>

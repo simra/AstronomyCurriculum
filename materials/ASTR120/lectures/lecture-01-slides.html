@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASTR 120 Lecture 01 Slides</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+:root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; --warning:#8a4b08; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:"Aptos","Segoe UI",sans-serif; color:var(--ink); background:var(--paper); }
+.deck { scroll-snap-type:y mandatory; height:100vh; overflow-y:auto; }
+.slide { min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:50px 68px; border-bottom:1px solid var(--line); background:var(--panel); }
+.title { background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; }
+h1 { font-size:clamp(2.4rem,5vw,4.6rem); margin:0 0 18px; line-height:1.05; }
+h2 { font-size:clamp(1.8rem,3.2vw,3.1rem); margin:0 0 22px; color:var(--navy); }
+.title h2 { color:#fff; opacity:.94; }
+p,li { font-size:clamp(1.03rem,1.55vw,1.45rem); line-height:1.35; }
+.kicker { color:var(--gold); text-transform:uppercase; letter-spacing:.08em; font-weight:700; }
+.grid { display:grid; grid-template-columns:.75fr 1.25fr; gap:30px; align-items:center; }
+.three { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.card { border:1px solid var(--line); background:#fff; border-radius:6px; padding:14px 16px; }
+.equation { font-size:1.32rem; padding:14px 18px; background:var(--teal-soft); border-left:5px solid var(--teal); margin:12px 0; }
+figcaption,.small { color:var(--muted); font-size:.95rem; line-height:1.35; margin-top:8px; }
+svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(--line); background:#fff; }
+.warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
+@media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+</style>
+</head>
+<body>
+<main class="deck">
+<section class="slide title"><p class="kicker">ASTR 120 · Lecture 01</p><h1>Why Study the Solar System?</h1><h2>Solar-system evidence, physics, and exploration</h2></section>
+<section class="slide"><h2>Why This Question Matters</h2><p>From Galileo&#x27;s telescopic moons to spacecraft reconnaissance, solar-system astronomy turned lights in the sky into worlds with geology, weather, chemistry, and histories.</p></section>
+<section class="slide"><h2>Learning Goals</h2><ul><li>Use scale, density, and mission evidence to compare worlds.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section>
+<section class="slide"><h2>Opening Phenomenon</h2><p>The solar system is our nearest laboratory for testing how planets form, evolve, and become habitable.</p></section>
+<section class="slide"><h2>Three Ways to Turn Worlds into Data</h2><div class="three"><article class="card"><p><strong>Scale:</strong> sizes, distances, and light-time show what can be resolved or sampled.</p></article><article class="card"><p><strong>Bulk properties:</strong> mass, radius, density, and gravity constrain composition and interior state.</p></article><article class="card"><p><strong>Mission context:</strong> wavelength, flyby geometry, and sample location determine what the evidence can mean.</p></article></div></section>
+<section class="slide"><h2>Comparative Planetology Is a Control Experiment</h2><ul><li>Venus and Earth have similar sizes but radically different climates.</li><li>Earth and Mars both preserve water-related evidence, but atmospheric pressure and gravity changed their paths.</li><li>Jupiter and Saturn show how low density, rotation, and retained volatiles produce giant-planet behavior.</li></ul></section>
+<section class="slide"><h2>Evidence We Need</h2><ul><li>Earth can be studied as a planet with atmosphere, surface, water, and interior.</li><li>Spacecraft turned point-like planets into measurable worlds.</li><li>Comparing many worlds reveals which processes are general.</li></ul></section>
+<section class="slide"><h2>Earth as the Calibration Case</h2><div class="grid"><div><p>The Blue Marble is not just an icon. It shows clouds, oceans, continents, limb darkening, and a single viewing geometry. Every other planetary image asks the same question: what physical properties can this observation actually constrain?</p></div><figure><img src="../assets/images/earth-blue-marble.jpg" alt="Apollo 17 Blue Marble view of Earth."><figcaption>Earth supplies the comparison standard: a known habitable planet whose visible appearance hides interior structure, atmospheric composition, and climate history. Credit: NASA/Apollo 17 crew/JSC.</figcaption></figure></div></section>
+<section class="slide"><h2>Scale Calculation: Earth, Moon, and Mars</h2><div class="equation">\[ d_{model}=d_{real}\left({1\ \mathrm{cm}\over 12{,}742\ \mathrm{km}}\right) \]</div><ul><li>If Earth is a 1 cm sphere, the Moon orbits about 30 cm away.</li><li>Mars at closest approach is still roughly 43 m away on the same model.</li><li>The scale explains why spacecraft, not Earth-based images alone, dominate surface geology.</li></ul></section>
+<section class="slide"><h2>Worked Comparison: Density Before Appearance</h2><p>Earth and Venus look unlike each other in visible images, but their bulk densities are close: Earth about 5.51 g/cm3 and Venus about 5.24 g/cm3. That points to broadly rocky compositions, while the climate contrast must be explained by atmosphere, solar input, and geologic history.</p></section>
+<section class="slide"><h2>Evidence Boundary: A Photograph Is Not a Diagnosis</h2><p class="warning">A visible image can show clouds or terrain, but it cannot by itself measure atmospheric composition, interior layering, or surface age. Strong claims combine images with spectra, gravity, magnetism, sample chemistry, or repeated observations.</p></section>
+<section class="slide"><h2>Reasoning Prompt: Choose the Next Measurement</h2><p>You can send one instrument to a newly imaged rocky planet: a camera, an infrared spectrometer, a magnetometer, or a radio-science gravity experiment. Which one best separates composition, climate, and interior explanations, and what would count as a surprising result?</p></section>
+<section class="slide"><h2>Data Bridge: What the Planet Table Adds</h2><p>The local planetary-property table turns comparison into evidence: radius and mass give density, surface gravity shapes atmosphere retention, and moon counts flag dynamical histories. The table is the course baseline for moving from picture-based description to physical argument.</p></section>
+<section class="slide"><h2>Synthesis: The Solar System as a Laboratory</h2><ul><li>Scale tells us what can be observed directly and what needs spacecraft access.</li><li>Bulk properties sort first-order composition before detailed geology begins.</li><li>Mission evidence is strongest when independent measurements converge on the same physical interpretation.</li></ul></section>
+<section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax Astronomy 2e solar-system chapters and local reference copy.</li><li>NASA/OpenStax/ESA sources recorded in reference-log.md where external visuals are used.</li></ul></section>
+</main></body>
+</html>

@@ -1,0 +1,9 @@
+system,body,orbital_period_days,semimajor_axis_km,eccentricity,resonance_note,primary_source
+Jupiter,Io,1.769137786,421800,0.0041,Laplace 1:2:4 chain,NASA Planetary Fact Sheet - Jovian Satellites
+Jupiter,Europa,3.551181,671100,0.0094,Laplace 1:2:4 chain,NASA Planetary Fact Sheet - Jovian Satellites
+Jupiter,Ganymede,7.154553,1070400,0.0013,Laplace 1:2:4 chain,NASA Planetary Fact Sheet - Jovian Satellites
+Jupiter,Callisto,16.689018,1882700,0.0074,not in Laplace chain,NASA Planetary Fact Sheet - Jovian Satellites
+Saturn,Mimas,0.942422,185540,0.0196,near 2:1 with Tethys,NASA Planetary Fact Sheet - Saturnian Satellites
+Saturn,Enceladus,1.370218,238040,0.0047,2:1 with Dione,NASA Planetary Fact Sheet - Saturnian Satellites
+Saturn,Dione,2.736915,377400,0.0022,2:1 with Enceladus,NASA Planetary Fact Sheet - Saturnian Satellites
+Saturn,Tethys,1.887802,294670,0.0001,near 2:1 with Mimas,NASA Planetary Fact Sheet - Saturnian Satellites

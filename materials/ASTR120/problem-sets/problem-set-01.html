@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASTR 120 Problem Set 01</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    :root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#fff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Georgia,"Times New Roman",serif; color:var(--ink); background:var(--paper); line-height:1.6; }
+    header { padding:38px 24px 26px; background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; }
+    header div, main { max-width:1060px; margin:0 auto; }
+    main { padding:30px 24px 64px; }
+    h1,h2,h3 { line-height:1.15; }
+    h1 { margin:0 0 8px; font-size:clamp(2rem,4vw,3.2rem); }
+    h2 { margin-top:34px; color:var(--navy); border-bottom:2px solid var(--line); padding-bottom:8px; }
+    section, article.problem { background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:16px 18px; margin:16px 0; }
+    .meta { color:var(--muted); }
+    .notice { border-left:5px solid var(--teal); background:var(--teal-soft); }
+    .points { color:var(--gold); font-weight:700; }
+    table { width:100%; border-collapse:collapse; margin:12px 0; }
+    th,td { border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top; }
+    th { background:var(--teal-soft); }
+    code { background:#eef3f5; padding:1px 4px; border-radius:3px; }
+  </style>
+</head>
+<body>
+<header><div><h1>ASTR 120 Problem Set 01</h1><p>Lectures 01-02: Solar-system evidence, scale, and formation</p></div></header>
+<main>
+  <section class="notice">
+    <h2>Due and Scope</h2>
+    <p><strong>Due:</strong> [insert date]. Submit one PDF with calculations, labeled tables, short explanations, and citations for any outside source. This assignment practices Lectures 01 and 02.</p>
+    <p><strong>Learning objectives:</strong> compare worlds with units and assumptions; distinguish measurement from inference; use disk temperature and condensation arguments to explain solar-system architecture.</p>
+    <p><strong>Instructions:</strong> Show equations before substituting numbers. Carry units through every quantitative step. Use two or three significant figures unless justified otherwise. Collaboration is allowed for discussion, but each submitted calculation, plot, and explanation must be your own. Revisions and resubmissions are encouraged when they include a short change note explaining what was corrected.</p>
+  </section>
+
+  <section>
+    <h2>Problems</h2>
+    <article class="problem">
+      <h3>1. A Scale Model with Evidence Tags <span class="points">25 points</span></h3>
+      <p>Build a scale model in which 1 AU equals 10.0 m. Use the lecture values below.</p>
+      <table>
+        <thead><tr><th>World</th><th>Mean distance from Sun (AU)</th><th>Radius (km)</th><th>Bulk composition category</th></tr></thead>
+        <tbody>
+          <tr><td>Mercury</td><td>0.39</td><td>2440</td><td>rock/metal</td></tr>
+          <tr><td>Earth</td><td>1.00</td><td>6371</td><td>rock/metal with surface volatiles</td></tr>
+          <tr><td>Jupiter</td><td>5.20</td><td>69911</td><td>H/He-rich giant</td></tr>
+          <tr><td>Neptune</td><td>30.1</td><td>24622</td><td>ice-rich giant</td></tr>
+        </tbody>
+      </table>
+      <p>Compute each scaled orbital distance in meters. Then choose one object and compute its scaled diameter in millimeters on the same model. Finally, label each quantity as a direct observation, a calibrated spacecraft/radar measurement, or a model-dependent inference, and explain one uncertainty or limitation for each category.</p>
+      <p><strong>Deliverables:</strong> scaled-distance table, one scaled diameter calculation, and a 150-200 word evidence-quality paragraph.</p>
+    </article>
+
+    <article class="problem">
+      <h3>2. Density as a Comparative Planetology Tool <span class="points">25 points</span></h3>
+      <p>Use \(\rho = M/(4\pi R^3/3)\). Earth has \(M_E=5.97\times10^{24}\) kg and \(R_E=6371\) km. A newly discovered solar-system body has \(M=6.4\times10^{23}\) kg and \(R=3390\) km.</p>
+      <ol type="a">
+        <li>Compute the body's mean density in kg m\(^{-3}\) and g cm\(^{-3}\).</li>
+        <li>Compute \(\rho/\rho_E\) using both absolute values and the ratio \((M/M_E)/(R/R_E)^3\). Confirm that the two methods agree to rounding precision.</li>
+        <li>Interpret what the density does and does not tell you about interior composition. Include at least two degeneracies or missing measurements.</li>
+      </ol>
+      <p><strong>Deliverables:</strong> worked calculation with unit conversions, density ratio, and interpretation paragraph.</p>
+    </article>
+
+    <article class="problem">
+      <h3>3. Frost-Line Condensation Model <span class="points">25 points</span></h3>
+      <p>Approximate the midplane temperature of a young solar nebula with</p>
+      <p>\[T(r)=280\,\mathrm{K}\left(\frac{r}{1\,\mathrm{AU}}\right)^{-1/2}.\]</p>
+      <p>Assume abundant water ice condenses below 170 K and ammonia-rich ice below 90 K.</p>
+      <ol type="a">
+        <li>Solve algebraically for the radius where water ice can condense.</li>
+        <li>Solve for the radius where ammonia-rich ice can condense.</li>
+        <li>Classify Mercury, Earth, Jupiter, and Neptune relative to those two condensation boundaries using the distances in Problem 1.</li>
+        <li>Explain one way migration, scattering, or disk evolution can complicate this simple present-day-radius interpretation.</li>
+      </ol>
+      <p><strong>Deliverables:</strong> two solved radii with units, classification table, and a short model-limitation explanation.</p>
+    </article>
+
+    <article class="problem">
+      <h3>4. From Nebular Prediction to Testable Evidence <span class="points">25 points</span></h3>
+      <p>A formation model predicts that objects beyond the water frost line should contain more low-density volatile material than objects inside it. Design a test using three kinds of evidence from Lecture 01 or 02: bulk density, meteorite or sample composition, and disk observations around young stars.</p>
+      <ol type="a">
+        <li>State the prediction in falsifiable form.</li>
+        <li>For each evidence type, identify the measurement, the expected result if the model is broadly right, and one ambiguity.</li>
+        <li>Decide whether the data in Problems 1-3 support, weaken, or leave unresolved the prediction for this small sample.</li>
+      </ol>
+      <p><strong>Deliverables:</strong> a three-row evidence table and a 200-250 word conclusion that separates evidence from interpretation.</p>
+    </article>
+  </section>
+
+  <section>
+    <h2>OpenStax Companion Practice</h2>
+    <p>Recommended for additional practice, not a substitute for the problems above: OpenStax <em>Astronomy 2e</em>, Chapter 7, Review Questions 8, 13, 14, and 20; Thought Questions 21, 22, and 27; Figuring for Yourself 31-33 and 36. These exact entries were selected from the local OpenStax problem index and should still be checked against the adopted PDF before final LMS release.</p>
+  </section>
+
+  <section>
+    <h2>References and Data Sources</h2>
+    <ul>
+      <li>ASTR 120 Lectures 01-02 notes and slides.</li>
+      <li>OpenStax <em>Astronomy 2e</em>, Chapter 7 problem index entries listed above, extracted in <code>references/source-indexes/openstax-astronomy-2e-problem-index.md</code>.</li>
+      <li>Numerical values are rounded instructional values from lecture tables; treat them as provided data for this assignment.</li>
+    </ul>
+  </section>
+</main>
+</body>
+</html>

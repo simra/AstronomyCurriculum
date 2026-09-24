@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASTR 120 Lecture 06 Slides</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+:root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; --warning:#8a4b08; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:"Aptos","Segoe UI",sans-serif; color:var(--ink); background:var(--paper); }
+.deck { scroll-snap-type:y mandatory; height:100vh; overflow-y:auto; }
+.slide { min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:50px 68px; border-bottom:1px solid var(--line); background:var(--panel); }
+.title { background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; }
+h1 { font-size:clamp(2.4rem,5vw,4.6rem); margin:0 0 18px; line-height:1.05; }
+h2 { font-size:clamp(1.8rem,3.2vw,3.1rem); margin:0 0 22px; color:var(--navy); }
+.title h2 { color:#fff; opacity:.94; }
+p,li { font-size:clamp(1.03rem,1.55vw,1.45rem); line-height:1.35; }
+.kicker { color:var(--gold); text-transform:uppercase; letter-spacing:.08em; font-weight:700; }
+.grid { display:grid; grid-template-columns:.75fr 1.25fr; gap:30px; align-items:center; }
+.three { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.card { border:1px solid var(--line); background:#fff; border-radius:6px; padding:14px 16px; }
+.equation { font-size:1.32rem; padding:14px 18px; background:var(--teal-soft); border-left:5px solid var(--teal); margin:12px 0; }
+figcaption,.small { color:var(--muted); font-size:.95rem; line-height:1.35; margin-top:8px; }
+svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(--line); background:#fff; }
+.warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
+@media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+</style>
+</head>
+<body>
+<main class="deck">
+<section class="slide title"><p class="kicker">ASTR 120 · Lecture 06</p><h1>Atmospheres and Climate</h1><h2>Solar-system evidence, physics, and exploration</h2></section>
+<section class="slide"><h2>Why This Question Matters</h2><p>The contrast between Venus, Earth, and Mars made climate evolution a planetary science question rather than only an Earth science question.</p></section>
+<section class="slide"><h2>Learning Goals</h2><ul><li>Apply energy balance and atmospheric evidence to compare climates.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section>
+<section class="slide"><h2>Opening Phenomenon</h2><p>Atmospheres regulate temperature, chemistry, escape, weathering, and habitability.</p></section>
+<section class="slide"><h2>Climate Is an Energy Budget Plus an Atmosphere</h2><div class="three"><article class="card"><p><strong>Input:</strong> sunlight decreases with distance and is reduced by reflected light.</p></article><article class="card"><p><strong>Storage:</strong> greenhouse gases slow infrared cooling to space.</p></article><article class="card"><p><strong>Loss:</strong> low gravity, high temperature, and solar wind can remove atmosphere over time.</p></article></div></section>
+<section class="slide"><h2>Comparative Climate Puzzle</h2><p>Venus is hotter than Mercury's average surface even though Mercury is closer to the Sun. Mars receives less sunlight than Earth, but its thin atmosphere also provides little greenhouse warming.</p></section>
+<section class="slide"><h2>Evidence We Need</h2><ul><li>Venus, Earth, and Mars have different atmospheric pressures and greenhouse histories.</li><li>Escape depends on gravity, temperature, and molecular mass.</li><li>Albedo changes absorbed solar energy.</li></ul></section>
+<section class="slide"><h2>Venus: Bright Clouds, Hot Surface</h2><div class="grid"><div><p>The clouds reflect much of the incoming sunlight, so the surface temperature cannot be explained by solar distance alone. The key evidence is the dense carbon dioxide atmosphere and infrared opacity below the cloud deck.</p></div><figure><img src="../assets/images/venus-clouds.jpg" alt="Hubble view of Venus cloud tops."><figcaption>Venus cloud tops hide the surface in visible light; the climate diagnosis comes from atmospheric composition, pressure, and infrared radiative transfer. Credit: L. Esposito, University of Colorado Boulder, and NASA/ESA.</figcaption></figure></div></section>
+<section class="slide"><h2>Absorbed Sunlight Calculation</h2><div class="equation">\[ F_{absorbed}\propto {1-A\over d^2} \]</div><p>Using the local climate table, Venus receives 1.91 times Earth's solar flux but reflects about 75 percent. Its absorbed sunlight is roughly 0.25 times 1.91, or 0.48 Earth units, before greenhouse warming is considered.</p></section>
+<section class="slide"><h2>Worked Comparison: Venus, Earth, Mars</h2><ul><li>Venus: effective temperature about 232 K, surface temperature about 737 K, pressure about 92 bar.</li><li>Earth: effective temperature about 255 K, surface temperature about 288 K, pressure about 1 bar.</li><li>Mars: effective and surface temperatures are both near 210 K because the atmosphere is thin.</li></ul></section>
+<section class="slide"><h2>Atmospheric Escape Boundary</h2><p class="warning">A warm gas on a low-gravity world is easier to lose, but escape speed alone does not decide climate. Atmospheric source rates, magnetic environment, chemistry, impacts, and solar history all matter.</p></section>
+<section class="slide"><h2>Reasoning Prompt: Why Is Titan Interesting?</h2><p>Titan receives only about 1 percent of Earth's solar flux but has a surface pressure above Earth's and methane in the atmosphere. Which climate question should come first: energy balance, atmospheric retention, or methane cycling?</p></section>
+<section class="slide"><h2>Evidence Bridge: Effective Temperature Is a Diagnostic</h2><p>The gap between effective temperature and surface temperature estimates greenhouse influence. Venus has an enormous gap, Earth has a moderate one, and Mars has almost none in the local climate table.</p></section>
+<section class="slide"><h2>Synthesis: Compare Inputs, Trapping, and Loss</h2><ul><li>Albedo controls how much sunlight is absorbed.</li><li>Greenhouse opacity controls how efficiently a surface cools to space.</li><li>Atmospheric survival depends on gravity, temperature, chemistry, replenishment, and solar forcing.</li></ul></section>
+<section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax Astronomy 2e solar-system chapters and local reference copy.</li><li>NASA/OpenStax/ESA sources recorded in reference-log.md where external visuals are used.</li></ul></section>
+</main></body>
+</html>

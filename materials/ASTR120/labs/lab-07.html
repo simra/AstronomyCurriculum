@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASTR 120 Lab 07: Mission Design Trade Study</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+:root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; --warning:#8a4b08; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:Georgia,"Times New Roman",serif; color:var(--ink); background:var(--paper); line-height:1.6; }
+header { padding:38px 24px 26px; background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; }
+header div, main { max-width:1060px; margin:0 auto; }
+main { padding:30px 24px 64px; }
+h1,h2,h3 { line-height:1.15; }
+h1 { margin:0 0 8px; font-size:clamp(2rem,4vw,3.2rem); }
+h2 { margin-top:34px; color:var(--navy); border-bottom:2px solid var(--line); padding-bottom:8px; }
+h3 { color:var(--teal); }
+section, article.card, article.problem { background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:16px 18px; margin:16px 0; }
+.notice { border-left:5px solid var(--teal); background:var(--teal-soft); }
+.meta { color:var(--muted); }
+table { width:100%; border-collapse:collapse; margin:14px 0; }
+th,td { border:1px solid var(--line); padding:8px 10px; vertical-align:top; text-align:left; }
+th { background:var(--teal-soft); }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+a { color:var(--teal); font-weight:700; }
+.points { color:var(--gold); font-weight:700; }
+code { background:#eef3f5; padding:1px 4px; border-radius:3px; }
+</style>
+</head>
+<body>
+<header><div><h1>Lab 07: Mission Design Trade Study</h1><p>Use a weighted decision matrix to choose a solar-system mission concept and defend the choice with evidence, risk, and uncertainty.</p></div></header>
+<main>
+<section><h2>Learning Objectives</h2><ul><li>Translate science questions into measurement payload requirements.</li><li>Balance science return, technical risk, planetary protection, operations complexity, and flight time.</li><li>Test whether a mission recommendation is robust to alternate stakeholder weights.</li></ul></section>
+<section><h2>Preparation</h2><p>Review Lectures 11-14 on small bodies, exoplanet context, habitability, planetary protection, and mission design. Bring notes from one previous ASTR 120 lab that could motivate a science question.</p></section>
+<section><h2>Materials and Data</h2><ul><li><code>../data/lab-07-mission-trade-matrix.csv</code>, an instructor-created trade table with named mission precedents and NASA source pages.</li><li>Spreadsheet for weighted scoring and sensitivity tests.</li><li>Course lab results from at least one earlier activity to use as science rationale.</li></ul></section>
+<section><h2>Apparatus and Setup</h2><ol><li>Open the CSV and add columns for normalized benefit, normalized cost/risk, baseline weighted score, and alternate weighted score.</li><li>Use baseline weights: science return 40%, technical risk 20%, planetary protection 15%, operations complexity 15%, flight time 10%.</li><li>For risk, protection, complexity, and flight time, invert the score so lower burden increases the total: converted score = 6 - listed score for 1-to-5 columns; for flight time, rank concepts from 5 for shortest to 1 for longest.</li></ol></section>
+<section><h2>Procedure</h2><ol><li>For each concept, identify the primary science question and the payload measurement that directly tests it.</li><li>Calculate a baseline weighted score using the setup weights.</li><li>Create an alternate stakeholder scenario: astrobiology-first, low-cost-first, or planetary-protection-first. Define the new weights before seeing the result.</li><li>Recalculate scores and record whether the preferred mission changes.</li><li>Choose one mission and write a traceability chain: science question -> measurement -> instrument -> target -> risk or uncertainty.</li></ol></section>
+<section><h2>Measurement Record</h2><table><thead><tr><th>Mission concept</th><th>Baseline score</th><th>Alternate score</th><th>Key measurement</th><th>Dominant uncertainty or risk</th></tr></thead><tbody><tr><td>Venus cloud microprobe</td><td></td><td></td><td></td><td></td></tr><tr><td>Europa plume flythrough</td><td></td><td></td><td></td><td></td></tr><tr><td>Enceladus plume sample return concept</td><td></td><td></td><td></td><td></td></tr><tr><td>Mars polar ice drill scout</td><td></td><td></td><td></td><td></td></tr><tr><td>Trojan asteroid flyby</td><td></td><td></td><td></td><td></td></tr></tbody></table></section>
+<section><h2>Analysis and Uncertainty</h2><p>Treat all 1-to-5 ratings as uncertain by +/-1 unless the precedent mission already demonstrated the relevant capability. Run a one-at-a-time sensitivity test for the winning concept: lower its science score by 1, raise its dominant risk by 1, and lengthen flight time by one rank. Report whether it still wins. Discuss any ethical or planetary-protection consequence that a numerical score hides.</p></section>
+<section><h2>Deliverables</h2><ul><li>Completed decision matrix with baseline and alternate stakeholder weights.</li><li>One ranked chart of mission scores with the winning concept highlighted.</li><li>One-page mission recommendation with traceability chain and sensitivity result.</li><li>Provenance note citing NASA mission/program pages and <code>lab-07-mission-trade-matrix.csv</code>.</li></ul></section>
+<section><h2>Assessment Criteria</h2><ul><li>Decision matrix calculations and inverted risk scoring are correct: 30%.</li><li>Science traceability connects question, measurement, instrument, and target: 25%.</li><li>Sensitivity analysis tests real uncertainty rather than just restating preference: 20%.</li><li>Planetary-protection or ethical constraint is addressed concretely: 15%.</li><li>Complete provenance note: 10%.</li></ul></section>
+<section><h2>References, Software, and Data Provenance</h2><p>Data file: <code>materials/ASTR120/data/lab-07-mission-trade-matrix.csv</code>. Sources: NASA Venus exploration, Europa Clipper, Cassini Enceladus, Mars exploration, and Lucy mission pages. Processing state: instructor-created decision-matrix dataset using public mission precedents and pedagogical risk scores; scores are not official NASA cost or review ratings.</p></section>
+</main></body>
+</html>

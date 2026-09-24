@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASTR 120 Lab 01: Planetary Scale, Density, and Architecture</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+:root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; --warning:#8a4b08; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:Georgia,"Times New Roman",serif; color:var(--ink); background:var(--paper); line-height:1.6; }
+header { padding:38px 24px 26px; background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; }
+header div, main { max-width:1060px; margin:0 auto; }
+main { padding:30px 24px 64px; }
+h1,h2,h3 { line-height:1.15; }
+h1 { margin:0 0 8px; font-size:clamp(2rem,4vw,3.2rem); }
+h2 { margin-top:34px; color:var(--navy); border-bottom:2px solid var(--line); padding-bottom:8px; }
+h3 { color:var(--teal); }
+section, article.card, article.problem { background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:16px 18px; margin:16px 0; }
+.notice { border-left:5px solid var(--teal); background:var(--teal-soft); }
+.meta { color:var(--muted); }
+table { width:100%; border-collapse:collapse; margin:14px 0; }
+th,td { border:1px solid var(--line); padding:8px 10px; vertical-align:top; text-align:left; }
+th { background:var(--teal-soft); }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+a { color:var(--teal); font-weight:700; }
+.points { color:var(--gold); font-weight:700; }
+code { background:#eef3f5; padding:1px 4px; border-radius:3px; }
+</style>
+</head>
+<body>
+<header><div><h1>Lab 01: Planetary Scale, Density, and Architecture</h1><p>Use measured planetary properties to test the lecture claim that the solar system is ordered by formation temperature, composition, and distance from the Sun.</p></div></header>
+<main>
+<section><h2>Learning Objectives</h2><ul><li>Compute and compare bulk density from mass and radius for terrestrial, giant, and ice-giant planets.</li><li>Identify architecture trends with distance, size, composition class, surface gravity, and satellite count.</li><li>Separate robust trends from trends that depend on rounding, classification, or small-number comparisons.</li></ul></section>
+<section><h2>Preparation</h2><p>Review Lecture 1 on scale and comparative planetology and Lecture 2 on solar-system formation. Bring a spreadsheet or calculator that can evaluate powers and unit conversions.</p></section>
+<section><h2>Materials and Data</h2><ul><li><code>../data/lab-01-planetary-properties.csv</code>, a classroom table of planetary semimajor axis, radius, mass, density, gravity, and known moons.</li><li>Spreadsheet software or a scientific calculator.</li><li>NASA Planetary Fact Sheet values, rounded to classroom precision; see <code>../data/lab-data-provenance.md</code>.</li></ul></section>
+<section><h2>Apparatus and Setup</h2><ol><li>Open the CSV and freeze the header row.</li><li>Create columns for volume, calculated density, density residual, planet class, and architecture note.</li><li>Use SI units: convert radius from km to m and mass from 10<sup>24</sup> kg to kg before calculating density.</li><li>Record the access date as 2026-09-23 and mark the table as real public reference data rounded for instruction.</li></ol></section>
+<section><h2>Procedure</h2><ol><li>For Mercury, Earth, Mars, Jupiter, Saturn, Uranus, and Neptune, calculate \(\rho = M/(4\pi R^3/3)\) and convert kg m<sup>-3</sup> to g cm<sup>-3</sup>.</li><li>Compare your calculated densities with the supplied bulk-density column. Flag any residual greater than 0.05 g cm<sup>-3</sup> and explain whether rounding can account for it.</li><li>Make a scatter plot of semimajor axis versus radius, using symbol color for planet class and symbol size for known moon count.</li><li>Rank the eight planets by density and by surface gravity. Identify one pair whose ranking changes between the two lists and explain why.</li><li>Write a two-sentence architecture claim that uses at least three measured quantities, not just the planet names.</li></ol></section>
+<section><h2>Measurement Record</h2><table><thead><tr><th>Object</th><th>Calculated density (g cm<sup>-3</sup>)</th><th>Listed density</th><th>Residual</th><th>Architecture evidence</th></tr></thead><tbody><tr><td>Mercury</td><td></td><td>5.43</td><td></td><td></td></tr><tr><td>Earth</td><td></td><td>5.51</td><td></td><td></td></tr><tr><td>Jupiter</td><td></td><td>1.33</td><td></td><td></td></tr><tr><td>Saturn</td><td></td><td>0.69</td><td></td><td></td></tr></tbody></table></section>
+<section><h2>Analysis and Uncertainty</h2><p>Treat radius values as rounded to the last listed digit and mass values as rounded to the last listed decimal place. Propagate density uncertainty with \(\Delta\rho/\rho \approx \Delta M/M + 3\Delta R/R\). In the conclusion, identify which comparisons are insensitive to this uncertainty and which depend on category boundaries such as terrestrial versus ice giant.</p></section>
+<section><h2>Deliverables</h2><ul><li>Completed spreadsheet with calculated density, residual, and uncertainty columns.</li><li>One scatter plot of planetary architecture with a caption that names the data file.</li><li>A 250-word evidence paragraph explaining the strongest and weakest architecture trend.</li><li>Provenance note citing NASA Planetary Fact Sheet and <code>lab-01-planetary-properties.csv</code>.</li></ul></section>
+<section><h2>Assessment Criteria</h2><ul><li>Correct unit conversion and density calculation: 30%.</li><li>Plot communicates at least three measured variables clearly: 20%.</li><li>Uncertainty treatment uses rounding limits and identifies robust comparisons: 20%.</li><li>Interpretation connects measurements to formation architecture without overclaiming: 20%.</li><li>Complete provenance note: 10%.</li></ul></section>
+<section><h2>References, Software, and Data Provenance</h2><p>Data file: <code>materials/ASTR120/data/lab-01-planetary-properties.csv</code>. Source: NASA Planetary Fact Sheet, public reference tables, rounded for classroom use; OpenStax Astronomy 2e provides supporting discussion of comparative planetology. Software: spreadsheet or calculator. Processing state: real reference values copied into a compact teaching table.</p></section>
+</main></body>
+</html>

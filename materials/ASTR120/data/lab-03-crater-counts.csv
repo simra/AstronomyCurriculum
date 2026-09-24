@@ -1,0 +1,5 @@
+target_region,body,image_or_map_reference,counted_area_km2,craters_diameter_ge_1km,craters_diameter_ge_5km,dominant_surface_unit,processing_state,primary_source
+Mare Imbrium sample,Moon,LROC WAC global mosaic teaching window,10000,42,5,basaltic mare,instructor-count table from real mosaic,NASA LROC WAC global mosaic
+Lunar southern highlands sample,Moon,LROC WAC global mosaic teaching window,10000,218,37,ancient highlands,instructor-count table from real mosaic,NASA LROC WAC global mosaic
+Elysium Planitia sample,Mars,THEMIS daytime IR mosaic teaching window,10000,64,9,young volcanic plains,instructor-count table from real mosaic,NASA Mars Odyssey THEMIS
+Noachis Terra sample,Mars,THEMIS daytime IR mosaic teaching window,10000,302,55,heavily cratered highlands,instructor-count table from real mosaic,NASA Mars Odyssey THEMIS

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASTR 120 Lecture 04 Slides</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+:root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; --warning:#8a4b08; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:"Aptos","Segoe UI",sans-serif; color:var(--ink); background:var(--paper); }
+.deck { scroll-snap-type:y mandatory; height:100vh; overflow-y:auto; }
+.slide { min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:50px 68px; border-bottom:1px solid var(--line); background:var(--panel); }
+.title { background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; }
+h1 { font-size:clamp(2.4rem,5vw,4.6rem); margin:0 0 18px; line-height:1.05; }
+h2 { font-size:clamp(1.8rem,3.2vw,3.1rem); margin:0 0 22px; color:var(--navy); }
+.title h2 { color:#fff; opacity:.94; }
+p,li { font-size:clamp(1.03rem,1.55vw,1.45rem); line-height:1.35; }
+.kicker { color:var(--gold); text-transform:uppercase; letter-spacing:.08em; font-weight:700; }
+.grid { display:grid; grid-template-columns:.75fr 1.25fr; gap:30px; align-items:center; }
+.three { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.card { border:1px solid var(--line); background:#fff; border-radius:6px; padding:14px 16px; }
+.equation { font-size:1.32rem; padding:14px 18px; background:var(--teal-soft); border-left:5px solid var(--teal); margin:12px 0; }
+figcaption,.small { color:var(--muted); font-size:.95rem; line-height:1.35; margin-top:8px; }
+svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(--line); background:#fff; }
+.warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
+@media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+</style>
+</head>
+<body>
+<main class="deck">
+<section class="slide title"><p class="kicker">ASTR 120 · Lecture 04</p><h1>Planetary Interiors and Differentiation</h1><h2>Solar-system evidence, physics, and exploration</h2></section>
+<section class="slide"><h2>Why This Question Matters</h2><p>Seismology transformed Earth science; planetary missions extend similar inference to the Moon, Mars, and icy worlds.</p></section>
+<section class="slide"><h2>Learning Goals</h2><ul><li>Infer interior structure from mass, radius, density, and magnetic evidence.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section>
+<section class="slide"><h2>Opening Phenomenon</h2><p>Density, gravity, magnetic fields, and heat flow reveal interiors we cannot sample directly.</p></section>
+<section class="slide"><h2>Interior Evidence Is Indirect</h2><div class="three"><article class="card"><p><strong>Density:</strong> average composition, not a layer-by-layer map.</p></article><article class="card"><p><strong>Shape and gravity:</strong> mass distribution and possible differentiated interiors.</p></article><article class="card"><p><strong>Magnetism:</strong> clues to conductive liquids, rotation, and present internal motion.</p></article></div></section>
+<section class="slide"><h2>Why Differentiation Happens</h2><p>When a young body is warm enough to partially melt, dense metal can sink and lighter silicate or ice can rise. Accretion energy, radioactive decay, and giant impacts all help determine whether a world separates into layers.</p></section>
+<section class="slide"><h2>Evidence We Need</h2><ul><li>Mean density differs among rocky, icy, and gas-rich worlds.</li><li>Magnetic fields imply conducting interiors and motion.</li><li>Heat flow and volcanism reveal interior energy.</li></ul></section>
+<section class="slide"><h2>Layered Worlds from Sparse Measurements</h2><div class="grid"><div><p>Interpret the diagram as a model constrained by mass, radius, density, field measurements, and heat flow. The layers are an inference, not something directly photographed.</p></div><figure><svg class="lecture-visual" data-astr120-visual="04" viewBox="0 0 960 560" role="img" aria-label="Differentiated Interior diagram">
+  <rect width="960" height="560" fill="#fbfcfd"/>
+  <text x="42" y="58" font-size="30" fill="#102a43" font-family="Segoe UI, sans-serif">Differentiated Interior</text>
+  <circle cx="205" cy="280" r="70" fill="#0f6b78" opacity="0.88"/>
+  <rect x="400" y="210" width="180" height="140" rx="18" fill="#b87911" opacity="0.78"/>
+  <polygon points="740,190 840,280 740,370 640,280" fill="#102a43" opacity="0.82"/>
+  <path d="M280 280 L400 280 M580 280 L640 280" stroke="#5b6773" stroke-width="5" marker-end="url(#arrow4)"/>
+  <defs><marker id="arrow4" markerWidth="12" markerHeight="12" refX="10" refY="4" orient="auto"><path d="M0,0 L0,8 L12,4 z" fill="#5b6773"/></marker></defs>
+  <text x="145" y="405" font-size="22" fill="#102a43" font-family="Segoe UI, sans-serif">metal core</text>
+  <text x="420" y="405" font-size="22" fill="#102a43" font-family="Segoe UI, sans-serif">rocky mantle</text>
+  <text x="650" y="405" font-size="22" fill="#102a43" font-family="Segoe UI, sans-serif">volatile layer</text>
+  <text x="42" y="515" font-size="19" fill="#5b6773" font-family="Segoe UI, sans-serif">Density and magnetic evidence constrain unseen interiors.</text>
+</svg><figcaption>Density and magnetic evidence constrain unseen interiors.</figcaption></figure></div></section>
+<section class="slide"><h2>Density Calculation: Saturn Is Not Rock</h2><div class="equation">\[ \rho={M\over (4/3)\pi R^3} \]</div><p>Using the planetary-property table, Saturn's mean density is about 0.69 g/cm3, below liquid water. A low mean density requires abundant hydrogen and helium, even though pressure deep inside produces unfamiliar material states.</p></section>
+<section class="slide"><h2>Worked Inference: Mercury Versus Mars</h2><ul><li>Mercury and Mars are both terrestrial worlds, but Mercury's density is much higher.</li><li>After accounting for compression, Mercury still requires a large metal fraction.</li><li>A plausible explanation is a disproportionately large core, shaped by early accretion and impact history.</li></ul></section>
+<section class="slide"><h2>Evidence Boundary: Mean Density Has Degeneracy</h2><p class="warning">The same average density can come from different mixtures of rock, metal, ice, porosity, or compression. Interior claims become stronger when density is paired with moment of inertia, gravity field, magnetic field, and seismic or tidal response.</p></section>
+<section class="slide"><h2>Reasoning Prompt: Pick the Interior Test</h2><p>A moon has density 1.9 g/cm3 and a weak induced magnetic signal. Which interior model is better supported: dry rock plus porosity, rock mixed with ice, or a salty subsurface ocean? What measurement would most reduce the ambiguity?</p></section>
+<section class="slide"><h2>Evidence Bridge: Magnetic Fields Need Mechanisms</h2><p>A magnetic field can be intrinsic, induced, or absent for different reasons. Distinguish a dynamo in a moving conductive layer from an induced response to a parent planet's field before turning magnetism into an interior claim.</p></section>
+<section class="slide"><h2>Synthesis: Interiors Are Model-Built</h2><ul><li>Mass and radius give the first compositional constraint.</li><li>Thermal history explains whether differentiation should occur.</li><li>Magnetism and gravity test whether the inferred layers are active or static today.</li></ul></section>
+<section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax Astronomy 2e solar-system chapters and local reference copy.</li><li>NASA/OpenStax/ESA sources recorded in reference-log.md where external visuals are used.</li></ul></section>
+</main></body>
+</html>

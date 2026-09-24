@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASTR 120 Lecture 07 Slides</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+:root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; --warning:#8a4b08; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:"Aptos","Segoe UI",sans-serif; color:var(--ink); background:var(--paper); }
+.deck { scroll-snap-type:y mandatory; height:100vh; overflow-y:auto; }
+.slide { min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:50px 68px; border-bottom:1px solid var(--line); background:var(--panel); }
+.title { background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; }
+h1 { font-size:clamp(2.4rem,5vw,4.6rem); margin:0 0 18px; line-height:1.05; }
+h2 { font-size:clamp(1.8rem,3.2vw,3.1rem); margin:0 0 22px; color:var(--navy); }
+.title h2 { color:#fff; opacity:.94; }
+p,li { font-size:clamp(1.03rem,1.55vw,1.45rem); line-height:1.35; }
+.kicker { color:var(--gold); text-transform:uppercase; letter-spacing:.08em; font-weight:700; }
+.grid { display:grid; grid-template-columns:.75fr 1.25fr; gap:30px; align-items:center; }
+.three { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.card { border:1px solid var(--line); background:#fff; border-radius:6px; padding:14px 16px; }
+.equation { font-size:1.32rem; padding:14px 18px; background:var(--teal-soft); border-left:5px solid var(--teal); margin:12px 0; }
+figcaption,.small { color:var(--muted); font-size:.95rem; line-height:1.35; margin-top:8px; }
+svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(--line); background:#fff; }
+.warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
+@media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+</style>
+</head>
+<body>
+<main class="deck">
+<section class="slide title"><p class="kicker">ASTR 120 · Lecture 07</p><h1>The Moon, Mercury, and Airless Worlds</h1><h2>Solar-system evidence, physics, and exploration</h2></section>
+<section class="slide"><h2>Why This Question Matters</h2><p>Lunar samples and crater chronology anchor much of inner solar-system history.</p></section>
+<section class="slide"><h2>Learning Goals</h2><ul><li>Interpret airless surfaces using craters, rays, regolith, and composition.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section>
+<section class="slide"><h2>Opening Phenomenon</h2><p>Airless bodies preserve impact histories and space-weathering records with minimal atmospheric erosion.</p></section>
+<section class="slide"><h2>Airless Worlds Keep Surface Records</h2><div class="three"><article class="card"><p><strong>Regolith:</strong> broken, gardened surface material produced by repeated impacts.</p></article><article class="card"><p><strong>Crater rays:</strong> bright ejecta that darkens and matures with exposure.</p></article><article class="card"><p><strong>Space weathering:</strong> micrometeorites and solar wind alter color and reflectance.</p></article></div></section>
+<section class="slide"><h2>Why the Moon and Mercury Are Not Simple Twins</h2><p>Both are airless and cratered, but Mercury's higher solar heating, larger metal fraction, and stronger solar environment affect volatile retention, surface chemistry, and tectonic history.</p></section>
+<section class="slide"><h2>Evidence We Need</h2><ul><li>Airless surfaces retain craters and space-weathered regolith.</li><li>Mercury has high density and a large metal fraction.</li><li>Lunar samples anchor crater chronology.</li></ul></section>
+<section class="slide"><h2>Crater Rays as Relative Youth Markers</h2><div class="grid"><div><p>Bright rays mark material excavated and spread across older terrain. The interpretation depends on impact freshness, composition contrast, and how quickly space weathering darkens exposed grains.</p></div><figure><svg class="lecture-visual" data-astr120-visual="07" viewBox="0 0 960 560" role="img" aria-label="Airless Surface Record diagram">
+  <rect width="960" height="560" fill="#fbfcfd"/>
+  <text x="42" y="58" font-size="30" fill="#102a43" font-family="Segoe UI, sans-serif">Airless Surface Record</text>
+  <circle cx="205" cy="280" r="70" fill="#0f6b78" opacity="0.88"/>
+  <rect x="400" y="210" width="180" height="140" rx="18" fill="#b87911" opacity="0.78"/>
+  <polygon points="740,190 840,280 740,370 640,280" fill="#102a43" opacity="0.82"/>
+  <path d="M280 280 L400 280 M580 280 L640 280" stroke="#5b6773" stroke-width="5" marker-end="url(#arrow7)"/>
+  <defs><marker id="arrow7" markerWidth="12" markerHeight="12" refX="10" refY="4" orient="auto"><path d="M0,0 L0,8 L12,4 z" fill="#5b6773"/></marker></defs>
+  <text x="145" y="405" font-size="22" fill="#102a43" font-family="Segoe UI, sans-serif">fresh crater rays</text>
+  <text x="420" y="405" font-size="22" fill="#102a43" font-family="Segoe UI, sans-serif">mature regolith</text>
+  <text x="650" y="405" font-size="22" fill="#102a43" font-family="Segoe UI, sans-serif">space weathering</text>
+  <text x="42" y="515" font-size="19" fill="#5b6773" font-family="Segoe UI, sans-serif">No atmosphere means impact and exposure records can persist.</text>
+</svg><figcaption>No atmosphere means impact and exposure records can persist.</figcaption></figure></div></section>
+<section class="slide"><h2>Quantitative Clock: Crater Density with Caution</h2><div class="equation">\[ \mathrm{relative\ exposure\ age}\uparrow\quad \mathrm{as}\quad {N_{craters}\over A}\uparrow \]</div><p>For two lunar plains imaged at the same resolution, a higher crater density usually means longer exposure. The clock fails if one surface was buried, saturated, or counted with a different detection threshold.</p></section>
+<section class="slide"><h2>Worked Case: Fresh Crater or Compositional Patch?</h2><ul><li>Bright rays around a crisp crater support recent excavation.</li><li>A bright area without radial geometry could be different composition or illumination.</li><li>Color ratios and topography help distinguish freshness from material differences.</li></ul></section>
+<section class="slide"><h2>Evidence Boundary: Volatiles in Cold Traps</h2><p class="warning">Airless does not mean volatile-free. Permanently shadowed polar regions can preserve ice if temperatures remain low and delivery exceeds loss.</p></section>
+<section class="slide"><h2>Reasoning Prompt: Moon Versus Mercury</h2><p>You observe a permanently shadowed polar crater and a radar-bright deposit. What evidence would distinguish clean water ice, ice mixed with regolith, and a rough rocky surface?</p></section>
+<section class="slide"><h2>Evidence Bridge: Regolith Records Exposure</h2><p>Airless regolith changes with micrometeorite gardening and solar-wind implantation. Maturity indicators help separate a genuinely young crater from an older surface that only looks bright because composition or illumination differs.</p></section>
+<section class="slide"><h2>Synthesis: Airless Surfaces Are Exposure Experiments</h2><ul><li>Impact features supply relative ages and excavation clues.</li><li>Space weathering changes optical properties over time.</li><li>Composition and temperature determine whether volatiles can survive without an atmosphere.</li></ul></section>
+<section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax Astronomy 2e solar-system chapters and local reference copy.</li><li>NASA/OpenStax/ESA sources recorded in reference-log.md where external visuals are used.</li></ul></section>
+</main></body>
+</html>

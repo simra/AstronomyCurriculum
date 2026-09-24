@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASTR 120 Lab 03: Crater Counting and Relative Surface Age</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+:root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; --warning:#8a4b08; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:Georgia,"Times New Roman",serif; color:var(--ink); background:var(--paper); line-height:1.6; }
+header { padding:38px 24px 26px; background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; }
+header div, main { max-width:1060px; margin:0 auto; }
+main { padding:30px 24px 64px; }
+h1,h2,h3 { line-height:1.15; }
+h1 { margin:0 0 8px; font-size:clamp(2rem,4vw,3.2rem); }
+h2 { margin-top:34px; color:var(--navy); border-bottom:2px solid var(--line); padding-bottom:8px; }
+h3 { color:var(--teal); }
+section, article.card, article.problem { background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:16px 18px; margin:16px 0; }
+.notice { border-left:5px solid var(--teal); background:var(--teal-soft); }
+.meta { color:var(--muted); }
+table { width:100%; border-collapse:collapse; margin:14px 0; }
+th,td { border:1px solid var(--line); padding:8px 10px; vertical-align:top; text-align:left; }
+th { background:var(--teal-soft); }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+a { color:var(--teal); font-weight:700; }
+.points { color:var(--gold); font-weight:700; }
+code { background:#eef3f5; padding:1px 4px; border-radius:3px; }
+</style>
+</head>
+<body>
+<header><div><h1>Lab 03: Crater Counting and Relative Surface Age</h1><p>Use crater density from named lunar and Martian image products to infer relative surface ages and uncertainty from counting statistics.</p></div></header>
+<main>
+<section><h2>Learning Objectives</h2><ul><li>Calculate crater density for equal-area samples of planetary surfaces.</li><li>Use Poisson counting uncertainty to compare relative ages.</li><li>Explain why crater counts require provenance, diameter threshold, and geologic context.</li></ul></section>
+<section><h2>Preparation</h2><p>Review Lectures 5 and 7 on terrestrial surfaces, airless worlds, crater saturation, resurfacing, and relative chronology.</p></section>
+<section><h2>Materials and Data</h2><ul><li><code>../data/lab-03-crater-counts.csv</code>, an instructor-count table from named real mosaics: LROC WAC global lunar mosaic and Mars Odyssey THEMIS daytime IR mosaic.</li><li>Calculator or spreadsheet.</li><li>Optional instructor-provided image windows for annotation; the numerical task can be completed from the CSV.</li></ul></section>
+<section><h2>Apparatus and Setup</h2><ol><li>Open the crater-count CSV and confirm that all four samples use 10,000 km<sup>2</sup> counted areas.</li><li>Create columns for crater density above 1 km, crater density above 5 km, Poisson uncertainty, and relative-age rank.</li><li>Record the processing state as instructor-count table from real NASA mosaics, not a published crater chronology catalog.</li></ol></section>
+<section><h2>Procedure</h2><ol><li>For each region, calculate crater density \(N/A\) for D >= 1 km and D >= 5 km craters.</li><li>Calculate 1-sigma Poisson uncertainty as \(\sqrt{N}/A\) for both diameter thresholds.</li><li>Rank the four surfaces from youngest to oldest using D >= 1 km density. Repeat using D >= 5 km density.</li><li>Identify whether either ranking is ambiguous once uncertainty bars are considered.</li><li>Write a process interpretation for each region: volcanic resurfacing, ancient highlands, young plains, or heavily cratered terrain.</li></ol></section>
+<section><h2>Measurement Record</h2><table><thead><tr><th>Region</th><th>N(D >= 1 km)/A</th><th>1-sigma uncertainty</th><th>N(D >= 5 km)/A</th><th>Relative age rank</th></tr></thead><tbody><tr><td>Mare Imbrium sample</td><td></td><td></td><td></td><td></td></tr><tr><td>Lunar southern highlands sample</td><td></td><td></td><td></td><td></td></tr><tr><td>Elysium Planitia sample</td><td></td><td></td><td></td><td></td></tr><tr><td>Noachis Terra sample</td><td></td><td></td><td></td><td></td></tr></tbody></table></section>
+<section><h2>Analysis and Uncertainty</h2><p>Report crater density in craters per 10,000 km<sup>2</sup> and craters per km<sup>2</sup>. Use \(\sqrt{N}\) as the counting uncertainty, then divide by area. Discuss at least one non-statistical uncertainty: secondary craters, eroded crater rims, illumination angle, image resolution, or geologic-unit boundary placement.</p></section>
+<section><h2>Deliverables</h2><ul><li>Completed crater-density table with uncertainty for both crater thresholds.</li><li>Bar chart or dot plot with uncertainty bars for D >= 1 km crater density.</li><li>Annotated ranking statement that identifies any overlap in uncertainty.</li><li>Provenance note naming LROC WAC, Mars Odyssey THEMIS, and <code>lab-03-crater-counts.csv</code>.</li></ul></section>
+<section><h2>Assessment Criteria</h2><ul><li>Correct crater-density and Poisson calculations: 30%.</li><li>Graph includes uncertainty bars and units: 20%.</li><li>Relative-age interpretation follows the evidence and notes ambiguity: 25%.</li><li>Non-statistical uncertainty is specific to crater counting: 15%.</li><li>Complete data provenance: 10%.</li></ul></section>
+<section><h2>References, Software, and Data Provenance</h2><p>Data file: <code>materials/ASTR120/data/lab-03-crater-counts.csv</code>. Named image products: NASA Lunar Reconnaissance Orbiter Camera Wide Angle Camera global mosaic and NASA Mars Odyssey THEMIS daytime infrared mosaic. Processing state: instructor-created crater-count teaching table from real mosaics, with counts simplified for introductory comparative analysis.</p></section>
+</main></body>
+</html>

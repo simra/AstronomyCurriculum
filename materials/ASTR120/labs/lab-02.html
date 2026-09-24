@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASTR 120 Lab 02: Orbital Resonances and Period Ratios</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+:root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; --warning:#8a4b08; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:Georgia,"Times New Roman",serif; color:var(--ink); background:var(--paper); line-height:1.6; }
+header { padding:38px 24px 26px; background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; }
+header div, main { max-width:1060px; margin:0 auto; }
+main { padding:30px 24px 64px; }
+h1,h2,h3 { line-height:1.15; }
+h1 { margin:0 0 8px; font-size:clamp(2rem,4vw,3.2rem); }
+h2 { margin-top:34px; color:var(--navy); border-bottom:2px solid var(--line); padding-bottom:8px; }
+h3 { color:var(--teal); }
+section, article.card, article.problem { background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:16px 18px; margin:16px 0; }
+.notice { border-left:5px solid var(--teal); background:var(--teal-soft); }
+.meta { color:var(--muted); }
+table { width:100%; border-collapse:collapse; margin:14px 0; }
+th,td { border:1px solid var(--line); padding:8px 10px; vertical-align:top; text-align:left; }
+th { background:var(--teal-soft); }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+a { color:var(--teal); font-weight:700; }
+.points { color:var(--gold); font-weight:700; }
+code { background:#eef3f5; padding:1px 4px; border-radius:3px; }
+</style>
+</head>
+<body>
+<header><div><h1>Lab 02: Orbital Resonances and Period Ratios</h1><p>Measure how close real satellite systems are to simple integer period ratios and test Kepler's third law within one parent system.</p></div></header>
+<main>
+<section><h2>Learning Objectives</h2><ul><li>Calculate orbital period ratios for Galilean and Saturnian satellites.</li><li>Distinguish exact resonance language from approximate commensurability.</li><li>Use \(a^3/P^2\) to check whether moons orbiting the same planet share a common central mass.</li></ul></section>
+<section><h2>Preparation</h2><p>Review Lecture 3 on Keplerian orbits, mean-motion resonance, and the Io-Europa-Ganymede Laplace chain.</p></section>
+<section><h2>Materials and Data</h2><ul><li><code>../data/lab-02-orbital-resonances.csv</code>, containing selected Jupiter and Saturn satellite periods, semimajor axes, eccentricities, and resonance notes.</li><li>Spreadsheet software capable of ratios, percent differences, and log plots.</li><li>NASA planetary satellite fact sheets; see <code>../data/lab-data-provenance.md</code>.</li></ul></section>
+<section><h2>Apparatus and Setup</h2><ol><li>Open the CSV and sort first by system, then by semimajor axis.</li><li>Add columns for adjacent period ratio, nearest small-integer ratio, percent offset from that ratio, and \(a^3/P^2\).</li><li>Use days for period and km for semimajor axis consistently; the Kepler constant may remain in mixed units because only within-system comparison is required.</li></ol></section>
+<section><h2>Procedure</h2><ol><li>For Io-Europa-Ganymede, calculate P(Europa)/P(Io), P(Ganymede)/P(Europa), and P(Ganymede)/P(Io). Compare with 2:1, 2:1, and 4:1.</li><li>For Enceladus-Dione and Mimas-Tethys, calculate the same adjacent ratios and decide which pair is closer to 2:1.</li><li>For every moon in the table, compute \(K=a^3/P^2\). Compare Jupiter moons only with Jupiter moons and Saturn moons only with Saturn moons.</li><li>Make one plot of semimajor axis versus period on logarithmic axes, with Jupiter and Saturn shown using different symbols.</li><li>Write a short interpretation explaining why a period ratio close to an integer is not by itself proof of an active resonance.</li></ol></section>
+<section><h2>Measurement Record</h2><table><thead><tr><th>Pair or body</th><th>Measured ratio or K</th><th>Nearest integer ratio</th><th>Percent offset</th><th>Resonance interpretation</th></tr></thead><tbody><tr><td>Europa / Io</td><td></td><td>2:1</td><td></td><td></td></tr><tr><td>Ganymede / Europa</td><td></td><td>2:1</td><td></td><td></td></tr><tr><td>Dione / Enceladus</td><td></td><td>2:1</td><td></td><td></td></tr><tr><td>Tethys / Mimas</td><td></td><td>2:1</td><td></td><td></td></tr></tbody></table></section>
+<section><h2>Analysis and Uncertainty</h2><p>Use the last quoted digit in each period as the rounding uncertainty. Compute the largest and smallest possible adjacent ratios by adding and subtracting that rounding uncertainty. For semimajor axes, use +/-50 km for Galilean moons and +/-100 km for Saturnian moons unless your instructor supplies ephemeris uncertainties. Treat resonance classification as a model uncertainty: note whether the data show only a near ratio or also a named dynamical relationship.</p></section>
+<section><h2>Deliverables</h2><ul><li>Spreadsheet with period ratios, percent offsets, and \(a^3/P^2\) values.</li><li>Log-log period-semimajor-axis plot with a caption that identifies both satellite systems.</li><li>One paragraph comparing the Laplace chain with one Saturnian near-2:1 pair.</li><li>Provenance note citing the NASA satellite fact sheets and <code>lab-02-orbital-resonances.csv</code>.</li></ul></section>
+<section><h2>Assessment Criteria</h2><ul><li>Accurate ratios and percent offsets: 30%.</li><li>Correct use of same-parent Kepler comparisons: 20%.</li><li>Uncertainty range reported for at least two ratios: 20%.</li><li>Interpretation distinguishes commensurability from confirmed resonance: 20%.</li><li>Complete source and processing note: 10%.</li></ul></section>
+<section><h2>References, Software, and Data Provenance</h2><p>Data file: <code>materials/ASTR120/data/lab-02-orbital-resonances.csv</code>. Sources: NASA Planetary Fact Sheet satellite tables for Jovian and Saturnian satellites. Software: spreadsheet. Processing state: real public reference values selected and rounded for instruction.</p></section>
+</main></body>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASTR 120 Lecture 12 Slides</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+:root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; --warning:#8a4b08; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:"Aptos","Segoe UI",sans-serif; color:var(--ink); background:var(--paper); }
+.deck { scroll-snap-type:y mandatory; height:100vh; overflow-y:auto; }
+.slide { min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:50px 68px; border-bottom:1px solid var(--line); background:var(--panel); }
+.title { background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; }
+h1 { font-size:clamp(2.4rem,5vw,4.6rem); margin:0 0 18px; line-height:1.05; }
+h2 { font-size:clamp(1.8rem,3.2vw,3.1rem); margin:0 0 22px; color:var(--navy); }
+.title h2 { color:#fff; opacity:.94; }
+p,li { font-size:clamp(1.03rem,1.55vw,1.45rem); line-height:1.35; }
+.kicker { color:var(--gold); text-transform:uppercase; letter-spacing:.08em; font-weight:700; }
+.grid { display:grid; grid-template-columns:.75fr 1.25fr; gap:30px; align-items:center; }
+.three { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.card { border:1px solid var(--line); background:#fff; border-radius:6px; padding:14px 16px; }
+.equation { font-size:1.32rem; padding:14px 18px; background:var(--teal-soft); border-left:5px solid var(--teal); margin:12px 0; }
+figcaption,.small { color:var(--muted); font-size:.95rem; line-height:1.35; margin-top:8px; }
+svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(--line); background:#fff; }
+.warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
+@media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+</style>
+</head>
+<body>
+<main class="deck">
+<section class="slide title"><p class="kicker">ASTR 120 · Lecture 12</p><h1>Exoplanetary Systems in Solar-System Context</h1><h2>Solar-system evidence, physics, and exploration</h2></section>
+<section class="slide"><h2>Why This Question Matters</h2><p>Radial-velocity and transit surveys revealed hot Jupiters, super-Earths, and compact systems that forced revisions to formation theory.</p></section>
+<section class="slide"><h2>Learning Goals</h2><ul><li>Compare exoplanet architectures with solar-system formation expectations.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section>
+<section class="slide"><h2>Opening Phenomenon</h2><p>Exoplanets test whether our solar system is typical or unusual.</p></section>
+<section class="slide"><h2>Exoplanets Test Solar-System Assumptions</h2><div class="three"><article class="card"><p><strong>Transits:</strong> planet size from fractional starlight blocked.</p></article><article class="card"><p><strong>Radial velocity:</strong> planet mass constraints from stellar wobble.</p></article><article class="card"><p><strong>Demographics:</strong> populations reveal architectures the solar system does not contain.</p></article></div></section>
+<section class="slide"><h2>The Solar System Is One Outcome</h2><p>Hot Jupiters, compact multi-planet systems, and super-Earths show that planet formation and migration produce a wider range of architectures than our local example alone suggested.</p></section>
+<section class="slide"><h2>Evidence We Need</h2><ul><li>Hot Jupiters exist very close to their stars.</li><li>Transit and radial velocity methods favor different planets.</li><li>Compact multi-planet systems challenge simple solar-system analogies.</li></ul></section>
+<section class="slide"><h2>Detection Bias Shapes the Catalog</h2><div class="grid"><div><p>The diagram links signal size to what surveys find first. Large planets close to small stars are easier to detect by transit, so raw discoveries are not an unbiased census.</p></div><figure><svg class="lecture-visual" data-astr120-visual="12" viewBox="0 0 960 560" role="img" aria-label="Exoplanet Selection Effects diagram">
+  <rect width="960" height="560" fill="#fbfcfd"/>
+  <text x="42" y="58" font-size="30" fill="#102a43" font-family="Segoe UI, sans-serif">Exoplanet Selection Effects</text>
+  <circle cx="205" cy="280" r="70" fill="#0f6b78" opacity="0.88"/>
+  <rect x="400" y="210" width="180" height="140" rx="18" fill="#b87911" opacity="0.78"/>
+  <polygon points="740,190 840,280 740,370 640,280" fill="#102a43" opacity="0.82"/>
+  <path d="M280 280 L400 280 M580 280 L640 280" stroke="#5b6773" stroke-width="5" marker-end="url(#arrow12)"/>
+  <defs><marker id="arrow12" markerWidth="12" markerHeight="12" refX="10" refY="4" orient="auto"><path d="M0,0 L0,8 L12,4 z" fill="#5b6773"/></marker></defs>
+  <text x="145" y="405" font-size="22" fill="#102a43" font-family="Segoe UI, sans-serif">transit depth</text>
+  <text x="420" y="405" font-size="22" fill="#102a43" font-family="Segoe UI, sans-serif">radial velocity</text>
+  <text x="650" y="405" font-size="22" fill="#102a43" font-family="Segoe UI, sans-serif">missing small worlds</text>
+  <text x="42" y="515" font-size="19" fill="#5b6773" font-family="Segoe UI, sans-serif">Detection methods shape the planet population we see first.</text>
+</svg><figcaption>Detection methods shape the planet population we see first.</figcaption></figure></div></section>
+<section class="slide"><h2>Transit Depth Calculation</h2><div class="equation">\[ \delta\approx\left({R_p\over R_*}\right)^2 \]</div><ul><li>A Jupiter-radius planet transiting a Sun-like star blocks about 1 percent of the light.</li><li>An Earth-radius planet transiting a Sun-like star blocks about 0.008 percent.</li><li>The same Earth-size planet is easier to detect around a smaller star.</li></ul></section>
+<section class="slide"><h2>Worked Architecture Comparison</h2><p>A close-in giant planet is hard to reconcile with simple in-place frost-line formation. It points toward migration, scattering, or disk-driven movement after formation.</p></section>
+<section class="slide"><h2>Evidence Pairing: Radius Needs Mass</h2><p>Transit data can give size, but density requires mass. A 2-Earth-radius planet could be rocky, water-rich, or gas-enveloped unless radial velocity or transit timing helps constrain mass.</p></section>
+<section class="slide"><h2>Exoplanet Pitfall: Discovery Counts Are Not Occurrence Rates</h2><p class="warning">A catalog dominated by easy detections does not mean the universe is dominated by those planets. Survey geometry, cadence, stellar type, and noise all filter the sample.</p></section>
+<section class="slide"><h2>Reasoning Prompt: Solar-System Context</h2><p>You discover a compact system of five sub-Neptunes inside Mercury's orbit. Which solar-system formation expectation does it challenge most: frost-line composition, long-term stability, or migration history?</p></section>
+<section class="slide"><h2>Synthesis: One System Becomes a Comparative Baseline</h2><ul><li>The solar system supplies physical intuition and constraints.</li><li>Exoplanets reveal outcomes absent from our local architecture.</li><li>Detection methods must be modeled before population claims are made.</li></ul></section>
+<section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax Astronomy 2e solar-system chapters and local reference copy.</li><li>NASA/OpenStax/ESA sources recorded in reference-log.md where external visuals are used.</li></ul></section>
+</main></body>
+</html>

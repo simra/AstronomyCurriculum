@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASTR 120 Lecture 14 Notes</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+:root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; --warning:#8a4b08; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:Georgia,"Times New Roman",serif; color:var(--ink); background:var(--paper); line-height:1.6; }
+header { padding:38px 24px 26px; background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; }
+header div, main { max-width:1060px; margin:0 auto; }
+main { padding:30px 24px 64px; }
+h1,h2,h3 { line-height:1.15; }
+h1 { margin:0 0 8px; font-size:clamp(2rem,4vw,3.2rem); }
+h2 { margin-top:34px; color:var(--navy); border-bottom:2px solid var(--line); padding-bottom:8px; }
+h3 { color:var(--teal); }
+section, article.card, article.problem { background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:16px 18px; margin:16px 0; }
+.notice { border-left:5px solid var(--teal); background:var(--teal-soft); }
+.meta { color:var(--muted); }
+table { width:100%; border-collapse:collapse; margin:14px 0; }
+th,td { border:1px solid var(--line); padding:8px 10px; vertical-align:top; text-align:left; }
+th { background:var(--teal-soft); }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+a { color:var(--teal); font-weight:700; }
+.points { color:var(--gold); font-weight:700; }
+code { background:#eef3f5; padding:1px 4px; border-radius:3px; }
+</style>
+</head>
+<body>
+<header><div><h1>Lecture 14: Mission Design, Synthesis, and Open Questions</h1><p>ASTR 120 Solar System</p></div></header>
+<main>
+<section><h2>Learning Objectives</h2><ol><li>Design a simple mission concept that links a science question to measurements, instruments, trajectory, and uncertainty.</li><li>Explain tradeoffs among flyby, orbiter, lander, rover, sample return, and remote telescope observations.</li><li>Synthesize the course by matching planetary questions to appropriate evidence chains.</li></ol></section>
+<section><h2>Connection to the Course</h2><p>This final lecture turns the course method into a design exercise. Every earlier topic becomes a mission question: formation from samples and small bodies, dynamics from tracking, interiors from gravity and magnetometry, surfaces from imaging and spectra, climates from atmospheres, oceans from geophysics, and habitability from context-rich measurements.</p></section>
+<section><h2>Mission Design as Traceability</h2><p>A mission is not a collection of attractive instruments. It is a chain from question to measurement. A useful science traceability path is: science goal, testable hypothesis, required observable, measurement precision, instrument, observing geometry, trajectory, data product, and interpretation plan. If any link is weak, the mission may return data without answering the question.</p><p>Mission types encode tradeoffs. A flyby can reach multiple targets or difficult destinations but has brief observing windows. An orbiter provides repeated coverage and geophysics but requires orbit insertion. A lander gives local ground truth but samples one place. A rover adds mobility with operational complexity. A sample return enables laboratory precision but greatly increases contamination-control and mission-design demands.</p></section>
+<section><h2>Terminology Support</h2><ul><li><strong>Payload</strong>: the science instruments carried by a mission.</li><li><strong>Trajectory</strong>: the path through space, including launch energy, gravity assists, flybys, orbit insertion, or landing.</li><li><strong>Science traceability</strong>: documented link from science question to measurement requirement and instrument capability.</li><li><strong>Uncertainty</strong>: quantified or described limitation from measurement noise, resolution, calibration, coverage, or model assumptions.</li></ul></section>
+<section><h2>Worked Quantitative Example: Imaging Resolution</h2><p>Suppose a camera observes a surface from altitude \(h=100\,\text{km}\) with an angular pixel scale of \(20\,\mu\text{rad}\). The approximate ground sample distance is</p><div class="notice">\[s=h\theta=(1.0\times10^5\,\text{m})(20\times10^{-6})=2.0\,\text{m per pixel}.\]</div><p>If the science question requires identifying \(10\,\text{m}\)-wide fractures, this resolution is adequate in principle, though illumination, motion blur, compression, and viewing geometry still matter. If the question requires centimeter-scale grains, an orbiter at this altitude is the wrong measurement strategy.</p></section>
+<section><h2>Observational Evidence and Mission Choices</h2><p>Testing for an ocean may require magnetometry, gravity measurements, topography, radar sounding, plume sampling, or repeat imaging. Testing for active geology may require thermal mapping and time-variable observations. Testing atmospheric escape requires particle and field instruments as well as atmospheric composition. Each measurement answers a different version of the question, so mission design begins by choosing the most discriminating observable.</p></section>
+<section><h2>Common Misconceptions and Traps</h2><ul><li><strong>A payload is not a science case.</strong> Instruments must be justified by measurement requirements.</li><li><strong>Higher resolution is not always better.</strong> Coverage, cadence, wavelength, and calibration can be more important.</li><li><strong>One mission rarely answers everything.</strong> Good designs focus on discriminating measurements.</li><li><strong>Pretty pictures are not enough.</strong> Images need scale, geometry, calibration, and a hypothesis to test.</li></ul></section>
+<section><h2>Study-Ready Synthesis</h2><p>The course ends where planetary science operates: questions become measurements. A strong mission concept states what uncertainty limits current knowledge, what observation would reduce it, which instrument can make that observation, and how the trajectory enables the measurement. This same logic applies to reading any paper, mission page, or future discovery announcement.</p></section>
+<section><h2>Study Questions</h2><ol><li>Design a mission traceability chain for testing whether Europa has a salty ocean.</li><li>When would a flyby be scientifically preferable to an orbiter?</li><li>What measurement would most improve confidence in a habitability claim from Lecture 13?</li></ol></section>
+<section><h2>References</h2><ul><li>OpenStax Astronomy 2e, solar-system exploration chapters, local reference copy listed in ASTR 120 reference-log.md.</li><li>NASA Solar System Exploration and mission pages cited in the slide deck and reference log.</li></ul></section>
+</main></body>
+</html>

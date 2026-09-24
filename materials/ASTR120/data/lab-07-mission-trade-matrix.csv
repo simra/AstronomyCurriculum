@@ -1,0 +1,6 @@
+mission_concept,target,primary_science_question,measurement_payload,science_return_1to5,technical_risk_1to5,planetary_protection_1to5,operations_complexity_1to5,estimated_flight_time_years,key_precedent,primary_source
+Venus cloud microprobe,Venus cloud layer,Are temperate cloud particles chemically habitable?,neutral mass spectrometer; nephelometer; pH microfluidic chip,4,4,2,3,1.0,Venus Express and DAVINCI planning,NASA Venus exploration program pages
+Europa plume flythrough,Europa,Can plume material reveal ocean composition?,dust analyzer; UV spectrograph; magnetometer,5,4,4,4,6.0,Europa Clipper,NASA Europa Clipper mission pages
+Enceladus plume sample return concept,Enceladus,Do plume organics indicate habitable chemistry?,high-resolution mass spectrometer; dust collector; thermal imager,5,5,4,5,9.0,Cassini plume flybys,NASA Cassini Enceladus science pages
+Mars polar ice drill scout,Mars polar layered deposits,How much accessible climate history is stored in shallow ice?,ground-penetrating radar; drill; isotope spectrometer,4,3,3,4,0.7,Phoenix and MRO SHARAD,NASA Mars exploration pages
+Trojan asteroid flyby,Trojan asteroid,What primitive material was preserved during giant-planet migration?,multispectral imager; thermal IR spectrometer,3,2,1,2,5.5,Lucy mission,NASA Lucy mission pages
