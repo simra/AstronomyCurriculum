@@ -1,0 +1,39 @@
+{
+  "course": {
+    "courseNumber": "ASTR 410",
+    "courseCode": "ASTR410",
+    "title": "Galactic Astronomy",
+    "credits": 3,
+    "term": "Fall",
+    "yearInCurriculum": 4,
+    "prerequisites": "ASTR 330; PHYS 331",
+    "description": "Studies the Milky Way, stellar populations, kinematics, rotation curves, spiral structure, chemical evolution, dark matter, Galactic center, and nearby galaxies."
+  },
+  "status": {
+    "stage": "approved for review release",
+    "reviewStatus": "Approved for review release; not yet approved for instructional use",
+    "lastUpdated": "2026-09-25"
+  },
+  "counts": {
+    "slides": 14,
+    "notes": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "solutionKeys": 7,
+    "assessmentInstructions": 7
+  },
+  "cadence": {
+    "lectures": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "rationale": "Matched 1:1 biweekly cadence: seven thematic units, each exactly two lectures, followed by one lab and one problem set. The pairing keeps each computational/data-analysis activity downstream of the complete physical toolkit it uses."
+  },
+  "dataProvenance": {
+    "generator": "materials/ASTR410/src/generate_astr410_package.py",
+    "levels": {
+      "level1": "No external values were live-verified during this production run.",
+      "level2": "Rotation-curve, abundance, Gaia-like kinematic, and standard Galactic parameter values are published/survey-summary values not re-verified this session; human spot-checks are required.",
+      "level3": "SVG diagrams and any explicitly described representative model curves are synthetic/instructor-provided."
+    }
+  }
+}

@@ -1,0 +1,5 @@
+population,mean_feh,sigma_feh
+thin disk,-0.05,0.22
+thick disk,-0.55,0.32
+halo,-1.55,0.45
+bulge,0.1,0.28
