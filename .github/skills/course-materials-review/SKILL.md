@@ -119,6 +119,8 @@ When materials are ready, return:
 - Residual risks or assumptions.
 - Summary of reviewed artifacts.
 
+Before returning either approval status, inspect `materials/<COURSECODE>/review-report.md`, `course-manifest.json`, and `index.html` directly. A missing review report, a report that records an older/different verdict, or any disagreement among the report, manifest, and index is a **blocking defect**: return `Needs correction`, even if the academic content itself passes. Provide a report-ready summary of scope, verdict, resolved findings, residual caveats, and required pre-instructional-use checks so the orchestrator can record the actual review outcome. An approval spoken in the agent response but not recorded consistently in these artifacts is not release-ready.
+
 ## Rigor Standards
 
 - Hold materials to high standards suitable for capable undergraduates.
@@ -140,6 +142,7 @@ Before completing the review, verify:
 - Approval is not granted when student-facing slides contain instructor-only commentary that should live in notes or review artifacts.
 - Approval is not granted when slide captions describe the production process rather than the scientific content students should learn.
 - Approval is not granted when student-facing prose contains raw LaTeX source that should render as mathematics.
+- Approval is not granted when `review-report.md` is missing, omits the current review verdict/findings, or disagrees with the release status in `course-manifest.json` or `index.html`; status synchronization is part of the release gate, not post-approval paperwork.
 - Approval is not granted for labs that differ only by title/subtitle or lack concrete apparatus, measurements, uncertainty, and provenance.
 - `Approved for review release` requires the package to meet the quality floor established by the reviewed ASTR101 and ASTR120 examples: lecture-specific evidence, quantitative work, concrete labs, concrete problem sets, and clear visual and explanatory quality.
 - Do not grant review-release approval to a package that is only structurally complete. A package must be comparable in quality to the higher-quality reviewed examples before approval. If it falls below that floor, the correct result is `Needs correction`.
