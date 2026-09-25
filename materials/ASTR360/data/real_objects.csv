@@ -1,0 +1,13 @@
+object,quantity,value,unit,source_note
+3C 273 sightline,N(HI),1.79e+20,cm^-2,HI4PI Collaboration 2016
+Cygnus X-1 sightline,N(H),6e+21,cm^-2,X-ray absorption studies
+Cygnus OB2 No. 12,E(B-V),3.1,mag,Massey & Thompson 1991
+HD 200775,R_V,5.0,dimensionless,Whittet et al. 2001
+Orion Molecular Cloud (OMC-1),mass,2000.0,Msun,Genzel & Stutzki 1989
+Taurus Molecular Cloud,mass,15000.0,Msun,Goldsmith et al. 2008
+Barnard 68,mass,2.1,Msun,"Alves, Lada & Lada 2001"
+Orion Nebula (M42),Q_H,1e+49,photons/s,"Vacca, Garmany & Shull 1996"
+Rosette Nebula,Q_H,6e+49,photons/s,Celnik 1985 and later studies
+Cassiopeia A,shock velocity,5000.0,km/s,Vink 2004
+Tycho's SNR,shock velocity,4600.0,km/s,Williams et al. 2016
+Crab Nebula,B field,0.0003,gauss,Hester 2008

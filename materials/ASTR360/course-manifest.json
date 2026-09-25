@@ -1,0 +1,44 @@
+{
+  "course": {
+    "courseNumber": "ASTR 360",
+    "courseCode": "ASTR360",
+    "title": "The Interstellar Medium",
+    "credits": 3,
+    "term": "Elective",
+    "yearInCurriculum": 3,
+    "prerequisites": "ASTR 310; PHYS 271",
+    "description": "Covers gas and dust in galaxies, atomic and molecular clouds, emission and absorption lines, H II regions, star formation, shocks, cosmic rays, magnetic fields, and multiwavelength ISM diagnostics."
+  },
+  "status": {
+    "stage": "approved for review release",
+    "reviewStatus": "Approved for review release; not yet approved for instructional use",
+    "lastUpdated": "2026-09-25"
+  },
+  "counts": {
+    "slides": 14,
+    "notes": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "solutionKeys": 7,
+    "assessmentInstructions": 7
+  },
+  "cadence": {
+    "lectures": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "rationale": "Matched 1:1 biweekly cadence, following the ASTR230/ASTR310/ASTR320/ASTR340/ASTR350 precedent (a 3-credit, 14-lecture structure), because ASTR360's seven thematic units (ISM Phases and Energetics; the Atomic ISM and the 21 cm Line; Dust; the Molecular ISM; Star Formation; H II Regions and Ionization; Shocks, Cosmic Rays, and Magnetic Fields) are each exactly two lectures long, giving an unambiguous strict two-lecture-per-lab grid. See syllabus.html Lecture, Lab, and Problem-Set Cadence."
+  },
+  "dataProvenance": {
+    "src": "materials/ASTR360/src/generate_astr360_content.py and generate_astr360_labs_psets.py generate all worked examples, lecture slides/notes, labs, and problem sets programmatically from shared constants.",
+    "realData": [
+      "Six ISM phase parameters (McKee & Ostriker 1977) - standard published, level 2.",
+      "3C 273 and Cygnus X-1 real HI/X-ray sightline column densities (HI4PI Collaboration 2016; X-ray absorption studies) - standard published, level 2.",
+      "Cygnus OB2 No. 12 and HD 200775 real extinction parameters (Massey & Thompson 1991; Whittet et al. 2001) - standard published, level 2.",
+      "Orion Molecular Cloud, Taurus Molecular Cloud, OMC-1 dense core, and Barnard 68 real molecular-cloud/core parameters (Genzel & Stutzki 1989; Goldsmith et al. 2008; Bergin & Tafalla 2007; Alves, Lada & Lada 2001) - standard published, level 2.",
+      "Orion Nebula (theta1 Orionis C) and Rosette Nebula real ionizing-photon rates and nebular diagnostics (Vacca, Garmany & Shull 1996; Martins, Schaerer & Hillier 2005; Baldwin et al. 1991) - standard published, level 2.",
+      "Cassiopeia A and Tycho's SNR real shock velocities (Vink 2004; Williams et al. 2016), and the electron-ion equilibration discrepancy (Ghavamian, Laming & Rakowski 2007) - standard published, level 2.",
+      "PDG cosmic-ray spectrum parametrization and Crutcher (2012) molecular-cloud B-n scaling - standard published, level 2.",
+      "Representative synthetic two-component (CNM+WNM) 21 cm spectrum shape used in Lecture 04/Lab 02's worked column-density integration - explicitly labeled illustrative/synthetic, level 3."
+    ]
+  }
+}
