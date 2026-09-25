@@ -1,0 +1,6 @@
+parameter,value,uncertainty
+H0,67.4,0.5
+Omega_m,0.315,0.007
+Omega_b,0.0493,0.0006
+Omega_Lambda,0.685,0.007
+T_CMB_K,2.7255,0.0006

@@ -1,0 +1,39 @@
+{
+  "course": {
+    "courseNumber": "ASTR 420",
+    "courseCode": "ASTR420",
+    "title": "Cosmology",
+    "credits": 3,
+    "term": "Fall",
+    "yearInCurriculum": 4,
+    "prerequisites": "ASTR310; MATH255; PHYS271",
+    "description": "Introduces relativistic cosmology including expansion, redshift, distance measures, the CMB, nucleosynthesis, structure formation, dark matter, dark energy, and observational tests."
+  },
+  "status": {
+    "stage": "approved for review release",
+    "reviewStatus": "Approved for review release; not yet approved for instructional use",
+    "lastUpdated": "2026-09-25"
+  },
+  "counts": {
+    "slides": 14,
+    "notes": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "solutionKeys": 7,
+    "assessmentInstructions": 7
+  },
+  "cadence": {
+    "lectures": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "rationale": "Matched 1:1 biweekly cadence: seven units each contain two lectures followed by one lab and one problem set; the second lecture completes the quantitative toolkit used by the paired data activity."
+  },
+  "dataProvenance": {
+    "generator": "materials/ASTR420/src/generate_astr420_package.py",
+    "levels": {
+      "level1": "Local OpenStax extracted text and source-index files were inspected this session; adopted-PDF exercise wording remains a human spot-check.",
+      "level2": "CMB, BAO, supernova, BBN, and matter-power values are standard published summaries not re-verified this session; human spot-checks are required.",
+      "level3": "Compact CSV extracts, SVG diagrams, and model curves are instructor-provided teaching artifacts derived from the level-2 summaries."
+    }
+  }
+}
