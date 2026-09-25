@@ -1,0 +1,5 @@
+# ASTR 474 Data
+
+`generated/jpl_earth_vectors.csv` contains two Earth-center state vectors embedded in `src/astr474_computations.py` and attributed to NASA/JPL Horizons DE441. Provenance is level 2: the source response was not retrieved in this session. `generated/jpl_earth_request.json` records target 399, Sun center 500@10, requested TDB epochs (2025-01-01 and 2025-01-02), J2000 ecliptic reference system/plane, vector table 2, geometric correction NONE, AU and AU/day units, the encoded request URL, and the 2026-09-25 HTTP 404 access-attempt result. This trace is not a raw Horizons response. The vector CSV SHA-256 is recorded in the request trace and `generated/SHA256SUMS`.
+
+All other generated numerical experiments are level-3 synthetic teaching data. Their inputs, algorithms, and random seeds are in `src/astr474_computations.py`; none is an observation. Astropy solar/Earth/Jupiter constants are standard published values supplied by the pinned Astropy release (level 2; see `reference-log.md`).

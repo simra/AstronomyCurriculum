@@ -1,0 +1,36 @@
+<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>ASTR 474 Syllabus</title><style>
+:root{--ink:#17202a;--muted:#596875;--paper:#fbfcfd;--panel:#fff;--line:#d9e0e7;--navy:#102a43;--teal:#0f6b78;--teal-soft:#e5f4f6;--gold:#b87911;--warning:#8a4b08}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--paper);font:16px/1.6 Georgia,'Times New Roman',serif}
+header{padding:32px 24px;background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff}header>div,main{max-width:1120px;margin:auto}main{padding:28px 24px 64px}
+h1,h2,h3{line-height:1.2}h1{margin:0 0 8px;font-size:2.4rem}h2{margin-top:32px;padding-bottom:8px;border-bottom:2px solid var(--line);color:var(--navy)}h3{color:var(--teal)}
+section{margin:18px 0;padding:16px 18px;border:1px solid var(--line);border-radius:5px;background:var(--panel)}
+a{color:var(--teal);font-weight:700}table{width:100%;border-collapse:collapse;margin:14px 0}th,td{padding:8px 10px;border:1px solid var(--line);text-align:left;vertical-align:top}th{background:var(--teal-soft)}.notice{border-left:5px solid var(--gold);padding:12px 16px;background:#fff6e6}.meta{color:var(--muted);font-size:.94rem}
+</style></head><body><header><div><h1>ASTR 474: Computational Astrophysics</h1><p>3 credits · Year 4 elective</p></div></header><main>
+<h2>Course Information</h2><section>
+<p><strong>ASTR 474: Computational Astrophysics</strong> · 3 credits · Year 4 elective · 14-week semester</p>
+<p><strong>Catalog description:</strong> Applies numerical methods to astronomical problems including N-body integration, hydrodynamics concepts, radiative transfer approximations, Monte Carlo methods, parameter estimation, and reproducible simulation workflows.</p>
+<p><strong>Prerequisites:</strong> COMP 260; ASTR 310; MATH 255.</p>
+<p>Assumption: two 75-minute meetings weekly. Each numbered lecture is a weekly topic module taught across those two meetings; it is not a single 75-minute meeting. Computing labs are two hours and are scheduled only after their mapped modules are complete. Confirm local dates, instructor, office hours, accommodations, and institutional policies before instructional use.</p></section>
+<h2>Learning Outcomes</h2><section><ol>
+<li>Choose a numerical method suited to an astrophysical initial- or boundary-value problem and state its assumptions and stability limits.</li>
+<li>Use NumPy, SciPy, Astropy, and REBOUND for array computation, units, fitting/integration, and orbital dynamics without misrepresenting educational code as research-grade software.</li>
+<li>Validate calculations using analytic limits, dimensional checks, timestep/resolution convergence, conservation diagnostics, and independent implementations.</li>
+<li>Quantify stochastic and fitted-parameter uncertainty, inspect residuals, and distinguish numerical error from model inadequacy.</li>
+<li>Build reproducible workflows that record software versions, inputs, random seeds, provenance, tests, and run instructions.</li>
+<li>Communicate a computational result with a defensible error budget, limitations, and machine-readable evidence.</li>
+</ol></section>
+<h2>Resources and Computing</h2><section>
+<p>Required software is pinned in <a href='requirements.txt'>requirements.txt</a>: CPython 3.14.6, NumPy 2.5.3, SciPy 1.18.1, Astropy 8.0.1, and REBOUND 5.2.0. The package uses libraries for their actual scientific roles; short hand-built schemes are labeled as teaching demonstrations, not production solvers.</p>
+<p>Students need a computer able to run the supplied scripts. All listed experiments run on a CPU; no GPU, observatory account, or paid service is assumed. Each activity includes a reproducible command and a validation target.</p></section>
+<h2>Assessment</h2><section><table><thead><tr><th>Component</th><th>Weight</th><th>Evidence</th></tr></thead><tbody>
+<tr><td>Seven computational labs</td><td>28%</td><td>Runnable analysis, convergence or uncertainty evidence, and concise technical reports</td></tr>
+<tr><td>Seven problem sets</td><td>28%</td><td>Derivations, computational reasoning, validation, and interpretation</td></tr>
+<tr><td>Code reviews and reproducibility checks</td><td>14%</td><td>Tests, environment capture, provenance, and review of failure modes</td></tr>
+<tr><td>Midterm computational audit</td><td>10%</td><td>Independent recomputation, error diagnosis, and numerical-method choice</td></tr>
+<tr><td>Final mini-project</td><td>20%</td><td>Reproducible astrophysical computation, validation dossier, and written interpretation</td></tr>
+<tr><th>Total</th><th>100%</th><th></th></tr></tbody></table>
+<p>Mastery grading rewards correct reasoning, validated results, physical interpretation, uncertainty analysis, and reproducibility. Revisions and resubmissions are encouraged to improve mastery and grade; instructors return actionable feedback and preserve the stated standards.</p></section>
+<h2>Cadence and Course Policies</h2><section><p>The fourteen numbered lecture modules each occupy one calendar week and include both 75-minute meetings that week. Seven labs and seven problem sets are intentionally non-uniformly spaced: Labs/PS 01 cover Weeks 1-2; 02 covers Week 3; 03 covers Week 4; 04 covers Weeks 5-6; 05 covers Weeks 7-8; 06 covers Weeks 9-12; and 07 covers Weeks 13-14. Each assessment is due only after its listed lecture span, avoiding one coding deliverable per module while allowing longer computational investigations where the method requires it. The week-by-week mapping and project milestones are in <a href='schedule.html'>schedule.html</a>.</p>
+<p>Students may discuss concepts and debug in pairs, but submitted code, explanations, and analysis must be attributable. Cite software, data, and adapted code. Do not report a numerical result without the input, method, units, validation, and uncertainty relevant to the claim. Institutional accessibility, late-work, academic-integrity, and safety policies supersede these placeholders.</p></section>
+<p class='meta'>Course specification last updated 2026-09-25. Instructor and institution-specific fields remain to be completed.</p>
+</main></body></html>

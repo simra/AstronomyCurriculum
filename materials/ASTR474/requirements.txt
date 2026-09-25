@@ -1,0 +1,5 @@
+# Tested with CPython 3.14.6 on Windows x64.
+astropy==8.0.1
+numpy==2.5.3
+rebound==5.2.0
+scipy==1.18.1

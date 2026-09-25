@@ -1,0 +1,42 @@
+{
+  "provenanceLevel": 2,
+  "status": "published ephemeris values; not live-verified this session",
+  "source": "NASA/JPL Horizons API",
+  "api": "https://ssd-api.jpl.nasa.gov/api/horizons.api",
+  "documentation": "https://ssd-api.jpl.nasa.gov/doc/horizons.html",
+  "queryParameters": {
+    "format": "json",
+    "COMMAND": "'399'",
+    "OBJ_DATA": "'NO'",
+    "MAKE_EPHEM": "'YES'",
+    "EPHEM_TYPE": "'VECTORS'",
+    "CENTER": "'500@10'",
+    "START_TIME": "'2025-01-01 00:00'",
+    "STOP_TIME": "'2025-01-03 00:00'",
+    "STEP_SIZE": "'1 d'",
+    "TIME_TYPE": "'TDB'",
+    "REF_SYSTEM": "'J2000'",
+    "REF_PLANE": "'ECLIPTIC'",
+    "VEC_TABLE": "'2'",
+    "OUT_UNITS": "'AU-D'",
+    "VEC_CORR": "'NONE'",
+    "CSV_FORMAT": "'YES'"
+  },
+  "target": "399, Earth center",
+  "center": "500@10, Sun center (body code 10)",
+  "epochs": [
+    "2025-01-01 00:00 TDB",
+    "2025-01-02 00:00 TDB"
+  ],
+  "timeScale": "TDB",
+  "referenceSystem": "J2000",
+  "referencePlane": "ECLIPTIC",
+  "vectorType": "State vectors, table 2; geometric correction NONE",
+  "units": "AU and AU/day",
+  "accessAttemptDate": "2026-09-25",
+  "accessAttemptUrl": "https://ssd-api.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=399&OBJ_DATA=NO&MAKE_EPHEM=YES&EPHEM_TYPE=VECTORS&CENTER=500%4010&START_TIME=2025-01-01%2000%3A00&STOP_TIME=2025-01-03%2000%3A00&STEP_SIZE=1%20d&TIME_TYPE=TDB&REF_SYSTEM=J2000&REF_PLANE=ECLIPTIC&VEC_TABLE=2&OUT_UNITS=AU-D&VEC_CORR=NONE&CSV_FORMAT=YES",
+  "accessAttemptResult": "PowerShell Invoke-WebRequest GET returned HTTP 404 Not Found from nginx; no response body or newly fetched vector values were available",
+  "embeddedValuesNote": "The CSV contains the values already embedded in this package; this trace does not represent a newly retrieved raw Horizons response.",
+  "requestUrl": "https://ssd-api.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27399%27&OBJ_DATA=%27NO%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&CENTER=%27500%4010%27&START_TIME=%272025-01-01+00%3A00%27&STOP_TIME=%272025-01-03+00%3A00%27&STEP_SIZE=%271+d%27&TIME_TYPE=%27TDB%27&REF_SYSTEM=%27J2000%27&REF_PLANE=%27ECLIPTIC%27&VEC_TABLE=%272%27&OUT_UNITS=%27AU-D%27&VEC_CORR=%27NONE%27&CSV_FORMAT=%27YES%27",
+  "vectorCsvSha256": "5c8cde36cfdb13d24d3f056a7254b257f34e2de446d23b7bd3c627e4b514008d"
+}

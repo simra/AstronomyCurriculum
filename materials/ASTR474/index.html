@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASTR474 Course Materials Index</title>
+  <style>
+    :root { --ink:#17202a; --muted:#5b6773; --paper:#fbfcfd; --panel:#ffffff; --line:#d9e0e7; --navy:#102a43; --teal:#0f6b78; --teal-soft:#e5f4f6; --gold:#b87911; --warning:#8a4b08; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Georgia,"Times New Roman",serif; color:var(--ink); background:var(--paper); line-height:1.6; }
+    header { padding:42px 24px 30px; background:linear-gradient(135deg,var(--navy),var(--teal)); color:#fff; }
+    header div, main { max-width:1120px; margin:0 auto; }
+    h1,h2,h3 { line-height:1.15; }
+    h1 { margin:0 0 8px; font-size:clamp(2rem,4vw,3.4rem); }
+    header p { margin:0; opacity:.94; }
+    main { padding:32px 24px 64px; }
+    h2 { margin-top:36px; padding-bottom:8px; border-bottom:2px solid var(--line); color:var(--navy); }
+    .summary { background:var(--panel); border-left:5px solid var(--teal); padding:14px 18px; margin:18px 0; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin-top:18px; }
+    .card { background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:16px; }
+    .card h3 { margin-top:0; color:var(--teal); }
+    a { color:var(--teal); font-weight:700; }
+    ul { padding-left:1.2rem; }
+    .status { display:inline-block; padding:2px 8px; border-radius:999px; background:var(--teal-soft); color:var(--navy); font-size:.85rem; font-family:"Aptos","Segoe UI",sans-serif; }
+    .meta { color:var(--muted); font-size:.95rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>ASTR474: Computational Astrophysics</h1>
+      <p>3 credits · Year 4 elective · Course Materials Index</p>
+    </div>
+  </header>
+  <main>
+    <section class="summary">
+      <p><strong>Status:</strong> <span class="status">Approved for review release · not yet approved for instructional use</span></p>
+      <p>Applies numerical methods to astronomical problems including N-body integration, hydrodynamics concepts, radiative transfer approximations, Monte Carlo methods, parameter estimation, and reproducible simulation workflows.</p>
+      <p class="meta">Last updated: 2026-09-25 · Manifest: <a href="course-manifest.json">course-manifest.json</a></p>
+      <p class="meta">Review report: <a href="review-report.md">review-report.md</a></p>
+    </section>
+
+    <section>
+      <h2>Planning Documents</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Syllabus</h3>
+          <p>Generated course specification; local policies remain to be completed.</p>
+          <p><a href="syllabus.html">Open syllabus</a></p>
+        </article>
+        <article class="card">
+          <h3>Schedule</h3>
+          <p>Fourteen-week schedule with mapped labs and problem sets.</p>
+          <p><a href="schedule.html">Open schedule</a></p>
+        </article>
+        <article class="card">
+          <h3>References</h3>
+          <p>Per-dataset provenance levels and source records included.</p>
+          <p><a href="reference-log.md">Open reference log</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Lecture Materials</h2>
+      <ul>
+<li><a href="lectures/lecture-01-slides.html">Lecture 01: Computational Experiments and Floating-Point Arithmetic &mdash; slides</a> · <a href="lectures/lecture-01-notes.html">Lecture 01: Computational Experiments and Floating-Point Arithmetic &mdash; notes</a></li>
+<li><a href="lectures/lecture-02-slides.html">Lecture 02: Initial-Value Problems and Error Control &mdash; slides</a> · <a href="lectures/lecture-02-notes.html">Lecture 02: Initial-Value Problems and Error Control &mdash; notes</a></li>
+<li><a href="lectures/lecture-03-slides.html">Lecture 03: Kepler Orbits with REBOUND &mdash; slides</a> · <a href="lectures/lecture-03-notes.html">Lecture 03: Kepler Orbits with REBOUND &mdash; notes</a></li>
+<li><a href="lectures/lecture-04-slides.html">Lecture 04: N-Body Systems, Invariants, and Close Encounters &mdash; slides</a> · <a href="lectures/lecture-04-notes.html">Lecture 04: N-Body Systems, Invariants, and Close Encounters &mdash; notes</a></li>
+<li><a href="lectures/lecture-05-slides.html">Lecture 05: Conservation Laws and Hydrodynamics Concepts &mdash; slides</a> · <a href="lectures/lecture-05-notes.html">Lecture 05: Conservation Laws and Hydrodynamics Concepts &mdash; notes</a></li>
+<li><a href="lectures/lecture-06-slides.html">Lecture 06: Finite-Volume Resolution and Shock Tests &mdash; slides</a> · <a href="lectures/lecture-06-notes.html">Lecture 06: Finite-Volume Resolution and Shock Tests &mdash; notes</a></li>
+<li><a href="lectures/lecture-07-slides.html">Lecture 07: Radiative Transfer as a Numerical Problem &mdash; slides</a> · <a href="lectures/lecture-07-notes.html">Lecture 07: Radiative Transfer as a Numerical Problem &mdash; notes</a></li>
+<li><a href="lectures/lecture-08-slides.html">Lecture 08: Radiative-Transfer Approximations and Validation &mdash; slides</a> · <a href="lectures/lecture-08-notes.html">Lecture 08: Radiative-Transfer Approximations and Validation &mdash; notes</a></li>
+<li><a href="lectures/lecture-09-slides.html">Lecture 09: Monte Carlo Transport and Random Walks &mdash; slides</a> · <a href="lectures/lecture-09-notes.html">Lecture 09: Monte Carlo Transport and Random Walks &mdash; notes</a></li>
+<li><a href="lectures/lecture-10-slides.html">Lecture 10: Monte Carlo Radiation and Rare Events &mdash; slides</a> · <a href="lectures/lecture-10-notes.html">Lecture 10: Monte Carlo Radiation and Rare Events &mdash; notes</a></li>
+<li><a href="lectures/lecture-11-slides.html">Lecture 11: Likelihoods, Residuals, and Parameter Estimation &mdash; slides</a> · <a href="lectures/lecture-11-notes.html">Lecture 11: Likelihoods, Residuals, and Parameter Estimation &mdash; notes</a></li>
+<li><a href="lectures/lecture-12-slides.html">Lecture 12: Bayesian Inference for Astrophysical Models &mdash; slides</a> · <a href="lectures/lecture-12-notes.html">Lecture 12: Bayesian Inference for Astrophysical Models &mdash; notes</a></li>
+<li><a href="lectures/lecture-13-slides.html">Lecture 13: Reproducible Simulation Workflows &mdash; slides</a> · <a href="lectures/lecture-13-notes.html">Lecture 13: Reproducible Simulation Workflows &mdash; notes</a></li>
+<li><a href="lectures/lecture-14-slides.html">Lecture 14: Computational Astrophysics Research Synthesis &mdash; slides</a> · <a href="lectures/lecture-14-notes.html">Lecture 14: Computational Astrophysics Research Synthesis &mdash; notes</a></li></ul>
+    </section>
+
+    <section>
+      <h2>Labs and Observing</h2>
+      <ul>
+<li><a href="labs/lab-01.html">Lab 01: Floating-Point and ODE Error Audit</a></li>
+<li><a href="labs/lab-02.html">Lab 02: A JPL Earth State in REBOUND</a></li>
+<li><a href="labs/lab-03.html">Lab 03: Three-Body Conservation and Encounter Choice</a></li>
+<li><a href="labs/lab-04.html">Lab 04: Finite-Volume Sod Shock Tube</a></li>
+<li><a href="labs/lab-05.html">Lab 05: Radiative Transfer and Approximation Domain</a></li>
+<li><a href="labs/lab-06.html">Lab 06: Monte Carlo Transmission and Radial-Velocity Inference</a></li>
+<li><a href="labs/lab-07.html">Lab 07: Reproducible Computational Research Audit</a></li></ul>
+    </section>
+
+    <section>
+      <h2>Problem Sets</h2>
+      <ul>
+<li><a href="problem-sets/problem-set-01.html">Problem Set 01: Numerical Foundations and ODE Accuracy</a> · <a href="problem-sets/problem-set-01-solutions.html">solutions</a> · <a href="problem-sets/problem-set-01-assessment.md">assessment instructions</a></li>
+<li><a href="problem-sets/problem-set-02.html">Problem Set 02: Orbital Integration and Ephemeris Validation</a> · <a href="problem-sets/problem-set-02-solutions.html">solutions</a> · <a href="problem-sets/problem-set-02-assessment.md">assessment instructions</a></li>
+<li><a href="problem-sets/problem-set-03.html">Problem Set 03: N-Body Conservation and Close Encounters</a> · <a href="problem-sets/problem-set-03-solutions.html">solutions</a> · <a href="problem-sets/problem-set-03-assessment.md">assessment instructions</a></li>
+<li><a href="problem-sets/problem-set-04.html">Problem Set 04: Hydrodynamics and Resolution</a> · <a href="problem-sets/problem-set-04-solutions.html">solutions</a> · <a href="problem-sets/problem-set-04-assessment.md">assessment instructions</a></li>
+<li><a href="problem-sets/problem-set-05.html">Problem Set 05: Radiative Transfer and Approximation Validity</a> · <a href="problem-sets/problem-set-05-solutions.html">solutions</a> · <a href="problem-sets/problem-set-05-assessment.md">assessment instructions</a></li>
+<li><a href="problem-sets/problem-set-06.html">Problem Set 06: Monte Carlo and Parameter Inference</a> · <a href="problem-sets/problem-set-06-solutions.html">solutions</a> · <a href="problem-sets/problem-set-06-assessment.md">assessment instructions</a></li>
+<li><a href="problem-sets/problem-set-07.html">Problem Set 07: Reproducible Research Audit</a> · <a href="problem-sets/problem-set-07-solutions.html">solutions</a> · <a href="problem-sets/problem-set-07-assessment.md">assessment instructions</a></li></ul>
+    </section>
+
+    <section>
+      <h2>Source Code and Data</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Source</h3>
+          <p>Course-specific scripts, notebooks, and generators.</p>
+          <p><a href="src/README.md">Open source README</a></p>
+        </article>
+        <article class="card">
+          <h3>Data</h3>
+          <p>Course-specific datasets with provenance notes.</p>
+          <p><a href="data/README.md">Open data README</a></p>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

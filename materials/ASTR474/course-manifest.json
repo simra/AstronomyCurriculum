@@ -1,0 +1,43 @@
+{
+  "course": {
+    "courseNumber": "ASTR 474",
+    "courseCode": "ASTR474",
+    "title": "Computational Astrophysics",
+    "credits": 3,
+    "term": "Year 4 elective",
+    "yearInCurriculum": 4,
+    "prerequisites": "COMP 260; ASTR 310; MATH 255",
+    "description": "Applies numerical methods to astronomical problems including N-body integration, hydrodynamics concepts, radiative transfer approximations, Monte Carlo methods, parameter estimation, and reproducible simulation workflows."
+  },
+  "status": {
+    "stage": "approved for review release",
+    "reviewStatus": "Approved for review release; not yet approved for instructional use",
+    "lastUpdated": "2026-09-25"
+  },
+  "counts": {
+    "slides": 14,
+    "notes": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "solutionKeys": 7,
+    "assessmentInstructions": 7
+  },
+  "cadence": {
+    "lectures": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "rationale": "Each numbered lecture is a weekly module taught across two 75-minute meetings. Labs/problem sets cover lecture spans 01-02, 03, 04, 05-06, 07-08, 09-12, and 13-14 and are due in weeks 2, 3, 4, 6, 8, 12, and 14 after the mapped content."
+  },
+  "environment": {
+    "python": "3.14.6",
+    "requirements": "requirements.txt"
+  },
+  "dataProvenance": {
+    "generator": "materials/ASTR474/src/generate_astr474_package.py",
+    "levels": {
+      "level1": "No course dataset was successfully fetched or verified from a primary source during the 2026-09-25 correction session.",
+      "level2": "Embedded JPL Horizons DE441 vectors and Astropy-distributed astronomical constants; sources and verification limits are itemized in reference-log.md and data/generated/jpl_earth_request.json.",
+      "level3": "Synthetic instructor-generated numerical experiments; never presented as observations; seeds and algorithms are recorded in the computation source."
+    }
+  }
+}
