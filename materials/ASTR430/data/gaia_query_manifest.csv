@@ -1,0 +1,7 @@
+field,value
+service,ESA Gaia Archive
+release,EDR3 teaching schema
+adql,"SELECT source_id, ra, dec, parallax FROM gaiadr3.gaia_source WHERE parallax_over_error > 10"
+cone_center,"180.0, 0.0 deg"
+radius,0.1 deg
+status,instructor-provided manifest

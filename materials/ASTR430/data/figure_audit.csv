@@ -1,0 +1,4 @@
+figure_id,x_transform,y_transform,uncertainty
+F01,log10,log10,none
+F02,linear,linear,95% interval
+F03,log10,linear,pointwise

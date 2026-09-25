@@ -1,0 +1,39 @@
+{
+  "course": {
+    "courseNumber": "ASTR 430",
+    "courseCode": "ASTR430",
+    "title": "Research Methods in Astronomy",
+    "credits": 3,
+    "term": "Fall",
+    "yearInCurriculum": 4,
+    "prerequisites": "ASTR210; STAT220; junior/senior standing",
+    "description": "Literature review, proposal writing, reproducible analysis, data archives, observational planning, ethical conduct, scientific visualization, and conference-style communication."
+  },
+  "status": {
+    "stage": "approved for review release",
+    "reviewStatus": "Approved for review release; not yet approved for instructional use",
+    "lastUpdated": "2026-09-25"
+  },
+  "counts": {
+    "slides": 14,
+    "notes": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "solutionKeys": 7,
+    "assessmentInstructions": 7
+  },
+  "cadence": {
+    "lectures": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "rationale": "Matched two-lecture units: each workshop and problem set follows the second lecture so the method and its artifact are both available."
+  },
+  "dataProvenance": {
+    "generator": "materials/ASTR430/src/generate_astr430_package.py",
+    "levels": {
+      "level1": "Official documentation listed in reference-log.md and fetched where disclosed; incomplete fetches remain human spot-checks.",
+      "level2": "Standard published or policy interpretations not fully re-verified this session; flagged for human spot-check.",
+      "level3": "All compact CSVs, SVGs, rubric values, query manifests, and worked-example records are instructor-provided artifacts."
+    }
+  }
+}

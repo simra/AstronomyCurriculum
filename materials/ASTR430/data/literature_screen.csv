@@ -1,0 +1,19 @@
+record_id,decision,reason
+L01,keep,methods
+L02,keep,outside scope
+L03,exclude,methods
+L04,keep,outside scope
+L05,keep,methods
+L06,exclude,outside scope
+L07,keep,methods
+L08,keep,outside scope
+L09,exclude,methods
+L10,keep,outside scope
+L11,keep,methods
+L12,exclude,outside scope
+L13,keep,methods
+L14,keep,outside scope
+L15,exclude,methods
+L16,keep,outside scope
+L17,keep,methods
+L18,exclude,outside scope

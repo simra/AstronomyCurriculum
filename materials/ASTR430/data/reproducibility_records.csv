@@ -1,0 +1,6 @@
+record_id,claim,input_hash,code_version,status
+R01,parallax audit,sha256:teaching-01,v1.0,included
+R02,parallax audit,sha256:teaching-02,v1.0,included
+R03,parallax audit,sha256:teaching-03,v1.0,excluded
+R04,archive schema,sha256:teaching-04,v1.1,included
+R05,archive schema,sha256:teaching-05,v1.1,included
