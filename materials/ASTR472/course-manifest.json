@@ -1,0 +1,39 @@
+{
+  "course": {
+    "courseNumber": "ASTR 472",
+    "courseCode": "ASTR472",
+    "title": "Radio Astronomy",
+    "credits": 3,
+    "term": "Year 4 elective",
+    "yearInCurriculum": 4,
+    "prerequisites": "ASTR 340; PHYS 341 recommended",
+    "description": "Covers radio emission mechanisms, antennas, receivers, interferometry, aperture synthesis, calibration, spectral line observations, pulsars, neutral hydrogen mapping, and radio survey analysis."
+  },
+  "status": {
+    "stage": "approved for review release",
+    "reviewStatus": "Approved for review release; not yet approved for instructional use",
+    "lastUpdated": "2026-09-25"
+  },
+  "counts": {
+    "slides": 14,
+    "notes": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "solutionKeys": 7,
+    "assessmentInstructions": 7
+  },
+  "cadence": {
+    "lectures": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "rationale": "Seven two-lecture units each build the physical/instrument model before the paired lab and problem set; cadence is documented in syllabus.html."
+  },
+  "dataProvenance": {
+    "generator": "materials/ASTR472/src/generate_astr472_package.py",
+    "levels": {
+      "level1": "OpenStax \u00a76.4, ALMA Basics, NRAO VLA navigation, ATNF catalogue definitions, and HI4PI paper/CDS release metadata and response values live-verified 2026-09-25.",
+      "level2": "Other published object and historical survey parameters not re-verified; see reference-log.md for spot-check requirements.",
+      "level3": "Compact CSV exercise tables and all computed figures are synthetic/instructor-provided teaching records."
+    }
+  }
+}

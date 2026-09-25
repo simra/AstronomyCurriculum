@@ -1,0 +1,8 @@
+facility_or_survey,published_parameter,value,unit,provenance_level
+VLA,antennas,27,count,1-live-verified OpenStax section 6.4; modern facility identity NRAO page
+ALMA,maximum_baseline,16,km,1-live-verified ALMA Basics
+ALMA,frequency_range_approx,35-950,GHz,1-live-verified ALMA Basics
+HI4PI,beam_FWHM,16.2,arcmin,1-live-verified arXiv 1610.06175 and CDS J/A+A/594/A116
+HI4PI,channel_separation,1.29,km/s,1-live-verified arXiv 1610.06175 Table 1
+HI4PI,spectral_resolution,1.49,km/s,1-live-verified arXiv 1610.06175 Table 1
+HI4PI,brightness_temperature_rms,43,mK,1-live-verified arXiv 1610.06175 and CDS J/A+A/594/A116

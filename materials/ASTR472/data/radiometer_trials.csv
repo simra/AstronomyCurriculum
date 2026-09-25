@@ -1,0 +1,5 @@
+bandwidth_Hz,integration_s,predicted_rms_mJy,measured_rms_mJy
+1000000,900,7.071,7.8
+1000000,3600,3.536,4.0
+250000,3600,7.071,7.9
+1000000,14400,1.768,2.8

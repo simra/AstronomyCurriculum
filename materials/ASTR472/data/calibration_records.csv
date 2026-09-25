@@ -1,0 +1,7 @@
+scan,role,amplitude_ratio,phase_residual_deg,sigma_mJy
+1,calibrator,1.04,7.0,2.0
+2,calibrator,0.98,11.0,2.0
+3,calibrator,1.02,9.0,2.0
+4,calibrator,1.55,48.0,2.0
+5,target,0.97,8.0,4.0
+6,target,1.01,12.0,4.0
