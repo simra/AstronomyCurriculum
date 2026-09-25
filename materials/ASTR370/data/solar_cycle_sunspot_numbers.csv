@@ -1,0 +1,5 @@
+cycle,metric,value,date,source_note
+Solar Cycle 24,smoothed max SSN,116.4,April 2014,"standard published, level 2"
+Solar Cycle 25,smoothed min SSN,1.8,December 2019,live-verified this session (SILSO via Wikipedia)
+Solar Cycle 25,smoothed max SSN,160.8,October 2024,live-verified this session (SILSO via Wikipedia)
+Solar Cycle 25,not-smoothed max SSN,216.0,August 2024,live-verified this session (SILSO via Wikipedia)

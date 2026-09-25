@@ -1,0 +1,47 @@
+{
+  "course": {
+    "courseNumber": "ASTR 370",
+    "courseCode": "ASTR370",
+    "title": "Solar Physics and Space Weather",
+    "credits": 3,
+    "term": "Elective",
+    "yearInCurriculum": 3,
+    "prerequisites": "PHYS 172; ASTR 230",
+    "description": "Introduces solar structure, magnetic activity, sunspots, flares, coronal mass ejections, the solar wind, heliophysics missions, magnetospheric response, and space weather impacts on technology."
+  },
+  "status": {
+    "stage": "approved for review release",
+    "reviewStatus": "Approved for review release; not yet approved for instructional use",
+    "lastUpdated": "2026-09-25"
+  },
+  "counts": {
+    "slides": 14,
+    "notes": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "solutionKeys": 7,
+    "assessmentInstructions": 7
+  },
+  "cadence": {
+    "lectures": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "rationale": "Matched 1:1 biweekly cadence, following the ASTR230/310/320/340/350/360 precedent (a 3-credit, 14-lecture structure), because ASTR370's seven thematic units (Solar Interior and Atmosphere; Solar Magnetism and Sunspots; Solar Flares; Coronal Mass Ejections and the Solar Wind; Heliophysics Missions and Diagnostics; the Sun-Earth Connection; Space Weather Impacts on Technology) are each exactly two lectures long, giving an unambiguous strict two-lecture-per-lab grid. See syllabus.html Lecture, Lab, and Problem-Set Cadence."
+  },
+  "dataProvenance": {
+    "src": "materials/ASTR370/src/generate_astr370_content.py and generate_astr370_labs_psets.py generate all worked examples, lecture slides/notes, labs, and problem sets programmatically from shared constants.",
+    "realData": [
+      "IAU nominal solar parameters and standard solar model interior structure (Bahcall et al.) - standard published, level 2.",
+      "Real sunspot umbral field strength (Solanki 2003, A&A Rev. 11, 153) - standard published, level 2.",
+      "Real Solar Cycle 25 sunspot-number data (SILSO/WDC-SILSO minimum, maximum, and not-smoothed maximum) - live-verified this session via direct web fetch (Wikipedia 'Solar cycle 25', citing SILSO/NOAA SWPC).",
+      "Real Solar Cycle 24 smoothed maximum sunspot number - standard published, level 2, not independently re-verified this session.",
+      "Real AR 12673 X9.3 flare (6 September 2017), its GOES peak flux and SOHO/LASCO CDAW-catalog CME speed - standard published NOAA/GOES/CDAW values, level 2 (a direct live web fetch of this specific event's dedicated Wikipedia page was attempted this session but returned an HTTP error; the values are treated as standard literature values pending human spot-check).",
+      "Real 7-8 September 2017 G4 geomagnetic storm Dst minimum - standard published Kyoto WDC/NOAA value, level 2.",
+      "Real Carrington Event (1-2 September 1859) Dst range, CME transit time, and the 2024 Beggan et al. magnetometer-reanalysis field-change-rate finding - live-verified this session via direct web fetch (Wikipedia 'Carrington Event', citing Tsurutani et al. 2003, Cliver & Svalgaard 2005, and Beggan, Clarke, Lawrence, Eaton et al. 2024).",
+      "Real Parker Solar Probe launch date, perihelion distance, and record heliocentric speed - live-verified this session via direct web fetch (Wikipedia 'Parker Solar Probe', citing NASA/JHUAPL mission documentation).",
+      "Real solar wind climatological speed/density ranges (slow, fast, and CME-sheath conditions) - standard published OMNI-database values, level 2.",
+      "Representative active-region volume used in the order-of-magnitude flare free-energy estimate - explicitly labeled illustrative/order-of-magnitude, level 3.",
+      "Representative CME drag-based deceleration functional form and satellite orbital-lifetime scaling used in Lecture 07/13 figures - explicitly labeled illustrative, level 3."
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+event,quantity,value,unit,source_note
+AR 12673 X9.3 flare,GOES peak flux,0.00093,W/m^2,"standard published NOAA/GOES value, level 2"
+6 Sept 2017 CME,LASCO linear speed,1571.0,km/s,"standard published CDAW catalog value, level 2"
+7-8 Sept 2017 storm,Dst minimum,-142.0,nT,"standard published Kyoto WDC/NOAA value, level 2"
+Carrington Event 1859,Dst range (conservative),-800.0,nT,live-verified this session (Cliver & Svalgaard 2005 via Wikipedia)
+Carrington Event 1859,Dst range (Tsurutani et al. 2003),-1750.0,nT,live-verified this session (Tsurutani et al. 2003 via Wikipedia)
+Carrington Event 1859,CME transit time,17.6,hours,live-verified this session (via Wikipedia)
+Parker Solar Probe,perihelion,9.86,R_sun,live-verified this session (via Wikipedia)
+Parker Solar Probe,record heliocentric speed,191.0,km/s,live-verified this session (via Wikipedia)
