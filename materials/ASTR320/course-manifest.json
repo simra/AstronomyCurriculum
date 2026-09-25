@@ -1,0 +1,42 @@
+{
+  "course": {
+    "courseNumber": "ASTR 320",
+    "courseCode": "ASTR320",
+    "title": "Planetary Science",
+    "credits": 3,
+    "term": "Fall",
+    "yearInCurriculum": 3,
+    "prerequisites": "ASTR 120; CHEM 102; PHYS 172",
+    "description": "Examines planetary system formation, geophysics, atmospheres, climate evolution, magnetic fields, impacts, rings, satellites, exoplanet comparisons, and the chemical and physical conditions that shape planetary environments."
+  },
+  "status": {
+    "stage": "approved for review release",
+    "reviewStatus": "Approved for review release; not yet approved for instructional use",
+    "lastUpdated": "2026-09-24"
+  },
+  "counts": {
+    "slides": 14,
+    "notes": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "solutionKeys": 7,
+    "assessmentInstructions": 7
+  },
+  "cadence": {
+    "lectures": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "rationale": "Matched 1:1 biweekly cadence (each lab/problem-set pair follows a two-lecture block), following the ASTR230/ASTR310 precedent, confirmed against the actual lecture content rather than assumed from file counts. The course's six thematic units are of variable length (2-3 lectures each), but the lab/problem-set cadence remains a strict two-lecture grid throughout, so Lab/PS 05 deliberately spans the Unit 4 (Atmospheres)/Unit 5 (Fields and Giants) thematic boundary. See syllabus.html Lecture, Lab, and Problem-Set Cadence."
+  },
+  "dataProvenance": {
+    "src": "materials/ASTR320/src/generate_astr320_content.py and generate_astr320_labs_psets.py generate all worked examples, lecture slides/notes, labs, and problem sets programmatically from shared constants.",
+    "realData": [
+      "TRAPPIST-1 system (star and seven planets b-h) - live-verified via direct web fetch this session (Wikipedia \"TRAPPIST-1\", citing Agol et al. 2021, PSJ 2, 1; Ducrot et al. 2020, A&A 640, A112; Delrez et al. 2022, A&A 667, A59). Used in Lecture 14, Lab 07, PS 07.",
+      "Eight solar-system planets' mass/radius/orbit/albedo/temperature - standard published JPL Planetary Fact Sheet values, not independently re-verified this session - flagged for spot-check.",
+      "Io, Europa, Enceladus, Moon, Ceres, Vesta, Titan physical/orbital parameters - standard published solar-system literature values (Dawn, Cassini-Huygens missions), not independently re-verified this session - flagged for spot-check.",
+      "Moment of inertia factors (Earth, Mars, Moon, Mercury) and Mars/Earth heat-flow values - standard published geophysical values, not independently re-verified this session - flagged for spot-check.",
+      "Lunar crater-chronology calibration values - standard published values consistent with Neukum et al. 2001 / Stoffler & Ryder 2001, not independently re-verified this session - flagged for spot-check.",
+      "Jupiter/Earth/Uranus/Neptune magnetic field strengths and Uranus ring radii - standard published values (Connerney et al. 2018; Ness et al. 1986; Elliot et al. 1977), not independently re-verified this session - flagged for spot-check."
+    ]
+  }
+}
