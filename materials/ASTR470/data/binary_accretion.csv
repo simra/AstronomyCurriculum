@@ -1,0 +1,4 @@
+object,mass_msun,radius_km,mdot_msun_yr
+white dwarf,1.0,6000,1e-09
+neutron star,1.4,12,1e-09
+black hole,10.0,30,1e-09

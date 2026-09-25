@@ -1,0 +1,6 @@
+mission,band,primary_strength
+Chandra,X-ray,imaging/spectroscopy
+NICER,0.2-12 keV,timing/spectroscopy
+Swift,15-150 keV plus 0.3-10 keV,rapid burst localization/follow-up
+Fermi,gamma-ray,wide-field survey
+IceCube,neutrino,particle direction/energy
