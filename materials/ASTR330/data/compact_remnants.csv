@@ -1,0 +1,5 @@
+object,mass_Msun,radius,fraction_of_chandrasekhar_mass
+Sirius B (white dwarf),1.018,0.008098 Rsun,0.7094
+PSR J0348+0432 (neutron star),2.01,13.0 km,1.4006
+PSR J0348+0432 companion (white dwarf),0.172,0.065 Rsun,0.1199
+Chandrasekhar mass (mu_e=2),1.4351,-,1.0

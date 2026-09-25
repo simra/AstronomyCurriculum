@@ -1,0 +1,42 @@
+{
+  "course": {
+    "courseNumber": "ASTR 330",
+    "courseCode": "ASTR330",
+    "title": "Astrophysics II: Stellar Structure and Evolution",
+    "credits": 4,
+    "term": "Spring",
+    "yearInCurriculum": 3,
+    "prerequisites": "ASTR 310; MATH 255; PHYS 271",
+    "description": "Develops the physics of stellar interiors, opacity, energy transport, nuclear burning, stellar atmospheres, main sequence evolution, late-stage evolution, compact remnants, supernovae, and nucleosynthesis."
+  },
+  "status": {
+    "stage": "approved for review release",
+    "reviewStatus": "Approved for review release; not yet approved for instructional use",
+    "lastUpdated": "2026-09-24"
+  },
+  "counts": {
+    "slides": 14,
+    "notes": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "solutionKeys": 7,
+    "assessmentInstructions": 7
+  },
+  "cadence": {
+    "lectures": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "rationale": "Matched 1:1 biweekly cadence, directly following the ASTR310 precedent (itself following ASTR210's 4-credit, 14-lecture structure and ASTR230's matched-cadence pattern), because ASTR330's units build one cumulative toolkit (structure equations, opacity/transport, nuclear burning, mass-luminosity-lifetime scaling, post-main-sequence evolution, compact-object physics) toward a single capstone (Lab/PS 07, PSR J0348+0432). See syllabus.html Lecture, Lab, and Problem-Set Cadence."
+  },
+  "dataProvenance": {
+    "src": "materials/ASTR330/src/generate_astr330_content.py and generate_astr330_labs_psets.py generate all worked examples, lecture slides/notes, labs, and problem sets programmatically from shared constants.",
+    "realData": [
+      "Hyades open cluster distance, age, main-sequence turnoff mass, total mass, and structural radii (core/half-mass/tidal radii) and metallicity - live-verified via direct web fetch this session (Wikipedia \"Hyades (star cluster)\", citing Perryman et al. 1998, A&A 331, 81).",
+      "PSR J0348+0432 neutron star mass and radius, white dwarf companion mass and radius, and the pulsar-white dwarf binary's orbital period, semimajor axis, and inclination - live-verified via direct web fetch this session (Wikipedia \"PSR J0348+0432\", citing Antoniadis et al. 2013, Science 340, 1233232).",
+      "Alpha Centauri A and B stellar parameters (Lectures 06, 07) - carried forward with established provenance (live-verified in ASTR310's production, citing Akeson et al. 2021, AJ 162, 14).",
+      "Sirius A parameters (Lectures 06, 07) and Sirius B parameters (Lectures 11, 12, 13, 14) - carried forward with established provenance (Sirius B live-verified in ASTR230's production, citing Bond et al. 2017, ApJ 840, 70; Sirius A a standard published Hipparcos-era value, carried forward from ASTR310, not independently re-verified this session).",
+      "Standard solar-model core density, temperature, and central pressure (Lectures 01-04) - standard published values, not independently re-verified this session, carried forward from ASTR310 - flagged for spot-check.",
+      "Standard nuclear saturation density and typical core-collapse supernova observed kinetic/radiated energy (Lecture 13/14) - standard published values, not independently re-verified this session - flagged for spot-check."
+    ]
+  }
+}

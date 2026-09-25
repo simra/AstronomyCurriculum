@@ -1,0 +1,11 @@
+quantity,value,unit
+neutron_star_mass_msun,2.01,
+neutron_star_mass_err,0.04,
+neutron_star_radius_km,13.0,
+spin_period_ms,39.1226563571297,
+wd_mass_msun,0.172,
+wd_radius_rsun,0.065,
+orbital_period_days,0.102424062722,
+semimajor_km,832000.0,
+inclination_deg,40.2,
+distance_pc,2100.0,

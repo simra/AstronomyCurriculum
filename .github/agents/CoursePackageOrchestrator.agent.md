@@ -40,6 +40,8 @@ Before acting, load and follow `.github/skills/course-package-orchestrator/SKILL
 - Link every course package from `astronomy_curriculum.html`: update its "Course Calendar Entries" card and its row in the "Four-Year Course List" schedule table to link to `materials/<COURSECODE>/index.html`, as soon as the package exists.
 - Do not add course-material cards to the repository root `index.html`; it should point to `astronomy_curriculum.html` as the single place to find course packages.
 - Validate artifact counts, JSON parsing, HTML doctypes, local links, and manifest status before reporting completion.
+- Before declaring completion, verify the concrete file checklist exists on disk (syllabus, schedule, reference-log, manifest, index.html, review-report.md, data/README.md, every lecture/lab/problem-set file) rather than trusting a manifest status field alone; a production run can end mid-final-assembly with content generated but wrap-up files missing.
+- If final assembly reused a prior course's file as a structural template, verify every course-specific string was substituted (title tag, header status line, generator-script filenames) and that no raw data-structure dump (e.g. a Python dict printed as text) leaked into rendered HTML.
 - Once review-release is genuinely approved: identify any concrete, generalizable lessons from this course's production (recurring defect classes, provenance judgment calls, cadence decisions, ambiguous instructions that had to be resolved by judgment) and update the relevant skill/agent files directly; do not pad this step with invented lessons if none apply. Then stage, commit, and push the course package together with any skill updates before considering the next course.
 
 ## Output Standard

@@ -1,0 +1,9 @@
+quantity,value,unit
+distance_pc,47.0,
+age_myr,625.0,
+total_mass_msun,400.0,
+turnoff_mass_msun,2.3,
+core_radius_pc,2.7,
+half_mass_radius_pc,5.7,
+tidal_radius_pc,10.0,
+metallicity_dex,0.14,
