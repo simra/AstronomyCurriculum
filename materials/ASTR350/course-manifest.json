@@ -1,0 +1,40 @@
+{
+  "course": {
+    "courseNumber": "ASTR 350",
+    "courseCode": "ASTR350",
+    "title": "Exoplanets and Astrobiology",
+    "credits": 3,
+    "term": "Elective",
+    "yearInCurriculum": 3,
+    "prerequisites": "ASTR 320 or ASTR 310",
+    "description": "Explores exoplanet detection, demographics, orbital architectures, atmospheres, biosignatures, habitable zone models, extremophiles, prebiotic chemistry, and the scientific limits of life detection."
+  },
+  "status": {
+    "stage": "approved for review release",
+    "reviewStatus": "Approved for review release; not yet approved for instructional use",
+    "lastUpdated": "2026-09-24"
+  },
+  "counts": {
+    "slides": 14,
+    "notes": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "solutionKeys": 7,
+    "assessmentInstructions": 7
+  },
+  "cadence": {
+    "lectures": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "rationale": "Matched 1:1 biweekly cadence, following the ASTR230/ASTR310/ASTR320/ASTR340 precedent (a 3-credit, 14-lecture structure), because ASTR350's seven thematic units are each exactly two lectures long (unlike ASTR320's variable 2-3 lecture units), so a strict two-lecture-per-lab grid is the natural, unambiguous cadence. See syllabus.html Lecture, Lab, and Problem-Set Cadence."
+  },
+  "dataProvenance": {
+    "src": "materials/ASTR350/src/generate_astr350_content.py and generate_astr350_labs_psets.py generate all worked examples, lecture slides/notes, labs, and problem sets programmatically from shared constants.",
+    "realData": [
+      "51 Pegasi b and HD 209458 b system parameters - live-verified via direct web fetch this session (Wikipedia, 2026-09-24), citing Mayor & Queloz (1995) and Charbonneau et al. (2000)/Henry et al. (2000). A units error in the fetched 51 Pegasi b infobox (K given as km/s instead of m/s) was caught by cross-checking against the article's own prose and the published literature value, and corrected before use.",
+      "TRAPPIST-1 seven-planet system - reused and extended from this curriculum's ASTR320 course, where it was live-verified via direct web fetch (Wikipedia, 2026-09-24), citing Agol et al. (2021), Ducrot et al. (2020), Gillon et al. (2017), and Delrez et al. (2022). Per-planet mass/radius values are standard published (Agol et al. 2021), consistent with the range already established in ASTR320.",
+      "HD 80606 b and 16 Cygni B b (eccentric RV planets); extremophile survival/growth records; Miller-Urey relative amino-acid abundance ranking; Kasting-Whitmire-Reynolds (1993) habitable-zone flux boundaries - standard published primary literature, not independently re-verified this session, flagged for spot-check in reference-log.md.",
+      "Drake equation biological terms (f_l, f_i, f_c, L) - explicitly labeled illustrative/synthetic order-of-magnitude placeholders, not claimed measurements."
+    ]
+  }
+}

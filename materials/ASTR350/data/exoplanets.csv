@@ -1,0 +1,10 @@
+name,period_d,a_au,e,mass_mjup_or_mearth,radius_rjup_or_rearth,notes
+51 Pegasi b,4.2307966,0.052344942,0.0063,0.61,,live-verified 2026-09-24
+HD 209458 b,3.52474859,0.04707,0.0081,0.682,1.359,live-verified 2026-09-24
+TRAPPIST-1b,1.51,0.0115,,1.017,1.116,reused from ASTR320 live verification
+TRAPPIST-1c,2.42,0.0158,,1.156,1.097,reused from ASTR320 live verification
+TRAPPIST-1d,4.05,0.0223,,0.297,0.788,reused from ASTR320 live verification
+TRAPPIST-1e,6.1,0.0293,,0.772,0.92,reused from ASTR320 live verification
+TRAPPIST-1f,9.21,0.0385,,0.934,1.045,reused from ASTR320 live verification
+TRAPPIST-1g,12.35,0.0469,,1.148,1.129,reused from ASTR320 live verification
+TRAPPIST-1h,18.77,0.0619,,0.331,0.755,reused from ASTR320 live verification

@@ -1,0 +1,7 @@
+organism,trait,value,unit
+Pyrolobus fumarii,hyperthermophile,113.0,degC (upper growth limit)
+"""Strain 121""",hyperthermophile,121.0,degC (documented survival/growth)
+Planococcus halocryophilus,psychrophile,-25.0,degC (lowest documented growth)
+Deinococcus radiodurans,radioresistant,5000.0,"Gy (acute dose, no viability loss)"
+Tardigrada (several spp.),pressure/vacuum tolerant,600.0,MPa (hydrostatic pressure survived)
+Halobacterium/Haloarchaea,halophile,32.0,% salinity (saturated brine)
