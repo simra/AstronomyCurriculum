@@ -49,26 +49,11 @@ def cards(items) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Lecture-figure SVG (lecture-specific labels, not a repeated generic figure)
+# Lecture-figure SVGs are defined below, after the shared worked-example
+# constants (see `diagram_svg` and the per-lecture `svg_XX` builders just
+# above the LECTURES table). Each lecture gets a structurally distinct
+# diagram built from a small set of shared drawing primitives.
 # ---------------------------------------------------------------------------
-
-def lecture_svg(n: int, title: str, left_label: str, mid_label: str, right_label: str, caption: str) -> str:
-    return (
-        f"<svg class='lecture-figure' data-lecture-figure='{n:02d}' viewBox='0 0 980 620' role='img' "
-        f"aria-label='Lecture {n:02d} visual model: {escape(title)}'>"
-        f"<rect width='980' height='620' fill='#fbfcfd'/>"
-        f"<text x='34' y='48' font-size='26' fill='#102a43' font-family='Segoe UI, sans-serif'>Lecture {n:02d}: {escape(title)}</text>"
-        f"<rect x='60' y='180' width='250' height='150' rx='14' fill='#0f6b78' opacity='.85'/>"
-        f"<rect x='365' y='180' width='250' height='150' rx='14' fill='#b87911' opacity='.85'/>"
-        f"<rect x='670' y='180' width='250' height='150' rx='14' fill='#102a43' opacity='.85'/>"
-        f"<path d='M310 255 L365 255 M615 255 L670 255' stroke='#5b6773' stroke-width='5' marker-end='url(#arrow)'/>"
-        f"<defs><marker id='arrow' markerWidth='10' markerHeight='10' refX='8' refY='5' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='#5b6773'/></marker></defs>"
-        f"<text x='80' y='260' font-size='19' fill='#fff' font-family='Segoe UI, sans-serif'>{escape(left_label)}</text>"
-        f"<text x='385' y='260' font-size='19' fill='#fff' font-family='Segoe UI, sans-serif'>{escape(mid_label)}</text>"
-        f"<text x='690' y='260' font-size='19' fill='#fff' font-family='Segoe UI, sans-serif'>{escape(right_label)}</text>"
-        f"<text x='34' y='470' font-size='19' fill='#5b6773' font-family='Segoe UI, sans-serif'>{escape(caption)}</text>"
-        f"</svg>"
-    )
 
 
 # ---------------------------------------------------------------------------
@@ -177,6 +162,532 @@ SIGMA_TOTAL = math.sqrt(SIGMA_ZP ** 2 + SIGMA_M ** 2)
 
 def fmt(x, nd=2):
     return f"{x:.{nd}f}"
+
+
+# ---------------------------------------------------------------------------
+# Shared SVG drawing primitives (axes, curves, points) used to assemble a
+# structurally distinct diagram for each lecture below. No single shape or
+# layout is reused across lectures; only these low-level primitives are
+# shared, exactly as intended by the lecture-slide-authoring style guide.
+# ---------------------------------------------------------------------------
+
+FONT = "Segoe UI, sans-serif"
+
+
+def _lin(v, vmin, vmax, a, b):
+    if vmax == vmin:
+        return (a + b) / 2
+    return a + (v - vmin) / (vmax - vmin) * (b - a)
+
+
+def _svg_open(n: int, title: str) -> str:
+    return (
+        f"<svg class='lecture-figure' data-lecture-figure='{n:02d}' viewBox='0 0 980 620' role='img' "
+        f"aria-label='Lecture {n:02d} visual model: {escape(title)}'>"
+        f"<rect width='980' height='620' fill='#fbfcfd'/>"
+        f"<text x='34' y='40' font-size='23' fill='#102a43' font-family='{FONT}'>Lecture {n:02d}: {escape(title)}</text>"
+        f"<defs><marker id='arrow{n:02d}' markerWidth='10' markerHeight='10' refX='8' refY='5' orient='auto'>"
+        f"<path d='M0,0 L10,5 L0,10 z' fill='#5b6773'/></marker></defs>"
+    )
+
+
+def _svg_close(caption: str) -> str:
+    return f"<text x='34' y='602' font-size='16' fill='#5b6773' font-family='{FONT}'>{escape(caption)}</text></svg>"
+
+
+def _axes(x0, y0, x1, y1, xlabel, ylabel):
+    """x0,y0 = bottom-left pixel; x1,y1 = top-right pixel (y1 < y0)."""
+    return (
+        f"<line x1='{x0}' y1='{y0}' x2='{x0}' y2='{y1}' stroke='#5b6773' stroke-width='2'/>"
+        f"<line x1='{x0}' y1='{y0}' x2='{x1}' y2='{y0}' stroke='#5b6773' stroke-width='2'/>"
+        f"<text x='{x0+(x1-x0)/2-70}' y='{y0+38}' font-size='15' fill='#5b6773' font-family='{FONT}'>{escape(xlabel)}</text>"
+        f"<text x='{x0-52}' y='{y1+(y0-y1)/2}' font-size='15' fill='#5b6773' font-family='{FONT}' "
+        f"transform='rotate(-90 {x0-52} {y1+(y0-y1)/2})'>{escape(ylabel)}</text>"
+    )
+
+
+def _polyline(pts, color='#0f6b78', width=3, dash=None):
+    d = ' '.join(f'{x:.1f},{y:.1f}' for x, y in pts)
+    dash_attr = f" stroke-dasharray='{dash}'" if dash else ''
+    return f"<polyline points='{d}' fill='none' stroke='{color}' stroke-width='{width}'{dash_attr}/>"
+
+
+def _dot(x, y, r=6, fill='#b87911', label=None, dx=8, dy=-8):
+    out = f"<circle cx='{x:.1f}' cy='{y:.1f}' r='{r}' fill='{fill}'/>"
+    if label:
+        out += f"<text x='{x+dx:.1f}' y='{y+dy:.1f}' font-size='14' fill='#102a43' font-family='{FONT}'>{escape(label)}</text>"
+    return out
+
+
+def _box(x, y, w, h, fill, label, sub=None, text_color='#fff'):
+    out = f"<rect x='{x}' y='{y}' width='{w}' height='{h}' rx='10' fill='{fill}'/>"
+    out += f"<text x='{x+14}' y='{y+28}' font-size='17' fill='{text_color}' font-family='{FONT}'>{escape(label)}</text>"
+    if sub:
+        out += f"<text x='{x+14}' y='{y+52}' font-size='16' fill='{text_color}' font-family='{FONT}'>{escape(sub)}</text>"
+    return out
+
+
+# ---------------------------------------------------------------------------
+# Lecture 1 -- calibration-frame diagram: real bias/dark/flat frames combine
+# to correct the Lab 01 raw patch.
+# ---------------------------------------------------------------------------
+
+def svg_01(item) -> str:
+    n = 1
+    s = _svg_open(n, item['title'])
+    tiles = [(60, 90, '#3a3f45', 'Bias frame', f'mean {fmt(BIAS,1)} ADU', 'speckle'),
+             (60, 250, '#5a4632', 'Dark frame', f'mean {fmt(DARK,1)} ADU, hot pixels', 'hotpix'),
+             (60, 410, None, 'Flat field', 'vignetted response map', 'gradient')]
+    for (x, y, fill, label, sub, kind) in tiles:
+        if kind == 'gradient':
+            s += (f"<defs><radialGradient id='flatgrad' cx='50%' cy='50%' r='75%'>"
+                  f"<stop offset='0%' stop-color='#0f6b78'/><stop offset='100%' stop-color='#c8dade'/>"
+                  f"</radialGradient></defs>"
+                  f"<rect x='{x}' y='{y}' width='230' height='130' rx='8' fill='url(#flatgrad)'/>")
+        else:
+            s += f"<rect x='{x}' y='{y}' width='230' height='130' rx='8' fill='{fill}'/>"
+        if kind == 'speckle':
+            for i in range(24):
+                s += _dot(x + 12 + (i * 37) % 206, y + 16 + (i * 53) % 106, r=1.6, fill='#cfd8dd')
+        if kind == 'hotpix':
+            for i in range(10):
+                s += _dot(x + 20 + (i * 61) % 200, y + 20 + (i * 41) % 100, r=2.6, fill='#ffce6b')
+        s += f"<rect x='{x}' y='{y}' width='230' height='130' rx='8' fill='none' stroke='#102a43' stroke-width='1.5'/>"
+        s += f"<text x='{x+10}' y='{y+150}' font-size='15' fill='#102a43' font-family='{FONT}'>{escape(label)}: {escape(sub)}</text>"
+    s += _box(420, 235, 190, 90, '#eef3f5', 'Raw patch (top-left)', f'{P1_RAW} ADU', text_color='#102a43')
+    s += f"<path d='M610 280 L700 280' stroke='#5b6773' stroke-width='5' marker-end='url(#arrow{n:02d})'/>"
+    s += _box(700, 235, 230, 90, '#0f6b78', 'I_cal = (raw \u2212 D) / F', f'{fmt(P1_CAL,1)} ADU')
+    s += _svg_close(f'Bias, dark, and flat frames from the 2022-07-19 session calibrate the {P1_RAW} ADU raw patch to {fmt(P1_CAL,1)} ADU.')
+    return s
+
+
+# ---------------------------------------------------------------------------
+# Lecture 2 -- airmass vs altitude curve, with the planned target marked.
+# ---------------------------------------------------------------------------
+
+def svg_02(item) -> str:
+    n = 2
+    s = _svg_open(n, item['title'])
+    x0, y0, x1, y1 = 110, 520, 900, 100
+    s += _axes(x0, y0, x1, y1, 'altitude (degrees)', 'airmass X = sec z')
+    pts = []
+    for alt in range(10, 91, 2):
+        z = math.radians(90 - alt)
+        x_val = min(1 / math.cos(z), 6.0)
+        px = _lin(alt, 10, 90, x0, x1)
+        py = _lin(x_val, 0.9, 6.0, y0, y1)
+        pts.append((px, py))
+    s += _polyline(pts, color='#0f6b78', width=3)
+    px = _lin(ALT_DEG, 10, 90, x0, x1)
+    py = _lin(min(AIRMASS, 6.0), 0.9, 6.0, y0, y1)
+    s += _dot(px, py, r=7, fill='#b87911', label=f'target: {ALT_DEG:.0f}\u00b0, X={fmt(AIRMASS,2)}', dx=10, dy=-10)
+    s += f"<line x1='{px}' y1='{py}' x2='{px}' y2='{y0}' stroke='#b87911' stroke-width='1.5' stroke-dasharray='5,4'/>"
+    s += (f"<text x='{x0+20}' y='{y1+40}' font-size='15' fill='#8a4b08' font-family='{FONT}'>"
+          f"Extinction penalty: k \u00d7 X = {K_V:.2f} \u00d7 {fmt(AIRMASS,2)} = {fmt(EXTRA_MAG,2)} mag</text>")
+    s += _svg_close(f'Airmass rises sharply below about 30\u00b0 altitude; the {ALT_DEG:.0f}\u00b0 target already costs {fmt(EXTRA_MAG,2)} mag of extinction.')
+    return s
+
+
+# ---------------------------------------------------------------------------
+# Lecture 3 -- flat-field vignetting profile: response vs radial position,
+# with the two real Lab 01 patches (top-left, center) marked on the curve.
+# ---------------------------------------------------------------------------
+
+def svg_03(item) -> str:
+    n = 3
+    s = _svg_open(n, item['title'])
+    x0, y0, x1, y1 = 110, 520, 900, 120
+    s += _axes(x0, y0, x1, y1, 'radial distance from frame center (px)', 'flat-field response F')
+    r_p3, f_p3 = 40.0, P3_FLAT   # center patch: small radius
+    r_p1, f_p1 = 340.0, P1_FLAT  # top-left patch: large radius
+    pts = []
+    for r in range(0, 361, 10):
+        f_val = f_p3 + (f_p1 - f_p3) * (r / 360.0) ** 1.4
+        px = _lin(r, 0, 360, x0, x1)
+        py = _lin(f_val, 0.9, 1.15, y0, y1)
+        pts.append((px, py))
+    s += _polyline(pts, color='#0f6b78', width=3)
+    s += _dot(_lin(r_p3, 0, 360, x0, x1), _lin(f_p3, 0.9, 1.15, y0, y1), fill='#102a43',
+              label=f'center patch F={fmt(f_p3,2)}', dx=10, dy=-12)
+    s += _dot(_lin(r_p1, 0, 360, x0, x1), _lin(f_p1, 0.9, 1.15, y0, y1), fill='#b87911',
+              label=f'top-left patch F={fmt(f_p1,2)}', dx=-190, dy=-10)
+    s += f"<line x1='{x0}' y1='{_lin(1.0,0.9,1.15,y0,y1)}' x2='{x1}' y2='{_lin(1.0,0.9,1.15,y0,y1)}' stroke='#5b6773' stroke-width='1' stroke-dasharray='4,4'/>"
+    s += _svg_close('The reducer optics make the sensor center more sensitive than its corners: this is why a center-patch raw count is divided up (F>1) and a corner-patch count is divided down (F<1).')
+    return s
+
+
+# ---------------------------------------------------------------------------
+# Lecture 4 -- SNR noise-budget bar chart for the bright vs faint source.
+# ---------------------------------------------------------------------------
+
+def svg_04(item) -> str:
+    n = 4
+    s = _svg_open(n, item['title'])
+    x0, y0, x1, y1 = 110, 520, 900, 120
+    s += _axes(x0, y0, x1, y1, 'source', 'electrons (e\u207b)')
+    ymax = max(S_BRIGHT, S_FAINT, NOISE_TERM) * 1.15
+    groups = [('Bright source', S_BRIGHT, SNR_BRIGHT, 260), ('Faint source', S_FAINT, SNR_FAINT, 620)]
+    for label, signal, snr, cx in groups:
+        bar_w = 90
+        s_h = _lin(signal, 0, ymax, y0, y1)
+        n_h = _lin(NOISE_TERM, 0, ymax, y0, y1)
+        s += f"<rect x='{cx-100}' y='{s_h}' width='{bar_w}' height='{y0-s_h:.1f}' fill='#0f6b78'/>"
+        s += f"<text x='{cx-95}' y='{s_h-8:.1f}' font-size='14' fill='#102a43' font-family='{FONT}'>S={signal:.0f} e\u207b</text>"
+        s += f"<rect x='{cx+10}' y='{n_h}' width='{bar_w}' height='{y0-n_h:.1f}' fill='#b87911'/>"
+        s += f"<text x='{cx+15}' y='{n_h-8:.1f}' font-size='14' fill='#102a43' font-family='{FONT}'>bkg={NOISE_TERM:.0f} e\u207b\u00b2</text>"
+        s += f"<text x='{cx-95}' y='{y0+28}' font-size='16' fill='#102a43' font-family='{FONT}'>{escape(label)}</text>"
+        s += f"<text x='{cx-95}' y='{y0+50}' font-size='16' fill='#0f6b78' font-family='{FONT}'>SNR = {fmt(snr,1)}</text>"
+    s += _svg_close(f'Identical background/read noise ({NOISE_TERM:.0f} e\u207b\u00b2) combines in quadrature with source signal; only the bright source ({fmt(SNR_BRIGHT,1)}) clears a secure-detection threshold as easily as shown.')
+    return s
+
+
+# ---------------------------------------------------------------------------
+# Lecture 5 -- aperture/sky-annulus schematic plus zero-point verification
+# scatter (predicted vs catalog magnitude for the three standards).
+# ---------------------------------------------------------------------------
+
+def svg_05(item) -> str:
+    n = 5
+    s = _svg_open(n, item['title'])
+    cx, cy = 240, 320
+    s += f"<circle cx='{cx}' cy='{cy}' r='160' fill='#eef3f5' stroke='#d9e0e7'/>"
+    s += f"<circle cx='{cx}' cy='{cy}' r='110' fill='none' stroke='#0f6b78' stroke-width='2' stroke-dasharray='6,4'/>"
+    s += f"<circle cx='{cx}' cy='{cy}' r='38' fill='#b87911'/>"
+    s += f"<text x='{cx-30}' y='{cy+60}' font-size='14' fill='#0f6b78' font-family='{FONT}'>sky annulus</text>"
+    s += f"<text x='{cx-24}' y='{cy+5}' font-size='13' fill='#fff' font-family='{FONT}'>aperture</text>"
+    x0, y0, x1, y1 = 520, 520, 900, 140
+    s += _axes(x0, y0, x1, y1, 'catalog V (mag)', 'predicted V (mag)')
+    mmin, mmax = 9.8, 12.6
+    s += _polyline([(_lin(mmin, mmin, mmax, x0, x1), _lin(mmin, mmin, mmax, y0, y1)),
+                    (_lin(mmax, mmin, mmax, x0, x1), _lin(mmax, mmin, mmax, y0, y1))],
+                   color='#5b6773', width=1, dash='4,4')
+    checks = [('A (defines ZP)', STD_A['mag'], STD_A['mag']),
+              ('B', STD_B['mag'], MAG_B_PRED),
+              ('C', STD_C['mag'], MAG_C_PRED)]
+    for label, cat, pred in checks:
+        px = _lin(cat, mmin, mmax, x0, x1)
+        py = _lin(pred, mmin, mmax, y0, y1)
+        s += _dot(px, py, fill='#102a43', label=f'STD-{label}', dx=8, dy=-8)
+    s += _svg_close(f'STD-B and STD-C, held out of the zero-point fit, land on the 1:1 line to within a few millimagnitudes -- confirming ZP={fmt(ZP,3)} is internally consistent.')
+    return s
+
+
+# ---------------------------------------------------------------------------
+# Lecture 6 -- differential light curve for target and comparison star.
+# ---------------------------------------------------------------------------
+
+def svg_06(item) -> str:
+    n = 6
+    s = _svg_open(n, item['title'])
+    x0, y0, x1, y1 = 120, 500, 900, 140
+    s += _axes(x0, y0, x1, y1, 'time (fraction of night)', 'normalized flux')
+    tgt = [(0.00, 0.995), (0.04, 0.985), (0.07, 0.974), (0.10, 0.970), (0.13, 0.982), (0.17, 0.994)]
+    comp = [(0.00, 1.000), (0.04, 1.000), (0.07, 0.999), (0.10, 0.999), (0.13, 1.000), (0.17, 1.000)]
+    fmin, fmax = 0.96, 1.005
+    s += _polyline([(_lin(t, 0, 0.17, x0, x1), _lin(f, fmin, fmax, y0, y1)) for t, f in comp], color='#b87911', width=2, dash='5,3')
+    s += _polyline([(_lin(t, 0, 0.17, x0, x1), _lin(f, fmin, fmax, y0, y1)) for t, f in tgt], color='#0f6b78', width=3)
+    s += _dot(_lin(0.00, 0, 0.17, x0, x1), _lin(0.995, fmin, fmax, y0, y1), fill='#0f6b78', label='target, t=0.00')
+    s += _dot(_lin(0.10, 0, 0.17, x0, x1), _lin(0.970, fmin, fmax, y0, y1), fill='#0f6b78', label='target, t=0.10 (dip)', dy=18)
+    s += _dot(_lin(0.00, 0, 0.17, x0, x1), _lin(1.000, fmin, fmax, y0, y1), fill='#b87911', label='comparison')
+    s += _svg_close(f'The comparison star stays flat within 0.2% while the target dips: \u0394m grows from {fmt(DM_BASELINE,3)} to {fmt(DM_DIP,3)} mag, a {fmt(DM_DEPTH,3)}-mag dip.')
+    return s
+
+
+# ---------------------------------------------------------------------------
+# Lecture 7 -- astrometric pixel-plane vector plus matched sky-plane shift.
+# ---------------------------------------------------------------------------
+
+def svg_07(item) -> str:
+    n = 7
+    s = _svg_open(n, item['title'])
+    s += f"<text x='90' y='110' font-size='16' fill='#102a43' font-family='{FONT}'>Pixel plane</text>"
+    ox, oy = 90, 140
+    for i in range(6):
+        for j in range(5):
+            s += _dot(ox + i * 55, oy + j * 55, r=1.6, fill='#d9e0e7')
+    p1x, p1y = ox + (520.3 - 500) * 0.9, oy + (411.2 - 400) * 0.9
+    p2x, p2y = ox + (534.7 - 500) * 0.9, oy + (415.8 - 400) * 0.9
+    s += _dot(p1x, p1y, fill='#0f6b78', label='image 1 (520.3, 411.2)', dx=-10, dy=-14)
+    s += _dot(p2x, p2y, fill='#b87911', label='image 2 (534.7, 415.8)', dx=8, dy=22)
+    s += f"<path d='M{p1x:.1f} {p1y:.1f} L{p2x:.1f} {p2y:.1f}' stroke='#5b6773' stroke-width='3' marker-end='url(#arrow{n:02d})'/>"
+    s += (f"<text x='90' y='430' font-size='15' fill='#102a43' font-family='{FONT}'>"
+          f"\u0394pixel = {fmt(PIX_SEP,2)} px</text>")
+    s += f"<text x='560' y='110' font-size='16' fill='#102a43' font-family='{FONT}'>Sky plane (RA, Dec)</text>"
+    sx, sy = 620, 140
+    for i in range(6):
+        for j in range(5):
+            s += _dot(sx + i * 55, sy + j * 55, r=1.6, fill='#d9e0e7')
+    q1x, q1y = sx + 240, sy + 140
+    q2x, q2y = q1x - (DX_PIX * 6), q1y + (DY_PIX * 6)
+    s += _dot(q1x, q1y, fill='#0f6b78', label='(132.1021\u00b0, 12.5510\u00b0)', dx=-190, dy=-14)
+    s += _dot(q2x, q2y, fill='#b87911', label='(132.0988\u00b0, 12.5521\u00b0)', dx=8, dy=22)
+    s += f"<path d='M{q1x:.1f} {q1y:.1f} L{q2x:.1f} {q2y:.1f}' stroke='#5b6773' stroke-width='3' marker-end='url(#arrow{n:02d})'/>"
+    s += (f"<text x='620' y='430' font-size='15' fill='#102a43' font-family='{FONT}'>"
+          f"\u0394sky = {fmt(SKY_SEP_ARCSEC,2)} arcsec</text>")
+    s += _svg_close(f'Plate scale = \u0394sky/\u0394pixel = {fmt(PLATE_SCALE,3)} arcsec/pixel, derived from the same asteroid-track pair used in the worked example.')
+    return s
+
+
+# ---------------------------------------------------------------------------
+# Lecture 8 -- pixel-to-wavelength dispersion solution with a resolution
+# inset comparing a barely resolved pair to a trivially resolved pair.
+# ---------------------------------------------------------------------------
+
+def svg_08(item) -> str:
+    n = 8
+    s = _svg_open(n, item['title'])
+    x0, y0, x1, y1 = 110, 340, 560, 120
+    s += _axes(x0, y0, x1, y1, 'pixel column', 'wavelength (nm)')
+    pmin, pmax = 0, 1024
+    lmin, lmax = 400, 700
+    s += _polyline([(_lin(pmin, pmin, pmax, x0, x1), _lin(lmin, lmin, lmax, y0, y1)),
+                    (_lin(pmax, pmin, pmax, x0, x1), _lin(lmax, lmin, lmax, y0, y1))], color='#0f6b78', width=3)
+    s += _dot(_lin(512, pmin, pmax, x0, x1), _lin(656.3, lmin, lmax, y0, y1), fill='#b87911',
+              label='pixel 512 \u2192 656.3 nm', dx=-150, dy=-12)
+    s += f"<text x='110' y='90' font-size='16' fill='#102a43' font-family='{FONT}'>Wavelength solution (arc lamp fit)</text>"
+    s += f"<text x='610' y='90' font-size='16' fill='#102a43' font-family='{FONT}'>Resolving power R\u2248{R_RESOLUTION:.0f}</text>"
+    ax0, ay = 610, 220
+    for lam, lab, blend in [(656.3, 'H\u03b1', False), (656.5, 'unresolved neighbor', True)]:
+        px = ax0 + (lam - 656.0) * 900
+        s += f"<line x1='{px:.1f}' y1='{ay-20}' x2='{px:.1f}' y2='{ay+20}' stroke='#0f6b78' stroke-width='4'/>"
+        s += f"<text x='{px-30:.1f}' y='{ay+42}' font-size='12' fill='#102a43' font-family='{FONT}'>{escape(lab)}</text>"
+    s += f"<text x='610' y='{ay+80}' font-size='14' fill='#8a4b08' font-family='{FONT}'>0.3 nm apart: blend into one feature</text>"
+    ay2 = 380
+    for lam, lab in [(656.3, 'H\u03b1'), (486.1, 'H\u03b2')]:
+        px = ax0 + (lam - 400) * 0.9
+        s += f"<line x1='{px:.1f}' y1='{ay2-20}' x2='{px:.1f}' y2='{ay2+20}' stroke='#0f6b78' stroke-width='4'/>"
+        s += f"<text x='{px-15:.1f}' y='{ay2+42}' font-size='12' fill='#102a43' font-family='{FONT}'>{escape(lab)}</text>"
+    s += f"<text x='610' y='{ay2+80}' font-size='14' fill='#0f6b78' font-family='{FONT}'>170 nm apart: trivially resolved</text>"
+    s += _svg_close(f'A linear pixel-to-wavelength fit anchors pixel 512 at 656.3 nm; at R\u2248{R_RESOLUTION:.0f} a 0.3 nm pair blends but H\u03b1/H\u03b2 (170 nm apart) never do.')
+    return s
+
+
+# ---------------------------------------------------------------------------
+# Lecture 9 -- Doppler shift tick-mark diagram for three independent lines.
+# ---------------------------------------------------------------------------
+
+def svg_09(item) -> str:
+    n = 9
+    s = _svg_open(n, item['title'])
+    x0, y0, x1, y1 = 140, 500, 900, 110
+    s += _axes(x0, y0, x1, y1, 'wavelength (nm)', '')
+    lmin, lmax = 480, 505
+    rows = [(90, LINES[0]), (250, LINES[1]), (410, LINES[2])]
+    for (rowy, (name, rest, obs)) in rows:
+        lmin_r, lmax_r = rest - 3, rest + 3
+        rx = 140
+        s += f"<text x='{rx-70}' y='{rowy+6}' font-size='15' fill='#102a43' font-family='{FONT}'>{escape(name)}</text>"
+        px_rest = _lin(rest, lmin_r, lmax_r, rx, rx + 700)
+        px_obs = _lin(obs, lmin_r, lmax_r, rx, rx + 700)
+        s += f"<line x1='{rx}' y1='{rowy}' x2='{rx+700}' y2='{rowy}' stroke='#d9e0e7' stroke-width='2'/>"
+        s += f"<line x1='{px_rest:.1f}' y1='{rowy-16}' x2='{px_rest:.1f}' y2='{rowy+16}' stroke='#5b6773' stroke-width='3'/>"
+        s += f"<line x1='{px_obs:.1f}' y1='{rowy-16}' x2='{px_obs:.1f}' y2='{rowy+16}' stroke='#b87911' stroke-width='3'/>"
+        s += f"<path d='M{px_rest:.1f} {rowy} L{px_obs:.1f} {rowy}' stroke='#0f6b78' stroke-width='2' marker-end='url(#arrow{n:02d})'/>"
+        v = (obs - rest) / rest * C_KMS
+        s += f"<text x='{px_obs+10:.1f}' y='{rowy-20}' font-size='13' fill='#0f6b78' font-family='{FONT}'>v={v:.0f} km/s</text>"
+    s += f"<text x='140' y='500' font-size='12' fill='#5b6773' font-family='{FONT}'>gray tick = rest wavelength; gold tick = observed wavelength</text>"
+    s += _svg_close(f'Three unrelated lines (H\u03b1, H\u03b2, [O III]) all shift redward and agree on v\u2248{fmt(RV_MEAN,1)} km/s -- evidence of one genuine bulk velocity, not a line-specific artifact.')
+    return s
+
+
+# ---------------------------------------------------------------------------
+# Lecture 10 -- parallax quality-cut scatter plot.
+# ---------------------------------------------------------------------------
+
+def svg_10(item) -> str:
+    n = 10
+    s = _svg_open(n, item['title'])
+    x0, y0, x1, y1 = 130, 500, 900, 130
+    s += _axes(x0, y0, x1, y1, 'parallax (mas)', 'parallax / error')
+    pmin, pmax = 0, 10
+    rmin, rmax = 0, 45
+    cut_y = _lin(5, rmin, rmax, y0, y1)
+    s += f"<line x1='{x0}' y1='{cut_y:.1f}' x2='{x1}' y2='{cut_y:.1f}' stroke='#8a4b08' stroke-width='2' stroke-dasharray='6,4'/>"
+    s += f"<text x='{x1-190}' y='{cut_y-8:.1f}' font-size='14' fill='#8a4b08' font-family='{FONT}'>quality cut: ratio &gt; 5</text>"
+    for sid, plx, err in PARALLAX_ROWS:
+        ratio = plx / err
+        color = '#0f6b78' if ratio > 5 else '#8a4b08'
+        px = _lin(plx, pmin, pmax, x0, x1)
+        py = _lin(min(ratio, rmax), rmin, rmax, y0, y1)
+        s += _dot(px, py, r=8, fill=color, label=f'src {sid}: d={_dist_pc(plx):.1f} pc' + ('' if ratio > 5 else ' (fails cut)'), dx=10, dy=-10)
+    s += _svg_close('Sources 1 and 3 clear a parallax/error > 5 cut and get trustworthy distances; Source 2 fails the cut and must be flagged, not silently inverted.')
+    return s
+
+
+# ---------------------------------------------------------------------------
+# Lecture 11 -- sqrt(N) stacking-gain curve plus a mean-vs-median outlier bar.
+# ---------------------------------------------------------------------------
+
+def svg_11(item) -> str:
+    n = 11
+    s = _svg_open(n, item['title'])
+    x0, y0, x1, y1 = 110, 500, 560, 140
+    s += _axes(x0, y0, x1, y1, 'number of stacked frames N', 'SNR gain factor \u221aN')
+    pts = []
+    for nn in range(1, 17):
+        px = _lin(nn, 1, 16, x0, x1)
+        py = _lin(math.sqrt(nn), 1, 4, y0, y1)
+        pts.append((px, py))
+    s += _polyline(pts, color='#0f6b78', width=3)
+    s += _dot(_lin(N_STACK, 1, 16, x0, x1), _lin(SNR_GAIN, 1, 4, y0, y1), fill='#b87911',
+              label=f'N={N_STACK}: \u221aN={fmt(SNR_GAIN,2)}, SNR {SNR_BEFORE:.0f}\u2192{fmt(SNR_AFTER,1)}', dx=-260, dy=-14)
+    bx0, by0 = 640, 500
+    spike = 5000.0
+    mean_add = spike / N_STACK
+    s += f"<text x='{bx0}' y='140' font-size='15' fill='#102a43' font-family='{FONT}'>Cosmic-ray robustness (1 of {N_STACK} frames spiked)</text>"
+    s += f"<rect x='{bx0}' y='{by0-40}' width='90' height='40' fill='#8a4b08'/>"
+    s += f"<text x='{bx0}' y='{by0+20}' font-size='14' fill='#102a43' font-family='{FONT}'>mean: +{mean_add:.0f} ADU bias</text>"
+    s += f"<rect x='{bx0+140}' y='{by0-6}' width='90' height='6' fill='#0f6b78'/>"
+    s += f"<text x='{bx0+140}' y='{by0+20}' font-size='14' fill='#102a43' font-family='{FONT}'>median: unaffected</text>"
+    s += _svg_close(f'Stacking N={N_STACK} registered frames gains \u221a{N_STACK}={fmt(SNR_GAIN,2)}\u00d7 in SNR, but only a median combine resists a single-frame cosmic-ray spike.')
+    return s
+
+
+# ---------------------------------------------------------------------------
+# Lecture 12 -- two-panel cadence comparison (nightly vs fine sampling of the
+# same eclipse).
+# ---------------------------------------------------------------------------
+
+def svg_12(item) -> str:
+    n = 12
+    s = _svg_open(n, item['title'])
+    dip_center, half_width = 2.0, ECLIPSE_HOURS / 2
+    def dip_flux(t):
+        if abs(t - dip_center) > half_width:
+            return 1.0
+        return 1.0 - 0.03 * math.cos((t - dip_center) / half_width * math.pi / 2) ** 2
+
+    def panel(x0, y0, x1, y1, cadence_hours, label, color):
+        s2 = _axes(x0, y0, x1, y1, 'time (hours)', 'flux')
+        curve = [(_lin(t, 0, 4, x0, x1), _lin(dip_flux(t), 0.96, 1.01, y0, y1)) for t in [i * 0.05 for i in range(81)]]
+        s2 += _polyline(curve, color='#d9e0e7', width=2)
+        t = 0.0
+        while t <= 4.0001:
+            s2 += _dot(_lin(t, 0, 4, x0, x1), _lin(dip_flux(t), 0.96, 1.01, y0, y1), r=5, fill=color)
+            t += cadence_hours
+        s2 += f"<text x='{x0}' y='{y1-14}' font-size='15' fill='#102a43' font-family='{FONT}'>{escape(label)}</text>"
+        return s2
+    s += panel(110, 300, 460, 120, NIGHTLY_CADENCE_HOURS, f'Nightly cadence ({NIGHTLY_CADENCE_HOURS:.0f} h): event essentially unsampled', '#8a4b08')
+    s += panel(560, 300, 900, 120, GOOD_CADENCE_MIN / 60, f'{GOOD_CADENCE_MIN:.0f}-min cadence: dip fully resolved', '#0f6b78')
+    s += _svg_close(f'The same {ECLIPSE_HOURS:.1f}-hour dip is invisible at a {NIGHTLY_CADENCE_HOURS:.0f}-hour cadence but well resolved at {GOOD_CADENCE_MIN:.0f}-minute cadence.')
+    return s
+
+
+# ---------------------------------------------------------------------------
+# Lecture 13 -- quadrature error-budget right triangle.
+# ---------------------------------------------------------------------------
+
+def svg_13(item) -> str:
+    n = 13
+    s = _svg_open(n, item['title'])
+    ox, oy = 200, 500
+    scale = 4000
+    leg1 = SIGMA_ZP * scale
+    leg2 = SIGMA_M * scale
+    hyp_x, hyp_y = ox + leg1, oy - leg2
+    s += f"<path d='M{ox} {oy} L{ox+leg1:.1f} {oy} L{hyp_x:.1f} {hyp_y:.1f} Z' fill='#eef3f5' stroke='#102a43' stroke-width='2'/>"
+    s += f"<text x='{ox+leg1/2-60:.1f}' y='{oy+30}' font-size='16' fill='#102a43' font-family='{FONT}'>\u03c3_ZP = {SIGMA_ZP:.2f} mag</text>"
+    s += f"<text x='{ox+leg1+14:.1f}' y='{oy-leg2/2:.1f}' font-size='16' fill='#102a43' font-family='{FONT}'>\u03c3_m = {SIGMA_M:.3f} mag</text>"
+    s += f"<text x='{ox+leg1/2-70:.1f}' y='{oy-leg2/2-14:.1f}' font-size='16' fill='#0f6b78' font-family='{FONT}'>\u03c3_total = {fmt(SIGMA_TOTAL,3)} mag</text>"
+    s += f"<rect x='{ox+leg1-16:.1f}' y='{oy-16}' width='16' height='16' fill='none' stroke='#102a43'/>"
+    s += _svg_close(f'Independent uncertainties add in quadrature, not linearly: \u221a({SIGMA_ZP:.2f}\u00b2+{SIGMA_M:.3f}\u00b2) = {fmt(SIGMA_TOTAL,3)} mag, not {SIGMA_ZP+SIGMA_M:.3f} mag.')
+    return s
+
+
+# ---------------------------------------------------------------------------
+# Lecture 14 -- vertical report-anatomy outline, each section quoting the
+# exact worked-example sentence it corresponds to.
+# ---------------------------------------------------------------------------
+
+def svg_14(item) -> str:
+    n = 14
+    s = _svg_open(n, item['title'])
+    sections = [('Methods', item['example'][0], '#0f6b78'),
+                ('Results', item['example'][1], '#102a43'),
+                ('Limitations', item['example'][2], '#b87911')]
+    y = 90
+    for label, quote, color in sections:
+        s += f"<rect x='90' y='{y}' width='800' height='120' rx='10' fill='{color}' opacity='.92'/>"
+        s += f"<text x='110' y='{y+30}' font-size='18' fill='#fff' font-family='{FONT}'>{escape(label)}</text>"
+        clean = quote.strip('"')
+        wrapped = clean if len(clean) < 110 else clean[:107] + '...'
+        s += f"<text x='110' y='{y+62}' font-size='14' fill='#fff' font-family='{FONT}'>{escape(wrapped)}</text>"
+        if y > 90:
+            s += f"<path d='M490 {y-30} L490 {y}' stroke='#5b6773' stroke-width='3' marker-end='url(#arrow{n:02d})'/>"
+        y += 150
+    s += _svg_close('Every claim in Results and Limitations traces back to a specific, checkable calculation from an earlier lecture -- that traceability is what makes the report defensible.')
+    return s
+
+
+_DIAGRAM_FUNCS = {1: svg_01, 2: svg_02, 3: svg_03, 4: svg_04, 5: svg_05, 6: svg_06, 7: svg_07,
+                   8: svg_08, 9: svg_09, 10: svg_10, 11: svg_11, 12: svg_12, 13: svg_13, 14: svg_14}
+
+
+def diagram_svg(item: dict) -> str:
+    return _DIAGRAM_FUNCS[item['n']](item)
+
+
+# Per-lecture visual-reasoning prompt text and figure caption, matched to the
+# structurally distinct diagram assembled above (not a generic recolored
+# flow-chart question set).
+VISUAL_PROMPTS = {
+    1: ('Study how the three real calibration frames combine to correct the raw patch.',
+        ['Why does the flat field divide rather than subtract?',
+         'What would change in the calibrated value if the dark frame were mismatched in exposure length?'],
+        'The measurement chain from raw detector frames to a calibrated patch value.'),
+    2: ('Read the airmass curve to see why altitude choice dominates an observing plan.',
+        ['Why does the curve steepen so quickly below 30\u00b0 altitude?',
+         'How much flux is lost to extinction at the marked target altitude?'],
+        'Airmass versus altitude, with the planned target and its extinction penalty marked.'),
+    3: ('Trace the vignetting profile from sensor center to edge.',
+        ['Why is the center patch divided by a flat value above 1, and the corner patch by a value below 1?',
+         'What would a flat taken through a different filter do to this curve?'],
+        'Flat-field response as a function of radial distance, with the two real Lab 01 patches marked.'),
+    4: ('Compare the noise budgets of the bright and faint source.',
+        ['Why does the faint source have a much lower SNR despite an identical background term?',
+         'What happens to each bar if the aperture (n_pix) is enlarged?'],
+        'Signal and background-noise terms for the bright and faint sources, with their resulting SNR.'),
+    5: ('Use the aperture/annulus schematic and the zero-point check together.',
+        ['Why must the sky annulus be placed outside the source aperture?',
+         'What would it mean if STD-B or STD-C fell far off the 1:1 line?'],
+        'Aperture and sky-annulus geometry, plus the zero-point verification against two independent standards.'),
+    6: ('Read the light curve for the target and comparison star together, not separately.',
+        ['Why is the comparison star\u2019s flat line essential to trusting the target\u2019s dip?',
+         'What differential-magnitude value corresponds to the deepest point of the dip?'],
+        'Target and comparison-star flux over the night, with the real dip highlighted.'),
+    7: ('Compare the pixel-plane vector to the matched sky-plane vector.',
+        ['Why must both vectors correspond to the same physical displacement?',
+         'What would a mismatch between the two vector lengths imply about the plate solution?'],
+        'The measured pixel displacement and its matched sky-coordinate displacement.'),
+    8: ('Use the dispersion line and resolution inset together.',
+        ['Why do the two 0.3 nm-separated lines blend while H\u03b1 and H\u03b2 do not?',
+         'What would a steeper or shallower dispersion line do to the resolving power at fixed pixel resolution?'],
+        'Pixel-to-wavelength dispersion solution, with a resolved and an unresolved line pair compared.'),
+    9: ('Compare the three independent line shifts.',
+        ['Why does agreement across H\u03b1, H\u03b2, and [O III] strengthen the case for a real bulk velocity?',
+         'What pattern would you expect if one line were contaminated by a blend?'],
+        'Rest and observed positions for three independent lines, with each implied velocity labeled.'),
+    10: ('Use the quality-cut line to judge each archive source.',
+         ['Why does Source 2 fail the cut despite having a measured parallax?',
+          'What happens to the inferred distance if you ignore the cut and invert Source 2\u2019s parallax anyway?'],
+         'Parallax-to-error ratio for three archive sources, with the quality-cut threshold marked.'),
+    11: ('Read the stacking-gain curve alongside the cosmic-ray comparison.',
+         ['Why does the SNR gain grow more slowly as N increases?',
+          'Why does a median combine resist the single spiked frame while a mean combine does not?'],
+         'SNR gain from stacking N frames, plus a comparison of mean and median combination under a cosmic-ray spike.'),
+    12: ('Compare the two sampling panels of the same event.',
+         ['Why is the nightly-cadence panel unable to show the dip shape at all?',
+          'How many samples fall inside the dip in the fine-cadence panel?'],
+         'The same eclipse sampled at a nightly cadence versus a fine cadence.'),
+    13: ('Read the uncertainty triangle as a vector sum, not a simple addition.',
+         ['Why is \u03c3_total smaller than \u03c3_ZP + \u03c3_m?',
+          'Which leg of the triangle dominates the final uncertainty here?'],
+         'Zero-point and measurement uncertainties combined in quadrature into a total reported uncertainty.'),
+    14: ('Trace each report section back to the calculation it depends on.',
+         ['Which earlier lecture does the Results-section claim depend on?',
+          'What would you add to the Limitations section if the comparison star\u2019s long-term stability were unverified?'],
+         'The methods-results-limitations anatomy of the technical observing report, quoting the term\u2019s own calculations.'),
+}
 
 
 # ---------------------------------------------------------------------------
@@ -667,11 +1178,8 @@ LECTURES = [
 
 def slide_deck(item: dict) -> str:
     n = item['n']
-    fig = lecture_svg(
-        n, item['title'],
-        left_label='raw / observed', mid_label='calibration / model', right_label='calibrated claim',
-        caption=item['synthesis'],
-    )
+    fig = diagram_svg(item)
+    prompt_intro, prompt_qs, fig_caption = VISUAL_PROMPTS[n]
     body = f"""<main class='deck'>
 <section class='slide title'><p class='kicker'>ASTR 210 &middot; Lecture {n:02d}</p><h1>{escape(item['title'])}</h1><h2>{escape(item['subtitle'])}</h2></section>
 <section class='slide'><h2>Learning Goals</h2><ol>{li(item['goals'])}</ol><p class='small'>Reading anchor: {escape(item['openstax'])}</p></section>
@@ -682,7 +1190,7 @@ def slide_deck(item: dict) -> str:
 <section class='slide'><h2>Model</h2><ul>{li(item['model'])}</ul></section>
 <section class='slide'><h2>Quantitative Tool</h2><div class='equation'>\\[ {item['equation']} \\]</div></section>
 <section class='slide'><h2>Worked Example</h2><ol>{li(item['example'])}</ol></section>
-<section class='slide visual-slide'><h2>Visual Reasoning</h2><div class='visual-grid'><div><p>Trace the measurement chain from raw signal to calibrated claim in this lecture\u2019s figure.</p><ul><li>Which stage is directly observed?</li><li>Which stage is the calibration or model step?</li><li>What would change if the calibration were wrong?</li></ul></div><figure class='visual-figure'>{fig}<figcaption>{escape(item['title'])}: from raw signal to calibrated result.</figcaption></figure></div></section>
+<section class='slide visual-slide'><h2>Visual Reasoning</h2><div class='visual-grid'><div><p>{escape(prompt_intro)}</p><ul>{li(prompt_qs)}</ul></div><figure class='visual-figure'>{fig}<figcaption>{escape(fig_caption)}</figcaption></figure></div></section>
 <section class='slide'><h2>Common Pitfall</h2><p class='warning'>{item['pitfall']}</p></section>
 <section class='slide'><h2>Active Learning Segment</h2><p>{item['activity']}</p></section>
 <section class='slide'><h2>Lab or Observing Connection</h2><p>{item['lab_connection']}</p></section>

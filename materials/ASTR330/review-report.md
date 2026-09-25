@@ -57,6 +57,10 @@ Recomputation focused on the areas most likely to contain errors given this cour
 
 **Approved for review release.** The lecture/lab/problem-set content was engineered to the ASTR310 depth benchmark from the outset and required no substantive content corrections; the defects found and corrected during this review were final-assembly artifacts (incomplete wrap-up, a template-carryover header bug), not scientific or pedagogical errors. Not yet approved for instructional use pending the residual items below.
 
+## Post-Approval Update: Unique Per-Lecture Visual-Reasoning Diagrams
+
+A later audit (2026-09-24) found that all 14 lecture decks had degraded to reusing one generic three-box SVG diagram, with only labels changing between lectures. All 14 visual-reasoning diagrams were replaced with structurally distinct, lecture-specific figures (a Gamow-peak curve, a pp-chain/CNO crossover plot, Lane-Emden polytrope curves, a white-dwarf mass-radius curve approaching the Chandrasekhar limit, a PSR J0348+0432 synthesis diagram, etc.), each grounded in that lecture's own real data. Verified via grep that no repeated diagram signature remains across the course.
+
 ## Outstanding Items Before Instructional Use
 
 - **Human instructional approval:** required, as for every course package in this curriculum.

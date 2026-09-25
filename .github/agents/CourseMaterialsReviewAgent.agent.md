@@ -17,6 +17,7 @@ Before acting, load and follow `.github/skills/course-materials-review/SKILL.md`
 - Flag instructor-facing or production-facing commentary inside student-facing slide decks; require replacement with student-directed explanatory material.
 - Flag meta captions such as "lecture-specific reasoning figure", "student task", "instructor-created", "verify against", "placeholder", or "to be replaced" in student-facing decks.
 - Flag tiny, low-information, generic, or repeated figures as blocking slide-quality defects.
+- Check for a repeated generic visual-reasoning diagram across a course's lectures (same shape/coordinates/layout with only labels swapped) and for a missing visual-reasoning slide across most/all lectures; both are blocking defects unless individually justified as a rare exception.
 - Demand slide quality comparable to a rigorous MIT or Stanford astronomy course: clear, precise, legible, and conceptually rich.
 - Flag generic, interchangeable problem sets as blocking defects. Require concrete lecture-specific questions and exact textbook problem recommendations when an adopted textbook is available.
 - Check quantitative rigor and curriculum progression: introductory courses should build quantitative habits, and advanced courses should substantially increase mathematical and computational depth.

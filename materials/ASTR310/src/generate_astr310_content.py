@@ -52,23 +52,459 @@ def fmt(x, nd=2):
     return f"{x:.{nd}f}"
 
 
-def lecture_svg(n: int, title: str, left_label: str, mid_label: str, right_label: str, caption: str) -> str:
+# ---------------------------------------------------------------------------
+# Lecture-specific visual-reasoning diagrams (SVG). Each lecture gets a
+# structurally distinct figure (plotted curve, labeled physical diagram, or
+# orbit/geometry sketch) built from the real constants and datasets defined
+# below, not a shared generic schematic. A small set of drawing primitives
+# (axes, polylines, labeled dots) is shared to avoid duplicating boilerplate,
+# but the assembled figure per lecture differs in shape and content.
+# ---------------------------------------------------------------------------
+
+def _lin(v, vmin, vmax, a, b):
+    if vmax == vmin:
+        return a
+    return a + (v - vmin) / (vmax - vmin) * (b - a)
+
+
+def _axes(x0, y0, w, h, xlabel, ylabel, color='#5b6773'):
+    return (
+        f"<line x1='{x0}' y1='{y0 + h}' x2='{x0 + w}' y2='{y0 + h}' stroke='{color}' stroke-width='2'/>"
+        f"<line x1='{x0}' y1='{y0}' x2='{x0}' y2='{y0 + h}' stroke='{color}' stroke-width='2'/>"
+        f"<text x='{x0 + w / 2:.0f}' y='{y0 + h + 36}' font-size='16' fill='{color}' text-anchor='middle' "
+        f"font-family='Segoe UI, sans-serif'>{escape(xlabel)}</text>"
+        f"<text x='{x0}' y='{y0 - 14}' font-size='16' fill='{color}' font-family='Segoe UI, sans-serif'>{escape(ylabel)}</text>"
+    )
+
+
+def _polyline(pts, color='#0f6b78', width=3.5, dash=None):
+    s = ' '.join(f'{px:.1f},{py:.1f}' for px, py in pts)
+    dash_attr = f" stroke-dasharray='{dash}'" if dash else ''
+    return f"<polyline points='{s}' fill='none' stroke='{color}' stroke-width='{width}'{dash_attr}/>"
+
+
+def _dot(x, y, label=None, r=6, color='#b87911', dx=10, dy=-10, fs=14, anchor='start'):
+    out = f"<circle cx='{x:.1f}' cy='{y:.1f}' r='{r}' fill='{color}'/>"
+    if label:
+        out += (f"<text x='{x + dx:.1f}' y='{y + dy:.1f}' font-size='{fs}' fill='#17202a' "
+                 f"text-anchor='{anchor}' font-family='Segoe UI, sans-serif'>{escape(label)}</text>")
+    return out
+
+
+def _fig_header(n, title):
+    return (
+        f"<rect width='980' height='620' fill='#fbfcfd'/>"
+        f"<text x='34' y='42' font-size='23' fill='#102a43' font-family='Segoe UI, sans-serif'>"
+        f"Lecture {n:02d}: {escape(title)}</text>"
+    )
+
+
+def _fig_caption(text, y=600):
+    return (f"<text x='34' y='{y}' font-size='15.5' fill='#5b6773' "
+            f"font-family='Segoe UI, sans-serif'>{escape(text)}</text>")
+
+
+def _fig_wrap(n, title, inner, aria):
     return (
         f"<svg class='lecture-figure' data-lecture-figure='{n:02d}' viewBox='0 0 980 620' role='img' "
-        f"aria-label='Lecture {n:02d} visual model: {escape(title)}'>"
-        f"<rect width='980' height='620' fill='#fbfcfd'/>"
-        f"<text x='34' y='48' font-size='26' fill='#102a43' font-family='Segoe UI, sans-serif'>Lecture {n:02d}: {escape(title)}</text>"
-        f"<rect x='60' y='180' width='250' height='150' rx='14' fill='#0f6b78' opacity='.85'/>"
-        f"<rect x='365' y='180' width='250' height='150' rx='14' fill='#b87911' opacity='.85'/>"
-        f"<rect x='670' y='180' width='250' height='150' rx='14' fill='#102a43' opacity='.85'/>"
-        f"<path d='M310 255 L365 255 M615 255 L670 255' stroke='#5b6773' stroke-width='5' marker-end='url(#arrow)'/>"
-        f"<defs><marker id='arrow' markerWidth='10' markerHeight='10' refX='8' refY='5' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='#5b6773'/></marker></defs>"
-        f"<text x='80' y='260' font-size='19' fill='#fff' font-family='Segoe UI, sans-serif'>{escape(left_label)}</text>"
-        f"<text x='385' y='260' font-size='19' fill='#fff' font-family='Segoe UI, sans-serif'>{escape(mid_label)}</text>"
-        f"<text x='690' y='260' font-size='19' fill='#fff' font-family='Segoe UI, sans-serif'>{escape(right_label)}</text>"
-        f"<text x='34' y='470' font-size='19' fill='#5b6773' font-family='Segoe UI, sans-serif'>{escape(caption)}</text>"
-        f"</svg>"
+        f"aria-label='Lecture {n:02d} visual model: {escape(aria)}'>"
+        f"{_fig_header(n, title)}{inner}</svg>"
     )
+
+
+def diagram_01(item: dict) -> str:
+    """Flux dilution: F(d) = L/(4 pi d^2) plotted directly from the Sun's luminosity."""
+    n = item['n']
+    ds = [0.5 + 0.05 * i for i in range(71)]
+    fluxes = [L_SUN_W / (4 * math.pi * (d * AU_M) ** 2) for d in ds]
+    x0, y0, w, h = 100, 90, 780, 380
+    fmax = fluxes[0]
+    pts = [(_lin(d, ds[0], ds[-1], x0, x0 + w), _lin(f, 0, fmax, y0 + h, y0)) for d, f in zip(ds, fluxes)]
+    f1 = L_SUN_W / (4 * math.pi * AU_M ** 2)
+    f2 = L_SUN_W / (4 * math.pi * (2 * AU_M) ** 2)
+    x1 = _lin(1.0, ds[0], ds[-1], x0, x0 + w)
+    y1 = _lin(f1, 0, fmax, y0 + h, y0)
+    x2 = _lin(2.0, ds[0], ds[-1], x0, x0 + w)
+    y2 = _lin(f2, 0, fmax, y0 + h, y0)
+    inner = (
+        _axes(x0, y0, w, h, 'distance from source, d (AU)', 'flux, F(d) (W/m\u00b2)')
+        + _polyline(pts)
+        + _dot(x1, y1, f'd = 1 AU: F = {f1:.0f} W/m\u00b2')
+        + _dot(x2, y2, f'd = 2 AU: F = {f2:.0f} W/m\u00b2 (exactly 1/4 of the 1 AU value)', dy=20)
+        + _fig_caption('Flux falls as 1/d\u00b2 while luminosity L stays fixed at the source \u2014 pure geometric dilution over an expanding sphere.')
+    )
+    return _fig_wrap(n, item['title'], inner, 'flux versus distance following the inverse-square law, with 1 AU and 2 AU marked')
+
+
+def diagram_02(item: dict) -> str:
+    """Two real Planck curves (Sun vs a hot A-type star) with Wien peaks marked."""
+    n = item['n']
+
+    def planck(lam_m, teff):
+        x = H_PLANCK * C_LIGHT / (lam_m * K_BOLTZMANN * teff)
+        return (2 * H_PLANCK * C_LIGHT ** 2) / (lam_m ** 5) / (math.exp(x) - 1)
+
+    t_cool, t_hot = SUN_TEFF, 9900.0
+    lam_nm = [100 + 10 * i for i in range(280)]
+    b_cool = [planck(l * 1e-9, t_cool) for l in lam_nm]
+    b_hot = [planck(l * 1e-9, t_hot) for l in lam_nm]
+    ymax = max(max(b_cool), max(b_hot))
+    x0, y0, w, h = 100, 80, 780, 370
+    pts_cool = [(_lin(l, lam_nm[0], lam_nm[-1], x0, x0 + w), _lin(b, 0, ymax, y0 + h, y0)) for l, b in zip(lam_nm, b_cool)]
+    pts_hot = [(_lin(l, lam_nm[0], lam_nm[-1], x0, x0 + w), _lin(b, 0, ymax, y0 + h, y0)) for l, b in zip(lam_nm, b_hot)]
+    peak_cool = wien_peak_wavelength_m(t_cool) * 1e9
+    peak_hot = wien_peak_wavelength_m(t_hot) * 1e9
+    xpc = _lin(peak_cool, lam_nm[0], lam_nm[-1], x0, x0 + w)
+    ypc = _lin(planck(peak_cool * 1e-9, t_cool), 0, ymax, y0 + h, y0)
+    xph = _lin(peak_hot, lam_nm[0], lam_nm[-1], x0, x0 + w)
+    yph = _lin(planck(peak_hot * 1e-9, t_hot), 0, ymax, y0 + h, y0)
+    inner = (
+        _axes(x0, y0, w, h, 'wavelength, \u03bb (nm)', 'spectral radiance, B_\u03bb(T)')
+        + _polyline(pts_cool, color='#b87911')
+        + _polyline(pts_hot, color='#0f6b78')
+        + f"<circle cx='{xpc:.1f}' cy='{ypc:.1f}' r='6' fill='#b87911'/>"
+        + f"<circle cx='{xph:.1f}' cy='{yph:.1f}' r='6' fill='#0f6b78'/>"
+        + f"<text x='{x0 + w - 10}' y='{y0 + 26}' font-size='14' fill='#b87911' text-anchor='end' font-family='Segoe UI, sans-serif'>{escape(f'{t_cool:.0f} K peak: {peak_cool:.0f} nm')}</text>"
+        + f"<text x='{x0 + w - 10}' y='{y0 + 48}' font-size='14' fill='#0f6b78' text-anchor='end' font-family='Segoe UI, sans-serif'>{escape(f'{t_hot:.0f} K peak: {peak_hot:.0f} nm')}</text>"
+        + _fig_caption('Planck curves at two temperatures: the hotter curve peaks at shorter \u03bb (Wien) and lies above the cooler curve at every \u03bb (Stefan-Boltzmann).')
+    )
+    return _fig_wrap(n, item['title'], inner, 'Planck function curves at two temperatures with Wien peak wavelengths marked')
+
+
+def diagram_03(item: dict) -> str:
+    """Exponential optical-depth attenuation I(tau)/I0 = exp(-tau)."""
+    n = item['n']
+    taus = [0.02 * i for i in range(401)]
+    trans = [math.exp(-t) for t in taus]
+    x0, y0, w, h = 100, 80, 780, 380
+    pts = [(_lin(t, 0, 8, x0, x0 + w), _lin(f, 0, 1, y0 + h, y0)) for t, f in zip(taus, trans)]
+    dots = ''
+    for m, dy in ((1, -16), (3, -16), (7, 22)):
+        f = math.exp(-m)
+        x = _lin(m, 0, 8, x0, x0 + w)
+        y = _lin(f, 0, 1, y0 + h, y0)
+        dots += _dot(x, y, f'\u03c4 = {m}: I/I\u2080 = {f:.4f}', dy=dy)
+    inner = (
+        _axes(x0, y0, w, h, 'optical depth, \u03c4', 'transmitted fraction, I/I\u2080')
+        + _polyline(pts) + dots
+        + _fig_caption('Intensity falls exponentially with optical depth, I(\u03c4) = I\u2080 e^(-\u03c4), not linearly with physical distance.')
+    )
+    return _fig_wrap(n, item['title'], inner, 'exponential attenuation curve of transmitted intensity versus optical depth')
+
+
+def diagram_04(item: dict) -> str:
+    """Boltzmann n=2/n=1 excitation ratio (log scale) versus temperature."""
+    n = item['n']
+    delta_e = 1.634e-18
+    g_ratio = 4.0
+
+    def ratio(t):
+        return g_ratio * math.exp(-delta_e / (K_BOLTZMANN * t))
+
+    ts = [3000 + 100 * i for i in range(121)]
+    ys = [math.log10(ratio(t)) for t in ts]
+    x0, y0, w, h = 100, 80, 780, 380
+    ymin, ymax = min(ys), max(ys)
+    pts = [(_lin(t, ts[0], ts[-1], x0, x0 + w), _lin(y, ymin, ymax, y0 + h, y0)) for t, y in zip(ts, ys)]
+    dots = ''
+    for i, tm in enumerate((5750.0, 9900.0)):
+        ym = math.log10(ratio(tm))
+        x = _lin(tm, ts[0], ts[-1], x0, x0 + w)
+        y = _lin(ym, ymin, ymax, y0 + h, y0)
+        dots += _dot(x, y, f'{tm:.0f} K: n\u2082/n\u2081 = {ratio(tm):.2e}', dy=-16 - 20 * i)
+    inner = (
+        _axes(x0, y0, w, h, 'temperature, T (K)', 'log\u2081\u2080(n\u2082 / n\u2081)')
+        + _polyline(pts) + dots
+        + _fig_caption('Hydrogen n=2 excitation rises exponentially with temperature (Boltzmann); the Saha ionization turnover then suppresses it at the hottest spectral types.')
+    )
+    return _fig_wrap(n, item['title'], inner, 'Boltzmann excitation ratio on a log scale versus temperature, with two stars marked')
+
+
+def diagram_05(item: dict) -> str:
+    """Labeled hydrostatic force-balance diagram on a stellar shell, plus a schematic P(r) inset."""
+    n = item['n']
+    cx, cy, big_r, shell_r = 470, 300, 190, 125
+    inner = (
+        f"<circle cx='{cx}' cy='{cy}' r='{big_r}' fill='#fff3e0' stroke='#b87911' stroke-width='2'/>"
+        f"<circle cx='{cx}' cy='{cy}' r='{shell_r}' fill='none' stroke='#0f6b78' stroke-width='4' stroke-dasharray='2,7'/>"
+        f"<circle cx='{cx}' cy='{cy}' r='6' fill='#102a43'/>"
+        f"<text x='{cx - 12}' y='{cy - 14}' font-size='14' fill='#102a43' text-anchor='end' font-family='Segoe UI, sans-serif'>center</text>"
+        f"<line x1='{cx + shell_r}' y1='{cy}' x2='{cx + shell_r + 90}' y2='{cy}' stroke='#0f6b78' stroke-width='5' marker-end='url(#arrowP)'/>"
+        f"<text x='{cx + shell_r + 6}' y='{cy - 16}' font-size='14' fill='#0f6b78' font-family='Segoe UI, sans-serif'>pressure force (outward)</text>"
+        f"<line x1='{cx + shell_r - 4}' y1='{cy + 44}' x2='{cx + 26}' y2='{cy + 44}' stroke='#8a4b08' stroke-width='5' marker-end='url(#arrowG)'/>"
+        f"<text x='{cx + shell_r + 6}' y='{cy + 66}' font-size='14' fill='#8a4b08' font-family='Segoe UI, sans-serif'>gravity: -GM(r)\u03c1(r)/r\u00b2 (inward)</text>"
+        f"<defs>"
+        f"<marker id='arrowP' markerWidth='10' markerHeight='10' refX='8' refY='5' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='#0f6b78'/></marker>"
+        f"<marker id='arrowG' markerWidth='10' markerHeight='10' refX='8' refY='5' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='#8a4b08'/></marker>"
+        f"</defs>"
+    )
+    x0, y0, w, h = 70, 420, 260, 140
+    rs = [0.02 * i for i in range(51)]
+    ps = [(1 - r ** 2) for r in rs]
+    pts = [(_lin(r, 0, 1, x0, x0 + w), _lin(p, 0, 1, y0 + h, y0)) for r, p in zip(rs, ps)]
+    inset = _axes(x0, y0, w, h, 'r / R', 'P(r) / P_c (schematic)') + _polyline(pts, color='#102a43')
+    caption = _fig_caption(
+        f'Force balance on a thin shell: dP/dr = -GM(r)\u03c1(r)/r\u00b2; uniform-density estimate gives P_c \u2248 {SUN_CENTRAL_PRESSURE_EST:.2e} Pa for the Sun.', y=604)
+    return _fig_wrap(n, item['title'], inner + inset + caption, 'labeled hydrostatic force-balance diagram on a stellar shell with a pressure-profile inset')
+
+
+def diagram_06(item: dict) -> str:
+    """Balance-scale diagram for the virial theorem, 2K = |U|, with real star and cluster numbers."""
+    n = item['n']
+    cx, cy = 490, 230
+    inner = (
+        f"<polygon points='{cx - 18},{cy + 70} {cx + 18},{cy + 70} {cx},{cy + 30}' fill='#102a43'/>"
+        f"<line x1='{cx - 260}' y1='{cy + 30}' x2='{cx + 260}' y2='{cy + 30}' stroke='#5b6773' stroke-width='6'/>"
+        f"<line x1='{cx - 260}' y1='{cy + 30}' x2='{cx - 260}' y2='{cy + 110}' stroke='#0f6b78' stroke-width='3'/>"
+        f"<line x1='{cx + 260}' y1='{cy + 30}' x2='{cx + 260}' y2='{cy + 110}' stroke='#b87911' stroke-width='3'/>"
+        f"<rect x='{cx - 320}' y='{cy + 110}' width='120' height='55' rx='8' fill='#0f6b78'/>"
+        f"<rect x='{cx + 200}' y='{cy + 110}' width='120' height='55' rx='8' fill='#b87911'/>"
+        f"<text x='{cx - 260}' y='{cy + 143}' font-size='18' fill='#fff' text-anchor='middle' font-family='Segoe UI, sans-serif'>2K</text>"
+        f"<text x='{cx + 260}' y='{cy + 143}' font-size='18' fill='#fff' text-anchor='middle' font-family='Segoe UI, sans-serif'>|U|</text>"
+        f"<text x='{cx - 260}' y='{cy + 182}' font-size='14' fill='#0f6b78' text-anchor='middle' font-family='Segoe UI, sans-serif'>kinetic energy</text>"
+        f"<text x='{cx + 260}' y='{cy + 182}' font-size='14' fill='#b87911' text-anchor='middle' font-family='Segoe UI, sans-serif'>gravitational |P.E.|</text>"
+        f"<text x='{cx}' y='{cy}' font-size='21' fill='#102a43' text-anchor='middle' font-family='Segoe UI, sans-serif'>2K + U = 0</text>"
+    )
+    box1 = (
+        f"<rect x='60' y='440' width='420' height='120' rx='10' fill='#e5f4f6' stroke='#0f6b78'/>"
+        f"<text x='80' y='470' font-size='16' fill='#102a43' font-family='Segoe UI, sans-serif'>Star (Sun, uniform-density estimate):</text>"
+        f"<text x='80' y='497' font-size='16' fill='#102a43' font-family='Segoe UI, sans-serif'>T \u2248 {SUN_VIRIAL_TEMP_EST:.2e} K</text>"
+        f"<text x='80' y='522' font-size='14' fill='#5b6773' font-family='Segoe UI, sans-serif'>standard solar model: {SUN_CORE_TEMP_PUBLISHED:.2e} K</text>"
+    )
+    box2 = (
+        f"<rect x='500' y='440' width='420' height='120' rx='10' fill='#fff3e0' stroke='#b87911'/>"
+        f"<text x='520' y='470' font-size='16' fill='#102a43' font-family='Segoe UI, sans-serif'>Cluster (M15, kinematic):</text>"
+        f"<text x='520' y='497' font-size='16' fill='#102a43' font-family='Segoe UI, sans-serif'>M \u2248 {M15_VIRIAL_MASS_EST:.2e} M\u2609</text>"
+        f"<text x='520' y='522' font-size='14' fill='#5b6773' font-family='Segoe UI, sans-serif'>published dynamical mass: {M15_PUBLISHED_MASS_MSUN:.1e} M\u2609</text>"
+    )
+    caption = _fig_caption('One balance condition, 2K + U = 0, yields a star\u2019s central temperature from M, R and a cluster\u2019s mass from \u03c3, R_h.', y=600)
+    return _fig_wrap(n, item['title'], inner + box1 + box2 + caption, 'balance-scale diagram of the virial theorem with matched star and cluster worked numbers')
+
+
+def diagram_07(item: dict) -> str:
+    """Log-log escape-velocity-versus-radius scatter for Earth, Sun, and Sirius B."""
+    n = item['n']
+    bodies = [
+        ('Earth', EARTH_RADIUS_M, EARTH_ESCAPE_KMS, '#0f6b78'),
+        ('Sun', R_SUN_M, SUN_ESCAPE_KMS, '#b87911'),
+        ('Sirius B (white dwarf)', SIRIUS_B['radius_rsun'] * R_SUN_M, SIRIUS_B_ESCAPE_KMS, '#102a43'),
+    ]
+    logs = [(math.log10(r), math.log10(v)) for _, r, v, _ in bodies]
+    x0, y0, w, h = 120, 80, 760, 380
+    xs, ys = [p[0] for p in logs], [p[1] for p in logs]
+    xmin, xmax = min(xs) - 0.3, max(xs) + 0.3
+    ymin, ymax = min(ys) - 0.3, max(ys) + 0.3
+    dots = ''
+    for (idx, ((name, r, v, color), (lx, ly))) in enumerate(zip(bodies, logs)):
+        x = _lin(lx, xmin, xmax, x0, x0 + w)
+        y = _lin(ly, ymin, ymax, y0 + h, y0)
+        dots += _dot(x, y, f'{name}: R = {r:.2e} m, v_esc = {v:.0f} km/s', color=color, dy=-16 - 18 * (idx % 2))
+    inner = (
+        _axes(x0, y0, w, h, 'log\u2081\u2080(radius, m)', 'log\u2081\u2080(escape velocity, km/s)')
+        + dots
+        + _fig_caption('At comparable mass, escape velocity scales as 1/\u221aR: Sirius B\u2019s compact radius drives its extreme escape velocity.')
+    )
+    return _fig_wrap(n, item['title'], inner, 'log-log scatter of escape velocity versus radius for Earth, the Sun, and Sirius B')
+
+
+def diagram_08(item: dict) -> str:
+    """Two-body barycentric orbit diagram sized by Alpha Centauri A/B's real mass ratio."""
+    n = item['n']
+    cx, cy = 490, 320
+    m_a, m_b = ALPHA_CEN_A['mass_msun'], ALPHA_CEN_B['mass_msun']
+    total = m_a + m_b
+    a_a = 210 * (m_b / total)
+    a_b = 210 * (m_a / total)
+    e = ALPHA_CEN_ORBIT['eccentricity']
+    b_a, b_b = a_a * math.sqrt(1 - e ** 2), a_b * math.sqrt(1 - e ** 2)
+    inner = (
+        f"<circle cx='{cx}' cy='{cy}' r='5' fill='#5b6773'/>"
+        f"<text x='{cx + 8}' y='{cy - 10}' font-size='14' fill='#5b6773' font-family='Segoe UI, sans-serif'>barycenter</text>"
+        f"<ellipse cx='{cx}' cy='{cy}' rx='{a_a:.1f}' ry='{b_a:.1f}' fill='none' stroke='#0f6b78' stroke-width='3'/>"
+        f"<ellipse cx='{cx}' cy='{cy}' rx='{a_b:.1f}' ry='{b_b:.1f}' fill='none' stroke='#b87911' stroke-width='3'/>"
+        f"<circle cx='{cx - a_a:.1f}' cy='{cy}' r='14' fill='#0f6b78'/>"
+        f"<text x='{cx - a_a:.1f}' y='{cy + 34}' font-size='15' fill='#0f6b78' text-anchor='middle' font-family='Segoe UI, sans-serif'>\u03b1 Cen A ({m_a:.3f} M\u2609)</text>"
+        f"<circle cx='{cx + a_b:.1f}' cy='{cy}' r='9' fill='#b87911'/>"
+        f"<text x='{cx + a_b:.1f}' y='{cy + 34}' font-size='15' fill='#b87911' text-anchor='middle' font-family='Segoe UI, sans-serif'>\u03b1 Cen B ({m_b:.3f} M\u2609)</text>"
+    )
+    caption = _fig_caption(f'Each star traces its own ellipse about the shared barycenter, with a_A/a_B = M_B/M_A = {m_b / m_a:.3f}.')
+    return _fig_wrap(n, item['title'], inner, 'two-body barycentric orbit diagram for Alpha Centauri A and B sized by their real mass ratio')
+
+
+def diagram_09(item: dict) -> str:
+    """Anti-phase radial-velocity curves for both stars, amplitude ratio set by the real mass ratio."""
+    n = item['n']
+    m_a, m_b = ALPHA_CEN_A['mass_msun'], ALPHA_CEN_B['mass_msun']
+    k_a = 1.0
+    k_b = k_a * m_a / m_b
+    phases = [0.01 * i for i in range(201)]
+    x0, y0, w, h = 100, 90, 780, 340
+    ymax = max(k_a, k_b) * 1.2
+
+    def y_of(v):
+        return _lin(v, -ymax, ymax, y0 + h, y0)
+
+    pts_a = [(_lin(p, 0, 2, x0, x0 + w), y_of(k_a * math.sin(2 * math.pi * p))) for p in phases]
+    pts_b = [(_lin(p, 0, 2, x0, x0 + w), y_of(-k_b * math.sin(2 * math.pi * p))) for p in phases]
+    zero_y = y_of(0)
+    inner = (
+        f"<line x1='{x0}' y1='{zero_y}' x2='{x0 + w}' y2='{zero_y}' stroke='#d9e0e7' stroke-width='2'/>"
+        + _axes(x0, y0, w, h, 'orbital phase', 'radial velocity (relative units)')
+        + _polyline(pts_a, color='#0f6b78')
+        + _polyline(pts_b, color='#b87911')
+        + _dot(_lin(0.25, 0, 2, x0, x0 + w), y_of(k_a), f'\u03b1 Cen A: K_A (relative) = {k_a:.2f}', color='#0f6b78')
+        + _dot(_lin(0.75, 0, 2, x0, x0 + w), y_of(-k_b), f'\u03b1 Cen B: K_B (relative) = {k_b:.2f}', color='#b87911', dy=22)
+        + _fig_caption(f'Anti-phase radial-velocity curves: amplitude ratio K_A/K_B = M_B/M_A = {m_b / m_a:.3f} (the mass-ratio lever rule).')
+    )
+    return _fig_wrap(n, item['title'], inner, 'anti-phase radial-velocity curves for both binary stars with amplitude ratio set by mass ratio')
+
+
+def diagram_10(item: dict) -> str:
+    """Roche-limit / tidal-bulge diagram for Jupiter and Io (radial scale compressed for display)."""
+    n = item['n']
+    cx, cy = 220, 320
+    r_j, roche_px = 70, 160
+    io_px = roche_px + 140 * math.log10(IO_SEMIMAJOR_M / IO_ROCHE_M)
+    inner = (
+        f"<circle cx='{cx}' cy='{cy}' r='{r_j}' fill='#b87911'/>"
+        f"<text x='{cx}' y='{cy + r_j + 24}' font-size='15' fill='#b87911' text-anchor='middle' font-family='Segoe UI, sans-serif'>Jupiter</text>"
+        f"<circle cx='{cx}' cy='{cy}' r='{roche_px}' fill='none' stroke='#8a4b08' stroke-width='3' stroke-dasharray='6,6'/>"
+        f"<text x='{cx + roche_px + 8}' y='{cy - roche_px}' font-size='14' fill='#8a4b08' font-family='Segoe UI, sans-serif'>Roche limit ({IO_ROCHE_M / 1000:.0f} km)</text>"
+        f"<ellipse cx='{cx + io_px:.1f}' cy='{cy}' rx='24' ry='14' fill='#0f6b78'/>"
+        f"<text x='{cx + io_px:.1f}' y='{cy + 36}' font-size='15' fill='#0f6b78' text-anchor='middle' font-family='Segoe UI, sans-serif'>Io (real a = {IO_SEMIMAJOR_M / 1000:.0f} km)</text>"
+    )
+    caption = _fig_caption(
+        f'Io orbits well outside Jupiter\u2019s Roche limit (a/d_Roche = {IO_SEMIMAJOR_M / IO_ROCHE_M:.1f}); radial scale compressed (log) for display, not to scale.')
+    return _fig_wrap(n, item['title'], inner, 'Roche-limit diagram for Jupiter and Io with a tidal bulge, radial scale compressed for display')
+
+
+def diagram_11(item: dict) -> str:
+    """Vis-viva speed-versus-radius curve along the real Earth-Mars Hohmann transfer ellipse."""
+    n = item['n']
+    a_t = MARS_TRANSFER_A_AU
+    rs = [1.0 + (MARS_A_AU - 1.0) * i / 100 for i in range(101)]
+    speeds = [vis_viva_speed_ms(MU_SUN, r * AU_M, a_t * AU_M) / KM for r in rs]
+    x0, y0, w, h = 100, 80, 780, 360
+    xmin, xmax = 1.0, MARS_A_AU
+    ymin, ymax = min(speeds) * 0.95, max(speeds) * 1.05
+    pts = [(_lin(r, xmin, xmax, x0, x0 + w), _lin(v, ymin, ymax, y0 + h, y0)) for r, v in zip(rs, speeds)]
+    x_e, x_m = _lin(1.0, xmin, xmax, x0, x0 + w), _lin(MARS_A_AU, xmin, xmax, x0, x0 + w)
+    y_e_circ = _lin(V_EARTH_CIRCULAR, ymin, ymax, y0 + h, y0)
+    y_e_trans = _lin(V_TRANSFER_PERIHELION, ymin, ymax, y0 + h, y0)
+    y_m_circ = _lin(V_MARS_CIRCULAR, ymin, ymax, y0 + h, y0)
+    y_m_trans = _lin(V_TRANSFER_APHELION, ymin, ymax, y0 + h, y0)
+    inner = (
+        _axes(x0, y0, w, h, 'orbital radius, r (AU)', 'speed, v (km/s)')
+        + _polyline(pts, color='#0f6b78')
+        + _dot(x_e, y_e_circ, f'Earth circular: {V_EARTH_CIRCULAR:.2f} km/s', color='#5b6773', dy=20)
+        + _dot(x_e, y_e_trans, f'transfer perihelion: {V_TRANSFER_PERIHELION:.2f} km/s (\u0394v\u2081 = {HOHMANN_DV1:.2f})', color='#b87911', dy=-16)
+        + _dot(x_m, y_m_trans, f'transfer aphelion: {V_TRANSFER_APHELION:.2f} km/s', color='#b87911', dy=20)
+        + _dot(x_m, y_m_circ, f'Mars circular: {V_MARS_CIRCULAR:.2f} km/s (\u0394v\u2082 = {HOHMANN_DV2:.2f})', color='#5b6773', dy=-16)
+        + _fig_caption('Vis-viva speed along the Earth-Mars Hohmann transfer ellipse; two burns bridge the gaps to each planet\u2019s circular orbit.')
+    )
+    return _fig_wrap(n, item['title'], inner, 'vis-viva speed versus orbital radius along the Hohmann transfer ellipse with both burns marked')
+
+
+def diagram_12(item: dict) -> str:
+    """Schematic Sun-Earth Lagrange-point diagram (not to scale) with the real computed L1 distance."""
+    n = item['n']
+    cy, sun_x, earth_x = 320, 120, 700
+    inner = (
+        f"<circle cx='{sun_x}' cy='{cy}' r='40' fill='#b87911'/>"
+        f"<text x='{sun_x}' y='{cy + 62}' font-size='15' fill='#b87911' text-anchor='middle' font-family='Segoe UI, sans-serif'>Sun</text>"
+        f"<circle cx='{earth_x}' cy='{cy}' r='14' fill='#0f6b78'/>"
+        f"<text x='{earth_x}' y='{cy + 34}' font-size='15' fill='#0f6b78' text-anchor='middle' font-family='Segoe UI, sans-serif'>Earth</text>"
+        f"<line x1='{sun_x}' y1='{cy}' x2='{earth_x}' y2='{cy}' stroke='#d9e0e7' stroke-width='2' stroke-dasharray='4,4'/>"
+        f"<circle cx='{earth_x - 40}' cy='{cy}' r='6' fill='#102a43'/>"
+        f"<text x='{earth_x - 40}' y='{cy - 16}' font-size='14' fill='#102a43' text-anchor='middle' font-family='Segoe UI, sans-serif'>L1</text>"
+        f"<circle cx='{earth_x + 40}' cy='{cy}' r='6' fill='#102a43'/>"
+        f"<text x='{earth_x + 40}' y='{cy - 16}' font-size='14' fill='#102a43' text-anchor='middle' font-family='Segoe UI, sans-serif'>L2</text>"
+        f"<circle cx='{sun_x - 90}' cy='{cy}' r='6' fill='#102a43'/>"
+        f"<text x='{sun_x - 90}' y='{cy - 16}' font-size='14' fill='#102a43' text-anchor='middle' font-family='Segoe UI, sans-serif'>L3</text>"
+        f"<circle cx='{(sun_x + earth_x) / 2}' cy='{cy - 220}' r='6' fill='#0f6b78'/>"
+        f"<text x='{(sun_x + earth_x) / 2}' y='{cy - 236}' font-size='14' fill='#0f6b78' text-anchor='middle' font-family='Segoe UI, sans-serif'>L4</text>"
+        f"<circle cx='{(sun_x + earth_x) / 2}' cy='{cy + 220}' r='6' fill='#0f6b78'/>"
+        f"<text x='{(sun_x + earth_x) / 2}' y='{cy + 244}' font-size='14' fill='#0f6b78' text-anchor='middle' font-family='Segoe UI, sans-serif'>L5</text>"
+    )
+    caption = _fig_caption(
+        f'Schematic, not to scale: computed r_L1 \u2248 {SUN_EARTH_L1_KM:.0f} km sunward of Earth, matching SOHO/DSCOVR\u2019s real station-keeping distance.')
+    return _fig_wrap(n, item['title'], inner, 'schematic Sun-Earth Lagrange point diagram with L1 through L5 marked')
+
+
+def diagram_13(item: dict) -> str:
+    """Eddington luminosity versus mass line, with the Sun and a Chandrasekhar-mass accretor marked."""
+    n = item['n']
+    masses = [0.1 + 0.05 * i for i in range(280)]
+    ledd = [eddington_luminosity_w(m * M_SUN_KG) / L_SUN_W for m in masses]
+    x0, y0, w, h = 110, 80, 770, 370
+    xmin, xmax = masses[0], masses[-1]
+    ymax = max(ledd)
+    pts = [(_lin(m, xmin, xmax, x0, x0 + w), _lin(y, 0, ymax, y0 + h, y0)) for m, y in zip(masses, ledd)]
+    x_sun = _lin(1.0, xmin, xmax, x0, x0 + w)
+    y_sun_edd = _lin(EDDINGTON_L_SUN_W / L_SUN_W, 0, ymax, y0 + h, y0)
+    y_sun_actual = _lin(1.0, 0, ymax, y0 + h, y0)
+    x_chandra = _lin(CHANDRASEKHAR_MASS_MSUN, xmin, xmax, x0, x0 + w)
+    y_chandra = _lin(EDDINGTON_L_CHANDRA_LSUN, 0, ymax, y0 + h, y0)
+    inner = (
+        _axes(x0, y0, w, h, 'mass, M (M\u2609)', 'Eddington luminosity, L_Edd (L\u2609)')
+        + _polyline(pts, color='#0f6b78')
+        + f"<circle cx='{x_chandra:.1f}' cy='{y_chandra:.1f}' r='6' fill='#b87911'/>"
+        + f"<circle cx='{x_sun:.1f}' cy='{y_sun_edd:.1f}' r='6' fill='#102a43'/>"
+        + f"<circle cx='{x_sun:.1f}' cy='{y_sun_actual:.1f}' r='6' fill='#5b6773'/>"
+        + f"<line x1='{x_sun:.1f}' y1='{y_sun_edd:.1f}' x2='{x_sun:.1f}' y2='{y_sun_actual:.1f}' stroke='#5b6773' stroke-width='1.5' stroke-dasharray='3,3'/>"
+        + f"<text x='{x0 + 14}' y='{y0 + 30}' font-size='14' fill='#b87911' font-family='Segoe UI, sans-serif'>{escape(f'1.4 M\u2609 accretor: L_Edd = {EDDINGTON_L_CHANDRA_LSUN:.2e} L\u2609')}</text>"
+        + f"<text x='{x0 + 14}' y='{y0 + 52}' font-size='14' fill='#102a43' font-family='Segoe UI, sans-serif'>{escape(f'Sun\u2019s own L_Edd = {EDDINGTON_L_SUN_W / L_SUN_W:.2e} L\u2609')}</text>"
+        + f"<text x='{x0 + 14}' y='{y0 + 74}' font-size='14' fill='#5b6773' font-family='Segoe UI, sans-serif'>{escape(f'Sun\u2019s actual L = 1 L\u2609 ({L_SUN_W / EDDINGTON_L_SUN_W * 100:.2e}% of its own L_Edd)')}</text>"
+        + _fig_caption('L_Edd scales linearly with mass; every normal, non-accreting star sits enormously below its own Eddington limit.')
+    )
+    return _fig_wrap(n, item['title'], inner, 'Eddington luminosity versus mass line with the Sun and a Chandrasekhar-mass accretor marked')
+
+
+def diagram_14(item: dict) -> str:
+    """Convergence diagram: independent radiative and dynamical chains meeting on Alpha Centauri AB."""
+    n = item['n']
+    l_agree = abs(ALPHA_CEN_A_L_FROM_SB_LSUN - ALPHA_CEN_A['lum_lsun']) / ALPHA_CEN_A['lum_lsun'] * 100
+    m_agree = abs(ALPHA_CEN_TOTAL_MASS_KEPLER - ALPHA_CEN_TOTAL_MASS_MEASURED) / ALPHA_CEN_TOTAL_MASS_MEASURED * 100
+    inner = (
+        f"<rect x='60' y='90' width='230' height='70' rx='10' fill='#e5f4f6' stroke='#0f6b78'/>"
+        f"<text x='175' y='120' font-size='15' fill='#102a43' text-anchor='middle' font-family='Segoe UI, sans-serif'>R, T (measured)</text>"
+        f"<text x='175' y='142' font-size='12.5' fill='#5b6773' text-anchor='middle' font-family='Segoe UI, sans-serif'>interferometry + asteroseismology</text>"
+        f"<rect x='360' y='90' width='230' height='70' rx='10' fill='#e5f4f6' stroke='#0f6b78'/>"
+        f"<text x='475' y='120' font-size='15' fill='#102a43' text-anchor='middle' font-family='Segoe UI, sans-serif'>L = 4\u03c0R\u00b2\u03c3T\u2074</text>"
+        f"<text x='475' y='142' font-size='12.5' fill='#5b6773' text-anchor='middle' font-family='Segoe UI, sans-serif'>Stefan-Boltzmann (radiative chain)</text>"
+        f"<line x1='290' y1='125' x2='355' y2='125' stroke='#0f6b78' stroke-width='4' marker-end='url(#arrowRad)'/>"
+        f"<rect x='60' y='400' width='230' height='70' rx='10' fill='#fff3e0' stroke='#b87911'/>"
+        f"<text x='175' y='430' font-size='15' fill='#102a43' text-anchor='middle' font-family='Segoe UI, sans-serif'>P, a (measured)</text>"
+        f"<text x='175' y='452' font-size='12.5' fill='#5b6773' text-anchor='middle' font-family='Segoe UI, sans-serif'>decades of astrometry</text>"
+        f"<rect x='360' y='400' width='230' height='70' rx='10' fill='#fff3e0' stroke='#b87911'/>"
+        f"<text x='475' y='430' font-size='15' fill='#102a43' text-anchor='middle' font-family='Segoe UI, sans-serif'>M = 4\u03c0\u00b2a\u00b3/(GP\u00b2)</text>"
+        f"<text x='475' y='452' font-size='12.5' fill='#5b6773' text-anchor='middle' font-family='Segoe UI, sans-serif'>Kepler\u2019s third law (dynamical chain)</text>"
+        f"<line x1='290' y1='435' x2='355' y2='435' stroke='#b87911' stroke-width='4' marker-end='url(#arrowDyn)'/>"
+        f"<line x1='590' y1='125' x2='740' y2='280' stroke='#0f6b78' stroke-width='4'/>"
+        f"<line x1='590' y1='435' x2='740' y2='320' stroke='#b87911' stroke-width='4'/>"
+        f"<rect x='740' y='230' width='190' height='140' rx='12' fill='#102a43'/>"
+        f"<text x='835' y='260' font-size='16' fill='#fff' text-anchor='middle' font-family='Segoe UI, sans-serif'>\u03b1 Cen AB</text>"
+        f"<text x='835' y='285' font-size='13' fill='#fff' text-anchor='middle' font-family='Segoe UI, sans-serif'>L agreement: {l_agree:.1f}%</text>"
+        f"<text x='835' y='308' font-size='13' fill='#fff' text-anchor='middle' font-family='Segoe UI, sans-serif'>M agreement: {m_agree:.2f}%</text>"
+        f"<text x='835' y='333' font-size='13' fill='#fff' text-anchor='middle' font-family='Segoe UI, sans-serif'>independent physics, same answer</text>"
+        f"<defs>"
+        f"<marker id='arrowRad' markerWidth='10' markerHeight='10' refX='8' refY='5' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='#0f6b78'/></marker>"
+        f"<marker id='arrowDyn' markerWidth='10' markerHeight='10' refX='8' refY='5' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='#b87911'/></marker>"
+        f"</defs>"
+    )
+    caption = _fig_caption('Two independent chains (radiative and dynamical) converge on the same physical description of \u03b1 Centauri AB.', y=595)
+    return _fig_wrap(n, item['title'], inner + caption, 'convergence diagram of radiative and dynamical measurement chains meeting on Alpha Centauri AB')
+
+
+_DIAGRAM_BUILDERS = {
+    1: diagram_01, 2: diagram_02, 3: diagram_03, 4: diagram_04, 5: diagram_05,
+    6: diagram_06, 7: diagram_07, 8: diagram_08, 9: diagram_09, 10: diagram_10,
+    11: diagram_11, 12: diagram_12, 13: diagram_13, 14: diagram_14,
+}
+
+
+def lecture_svg(item: dict) -> str:
+    return _DIAGRAM_BUILDERS[item['n']](item)
 
 
 # ---------------------------------------------------------------------------
@@ -742,11 +1178,7 @@ LECTURES = [
 
 def slide_deck(item: dict) -> str:
     n = item['n']
-    fig = lecture_svg(
-        n, item['title'],
-        left_label='observation', mid_label='physical law/derivation', right_label='inferred quantity',
-        caption=item['synthesis'],
-    )
+    fig = lecture_svg(item)
     body = f"""<main class='deck'>
 <section class='slide title'><p class='kicker'>ASTR 310 &middot; Lecture {n:02d}</p><h1>{escape(item['title'])}</h1><h2>{escape(item['subtitle'])}</h2></section>
 <section class='slide'><h2>Learning Goals</h2><ol>{li(item['goals'])}</ol><p class='small'>Reading anchor: {escape(item['openstax'])}</p></section>
@@ -757,7 +1189,7 @@ def slide_deck(item: dict) -> str:
 <section class='slide'><h2>Derivation and Model</h2><ul>{li(item['model'])}</ul></section>
 <section class='slide'><h2>Quantitative Tool</h2><div class='equation'>\\[ {item['equation']} \\]</div></section>
 <section class='slide'><h2>Worked Example</h2><ol>{li(item['example'])}</ol></section>
-<section class='slide visual-slide'><h2>Visual Reasoning</h2><div class='visual-grid'><div><p>Trace the reasoning chain from raw observation to derived physical law to inferred quantity in this lecture\u2019s figure.</p><ul><li>Which stage is directly observed?</li><li>Which stage is the physical law or derivation step?</li><li>What would change if an assumption in the derivation failed?</li></ul></div><figure class='visual-figure'>{fig}<figcaption>{escape(item['title'])}: from observation to inferred quantity.</figcaption></figure></div></section>
+<section class='slide visual-slide'><h2>Visual Reasoning</h2><div class='visual-grid'><div><p>Study how this lecture\u2019s figure turns the equation and worked example above into a concrete quantitative picture.</p><ul><li>Which numbers in the figure come directly from measurement, and which are computed from this lecture\u2019s physical law?</li><li>Where do the marked points match the worked-example values above?</li><li>What would change in the figure if a key assumption in the derivation failed?</li></ul></div><figure class='visual-figure'>{fig}<figcaption>{escape(item['synthesis'])}</figcaption></figure></div></section>
 <section class='slide'><h2>Common Misconception</h2><p class='warning'>{item['pitfall']}</p></section>
 <section class='slide'><h2>Active Learning Segment</h2><p>{item['activity']}</p></section>
 <section class='slide'><h2>Lab Connection</h2><p>{item['lab_connection']}</p></section>

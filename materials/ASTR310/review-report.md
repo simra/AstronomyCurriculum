@@ -71,6 +71,10 @@ The 14-lecture/7-lab/7-problem-set matched 1:1 biweekly cadence is explicitly do
 
 **Approved for review release.** This course was engineered from the outset to the ASTR230 depth benchmark and explicitly required to exceed it in quantitative rigor, per the user's request for a genuinely upper-division astrophysics course. This review independently recomputed eight separate worked examples spanning radiative, hydrostatic/virial, and orbital-mechanics content, catching and correcting two genuine defects (an overstated agreement claim in the virial-theorem temperature estimate, and a physically backwards tidal-acceleration-to-gravity comparison for Io) before approval. Not yet approved for instructional use pending the residual data-verification and accessibility items above.
 
+## Post-Approval Update: Unique Per-Lecture Visual-Reasoning Diagrams
+
+A later audit (2026-09-24) found that all 14 lecture decks had degraded to reusing one generic three-box SVG diagram, with only labels changing between lectures. All 14 visual-reasoning diagrams were replaced with structurally distinct, lecture-specific figures (Planck-function curves, an optical-depth attenuation plot, a two-body orbit diagram, a Roche-limit diagram, an Eddington-luminosity plot, etc.), each grounded in that lecture's own real data. Verified via grep that no repeated diagram signature remains across the course.
+
 ## Outstanding Items Before Instructional Use
 
 - **Human instructional approval:** required, as for every course package in this curriculum.

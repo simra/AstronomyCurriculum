@@ -47,22 +47,64 @@ def fmt(x, nd=3):
     return f"{x:.{nd}g}"
 
 
-def lecture_svg(n: int, title: str, left_label: str, mid_label: str, right_label: str, caption: str) -> str:
+# ---------------------------------------------------------------------------
+# Lecture-specific visual-reasoning diagrams (SVG). Each lecture gets a
+# structurally distinct figure (plotted curve, labeled physical diagram, bar
+# chart, or scaled schematic) built from the real constants and datasets
+# defined below, not a shared generic schematic. A small set of drawing
+# primitives (axes, polylines, labeled dots) is shared to avoid duplicating
+# boilerplate, but the assembled figure per lecture differs in shape and
+# content.
+# ---------------------------------------------------------------------------
+
+def _lin(v, vmin, vmax, a, b):
+    if vmax == vmin:
+        return a
+    return a + (v - vmin) / (vmax - vmin) * (b - a)
+
+
+def _axes(x0, y0, w, h, xlabel, ylabel, color='#5b6773'):
+    return (
+        f"<line x1='{x0}' y1='{y0 + h}' x2='{x0 + w}' y2='{y0 + h}' stroke='{color}' stroke-width='2'/>"
+        f"<line x1='{x0}' y1='{y0}' x2='{x0}' y2='{y0 + h}' stroke='{color}' stroke-width='2'/>"
+        f"<text x='{x0 + w / 2:.0f}' y='{y0 + h + 36}' font-size='16' fill='{color}' text-anchor='middle' "
+        f"font-family='Segoe UI, sans-serif'>{escape(xlabel)}</text>"
+        f"<text x='{x0}' y='{y0 - 14}' font-size='16' fill='{color}' font-family='Segoe UI, sans-serif'>{escape(ylabel)}</text>"
+    )
+
+
+def _polyline(pts, color='#0f6b78', width=3.5, dash=None):
+    s = ' '.join(f'{px:.1f},{py:.1f}' for px, py in pts)
+    dash_attr = f" stroke-dasharray='{dash}'" if dash else ''
+    return f"<polyline points='{s}' fill='none' stroke='{color}' stroke-width='{width}'{dash_attr}/>"
+
+
+def _dot(x, y, label=None, r=6, color='#b87911', dx=10, dy=-10, fs=14, anchor='start'):
+    out = f"<circle cx='{x:.1f}' cy='{y:.1f}' r='{r}' fill='{color}'/>"
+    if label:
+        out += (f"<text x='{x + dx:.1f}' y='{y + dy:.1f}' font-size='{fs}' fill='#17202a' "
+                 f"text-anchor='{anchor}' font-family='Segoe UI, sans-serif'>{escape(label)}</text>")
+    return out
+
+
+def _fig_header(n, title):
+    return (
+        f"<rect width='980' height='620' fill='#fbfcfd'/>"
+        f"<text x='34' y='42' font-size='22' fill='#102a43' font-family='Segoe UI, sans-serif'>"
+        f"Lecture {n:02d}: {escape(title)}</text>"
+    )
+
+
+def _fig_caption(text, y=602):
+    return (f"<text x='34' y='{y}' font-size='15' fill='#5b6773' "
+            f"font-family='Segoe UI, sans-serif'>{escape(text)}</text>")
+
+
+def _fig_wrap(n, title, inner, aria):
     return (
         f"<svg class='lecture-figure' data-lecture-figure='{n:02d}' viewBox='0 0 980 620' role='img' "
-        f"aria-label='Lecture {n:02d} visual model: {escape(title)}'>"
-        f"<rect width='980' height='620' fill='#fbfcfd'/>"
-        f"<text x='34' y='48' font-size='26' fill='#102a43' font-family='Segoe UI, sans-serif'>Lecture {n:02d}: {escape(title)}</text>"
-        f"<rect x='60' y='180' width='250' height='150' rx='14' fill='#0f6b78' opacity='.85'/>"
-        f"<rect x='365' y='180' width='250' height='150' rx='14' fill='#b87911' opacity='.85'/>"
-        f"<rect x='670' y='180' width='250' height='150' rx='14' fill='#102a43' opacity='.85'/>"
-        f"<path d='M310 255 L365 255 M615 255 L670 255' stroke='#5b6773' stroke-width='5' marker-end='url(#arrow)'/>"
-        f"<defs><marker id='arrow' markerWidth='10' markerHeight='10' refX='8' refY='5' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='#5b6773'/></marker></defs>"
-        f"<text x='80' y='260' font-size='19' fill='#fff' font-family='Segoe UI, sans-serif'>{escape(left_label)}</text>"
-        f"<text x='385' y='260' font-size='19' fill='#fff' font-family='Segoe UI, sans-serif'>{escape(mid_label)}</text>"
-        f"<text x='690' y='260' font-size='19' fill='#fff' font-family='Segoe UI, sans-serif'>{escape(right_label)}</text>"
-        f"<text x='34' y='470' font-size='19' fill='#5b6773' font-family='Segoe UI, sans-serif'>{escape(caption)}</text>"
-        f"</svg>"
+        f"aria-label='Lecture {n:02d} visual model: {escape(aria)}'>"
+        f"{_fig_header(n, title)}{inner}</svg>"
     )
 
 
@@ -221,6 +263,332 @@ EARTH_TEQ_ZERO_ALBEDO = TEQ_ZERO_ALBEDO['Earth']
 
 
 # ---------------------------------------------------------------------------
+# Diagram builders, one per lecture (see module docstring-level comment above
+# _lin/_axes/_polyline/_dot for the shared-primitive policy).
+# ---------------------------------------------------------------------------
+
+def diagram_01(lec) -> str:
+    """Mass-radius scatter of the eight planets showing the terrestrial/Jovian split."""
+    n = lec['n']
+    x0, y0, w, h = 120, 90, 760, 380
+    masses_em = [PLANETS[p]['mass'] / PLANETS['Earth']['mass'] for p in PLANETS]
+    radii_er = [PLANETS[p]['radius'] / PLANETS['Earth']['radius'] for p in PLANETS]
+    logm = [math.log10(m) for m in masses_em]
+    xmin, xmax = min(logm) - 0.3, max(logm) + 0.3
+    ymin, ymax = 0.0, max(radii_er) + 1.0
+    inner = _axes(x0, y0, w, h, 'log\u2081\u2080(mass / Earth mass)', 'radius (Earth radii)')
+    for name, lm, r in zip(PLANETS, logm, radii_er):
+        color = '#0f6b78' if DENSITIES[name] > 3000 else '#b87911'
+        px = _lin(lm, xmin, xmax, x0, x0 + w)
+        py = _lin(r, ymin, ymax, y0 + h, y0)
+        inner += _dot(px, py, f'{name} (\u03c1\u2248{DENSITIES[name]:.0f} kg/m\u00b3)', color=color, r=8, dy=-14)
+    caption = _fig_caption('Terrestrial planets (teal, \u03c1 > 3000 kg/m\u00b3) cluster at low mass and small radius; giant planets (gold) separate cleanly at high mass and large radius \u2014 the dichotomy quantified in this lecture\u2019s worked example.')
+    return _fig_wrap(n, lec['title'], inner + caption, 'mass-radius scatter of the eight solar system planets showing the terrestrial/Jovian split')
+
+
+def diagram_02(lec) -> str:
+    """Protoplanetary disk temperature versus distance, with the frost line marked."""
+    n = lec['n']
+    rs = [0.2 * (40.0 / 0.2) ** (i / 79) for i in range(80)]
+    temps = [equilibrium_temperature_k(L_SUN_W, r * AU_M, 0.0) for r in rs]
+    logr = [math.log10(r) for r in rs]
+    x0, y0, w, h = 120, 90, 760, 380
+    xmin, xmax = logr[0], logr[-1]
+    ymax = temps[0]
+    pts = [(_lin(lr, xmin, xmax, x0, x0 + w), _lin(min(t, ymax), 0, ymax, y0 + h, y0)) for lr, t in zip(logr, temps)]
+    frost_au = math.sqrt(L_SUN_W / (16 * math.pi * SIGMA_SB * 150.0 ** 4)) / AU_M
+    xf = _lin(math.log10(frost_au), xmin, xmax, x0, x0 + w)
+    yf = _lin(150.0, 0, ymax, y0 + h, y0)
+    y1400 = _lin(min(1400.0, ymax), 0, ymax, y0 + h, y0)
+    inner = (
+        _axes(x0, y0, w, h, 'distance from protosun, r (AU, log scale)', 'disk midplane temperature, T(r) (K)')
+        + _polyline(pts)
+        + f"<line x1='{x0}' y1='{y1400:.1f}' x2='{x0 + w}' y2='{y1400:.1f}' stroke='#8a4b08' stroke-width='2' stroke-dasharray='6,5'/>"
+        + f"<text x='{x0 + w - 10}' y='{y1400 - 8:.1f}' font-size='14' fill='#8a4b08' text-anchor='end' font-family='Segoe UI, sans-serif'>refractory condensation, \u2248 1400 K</text>"
+        + _dot(xf, yf, f'frost line: r \u2248 {frost_au:.2f} AU, T = 150 K', color='#0f6b78', dy=24)
+    )
+    caption = _fig_caption('Disk temperature T(r) falls with distance from the young Sun (the same equilibrium-temperature formula Lecture 08 derives in full); water ice condenses only beyond the frost line.')
+    return _fig_wrap(n, lec['title'], inner + caption, 'protoplanetary disk temperature versus distance with the frost line marked')
+
+
+def diagram_03(lec) -> str:
+    """Differentiated interior cross-sections of Earth, Mars, and the Moon, drawn to scale."""
+    n = lec['n']
+    bodies = [('Earth', 6371.0, 3480.0, 0.3307), ('Mars', 3389.5, 1830.0, 0.3644), ('Moon', 1737.4, 350.0, 0.3931)]
+    centers = [(210, 300), (490, 300), (770, 300)]
+    max_r = max(b[1] for b in bodies)
+    scale = 150.0 / max_r
+    inner = ''
+    for (name, rad, core, cmr2), (cx, cy) in zip(bodies, centers):
+        router, rcore = rad * scale, core * scale
+        inner += (
+            f"<circle cx='{cx}' cy='{cy}' r='{router:.1f}' fill='#e5f4f6' stroke='#0f6b78' stroke-width='2.5'/>"
+            f"<circle cx='{cx}' cy='{cy}' r='{rcore:.1f}' fill='#b87911' opacity='.85'/>"
+            f"<text x='{cx}' y='{cy + router + 30:.1f}' font-size='17' fill='#102a43' text-anchor='middle' font-family='Segoe UI, sans-serif'>{escape(name)}</text>"
+            f"<text x='{cx}' y='{cy + router + 52:.1f}' font-size='14' fill='#5b6773' text-anchor='middle' font-family='Segoe UI, sans-serif'>{escape(f'C/MR\u00b2 = {cmr2}, core \u2248 {core:.0f} km')}</text>"
+        )
+    caption = _fig_caption('Core radius (gold) drawn to scale from independently measured values (seismology for Earth and Mars, Apollo seismology/gravity for the Moon); smaller C/MR\u00b2 tracks a proportionally larger core.')
+    return _fig_wrap(n, lec['title'], inner + caption, 'labeled differentiated interior cross-sections of Earth, Mars, and the Moon drawn to scale by measured core radius')
+
+
+def diagram_04(lec) -> str:
+    """Radiogenic decay curves for K-40, U-238, and Th-232 versus time since formation."""
+    n = lec['n']
+    isotopes = [('\u2074\u2074K', 1.25, '#b87911'), ('\u00b2\u00b3\u2078U', 4.47, '#0f6b78'), ('\u00b2\u00b3\u00b2Th', 14.0, '#102a43')]
+    ts = [0.05 * i for i in range(93)]
+    x0, y0, w, h = 120, 90, 760, 380
+    inner = _axes(x0, y0, w, h, 'time since formation, t (Gyr)', 'surviving fraction, e\u2212\u03bbt')
+    for label, half_life, color in isotopes:
+        lam = math.log(2) / half_life
+        pts = [(_lin(t, 0, 4.6, x0, x0 + w), _lin(math.exp(-lam * t), 0, 1, y0 + h, y0)) for t in ts]
+        inner += _polyline(pts, color=color)
+        y_now = math.exp(-lam * 4.5)
+        x_now = _lin(4.5, 0, 4.6, x0, x0 + w)
+        y_now_px = _lin(y_now, 0, 1, y0 + h, y0)
+        inner += _dot(x_now, y_now_px, f'{label}: {y_now * 100:.1f}% remains at 4.5 Gyr', color=color, dy=-14)
+    caption = _fig_caption('Each isotope decays on its own half-life; short-lived \u2074\u2074K has declined far more than long-lived \u00b2\u00b3\u00b2Th, exactly why Earth\u2019s radiogenic heat budget was higher in the Archean than it is today.')
+    return _fig_wrap(n, lec['title'], inner + caption, 'radiogenic decay curves for potassium-40, uranium-238, and thorium-232 versus time, with present-day Earth age marked')
+
+
+def diagram_05(lec) -> str:
+    """Labeled cross-section of a mid-ocean ridge and subduction zone."""
+    n = lec['n']
+    ys = 210
+    inner = (
+        f"<rect x='60' y='{ys}' width='860' height='250' fill='#e5f4f6' stroke='#0f6b78' stroke-width='1'/>"
+        f"<polygon points='470,{ys} 530,{ys} 500,{ys - 55}' fill='#b87911'/>"
+        f"<text x='500' y='{ys - 65}' font-size='15' text-anchor='middle' fill='#102a43' font-family='Segoe UI, sans-serif'>mid-ocean ridge (new crust, hot)</text>"
+        f"<line x1='500' y1='{ys}' x2='170' y2='{ys + 230}' stroke='#102a43' stroke-width='7'/>"
+        f"<text x='120' y='{ys + 60}' font-size='14' fill='#102a43' font-family='Segoe UI, sans-serif'>subducting</text>"
+        f"<text x='120' y='{ys + 80}' font-size='14' fill='#102a43' font-family='Segoe UI, sans-serif'>slab (cold, dense)</text>"
+        f"<line x1='500' y1='{ys}' x2='850' y2='{ys}' stroke='#5b6773' stroke-width='4'/>"
+        f"<text x='680' y='{ys - 12}' font-size='13.5' fill='#5b6773' text-anchor='middle' font-family='Segoe UI, sans-serif'>crust ages away from ridge (0 \u2192 \u2248180 Myr, oldest preserved seafloor)</text>"
+        f"<path d='M330,{ys + 160} Q 420,{ys + 90} 500,{ys + 15}' stroke='#8a4b08' stroke-width='4' fill='none' marker-end='url(#pt5arrow)'/>"
+        f"<defs><marker id='pt5arrow' markerWidth='10' markerHeight='10' refX='8' refY='5' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='#8a4b08'/></marker></defs>"
+        f"<text x='245' y='{ys + 200}' font-size='14' fill='#8a4b08' font-family='Segoe UI, sans-serif'>mantle convective return flow</text>"
+    )
+    caption = _fig_caption('Mantle convection (Lecture 04\u2019s Rayleigh-number criterion) drives seafloor spreading at the ridge and crustal recycling at the subduction zone, consistent with this lecture\u2019s \u224872 km\u00b2/yr recycling-rate estimate.')
+    return _fig_wrap(n, lec['title'], inner + caption, 'labeled cross-section of a mid-ocean ridge and subduction zone showing crustal age and mantle return flow')
+
+
+def diagram_06(lec) -> str:
+    """Log-log crater-scaling curve calibrated with the Chicxulub and Meteor Crater impacts."""
+    n = lec['n']
+    mass_chi = 4 / 3 * math.pi * 6000.0 ** 3 * 3000.0
+    e_chi = 0.5 * mass_chi * 20000.0 ** 2
+    d_chi = 165000.0
+    mass_met = 4 / 3 * math.pi * 25.0 ** 3 * 7800.0
+    e_met = 0.5 * mass_met * 12500.0 ** 2
+    d_met = 1200.0
+    k = d_chi / e_chi ** (2 / 9)
+    es = [10 ** (10 + 0.2 * i) for i in range(60)]
+    ds = [k * e ** (2 / 9) for e in es]
+    x0, y0, w, h = 120, 90, 760, 380
+    loge = [math.log10(e) for e in es]
+    logd = [math.log10(d) for d in ds]
+    xmin, xmax = loge[0], loge[-1]
+    ymin, ymax = min(logd), max(logd)
+    pts = [(_lin(le, xmin, xmax, x0, x0 + w), _lin(ld, ymin, ymax, y0 + h, y0)) for le, ld in zip(loge, logd)]
+    xc = _lin(math.log10(e_chi), xmin, xmax, x0, x0 + w)
+    yc = _lin(math.log10(d_chi), ymin, ymax, y0 + h, y0)
+    xm = _lin(math.log10(e_met), xmin, xmax, x0, x0 + w)
+    ym = _lin(math.log10(d_met), ymin, ymax, y0 + h, y0)
+    inner = (
+        _axes(x0, y0, w, h, 'log\u2081\u2080(impact kinetic energy, J)', 'log\u2081\u2080(final crater diameter, m)')
+        + _polyline(pts)
+        + _dot(xc, yc, f'Chicxulub: E\u2248{e_chi:.1e} J, D\u2248{d_chi / 1000:.0f} km', dy=-16)
+        + _dot(xm, ym, f'Meteor Crater: E\u2248{e_met:.1e} J, D\u2248{d_met / 1000:.2f} km', dy=22)
+    )
+    caption = _fig_caption('Crater diameter scales sub-linearly with impact energy, D \u221d E\u00b2\u2044\u2079 (pi-group scaling), calibrated here through the Chicxulub impactor and cross-checked against the much smaller Meteor Crater event.')
+    return _fig_wrap(n, lec['title'], inner + caption, 'log-log crater-scaling curve calibrated with the Chicxulub and Meteor Crater impacts')
+
+
+def diagram_07(lec) -> str:
+    """Exponential pressure-versus-altitude curves for Earth, Venus, and Mars scale heights."""
+    n = lec['n']
+    x0, y0, w, h = 120, 90, 760, 380
+    zs = [i * 400.0 for i in range(101)]
+    series = [('Earth', EARTH_H_N2, '#0f6b78'), ('Venus', VENUS_H_CO2, '#b87911'), ('Mars', MARS_H_CO2, '#102a43')]
+    inner = _axes(x0, y0, w, h, 'altitude, z (km)', 'P(z)/P\u2080 = e\u2212z/H')
+    for label, hval, color in series:
+        pts = [(_lin(z, 0, 40000.0, x0, x0 + w), _lin(math.exp(-z / hval), 0, 1, y0 + h, y0)) for z in zs]
+        inner += _polyline(pts, color=color)
+        xz = _lin(38000.0, 0, 40000.0, x0, x0 + w)
+        yz = _lin(math.exp(-38000.0 / hval), 0, 1, y0 + h, y0)
+        inner += _dot(xz, yz, f'{label}: H\u2248{hval / 1000:.2f} km', color=color, dy=-10, anchor='end', dx=-6)
+    caption = _fig_caption(f'Earth H\u2248{EARTH_H_N2 / 1000:.2f} km, Venus H\u2248{VENUS_H_CO2 / 1000:.2f} km, Mars H\u2248{MARS_H_CO2 / 1000:.2f} km \u2014 Mars\u2019s weak gravity nearly offsets its cold temperature relative to hot, heavy-atmosphere Venus.')
+    return _fig_wrap(n, lec['title'], inner + caption, 'exponential pressure-versus-altitude curves for Earth, Venus, and Mars scale heights')
+
+
+def diagram_08(lec) -> str:
+    """Equilibrium temperature versus distance from the Sun for the eight planets."""
+    n = lec['n']
+    x0, y0, w, h = 120, 90, 760, 380
+    a_list = [PLANETS[p]['a_au'] for p in PLANETS]
+    loga = [math.log10(a) for a in a_list]
+    teqs = [TEQ_BOND[p] for p in PLANETS]
+    xmin, xmax = min(loga) - 0.2, max(loga) + 0.2
+    ymin, ymax = 0.0, max(teqs) + 60
+    a_curve = [0.3 * (40.0 / 0.3) ** (i / 79) for i in range(80)]
+    t_curve = [equilibrium_temperature_k(L_SUN_W, a * AU_M, 0.0) for a in a_curve]
+    pts = [(_lin(math.log10(a), xmin, xmax, x0, x0 + w), _lin(t, ymin, ymax, y0 + h, y0)) for a, t in zip(a_curve, t_curve)]
+    inner = _axes(x0, y0, w, h, 'semimajor axis, a (AU, log scale)', 'equilibrium temperature, T_eq (K)') + _polyline(pts, dash='4,4')
+    for name, la, t in zip(PLANETS, loga, teqs):
+        px = _lin(la, xmin, xmax, x0, x0 + w)
+        py = _lin(t, ymin, ymax, y0 + h, y0)
+        inner += _dot(px, py, f'{name}: {t:.0f} K', dy=-14)
+    caption = _fig_caption('Dashed curve: zero-albedo T_eq \u221d a\u207b\u00b9\u2044\u00b2 trend (this lecture\u2019s formula). Marked points use each planet\u2019s real Bond albedo, so Venus sits above and Mercury sits near the zero-albedo line.')
+    return _fig_wrap(n, lec['title'], inner + caption, 'equilibrium temperature versus distance from the Sun for the eight planets with the zero-albedo trend curve')
+
+
+def diagram_09(lec) -> str:
+    """Jeans escape parameter versus planet mass for the four terrestrial planets."""
+    n = lec['n']
+    x0, y0, w, h = 120, 90, 760, 380
+    names = ['Mercury', 'Venus', 'Earth', 'Mars']
+    masses_em = [PLANETS[p]['mass'] / PLANETS['Earth']['mass'] for p in names]
+    lambdas = [jeans_parameter(ESCAPE_VS[p], EARTH_H2_THERMAL_V) for p in names]
+    logm = [math.log10(m) for m in masses_em]
+    logl = [math.log10(v) for v in lambdas]
+    xmin, xmax = min(logm) - 0.3, max(logm) + 0.3
+    ymin, ymax = min(logl) - 0.3, max(logl) + 0.3
+    inner = _axes(x0, y0, w, h, 'log\u2081\u2080(planet mass / Earth mass)', 'log\u2081\u2080(Jeans parameter \u03bb, H\u2082 at 1000 K)')
+    pts = []
+    for name, lm, ll in zip(names, logm, logl):
+        px, py = _lin(lm, xmin, xmax, x0, x0 + w), _lin(ll, ymin, ymax, y0 + h, y0)
+        pts.append((px, py))
+        inner += _dot(px, py, f'{name}: \u03bb\u2248{10 ** ll:.1f}', dy=-14)
+    inner += _polyline(pts, color='#5b6773', dash='5,4')
+    caption = _fig_caption('Escape flux falls roughly as e\u2212\u03bb, so Mars\u2019s smaller \u03bb (weaker gravity) implies far more efficient hydrogen/water loss than Earth\u2019s, consistent with Mars\u2019s depleted present-day water inventory.')
+    return _fig_wrap(n, lec['title'], inner + caption, 'Jeans escape parameter for hydrogen versus planet mass for the four terrestrial planets')
+
+
+def diagram_10(lec) -> str:
+    """Schematic magnetopause standoff diagram plus a log-scale dipole-moment comparison."""
+    n = lec['n']
+    earth_moment, mercury_moment = 8e22, 4e19
+    jupiter_moment = earth_moment * 20000.0
+    cx, cy = 230, 340
+    inner = (
+        f"<circle cx='{cx}' cy='{cy}' r='45' fill='#102a43'/>"
+        f"<path d='M {cx + 36},{cy - 150} C {cx + 200},{cy - 110} {cx + 200},{cy + 110} {cx + 36},{cy + 150}' fill='none' stroke='#0f6b78' stroke-width='3'/>"
+        f"<path d='M {cx - 36},{cy - 150} C {cx - 200},{cy - 190} {cx - 235},{cy} {cx - 200},{cy + 190}' fill='none' stroke='#0f6b78' stroke-width='3'/>"
+        f"<line x1='40' y1='{cy}' x2='{cx - 80}' y2='{cy}' stroke='#b87911' stroke-width='4' marker-end='url(#swarrow)'/>"
+        f"<text x='42' y='{cy - 14}' font-size='14' fill='#b87911' font-family='Segoe UI, sans-serif'>solar wind</text>"
+        f"<text x='{cx + 55}' y='{cy - 158}' font-size='14' fill='#0f6b78' font-family='Segoe UI, sans-serif'>magnetopause, \u2248 10 R\u2091 standoff</text>"
+        f"<defs><marker id='swarrow' markerWidth='10' markerHeight='10' refX='8' refY='5' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='#b87911'/></marker></defs>"
+    )
+    x0, y0, w, h = 610, 130, 320, 320
+    bars = [('Mercury', mercury_moment, '#b87911'), ('Earth', earth_moment, '#0f6b78'), ('Jupiter', jupiter_moment, '#102a43')]
+    xmin, xmax = 18.5, 27.5
+    inner += _axes(x0, y0, w, h, 'dipole moment (A\u00b7m\u00b2, log scale)', '')
+    bw = h / (len(bars) + 1)
+    for i, (name, moment, color) in enumerate(bars):
+        by = y0 + bw * (i + 0.5)
+        bx = _lin(math.log10(moment), xmin, xmax, x0, x0 + w)
+        inner += (f"<line x1='{x0}' y1='{by:.1f}' x2='{bx:.1f}' y2='{by:.1f}' stroke='{color}' stroke-width='16'/>"
+                  f"<text x='{x0 + 8}' y='{by - 12:.1f}' font-size='13.5' fill='#102a43' font-family='Segoe UI, sans-serif'>{escape(f'{name}: {moment:.1e} A\u00b7m\u00b2')}</text>")
+    caption = _fig_caption('Magnetopause standoff distance follows pressure balance between a planet\u2019s dipole field and solar-wind dynamic pressure; Jupiter\u2019s field, \u224820,000\u00d7 Earth\u2019s, stands its magnetopause off at dozens of Jupiter radii.')
+    return _fig_wrap(n, lec['title'], inner + caption, 'schematic magnetopause standoff diagram with a log-scale comparison of Mercury, Earth, and Jupiter dipole moments')
+
+
+def diagram_11(lec) -> str:
+    """Bar chart comparing the mean densities of the four giant planets against water."""
+    n = lec['n']
+    names = ['Jupiter', 'Saturn', 'Uranus', 'Neptune']
+    x0, y0, w, h = 150, 90, 700, 380
+    ymax = max(DENSITIES[p] for p in names) + 300
+    y_water = _lin(1000.0, 0, ymax, y0 + h, y0)
+    inner = (_axes(x0, y0, w, h, '', 'mean density, \u03c1 (kg/m\u00b3)')
+             + f"<line x1='{x0}' y1='{y_water:.1f}' x2='{x0 + w}' y2='{y_water:.1f}' stroke='#8a4b08' stroke-width='2' stroke-dasharray='6,5'/>"
+             + f"<text x='{x0 + w - 10}' y='{y_water - 8:.1f}' font-size='14' fill='#8a4b08' text-anchor='end' font-family='Segoe UI, sans-serif'>density of water, 1000 kg/m\u00b3</text>")
+    bw = w / (len(names) * 1.6)
+    for i, name in enumerate(names):
+        bx = x0 + w / 8 + i * (w / 4)
+        rho = DENSITIES[name]
+        by = _lin(rho, 0, ymax, y0 + h, y0)
+        color = '#0f6b78' if rho > 1000 else '#b87911'
+        inner += (f"<rect x='{bx - bw / 2:.1f}' y='{by:.1f}' width='{bw:.1f}' height='{y0 + h - by:.1f}' fill='{color}'/>"
+                  f"<text x='{bx:.1f}' y='{y0 + h + 26:.1f}' font-size='15' fill='#102a43' text-anchor='middle' font-family='Segoe UI, sans-serif'>{escape(f'{name} ({rho:.0f})')}</text>")
+    caption = _fig_caption('Saturn is the only planet in the solar system less dense than water; Jupiter\u2019s stronger self-gravity compresses a similar hydrogen/helium composition to higher density (the self-compression argument from Lecture 03).')
+    return _fig_wrap(n, lec['title'], inner + caption, 'bar chart comparing the mean densities of the four giant planets against the density of water')
+
+
+def diagram_12(lec) -> str:
+    """Radial number-line diagram comparing Saturn's A ring outer edge to the Roche limits."""
+    n = lec['n']
+    x0, y0, w = 120, 340, 800
+    xmax_rs = A_RING_OUTER_RS + 0.4
+    inner = f"<line x1='{x0}' y1='{y0}' x2='{x0 + w}' y2='{y0}' stroke='#5b6773' stroke-width='3'/>"
+    marks = sorted([
+        (1.0, 'Saturn\u2019s cloud tops (1 R_S)', '#102a43'),
+        (ROCHE_ICE_SATURN_RS, f'rigid Roche limit ({ROCHE_ICE_SATURN_RS:.2f} R_S)', '#b87911'),
+        (A_RING_OUTER_RS, f'A ring outer edge ({A_RING_OUTER_RS:.2f} R_S)', '#0f6b78'),
+        (ROCHE_FLUID_SATURN_RS, f'fluid Roche limit ({ROCHE_FLUID_SATURN_RS:.2f} R_S)', '#8a4b08'),
+    ])
+    for i, (rs, label, color) in enumerate(marks):
+        px = _lin(rs, 0, xmax_rs, x0, x0 + w)
+        dy_txt = -20 if i % 2 == 0 else 40
+        inner += (f"<line x1='{px:.1f}' y1='{y0 - 14}' x2='{px:.1f}' y2='{y0 + 14}' stroke='{color}' stroke-width='4'/>"
+                  f"<text x='{px:.1f}' y='{y0 + dy_txt:.1f}' font-size='14' fill='{color}' text-anchor='middle' font-family='Segoe UI, sans-serif'>{escape(label)}</text>")
+    caption = _fig_caption('Saturn\u2019s real A ring outer edge sits close to the fluid (deformable-body) Roche limit, not the rigid-body limit \u2014 real ice ring particles behave like a self-gravitating fluid, not a rigid sphere.')
+    return _fig_wrap(n, lec['title'], inner + caption, 'radial number-line diagram comparing Saturn\u2019s A ring outer edge to the rigid and fluid Roche limits')
+
+
+def diagram_13(lec) -> str:
+    """Tidal acceleration (as % of own gravity) versus orbital eccentricity for three moons."""
+    n = lec['n']
+    x0, y0, w, h = 150, 90, 700, 380
+    moons = [('Io', IO['ecc'], IO_TIDAL_FRAC, '#b87911'), ('Europa', EUROPA['ecc'], EUROPA_TIDAL_FRAC, '#0f6b78'),
+              ('Enceladus', ENCELADUS['ecc'], ENCELADUS_TIDAL_FRAC, '#102a43')]
+    xmax = max(m[1] for m in moons) * 1.3
+    ymax = max(m[2] for m in moons) * 1.3
+    inner = _axes(x0, y0, w, h, 'orbital eccentricity, e', 'tidal acceleration as % of own surface gravity')
+    for name, e, frac, color in moons:
+        px = _lin(e, 0, xmax, x0, x0 + w)
+        py = _lin(frac, 0, ymax, y0 + h, y0)
+        r = 8 + 10 * (frac / ymax)
+        inner += (f"<circle cx='{px:.1f}' cy='{py:.1f}' r='{r:.1f}' fill='{color}' opacity='.85'/>"
+                  f"<text x='{px + 14:.1f}' y='{py - 12:.1f}' font-size='15' fill='#102a43' font-family='Segoe UI, sans-serif'>{escape(f'{name}: e={e}, {frac:.2f}%')}</text>")
+    caption = _fig_caption('Enceladus\u2019s tidal fraction is the largest of the three (its own gravity is weakest), while Io\u2019s far larger absolute tidal heating drives its extreme volcanism \u2014 two different rankings that must not be conflated.')
+    return _fig_wrap(n, lec['title'], inner + caption, 'tidal acceleration as a percentage of surface gravity versus orbital eccentricity for Io, Europa, and Enceladus')
+
+
+def diagram_14(lec) -> str:
+    """TRAPPIST-1 planetary system orbital diagram drawn to scale."""
+    n = lec['n']
+    cx, cy = 490, 330
+    max_a = max(d['a_au'] for d in TRAPPIST1_PLANETS.values())
+    max_r = 260.0
+    inner = (f"<circle cx='{cx}' cy='{cy}' r='10' fill='#b87911'/>"
+             f"<text x='{cx}' y='{cy - 18}' font-size='14' fill='#102a43' text-anchor='middle' font-family='Segoe UI, sans-serif'>TRAPPIST-1</text>")
+    habitable = {'e', 'f', 'g'}
+    for i, (p, d) in enumerate(TRAPPIST1_PLANETS.items()):
+        r_px = _lin(d['a_au'], 0, max_a, 0, max_r) + 20
+        color = '#0f6b78' if p in habitable else '#5b6773'
+        inner += f"<circle cx='{cx}' cy='{cy}' r='{r_px:.1f}' fill='none' stroke='{color}' stroke-width='1.5' stroke-dasharray='3,3'/>"
+        angle = -0.6 + i * 0.5
+        px, py = cx + r_px * math.cos(angle), cy + r_px * math.sin(angle)
+        pr = 7 if p in habitable else 5
+        a_au = d['a_au']
+        inner += (f"<circle cx='{px:.1f}' cy='{py:.1f}' r='{pr}' fill='{color}'/>"
+                  f"<text x='{px + 10:.1f}' y='{py - 10:.1f}' font-size='13' fill='#102a43' font-family='Segoe UI, sans-serif'>{escape(f'{p}: {a_au} AU')}</text>")
+    caption = _fig_caption('All seven TRAPPIST-1 planets orbit closer than Mercury orbits the Sun (0.39 AU); e, f, g (teal) are the system\u2019s commonly cited habitable-zone candidates.')
+    return _fig_wrap(n, lec['title'], inner + caption, 'TRAPPIST-1 planetary system orbital diagram drawn to scale with habitable-zone candidates marked')
+
+
+_DIAGRAM_BUILDERS = {
+    1: diagram_01, 2: diagram_02, 3: diagram_03, 4: diagram_04, 5: diagram_05,
+    6: diagram_06, 7: diagram_07, 8: diagram_08, 9: diagram_09, 10: diagram_10,
+    11: diagram_11, 12: diagram_12, 13: diagram_13, 14: diagram_14,
+}
+
+
+def get_diagram(lec) -> str:
+    return _DIAGRAM_BUILDERS[lec['n']](lec)
+
+
+# ---------------------------------------------------------------------------
 # Slide-deck / notes rendering helpers
 # ---------------------------------------------------------------------------
 
@@ -251,12 +619,25 @@ def summary_slide(summary, preview: str) -> str:
     return slide('', f"<h2>Summary and Next Lecture</h2><ul>{li(summary)}</ul><p class='small'>Next: {escape(preview)}</p>")
 
 
+def visual_slide(lec) -> str:
+    fig = get_diagram(lec)
+    prompts = (
+        "<p>Study how this lecture\u2019s figure turns the derivation and worked example above into a concrete quantitative picture.</p>"
+        "<ul><li>Which numbers in the figure come directly from measurement, and which are computed from this lecture\u2019s physical law?</li>"
+        "<li>Where do the marked points or curves match the worked-example values above?</li>"
+        "<li>What would change in the figure if a key assumption in the derivation failed?</li></ul>"
+    )
+    return slide('visual-slide', f"<h2>Visual Reasoning</h2><div class='visual-grid'><div>{prompts}</div>"
+                                  f"<figure class='visual-figure'>{fig}<figcaption>{escape(lec['summary'][0])}</figcaption></figure></div>")
+
+
 def build_deck(lec) -> str:
     body = title_slide(lec['n'], lec['title'], lec['kicker'], lec['subtitle'])
     body += objectives_slide(lec['objectives'])
     for heading, bullets, _notes in lec['sections']:
         body += bullets_slide(heading, bullets)
     body += worked_slide(lec['worked_title'], lec['worked_steps'])
+    body += visual_slide(lec)
     body += summary_slide(lec['summary'], lec['preview'])
     return page(f"ASTR 320 Lecture {lec['n']:02d}: {lec['title']}", f"<div class='deck'>{body}</div>", SLIDE_CSS)
 

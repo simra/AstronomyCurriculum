@@ -51,6 +51,10 @@ These are exactly the class of defects the course-materials-review skill is desi
 
 **Approved for review release.** This package was engineered from the outset to the ASTR230/ASTR310 depth benchmark, with real derivations appropriate to a 300-level course, real (TRAPPIST-1, level 1) and standard-published (level 2) data throughout, and three genuine defects caught and corrected by independent recomputation rather than accepted at face value. Not yet approved for instructional use pending the residual data-verification and accessibility items below.
 
+## Post-Approval Update: Added Missing Per-Lecture Visual-Reasoning Diagrams
+
+A later audit (2026-09-24) found that all 14 lecture decks had NO visual-reasoning slide or figure at all. A genuine, lecture-specific SVG diagram was added to all 14 lectures (a mass-radius scatter of the solar-system planets, a condensation-sequence/frost-line plot, differentiated-interior cross-sections, a Jeans-escape plot, a TRAPPIST-1 orbital diagram, etc.), each grounded in that lecture's own real data. Verified via grep that all 14 lectures now contain a real Visual Reasoning section with an SVG figure.
+
 ## Outstanding Items Before Instructional Use
 
 - **Human instructional approval:** required, as for every course package in this curriculum.

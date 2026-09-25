@@ -77,6 +77,7 @@ Treat shallow materials as blocking defects when they would prevent real instruc
 - Repeated visual-reasoning or template slides that do not change meaningfully between lectures should be flagged for lecture-specific replacement.
 - Figures that are too small to inspect during lecture should be flagged as blocking defects for slide quality.
 - Generic repeated schematics across multiple lectures should be rejected unless each instance carries lecture-specific scientific content.
+- Perform a mechanical check across a course's lecture files for a repeated generic visual-reasoning diagram: if the same SVG shape coordinates/layout (e.g., identical rectangle positions and colors) appear across most or all lectures with only text labels differing, treat this as a blocking defect, even if each lecture's surrounding prose is otherwise lecture-specific. A missing visual-reasoning slide in most/all lectures of a course (no figure at all) is likewise a blocking defect; omitting the slide is acceptable only as a rare, individually-justified exception.
 - Review slide quality against the standard of a serious undergraduate astronomy course at institutions such as MIT or Stanford: rigorous, visually legible, conceptually precise, and worthy of classroom use.
 - Lecture notes should expand slides into study-ready explanations, not merely repeat slide headings.
 - Problem sets should contain concrete, lecture-specific questions and should not reuse generic interchangeable prompts across assignments.

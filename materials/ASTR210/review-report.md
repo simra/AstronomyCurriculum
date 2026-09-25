@@ -22,6 +22,10 @@ The prior "Approved for review release" status recorded in this file was granted
 
 After the second-pass approval below, Lecture 1, Lecture 3, Lab 01, and Problem Set 1 were regrounded in real Canon EOS M50 calibration data (bias/dark/flat master frames and light-frame patches from a real 2022-07-19 BackyardEOS/Astro Pixel Processor imaging session, verified directly from the FITS headers and raw CR3 pixel data), replacing the previously synthetic "cooled CCD imager" bias/dark/flat numbers. The calibration model was also corrected from a separate bias-then-dark subtraction to a single matched-exposure dark subtraction (I_cal=(raw-D)/F), which is the physically correct model for this camera's master-dark workflow and is more advanced/accurate than the original synthetic example. See `reference-log.md` for exact file citations and patch coordinates. Lab 02 remains an intentionally synthetic, computation-only SNR exercise and does not require raw frames.
 
+## Post-Approval Update: Unique Per-Lecture Visual-Reasoning Diagrams
+
+A later audit (2026-09-24) found that all 14 lecture decks had degraded to reusing one generic three-box "raw/observed → calibration/model → calibrated claim" SVG diagram, with only labels changing between lectures — exactly the repeated-generic-schematic defect the review skill is meant to catch. All 14 visual-reasoning diagrams were replaced with structurally distinct, lecture-specific figures (real plotted curves, calibration-frame textures, SNR bar charts, light curves, astrometric vectors, wavelength-solution plots, etc.), each grounded in that lecture's own real data. Verified via grep that no repeated diagram signature remains across the course. See the course-materials-review and lecture-slide-authoring skills for the new mechanical check this regression prompted.
+
 ## Remaining Review Items
 
 - Human reviewer should confirm the local teaching style matches the depth level chosen here (15-slide decks, four-problem problem sets).

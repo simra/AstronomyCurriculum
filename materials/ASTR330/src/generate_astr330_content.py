@@ -48,25 +48,6 @@ def cards(items) -> str:
     return ''.join(f'<article class="card"><p>{escape(x)}</p></article>' for x in items)
 
 
-def lecture_svg(n: int, title: str, left_label: str, mid_label: str, right_label: str, caption: str) -> str:
-    return (
-        f"<svg class='lecture-figure' data-lecture-figure='{n:02d}' viewBox='0 0 980 620' role='img' "
-        f"aria-label='Lecture {n:02d} visual model: {escape(title)}'>"
-        f"<rect width='980' height='620' fill='#fbfcfd'/>"
-        f"<text x='34' y='48' font-size='26' fill='#102a43' font-family='Segoe UI, sans-serif'>Lecture {n:02d}: {escape(title)}</text>"
-        f"<rect x='60' y='180' width='250' height='150' rx='14' fill='#0f6b78' opacity='.85'/>"
-        f"<rect x='365' y='180' width='250' height='150' rx='14' fill='#b87911' opacity='.85'/>"
-        f"<rect x='670' y='180' width='250' height='150' rx='14' fill='#102a43' opacity='.85'/>"
-        f"<path d='M310 255 L365 255 M615 255 L670 255' stroke='#5b6773' stroke-width='5' marker-end='url(#arrow)'/>"
-        f"<defs><marker id='arrow' markerWidth='10' markerHeight='10' refX='8' refY='5' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='#5b6773'/></marker></defs>"
-        f"<text x='80' y='260' font-size='19' fill='#fff' font-family='Segoe UI, sans-serif'>{escape(left_label)}</text>"
-        f"<text x='385' y='260' font-size='19' fill='#fff' font-family='Segoe UI, sans-serif'>{escape(mid_label)}</text>"
-        f"<text x='690' y='260' font-size='19' fill='#fff' font-family='Segoe UI, sans-serif'>{escape(right_label)}</text>"
-        f"<text x='34' y='470' font-size='19' fill='#5b6773' font-family='Segoe UI, sans-serif'>{escape(caption)}</text>"
-        f"</svg>"
-    )
-
-
 # ---------------------------------------------------------------------------
 # Physical constants (SI unless noted)
 # ---------------------------------------------------------------------------
@@ -336,6 +317,524 @@ SN_BINDING_ENERGY_RELEASED_J = (3.0 / 5.0) * G_NEWTON * (SN_CORE_MASS_MSUN * M_S
     1.0 / SN_REMNANT_RADIUS_M - 1.0 / SN_PROGENITOR_CORE_RADIUS_M)
 SN_OBSERVED_KINETIC_PLUS_LIGHT_J = 1.0e44  # standard published typical core-collapse SN observed energy (level 2)
 SN_NEUTRINO_FRACTION_ESTIMATE = 1.0 - (SN_OBSERVED_KINETIC_PLUS_LIGHT_J / SN_BINDING_ENERGY_RELEASED_J)
+
+# ---------------------------------------------------------------------------
+# Lecture-specific visual-reasoning diagrams (SVG). Each lecture gets a
+# structurally distinct figure (plotted curve, numerically integrated model,
+# energy-level diagram, or labeled physical diagram) built from the real
+# constants and datasets defined above, not a shared generic schematic. A
+# small set of drawing primitives (axes, polylines, labeled dots) is shared
+# to avoid duplicating boilerplate, but the assembled figure per lecture
+# differs in shape and content (see materials/ASTR310/src for the precedent
+# this pattern follows).
+# ---------------------------------------------------------------------------
+
+def _lin(v, vmin, vmax, a, b):
+    if vmax == vmin:
+        return a
+    return a + (v - vmin) / (vmax - vmin) * (b - a)
+
+
+def _axes(x0, y0, w, h, xlabel, ylabel, color='#5b6773'):
+    return (
+        f"<line x1='{x0}' y1='{y0 + h}' x2='{x0 + w}' y2='{y0 + h}' stroke='{color}' stroke-width='2'/>"
+        f"<line x1='{x0}' y1='{y0}' x2='{x0}' y2='{y0 + h}' stroke='{color}' stroke-width='2'/>"
+        f"<text x='{x0 + w / 2:.0f}' y='{y0 + h + 36}' font-size='16' fill='{color}' text-anchor='middle' "
+        f"font-family='Segoe UI, sans-serif'>{escape(xlabel)}</text>"
+        f"<text x='{x0}' y='{y0 - 14}' font-size='16' fill='{color}' font-family='Segoe UI, sans-serif'>{escape(ylabel)}</text>"
+    )
+
+
+def _polyline(pts, color='#0f6b78', width=3.5, dash=None):
+    s = ' '.join(f'{px:.1f},{py:.1f}' for px, py in pts)
+    dash_attr = f" stroke-dasharray='{dash}'" if dash else ''
+    return f"<polyline points='{s}' fill='none' stroke='{color}' stroke-width='{width}'{dash_attr}/>"
+
+
+def _dot(x, y, label=None, r=6, color='#b87911', dx=10, dy=-10, fs=14, anchor='start'):
+    out = f"<circle cx='{x:.1f}' cy='{y:.1f}' r='{r}' fill='{color}'/>"
+    if label:
+        out += (f"<text x='{x + dx:.1f}' y='{y + dy:.1f}' font-size='{fs}' fill='#17202a' "
+                 f"text-anchor='{anchor}' font-family='Segoe UI, sans-serif'>{escape(label)}</text>")
+    return out
+
+
+def _fig_header(n, title):
+    return (
+        f"<rect width='980' height='620' fill='#fbfcfd'/>"
+        f"<text x='34' y='42' font-size='23' fill='#102a43' font-family='Segoe UI, sans-serif'>"
+        f"Lecture {n:02d}: {escape(title)}</text>"
+    )
+
+
+def _fig_caption(text, y=600):
+    return (f"<text x='34' y='{y}' font-size='15.5' fill='#5b6773' "
+            f"font-family='Segoe UI, sans-serif'>{escape(text)}</text>")
+
+
+def _fig_wrap(n, title, inner, aria):
+    return (
+        f"<svg class='lecture-figure' data-lecture-figure='{n:02d}' viewBox='0 0 980 620' role='img' "
+        f"aria-label='Lecture {n:02d} visual model: {escape(aria)}'>"
+        f"{_fig_header(n, title)}{inner}</svg>"
+    )
+
+
+def diagram_01(item: dict) -> str:
+    """Four schematic radial profiles (M, P, T, L) illustrating the coupled unknowns Lecture 01 introduces."""
+    n = item['n']
+    xs = [0.01 * i for i in range(101)]
+    m_frac = [x ** 3 * (3 - 2 * x) for x in xs]
+    l_frac = [x ** 2 * (3 - 2 * x) for x in xs]
+    p_frac = [(1 - x ** 2) ** 2 for x in xs]
+    t_frac = [(1 - x ** 2) for x in xs]
+    x0, y0, w, h = 100, 80, 780, 380
+
+    def curve(ys, color):
+        pts = [(_lin(x, 0, 1, x0, x0 + w), _lin(y, 0, 1, y0 + h, y0)) for x, y in zip(xs, ys)]
+        return _polyline(pts, color=color)
+
+    inner = (
+        _axes(x0, y0, w, h, 'fractional radius, r / R', 'fractional value (0-1, schematic profile shapes)')
+        + curve(m_frac, '#0f6b78') + curve(p_frac, '#b87911') + curve(t_frac, '#8a4b08') + curve(l_frac, '#102a43')
+        + f"<text x='{x0 + 14}' y='{y0 + 26}' font-size='15' fill='#0f6b78' font-family='Segoe UI, sans-serif'>M(r)/M rising (mass continuity)</text>"
+        + f"<text x='{x0 + 14}' y='{y0 + 48}' font-size='15' fill='#102a43' font-family='Segoe UI, sans-serif'>L(r)/L rising (energy conservation)</text>"
+        + f"<text x='{x0 + 14}' y='{y0 + 70}' font-size='15' fill='#b87911' font-family='Segoe UI, sans-serif'>P(r)/P_c falling (hydrostatic equilibrium)</text>"
+        + f"<text x='{x0 + 14}' y='{y0 + 92}' font-size='15' fill='#8a4b08' font-family='Segoe UI, sans-serif'>T(r)/T_c falling (energy transport)</text>"
+        + _fig_caption('Four schematic radial profiles (illustrative shapes, not a numerical integration): a star has four coupled unknowns, M, P, T, L, each varying with radius.')
+    )
+    return _fig_wrap(n, item['title'], inner, 'four schematic radial profile curves for mass, pressure, temperature, and luminosity versus fractional radius')
+
+
+def diagram_02(item: dict) -> str:
+    """Kramers opacity (steep, falling) versus electron-scattering opacity (flat), log-log versus temperature."""
+    n = item['n']
+    t_lo, t_hi = 3.0e6, 8.0e7
+    ts = [t_lo * (t_hi / t_lo) ** (i / 200) for i in range(201)]
+    kramers = [kramers_opacity_estimate(SUN_CORE_DENSITY_PUBLISHED, t) for t in ts]
+    log_t = [math.log10(t) for t in ts]
+    log_k = [math.log10(k) for k in kramers]
+    log_es = math.log10(KAPPA_ES_SUN)
+    t_cross = (4.3e21 * SUN_CORE_DENSITY_PUBLISHED / KAPPA_ES_SUN) ** (1.0 / 3.5)
+    x0, y0, w, h = 100, 80, 780, 380
+    xmin, xmax = min(log_t), max(log_t)
+    ymin, ymax = min(min(log_k), log_es) - 0.3, max(max(log_k), log_es) + 0.3
+    pts = [(_lin(x, xmin, xmax, x0, x0 + w), _lin(y, ymin, ymax, y0 + h, y0)) for x, y in zip(log_t, log_k)]
+    y_es_px = _lin(log_es, ymin, ymax, y0 + h, y0)
+    x_core = _lin(math.log10(SUN_CORE_TEMP_PUBLISHED), xmin, xmax, x0, x0 + w)
+    y_core = _lin(math.log10(KAPPA_KRAMERS_SUN_CORE), ymin, ymax, y0 + h, y0)
+    inner = (
+        _axes(x0, y0, w, h, 'log\u2081\u2080(temperature, K)', 'log\u2081\u2080(opacity, m\u00b2/kg)')
+        + _polyline(pts, color='#b87911')
+        + f"<line x1='{x0}' y1='{y_es_px:.1f}' x2='{x0 + w}' y2='{y_es_px:.1f}' stroke='#0f6b78' stroke-width='3' stroke-dasharray='6,4'/>"
+        + _dot(x_core, y_core, f'Sun core: T={SUN_CORE_TEMP_PUBLISHED:.2e} K, \u03ba_Kramers\u2248{KAPPA_KRAMERS_SUN_CORE:.3f} m\u00b2/kg', color='#8a4b08')
+        + f"<text x='{x0 + w - 10}' y='{y_es_px - 10:.1f}' font-size='14' fill='#0f6b78' text-anchor='end' font-family='Segoe UI, sans-serif'>{escape(f'electron scattering: {KAPPA_ES_SUN:.4f} m\u00b2/kg (T-independent)')}</text>"
+        + _fig_caption(f'Schematic Kramers opacity (\u03ba\u221d\u03c1T\u207b\u00b3\u00b7\u2075) falls steeply with T and crosses the flat electron-scattering floor near T\u2248{t_cross:.1e} K.')
+    )
+    return _fig_wrap(n, item['title'], inner, 'log-log plot of Kramers opacity versus temperature crossing the flat electron-scattering opacity floor, with the Sun\u2019s core marked')
+
+
+def diagram_03(item: dict) -> str:
+    """Schematic photon random-walk path from the solar core to the photosphere (radiative diffusion)."""
+    n = item['n']
+    cx, cy, radius = 480, 300, 230
+    steps = 44
+    pts = []
+    for i in range(steps + 1):
+        t = i / steps
+        r = radius * t
+        angle = t * 14 * math.pi + math.sin(t * 31) * 0.6
+        pts.append((cx + r * math.cos(angle), cy + r * math.sin(angle)))
+    light_time_s = R_SUN_M / C_LIGHT
+    inner = (
+        f"<circle cx='{cx}' cy='{cy}' r='{radius}' fill='#fff3e0' stroke='#b87911' stroke-width='2'/>"
+        + _polyline(pts, color='#0f6b78', width=2.5)
+        + f"<circle cx='{cx}' cy='{cy}' r='7' fill='#102a43'/>"
+        + f"<text x='{cx}' y='{cy - 18}' font-size='14' fill='#102a43' text-anchor='middle' font-family='Segoe UI, sans-serif'>core (nuclear energy source)</text>"
+        + f"<circle cx='{pts[-1][0]:.1f}' cy='{pts[-1][1]:.1f}' r='7' fill='#0f6b78'/>"
+        + f"<text x='{pts[-1][0]:.1f}' y='{pts[-1][1] - 18:.1f}' font-size='14' fill='#0f6b78' text-anchor='middle' font-family='Segoe UI, sans-serif'>photosphere (photon escapes)</text>"
+        + _fig_caption(f'Schematic photon random walk (illustrative path, not a physical trajectory): light-crossing time R/c \u2248 {light_time_s:.2f} s, yet true radiative diffusion takes \u2248 10\u2074-10\u2075 years \u2014 the diffusion equation above encodes exactly this enormous number of absorption/re-emission steps.')
+    )
+    return _fig_wrap(n, item['title'], inner, 'schematic zigzag photon random-walk path from the solar core to the photosphere illustrating radiative diffusion')
+
+
+def diagram_04(item: dict) -> str:
+    """Bar-chart comparison of the radiative temperature gradient at two solar depths against the fixed adiabatic threshold."""
+    n = item['n']
+    categories = [
+        ('deep envelope (r\u22480.7 R\u2609)', SUN_RADIATIVE_GRADIENT, '#0f6b78'),
+        ('near-surface zone', SUN_SURFACE_RADIATIVE_GRADIENT, '#8a4b08'),
+    ]
+    x0, y0, w, h = 160, 80, 660, 380
+    log_ad = math.log10(SUN_ADIABATIC_GRADIENT_FRACTIONAL)
+    log_vals = [math.log10(max(v, 1e-8)) for _, v, _ in categories]
+    ymin, ymax = min(log_vals + [log_ad]) - 0.5, max(log_vals + [log_ad]) + 0.5
+    barw, gap = 160, 300
+    bars = ''
+    for i, (label, val, color) in enumerate(categories):
+        xc = x0 + 150 + i * gap
+        yv = _lin(math.log10(max(val, 1e-8)), ymin, ymax, y0 + h, y0)
+        bars += f"<rect x='{xc - barw / 2:.1f}' y='{yv:.1f}' width='{barw}' height='{y0 + h - yv:.1f}' fill='{color}'/>"
+        bars += f"<text x='{xc:.1f}' y='{y0 + h + 26}' font-size='14' fill='#17202a' text-anchor='middle' font-family='Segoe UI, sans-serif'>{escape(label)}</text>"
+        val_label = f'\u2207_rad\u2248{val:.2e}' if val < 0.01 else f'\u2207_rad\u2248{val:.3f}'
+        bars += f"<text x='{xc:.1f}' y='{yv - 10:.1f}' font-size='14' fill='{color}' text-anchor='middle' font-family='Segoe UI, sans-serif'>{escape(val_label)}</text>"
+    y_ad_px = _lin(log_ad, ymin, ymax, y0 + h, y0)
+    inner = (
+        _axes(x0, y0, w, h, '', 'log\u2081\u2080(dimensionless temperature gradient)')
+        + bars
+        + f"<line x1='{x0}' y1='{y_ad_px:.1f}' x2='{x0 + w}' y2='{y_ad_px:.1f}' stroke='#5b6773' stroke-width='3' stroke-dasharray='7,5'/>"
+        + f"<text x='{x0 + w - 10}' y='{y_ad_px - 10:.1f}' font-size='14' fill='#5b6773' text-anchor='end' font-family='Segoe UI, sans-serif'>{escape(f'\u2207_ad = {SUN_ADIABATIC_GRADIENT_FRACTIONAL:.1f} (Schwarzschild threshold)')}</text>"
+        + _fig_caption('Where a bar rises above the dashed \u2207_ad line, \u2207_rad>\u2207_ad and the Schwarzschild criterion predicts convective instability.')
+    )
+    return _fig_wrap(n, item['title'], inner, 'bar chart comparing the radiative temperature gradient at two solar depths to the fixed adiabatic threshold, on a log scale')
+
+
+def diagram_05(item: dict) -> str:
+    """Gamow peak curve: product of the Maxwell-Boltzmann tail and the tunneling probability."""
+    n = item['n']
+    kt_kev = (K_BOLTZMANN * SUN_CORE_TEMP_PUBLISHED) / EV_J / 1000.0
+    e0 = GAMOW_E0_PP_SUN_KEV
+    b = 2 * kt_kev * e0 ** 1.5
+
+    def boltz(e):
+        return math.exp(-e / kt_kev)
+
+    def tunnel(e):
+        return math.exp(-b / math.sqrt(e))
+
+    es = [0.2 + 0.1 * i for i in range(300)]
+    b_norm_raw = [boltz(e) for e in es]
+    t_norm_raw = [tunnel(e) for e in es]
+    prod_raw = [bv * tv for bv, tv in zip(b_norm_raw, t_norm_raw)]
+    bmax, tmax, pmax = max(b_norm_raw), max(t_norm_raw), max(prod_raw)
+    b_norm = [v / bmax for v in b_norm_raw]
+    t_norm = [v / tmax for v in t_norm_raw]
+    prod_norm = [v / pmax for v in prod_raw]
+    x0, y0, w, h = 100, 80, 780, 380
+    xmax = es[-1]
+
+    def curve(ys, color, dash=None):
+        pts = [(_lin(e, 0, xmax, x0, x0 + w), _lin(y, 0, 1, y0 + h, y0)) for e, y in zip(es, ys)]
+        return _polyline(pts, color=color, dash=dash)
+
+    x_e0 = _lin(e0, 0, xmax, x0, x0 + w)
+    inner = (
+        _axes(x0, y0, w, h, 'energy, E (keV)', 'relative amplitude (each curve normalized to its own peak)')
+        + curve(b_norm, '#0f6b78', dash='6,4') + curve(t_norm, '#b87911', dash='2,3') + curve(prod_norm, '#102a43')
+        + f"<line x1='{x_e0:.1f}' y1='{y0}' x2='{x_e0:.1f}' y2='{y0 + h}' stroke='#8a4b08' stroke-width='2' stroke-dasharray='4,4'/>"
+        + f"<text x='{x_e0 + 8:.1f}' y='{y0 + 20}' font-size='14' fill='#8a4b08' font-family='Segoe UI, sans-serif'>{escape(f'Gamow peak E\u2080\u2248{e0:.1f} keV')}</text>"
+        + f"<text x='{x0 + 14}' y='{y0 + 24}' font-size='14' fill='#0f6b78' font-family='Segoe UI, sans-serif'>{escape(f'Maxwell-Boltzmann tail (kT\u2248{kt_kev:.3f} keV)')}</text>"
+        + f"<text x='{x0 + 14}' y='{y0 + 46}' font-size='14' fill='#b87911' font-family='Segoe UI, sans-serif'>tunneling probability (rising with E)</text>"
+        + f"<text x='{x0 + 14}' y='{y0 + 68}' font-size='14' fill='#102a43' font-family='Segoe UI, sans-serif'>product = relative reaction probability</text>"
+        + _fig_caption('The Gamow peak is the product of a falling Boltzmann tail and a rising tunneling probability, peaking well above kT but far below the MeV Coulomb barrier.')
+    )
+    return _fig_wrap(n, item['title'], inner, 'Gamow peak curve as the product of the Maxwell-Boltzmann tail and the quantum tunneling probability, with the peak energy marked')
+
+
+def diagram_06(item: dict) -> str:
+    """Log-scale pp-chain versus CNO-cycle energy generation rate crossover versus core temperature."""
+    n = item['n']
+    t6s = [8.0 + 0.1 * i for i in range(221)]
+    log_pp = [math.log10(epsilon_pp_relative(t)) for t in t6s]
+    log_cno = [math.log10(CNO_NORMALIZATION * epsilon_cno_relative(t)) for t in t6s]
+    x0, y0, w, h = 100, 80, 780, 380
+    xmin, xmax = t6s[0], t6s[-1]
+    ymin, ymax = min(min(log_pp), min(log_cno)), max(max(log_pp), max(log_cno))
+    pts_pp = [(_lin(t, xmin, xmax, x0, x0 + w), _lin(y, ymin, ymax, y0 + h, y0)) for t, y in zip(t6s, log_pp)]
+    pts_cno = [(_lin(t, xmin, xmax, x0, x0 + w), _lin(y, ymin, ymax, y0 + h, y0)) for t, y in zip(t6s, log_cno)]
+    x_cross = _lin(PP_CNO_CROSSOVER_T6, xmin, xmax, x0, x0 + w)
+    x_sun = _lin(T6_SUN_CORE, xmin, xmax, x0, x0 + w)
+    y_sun = _lin(math.log10(epsilon_pp_relative(T6_SUN_CORE)), ymin, ymax, y0 + h, y0)
+    x_sirius = _lin(T6_SIRIUS_A_CORE, xmin, xmax, x0, x0 + w)
+    y_sirius = _lin(math.log10(CNO_NORMALIZATION * epsilon_cno_relative(T6_SIRIUS_A_CORE)), ymin, ymax, y0 + h, y0)
+    inner = (
+        _axes(x0, y0, w, h, 'core temperature, T\u2086 (10\u2076 K)', 'log\u2081\u2080(relative energy generation rate)')
+        + _polyline(pts_pp, color='#0f6b78') + _polyline(pts_cno, color='#b87911')
+        + f"<line x1='{x_cross:.1f}' y1='{y0}' x2='{x_cross:.1f}' y2='{y0 + h}' stroke='#5b6773' stroke-width='2' stroke-dasharray='5,4'/>"
+        + _dot(x_sun, y_sun, f'Sun: T6={T6_SUN_CORE:.1f} (pp-dominated)', color='#0f6b78', dy=22)
+        + _dot(x_sirius, y_sirius, f'Sirius A: T6\u2248{T6_SIRIUS_A_CORE:.1f} (CNO-dominated)', color='#b87911', dy=-16)
+        + f"<text x='{x_cross + 8:.1f}' y='{y0 + 22}' font-size='14' fill='#5b6773' font-family='Segoe UI, sans-serif'>{escape(f'crossover T6\u2248{PP_CNO_CROSSOVER_T6:.1f}')}</text>"
+        + _fig_caption('The CNO cycle\u2019s steep T\u00b2\u2070 scaling overtakes the pp chain\u2019s T\u2074 scaling above a single crossover temperature.')
+    )
+    return _fig_wrap(n, item['title'], inner, 'log-scale crossover plot of pp-chain versus CNO-cycle energy generation rate versus core temperature, with the Sun and Sirius A marked')
+
+
+def diagram_07(item: dict) -> str:
+    """Log-log mass-luminosity plot: predicted L proportional to M^3.5 against four real measured stars."""
+    n = item['n']
+    stars = [
+        ('Sun', 1.0, 1.0, '#5b6773'),
+        ('\u03b1 Cen A', ALPHA_CEN_A['mass_msun'], ALPHA_CEN_A['lum_lsun'], '#0f6b78'),
+        ('\u03b1 Cen B', ALPHA_CEN_B['mass_msun'], ALPHA_CEN_B['lum_lsun'], '#b87911'),
+        ('Sirius A', SIRIUS_A['mass_msun'], SIRIUS_A['lum_lsun'], '#102a43'),
+    ]
+    ms = [0.3 + 0.02 * i for i in range(120)]
+    ls_pred = [mass_luminosity_lsun(m) for m in ms]
+    log_m = [math.log10(m) for m in ms]
+    log_l = [math.log10(l) for l in ls_pred]
+    x0, y0, w, h = 110, 80, 770, 380
+    all_log_m = log_m + [math.log10(m) for _, m, _, _ in stars]
+    all_log_l = log_l + [math.log10(l) for _, _, l, _ in stars]
+    xmin, xmax = min(all_log_m) - 0.1, max(all_log_m) + 0.1
+    ymin, ymax = min(all_log_l) - 0.2, max(all_log_l) + 0.2
+    pts = [(_lin(x, xmin, xmax, x0, x0 + w), _lin(y, ymin, ymax, y0 + h, y0)) for x, y in zip(log_m, log_l)]
+    dots = ''
+    for i, (name, m, l, color) in enumerate(stars):
+        x = _lin(math.log10(m), xmin, xmax, x0, x0 + w)
+        y = _lin(math.log10(l), ymin, ymax, y0 + h, y0)
+        dots += _dot(x, y, f'{name}: M={m:.3f} M\u2609, L={l:.3f} L\u2609', color=color, dy=-16 - 18 * (i % 2))
+    inner = (
+        _axes(x0, y0, w, h, 'log\u2081\u2080(mass, M\u2609)', 'log\u2081\u2080(luminosity, L\u2609)')
+        + _polyline(pts, color='#8a4b08', dash='3,3') + dots
+        + _fig_caption('Predicted L\u221dM^3.5 (dashed) against four real, independently measured stars: agreement is close for solar-type stars and visibly weaker for hotter Sirius A.')
+    )
+    return _fig_wrap(n, item['title'], inner, 'log-log mass-luminosity plot with the predicted M^3.5 power law and four real measured stars marked')
+
+
+def _lane_emden_profile(n_index: float, xi_max: float = 12.0, dxi: float = 0.001):
+    """Fixed-step numerical integration of the Lane-Emden equation, starting from
+    the standard small-xi series expansion theta = 1 - xi^2/6, and stopping at
+    the first surface crossing theta = 0."""
+    xi = dxi
+    theta = 1.0 - xi ** 2 / 6.0
+    phi = -xi / 3.0
+    xis, thetas = [0.0, xi], [1.0, theta]
+    while xi < xi_max:
+        theta_pos = max(theta, 0.0)
+        d2theta = -(theta_pos ** n_index) - (2.0 / xi) * phi
+        phi_new = phi + d2theta * dxi
+        theta_new = theta + phi * dxi
+        xi += dxi
+        xis.append(xi)
+        thetas.append(theta_new)
+        theta, phi = theta_new, phi_new
+        if theta <= 0.0:
+            break
+    return xis, thetas
+
+
+def diagram_08(item: dict) -> str:
+    """Numerically integrated Lane-Emden density-function solutions for n=1.5 and n=3."""
+    n = item['n']
+    xi15, th15 = _lane_emden_profile(1.5)
+    xi3, th3 = _lane_emden_profile(3.0)
+    xi1_15, xi1_3 = xi15[-1], xi3[-1]
+    x0, y0, w, h = 100, 80, 780, 380
+    xmax = max(xi1_15, xi1_3) * 1.05
+
+    def curve(xis, ths, color):
+        pts = [(_lin(x, 0, xmax, x0, x0 + w), _lin(max(t, 0.0), 0, 1, y0 + h, y0)) for x, t in zip(xis, ths)]
+        return _polyline(pts, color=color)
+
+    inner = (
+        _axes(x0, y0, w, h, 'dimensionless radius, \u03be', 'dimensionless density function, \u03b8(\u03be)')
+        + curve(xi15, th15, '#0f6b78') + curve(xi3, th3, '#b87911')
+        + f"<text x='{x0 + 14}' y='{y0 + 24}' font-size='14' fill='#0f6b78' font-family='Segoe UI, sans-serif'>{escape(f'n=1.5 (degenerate/convective): surface at \u03be\u2081\u2248{xi1_15:.2f}')}</text>"
+        + f"<text x='{x0 + 14}' y='{y0 + 46}' font-size='14' fill='#b87911' font-family='Segoe UI, sans-serif'>{escape(f'n=3 (Eddington/relativistic-degenerate): surface at \u03be\u2081\u2248{xi1_3:.2f}')}</text>"
+        + _fig_caption('Numerically integrated Lane-Emden solutions: a higher polytropic index n produces a more centrally concentrated density profile.')
+    )
+    return _fig_wrap(n, item['title'], inner, 'numerically integrated Lane-Emden density-function solutions for polytropic indices n=1.5 and n=3')
+
+
+def diagram_09(item: dict) -> str:
+    """Schematic Hyades H-R diagram with the real, live-verified main-sequence turnoff mass marked."""
+    n = item['n']
+
+    def teff_of_mass(m):
+        return SUN_TEFF * m ** 0.5  # schematic illustrative mass-Teff scaling, not a precision isochrone
+
+    masses = [0.3 + 0.02 * i for i in range(115) if 0.3 + 0.02 * i <= HYADES['turnoff_mass_msun']]
+    ms_points = [(m, mass_luminosity_lsun(m), teff_of_mass(m)) for m in masses]
+    x0, y0, w, h = 100, 80, 780, 380
+    log_teffs = [math.log10(t) for _, _, t in ms_points]
+    log_ls = [math.log10(l) for _, l, _ in ms_points]
+    turnoff_l = HYADES_TURNOFF_L_PRED_LSUN
+    turnoff_t = teff_of_mass(HYADES['turnoff_mass_msun'])
+    xmin, xmax = min(log_teffs) - 0.05, math.log10(turnoff_t * 1.15)
+    ymin, ymax = min(log_ls) - 0.2, math.log10(turnoff_l * 3.0)
+
+    def xpix(logt):
+        return _lin(logt, xmax, xmin, x0, x0 + w)  # reversed: hotter to the left
+
+    pts = [(xpix(lt), _lin(ll, ymin, ymax, y0 + h, y0)) for lt, ll in zip(log_teffs, log_ls)]
+    x_to = xpix(math.log10(turnoff_t))
+    y_to = _lin(math.log10(turnoff_l), ymin, ymax, y0 + h, y0)
+    giant_pts = [
+        (xpix(math.log10(turnoff_t * (1 - 0.05 * i))), _lin(math.log10(turnoff_l * (1 + 0.7 * i)), ymin, ymax, y0 + h, y0))
+        for i in range(6)
+    ]
+    inner = (
+        _axes(x0, y0, w, h, 'log\u2081\u2080(T_eff, K) \u2014 decreasing to the right', 'log\u2081\u2080(luminosity, L\u2609)')
+        + _polyline(pts, color='#0f6b78')
+        + _polyline(giant_pts, color='#8a4b08', dash='5,4')
+        + _dot(x_to, y_to, f'turnoff: M\u2248{HYADES["turnoff_mass_msun"]:.1f} M\u2609, predicted L\u2248{turnoff_l:.1f} L\u2609', color='#b87911')
+        + _fig_caption(f'Schematic Hyades main sequence (illustrative mass-T_eff scaling) with the real, live-verified turnoff mass marked; more massive stars have already evolved off the main sequence (dashed stub).')
+    )
+    return _fig_wrap(n, item['title'], inner, 'schematic Hyades cluster H-R diagram with the main-sequence turnoff mass marked and a post-turnoff giant-branch stub')
+
+
+def diagram_10(item: dict) -> str:
+    """Energy-level ladder diagram for the triple-alpha process and the resonant Hoyle state."""
+    n = item['n']
+    x0 = 90
+    levels = [
+        (110, '3 \u00d7 \u2074He, separated (energy reference)', '#5b6773', 470),
+        (150, '\u2078Be + \u2074He (\u2248 +92 keV, unstable intermediate)', '#8a4b08', 520),
+        (190, 'Hoyle state, \u00b9\u00b2C* (resonance matches \u2078Be+\u2074He)', '#b87911', 560),
+        (520, '\u00b9\u00b2C + \u03b3 (ground state)', '#0f6b78', 470),
+    ]
+    inner = ''
+    for y, label, color, length in levels:
+        inner += f"<line x1='{x0}' y1='{y}' x2='{x0 + length}' y2='{y}' stroke='{color}' stroke-width='5'/>"
+        inner += f"<text x='{x0 + length + 10}' y='{y + 6}' font-size='14.5' fill='{color}' font-family='Segoe UI, sans-serif'>{escape(label)}</text>"
+    for (y1, _, _, _), (y2, _, _, _) in zip(levels, levels[1:]):
+        inner += f"<line x1='{x0 + 40}' y1='{y1}' x2='{x0 + 40}' y2='{y2}' stroke='#5b6773' stroke-width='2' marker-end='url(#arrowHoyle)'/>"
+    inner += "<defs><marker id='arrowHoyle' markerWidth='10' markerHeight='10' refX='8' refY='5' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='#5b6773'/></marker></defs>"
+    inner += _fig_caption(f'Hoyle predicted the resonant \u00b9\u00b2C* level (releasing Q\u2248{TRIPLE_ALPHA_Q_MEV:.3f} MeV net) purely from the observed cosmic abundance of carbon, before it was found in the laboratory.', y=600)
+    return _fig_wrap(n, item['title'], inner, 'energy-level ladder diagram for the triple-alpha process showing the unstable beryllium-8 intermediate and the resonant Hoyle state')
+
+
+def diagram_11(item: dict) -> str:
+    """AGB double-shell burning cross-section, with a log-scale radius comparison to the exposed white dwarf Sirius B."""
+    n = item['n']
+    cx, cy = 290, 300
+    r_env, r_he, r_co = 220, 130, 68
+    inner = (
+        f"<circle cx='{cx}' cy='{cy}' r='{r_env}' fill='#fff3e0' stroke='#8a4b08' stroke-width='2'/>"
+        f"<circle cx='{cx}' cy='{cy}' r='{r_he}' fill='#ffe0b3' stroke='#b87911' stroke-width='3'/>"
+        f"<circle cx='{cx}' cy='{cy}' r='{r_co}' fill='#102a43'/>"
+        f"<text x='{cx}' y='{cy - r_env - 16}' font-size='14.5' fill='#8a4b08' text-anchor='middle' font-family='Segoe UI, sans-serif'>extended envelope (thermal pulses, mass loss)</text>"
+        f"<text x='{cx}' y='{cy - r_he - 10}' font-size='14' fill='#b87911' text-anchor='middle' font-family='Segoe UI, sans-serif'>He-burning shell</text>"
+        f"<text x='{cx}' y='{cy + 6}' font-size='13' fill='#fff' text-anchor='middle' font-family='Segoe UI, sans-serif'>C/O core</text>"
+        f"<text x='{cx}' y='{cy + r_env + 30}' font-size='14' fill='#5b6773' text-anchor='middle' font-family='Segoe UI, sans-serif'>H-burning shell surrounds the He-burning shell (double-shell structure)</text>"
+    )
+    x0, y0, bar_h_max = 640, 130, 260
+    agb_r_rsun = 200.0  # standard published order-of-magnitude AGB-phase stellar radius (level 2)
+    log_agb, log_wd = math.log10(agb_r_rsun), math.log10(SIRIUS_B['radius_rsun'])
+    ymin_log, ymax_log = log_wd - 0.3, log_agb + 0.3
+    y_agb = _lin(log_agb, ymin_log, ymax_log, y0 + bar_h_max, y0)
+    y_wd = _lin(log_wd, ymin_log, ymax_log, y0 + bar_h_max, y0)
+    inset = (
+        f"<line x1='{x0}' y1='{y0 + bar_h_max}' x2='{x0}' y2='{y0}' stroke='#5b6773' stroke-width='2'/>"
+        f"<rect x='{x0 + 20}' y='{y_agb:.1f}' width='60' height='{y0 + bar_h_max - y_agb:.1f}' fill='#8a4b08'/>"
+        f"<text x='{x0 + 50}' y='{y_agb - 10:.1f}' font-size='13' fill='#8a4b08' text-anchor='middle' font-family='Segoe UI, sans-serif'>{escape(f'AGB giant \u2248{agb_r_rsun:.0f} R\u2609')}</text>"
+        f"<rect x='{x0 + 150}' y='{y_wd:.1f}' width='60' height='{y0 + bar_h_max - y_wd:.1f}' fill='#102a43'/>"
+        f"<text x='{x0 + 180}' y='{y_wd - 10:.1f}' font-size='13' fill='#102a43' text-anchor='middle' font-family='Segoe UI, sans-serif'>{escape(f'Sirius B (WD): {SIRIUS_B["radius_rsun"]:.5f} R\u2609')}</text>"
+        f"<text x='{x0 + 100}' y='{y0 + bar_h_max + 30}' font-size='13' fill='#5b6773' text-anchor='middle' font-family='Segoe UI, sans-serif'>radius, log scale (not to scale with left diagram)</text>"
+    )
+    caption = _fig_caption(f'AGB mass loss strips the envelope, exposing a core supported by electron degeneracy pressure (Lecture 12): the AGB progenitor\u2019s radius exceeds Sirius B\u2019s measured white-dwarf radius by a factor of \u2248{agb_r_rsun / SIRIUS_B["radius_rsun"]:.0f}.', y=600)
+    return _fig_wrap(n, item['title'], inner + inset + caption, 'AGB double-shell burning cross-section with a log-scale radius comparison to the exposed white dwarf Sirius B')
+
+
+def diagram_12(item: dict) -> str:
+    """White-dwarf mass-radius curve, calibrated on Sirius B, approaching zero radius at the Chandrasekhar mass."""
+    n = item['n']
+    m_ch = CHANDRASEKHAR_MASS_MUE2_MSUN
+    m_sb, r_sb = SIRIUS_B['mass_msun'], SIRIUS_B['radius_rsun']
+    x_sb = m_sb / m_ch
+    r0 = r_sb / math.sqrt(x_sb ** (-2.0 / 3.0) - x_sb ** (2.0 / 3.0))
+
+    def r_of_m(m):
+        x = m / m_ch
+        val = x ** (-2.0 / 3.0) - x ** (2.0 / 3.0)
+        return r0 * math.sqrt(val) if val > 0 else 0.0
+
+    ms = [0.02 * m_ch + 0.002 * m_ch * i for i in range(490)]
+    rs = [r_of_m(m) for m in ms]
+    x0, y0, w, h = 100, 80, 780, 380
+    xmax = m_ch * 1.02
+    ymax = max(rs) * 1.1
+    pts = [(_lin(m, 0, xmax, x0, x0 + w), _lin(r, 0, ymax, y0 + h, y0)) for m, r in zip(ms, rs)]
+    x_sb_px, y_sb_px = _lin(m_sb, 0, xmax, x0, x0 + w), _lin(r_sb, 0, ymax, y0 + h, y0)
+    x_ch_px = _lin(m_ch, 0, xmax, x0, x0 + w)
+    inner = (
+        _axes(x0, y0, w, h, 'mass, M (M\u2609)', 'radius, R (R\u2609)')
+        + _polyline(pts, color='#0f6b78')
+        + _dot(x_sb_px, y_sb_px, f'Sirius B (measured): M={m_sb:.3f} M\u2609, R={r_sb:.5f} R\u2609', color='#b87911')
+        + f"<line x1='{x_ch_px:.1f}' y1='{y0}' x2='{x_ch_px:.1f}' y2='{y0 + h}' stroke='#8a4b08' stroke-width='2' stroke-dasharray='6,4'/>"
+        + f"<text x='{x_ch_px - 8:.1f}' y='{y0 + 20}' font-size='14' fill='#8a4b08' text-anchor='end' font-family='Segoe UI, sans-serif'>{escape(f'M_Ch\u2248{m_ch:.3f} M\u2609 (R\u21920)')}</text>"
+        + _fig_caption('Approximate degenerate mass-radius relation (Nauenberg-type closed form, calibrated through Sirius B\u2019s own measured mass and radius): R shrinks toward zero as M approaches the Chandrasekhar mass.')
+    )
+    return _fig_wrap(n, item['title'], inner, 'white-dwarf mass-radius curve calibrated on Sirius B, approaching zero radius at the Chandrasekhar mass')
+
+
+def diagram_13(item: dict) -> str:
+    """Size-comparison diagram of the pre-collapse iron core versus the neutron-star remnant, plus an energy-budget bar chart."""
+    n = item['n']
+    cx1, cy = 260, 260
+    core_r_px = 170
+    true_ratio = SN_PROGENITOR_CORE_RADIUS_M / SN_REMNANT_RADIUS_M
+    ns_r_px = 6.0
+    inner = (
+        f"<circle cx='{cx1}' cy='{cy}' r='{core_r_px}' fill='none' stroke='#b87911' stroke-width='3' stroke-dasharray='6,5'/>"
+        f"<text x='{cx1}' y='{cy - core_r_px - 14}' font-size='14' fill='#b87911' text-anchor='middle' font-family='Segoe UI, sans-serif'>{escape(f'pre-collapse iron core \u2248{SN_PROGENITOR_CORE_RADIUS_M / 1000:.0f} km')}</text>"
+        f"<circle cx='{cx1}' cy='{cy}' r='{ns_r_px:.1f}' fill='#102a43'/>"
+        f"<text x='{cx1}' y='{cy + core_r_px + 26}' font-size='14' fill='#102a43' text-anchor='middle' font-family='Segoe UI, sans-serif'>{escape(f'neutron star remnant \u2248{SN_REMNANT_RADIUS_M / 1000:.0f} km (dot enlarged for visibility; true radius ratio \u2248{true_ratio:.0f}:1)')}</text>"
+    )
+    x0, y0 = 560, 120
+    bars = [
+        ('gravitational binding energy released', SN_BINDING_ENERGY_RELEASED_J, '#8a4b08'),
+        ('observed kinetic energy + light', SN_OBSERVED_KINETIC_PLUS_LIGHT_J, '#0f6b78'),
+    ]
+    logs = [math.log10(v) for _, v, _ in bars]
+    lmin, lmax = min(logs) - 1, max(logs) + 1
+    bar_h_max, barw, gap = 280, 110, 150
+    bar_svg = ''
+    for i, (label, val, color) in enumerate(bars):
+        hgt = _lin(math.log10(val), lmin, lmax, 0, bar_h_max)
+        bx = x0 + i * gap
+        by = y0 + bar_h_max - hgt
+        bar_svg += f"<rect x='{bx}' y='{by:.1f}' width='{barw}' height='{hgt:.1f}' fill='{color}'/>"
+        bar_svg += f"<text x='{bx + barw / 2}' y='{by - 10:.1f}' font-size='13' fill='{color}' text-anchor='middle' font-family='Segoe UI, sans-serif'>{escape(f'{val:.1e} J')}</text>"
+        bar_svg += f"<text x='{bx + barw / 2}' y='{y0 + bar_h_max + 22}' font-size='12.5' fill='#17202a' text-anchor='middle' font-family='Segoe UI, sans-serif'>{escape(label[:22])}</text>"
+        bar_svg += f"<text x='{bx + barw / 2}' y='{y0 + bar_h_max + 38}' font-size='12.5' fill='#17202a' text-anchor='middle' font-family='Segoe UI, sans-serif'>{escape(label[22:])}</text>"
+    caption = _fig_caption(f'Only \u2248{(SN_OBSERVED_KINETIC_PLUS_LIGHT_J / SN_BINDING_ENERGY_RELEASED_J) * 100:.2f}% of the released binding energy appears as visible kinetic energy and light \u2014 the rest (\u2248{SN_NEUTRINO_FRACTION_ESTIMATE * 100:.1f}%) escapes as neutrinos, confirmed for SN 1987A.', y=600)
+    return _fig_wrap(n, item['title'], inner + bar_svg + caption, 'size-comparison diagram of the pre-collapse iron core versus the neutron star remnant, alongside a log-scale energy-budget bar chart')
+
+
+def diagram_14(item: dict) -> str:
+    """Mass-scale number line placing Sirius B and both components of PSR J0348+0432 relative to the Chandrasekhar mass."""
+    n = item['n']
+    m_ch = CHANDRASEKHAR_MASS_MUE2_MSUN
+    objects = [
+        ('Sirius B (WD)', SIRIUS_B['mass_msun'], '#0f6b78'),
+        ('PSR J0348+0432 WD companion', PSR_J0348['wd_mass_msun'], '#8a4b08'),
+        ('PSR J0348+0432 neutron star', PSR_J0348['neutron_star_mass_msun'], '#102a43'),
+    ]
+    x0, y0, w = 100, 300, 780
+    xmax = max(m_ch, PSR_J0348['neutron_star_mass_msun']) * 1.15
+    x_ch = _lin(m_ch, 0, xmax, x0, x0 + w)
+    inner = (
+        f"<line x1='{x0}' y1='{y0}' x2='{x0 + w}' y2='{y0}' stroke='#5b6773' stroke-width='3'/>"
+        f"<rect x='{x0}' y='{y0 - 70}' width='{x_ch - x0:.1f}' height='60' fill='#e5f4f6'/>"
+        f"<rect x='{x_ch:.1f}' y='{y0 - 70}' width='{x0 + w - x_ch:.1f}' height='60' fill='#fff3e0'/>"
+        f"<text x='{x0 + 20}' y='{y0 - 40}' font-size='14' fill='#0f6b78' font-family='Segoe UI, sans-serif'>sub-Chandrasekhar: white dwarfs</text>"
+        f"<text x='{x_ch + 20:.1f}' y='{y0 - 40}' font-size='14' fill='#8a4b08' font-family='Segoe UI, sans-serif'>super-Chandrasekhar: neutron stars</text>"
+        f"<line x1='{x_ch:.1f}' y1='{y0 - 70}' x2='{x_ch:.1f}' y2='{y0 + 40}' stroke='#b87911' stroke-width='3' stroke-dasharray='6,4'/>"
+        f"<text x='{x_ch:.1f}' y='{y0 + 60}' font-size='14' fill='#b87911' text-anchor='middle' font-family='Segoe UI, sans-serif'>{escape(f'M_Ch\u2248{m_ch:.3f} M\u2609')}</text>"
+    )
+    for i, (label, m, color) in enumerate(objects):
+        x = _lin(m, 0, xmax, x0, x0 + w)
+        dy = 30 if i % 2 == 0 else 70
+        inner += (
+            f"<circle cx='{x:.1f}' cy='{y0}' r='8' fill='{color}'/>"
+            f"<line x1='{x:.1f}' y1='{y0}' x2='{x:.1f}' y2='{y0 + dy}' stroke='{color}' stroke-width='2'/>"
+            f"<text x='{x:.1f}' y='{y0 + dy + 16}' font-size='13' fill='{color}' text-anchor='middle' font-family='Segoe UI, sans-serif'>{escape(f'{label}: {m:.3f} M\u2609')}</text>"
+        )
+    inner += _fig_caption('Every real compact object this course measured lands correctly on its expected side of a single, quantitatively derived mass limit.', y=600)
+    return _fig_wrap(n, item['title'], inner, 'mass-scale number line marking the Chandrasekhar mass with Sirius B and both components of PSR J0348+0432 placed on either side')
+
+
+_DIAGRAM_BUILDERS = {
+    1: diagram_01, 2: diagram_02, 3: diagram_03, 4: diagram_04, 5: diagram_05,
+    6: diagram_06, 7: diagram_07, 8: diagram_08, 9: diagram_09, 10: diagram_10,
+    11: diagram_11, 12: diagram_12, 13: diagram_13, 14: diagram_14,
+}
+
+
+def lecture_svg(item: dict) -> str:
+    return _DIAGRAM_BUILDERS[item['n']](item)
+
 
 # ---------------------------------------------------------------------------
 # Lecture content
@@ -808,11 +1307,7 @@ LECTURES = [
 
 def slide_deck(item: dict) -> str:
     n = item['n']
-    fig = lecture_svg(
-        n, item['title'],
-        left_label='observation', mid_label='physical law/derivation', right_label='inferred quantity',
-        caption=item['synthesis'],
-    )
+    fig = lecture_svg(item)
     body = f"""<main class='deck'>
 <section class='slide title'><p class='kicker'>ASTR 330 &middot; Lecture {n:02d}</p><h1>{escape(item['title'])}</h1><h2>{escape(item['subtitle'])}</h2></section>
 <section class='slide'><h2>Learning Goals</h2><ol>{li(item['goals'])}</ol><p class='small'>Reading anchor: {escape(item['openstax'])}</p></section>

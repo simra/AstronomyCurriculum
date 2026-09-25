@@ -18,6 +18,7 @@ Before acting, load and follow `.github/skills/lecture-slide-authoring/SKILL.md`
 - Ground scope, terminology, and standard examples in the adopted textbook when available, especially OpenStax Astronomy 2e for ASTR 101. Cite specific chapters, sections, figures, and problem contexts when a textbook is available; do not accept vague chapter ranges.
 - Use verified visuals or original clearly labeled diagrams only.
 - Require lecture-specific explanatory depth: each slide must state the physical point, the evidence, the assumptions, and the quantitative meaning. Generic template bullets are not acceptable.
+- Never reuse the same diagram shape/layout (same boxes, arrows, or schematic skeleton) across every lecture in a course with only labels swapped; each lecture's visual-reasoning figure must be structurally distinct or, exceptionally, omitted in favor of another substantive slide -- omission must be rare, not the default across most/all lectures.
 - Invoke `VisualReferenceResearchAgent` or perform equivalent verification when Creative Commons, public-domain, mission, observatory, or other external visuals are needed.
 - Make figures lecture-specific and large enough to inspect on a classroom screen. Do not reuse a generic visual across lectures.
 - Aim for slide quality on par with a serious MIT or Stanford undergraduate astronomy course: visually legible, scientifically precise, and central to the lecture argument.

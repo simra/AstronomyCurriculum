@@ -52,23 +52,60 @@ def fmt(x, nd=2):
     return f"{x:.{nd}f}"
 
 
-def lecture_svg(n: int, title: str, left_label: str, mid_label: str, right_label: str, caption: str) -> str:
+def svg_open(n: int, title: str, subtitle: str = '') -> str:
+    sub = f"<text x='34' y='66' font-size='16' fill='#5b6773' font-family='Segoe UI, sans-serif'>{escape(subtitle)}</text>" if subtitle else ''
     return (
         f"<svg class='lecture-figure' data-lecture-figure='{n:02d}' viewBox='0 0 980 620' role='img' "
-        f"aria-label='Lecture {n:02d} visual model: {escape(title)}'>"
+        f"aria-label='Lecture {n:02d} figure: {escape(title)}'>"
         f"<rect width='980' height='620' fill='#fbfcfd'/>"
-        f"<text x='34' y='48' font-size='26' fill='#102a43' font-family='Segoe UI, sans-serif'>Lecture {n:02d}: {escape(title)}</text>"
-        f"<rect x='60' y='180' width='250' height='150' rx='14' fill='#0f6b78' opacity='.85'/>"
-        f"<rect x='365' y='180' width='250' height='150' rx='14' fill='#b87911' opacity='.85'/>"
-        f"<rect x='670' y='180' width='250' height='150' rx='14' fill='#102a43' opacity='.85'/>"
-        f"<path d='M310 255 L365 255 M615 255 L670 255' stroke='#5b6773' stroke-width='5' marker-end='url(#arrow)'/>"
-        f"<defs><marker id='arrow' markerWidth='10' markerHeight='10' refX='8' refY='5' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='#5b6773'/></marker></defs>"
-        f"<text x='80' y='260' font-size='19' fill='#fff' font-family='Segoe UI, sans-serif'>{escape(left_label)}</text>"
-        f"<text x='385' y='260' font-size='19' fill='#fff' font-family='Segoe UI, sans-serif'>{escape(mid_label)}</text>"
-        f"<text x='690' y='260' font-size='19' fill='#fff' font-family='Segoe UI, sans-serif'>{escape(right_label)}</text>"
-        f"<text x='34' y='470' font-size='19' fill='#5b6773' font-family='Segoe UI, sans-serif'>{escape(caption)}</text>"
-        f"</svg>"
+        f"<defs><marker id='arrow' markerWidth='10' markerHeight='10' refX='8' refY='5' orient='auto'>"
+        f"<path d='M0,0 L10,5 L0,10 z' fill='#5b6773'/></marker></defs>"
+        f"<text x='34' y='42' font-size='23' fill='#102a43' font-family='Segoe UI, sans-serif' font-weight='700'>Lecture {n:02d}: {escape(title)}</text>"
+        f"{sub}"
     )
+
+
+SVG_CLOSE = '</svg>'
+
+
+def svg_caption(text: str, y: int = 590) -> str:
+    return f"<text x='34' y='{y}' font-size='15' fill='#5b6773' font-family='Segoe UI, sans-serif'>{escape(text)}</text>"
+
+
+def lin(v: float, vmin: float, vmax: float, pmin: float, pmax: float) -> float:
+    return pmin + (v - vmin) / (vmax - vmin) * (pmax - pmin)
+
+
+def loglin(v: float, vmin: float, vmax: float, pmin: float, pmax: float) -> float:
+    return lin(math.log10(v), math.log10(vmin), math.log10(vmax), pmin, pmax)
+
+
+PLOT_X0, PLOT_X1 = 160, 910
+PLOT_Y0, PLOT_Y1 = 500, 150
+
+
+def plot_axes(xlabel: str, ylabel: str, x0=PLOT_X0, x1=PLOT_X1, y0=PLOT_Y0, y1=PLOT_Y1) -> str:
+    return (
+        f"<line x1='{x0}' y1='{y0}' x2='{x1}' y2='{y0}' stroke='#5b6773' stroke-width='2' marker-end='url(#arrow)'/>"
+        f"<line x1='{x0}' y1='{y0}' x2='{x0}' y2='{y1}' stroke='#5b6773' stroke-width='2' marker-end='url(#arrow)'/>"
+        f"<text x='{x1}' y='{y0+30}' font-size='15' fill='#5b6773' text-anchor='end' font-family='Segoe UI, sans-serif'>{escape(xlabel)}</text>"
+        f"<text x='{x0-12}' y='{y1-12}' font-size='15' fill='#5b6773' text-anchor='start' font-family='Segoe UI, sans-serif'>{escape(ylabel)}</text>"
+    )
+
+
+def polyline(points, color='#0f6b78', width=4, dash=None) -> str:
+    pts = ' '.join(f"{x:.1f},{y:.1f}" for x, y in points)
+    dash_attr = f" stroke-dasharray='{dash}'" if dash else ''
+    return f"<polyline points='{pts}' fill='none' stroke='{color}' stroke-width='{width}'{dash_attr}/>"
+
+
+def dot(x: float, y: float, r: int = 7, color: str = '#b87911', label: str | None = None,
+        dx: int = 10, dy: int = -10, anchor: str = 'start') -> str:
+    out = f"<circle cx='{x:.1f}' cy='{y:.1f}' r='{r}' fill='{color}' stroke='#17202a' stroke-width='1'/>"
+    if label:
+        out += (f"<text x='{x+dx:.1f}' y='{y+dy:.1f}' font-size='14' fill='#17202a' text-anchor='{anchor}' "
+                f"font-family='Segoe UI, sans-serif'>{escape(label)}</text>")
+    return out
 
 
 # ---------------------------------------------------------------------------
@@ -225,6 +262,357 @@ H0_FIT = fit_h0_kms_mpc(HUBBLE_CLUSTERS)
 # 1/H0 has units of Mpc*s/km; multiplying by MPC_KM (km per Mpc) cancels the
 # Mpc and km units, leaving a time in seconds, which is then converted to Gyr.
 HUBBLE_TIME_GYR = (1.0 / H0_FIT) * MPC_KM / (3600 * 24 * 365.25 * 1e9)
+
+# ---------------------------------------------------------------------------
+# Lecture-specific visual-reasoning figures. Each lecture gets a structurally
+# distinct diagram type (plot, geometric construction, cross-section, phase
+# diagram, tuning fork, schematic, pie chart, etc.) built from the real
+# constants and datasets defined above, not a reused generic shape.
+# ---------------------------------------------------------------------------
+
+def fig_01() -> str:
+    """Lecture 1: Stefan-Boltzmann / inverse-square flux-distance plot."""
+    d_sirius, l_sirius = SIRIUS_A['d_pc'], SIRIUS_A['l_from_sb']
+    d_betel, l_betel = BETELGEUSE['d_pc'], BETELGEUSE['l_from_sb']
+    flux_sirius = l_sirius / d_sirius ** 2
+    flux_betel = l_betel / d_betel ** 2
+    dmin, dmax = 1.0, 300.0
+    fmin, fmax = 1e-4, 50.0
+    curve = []
+    d = dmin
+    while d <= dmax:
+        f = min(max(1.0 / d ** 2, fmin), fmax)
+        curve.append((loglin(d, dmin, dmax, PLOT_X0, PLOT_X1), loglin(f, fmin, fmax, PLOT_Y0, PLOT_Y1)))
+        d *= 1.2
+    svg = svg_open(1, 'Measuring the Stars', 'Apparent flux falls off as 1/d\u00b2, independent of luminosity')
+    svg += plot_axes('distance d (pc, log scale)', 'apparent flux (relative units, log scale)')
+    svg += polyline(curve, color='#5b6773', width=3, dash='6,5')
+    svg += dot(loglin(d_sirius, dmin, dmax, PLOT_X0, PLOT_X1), loglin(flux_sirius, fmin, fmax, PLOT_Y0, PLOT_Y1),
+               color='#0f6b78', label=f'Sirius A: {l_sirius:.0f} L\u2609 at {d_sirius:.2f} pc', dx=10, dy=-12)
+    svg += dot(loglin(d_betel, dmin, dmax, PLOT_X0, PLOT_X1), loglin(flux_betel, fmin, fmax, PLOT_Y0, PLOT_Y1),
+               color='#b87911', label=f'Betelgeuse: {l_betel:.0f} L\u2609 at {d_betel:.0f} pc', dx=-10, dy=22, anchor='end')
+    svg += svg_caption('Dashed curve: flux \u221d 1/d\u00b2 for a fixed 1 L\u2609 source. Betelgeuse\u2019s far greater luminosity is offset by its far greater distance.')
+    svg += SVG_CLOSE
+    return svg
+
+
+def fig_02() -> str:
+    """Lecture 2: non-monotonic Balmer line strength vs effective temperature."""
+    def balmer(t):
+        return math.exp(-((t - 9500.0) / 3200.0) ** 2)
+    tmin, tmax = 3000.0, 30000.0
+    curve = []
+    t = tmax
+    while t >= tmin:
+        x = lin(t, tmin, tmax, PLOT_X1, PLOT_X0)
+        y = lin(balmer(t), 0.0, 1.0, PLOT_Y0, PLOT_Y1)
+        curve.append((x, y))
+        t -= 250.0
+    svg = svg_open(2, 'Reading Starlight', 'Hydrogen (Balmer) line strength peaks near spectral type A')
+    svg += plot_axes('T_eff (K) \u2014 hot (left) to cool (right)', 'relative Balmer line strength')
+    svg += polyline(curve, color='#0f6b78', width=4)
+    stars = [('Rigel', STAR_BY_NAME['Rigel']['teff'], '#102a43'), ('Vega', STAR_BY_NAME['Vega']['teff'], '#0f6b78'),
+             ('Sun', SUN_TEFF, '#b87911'), ('Betelgeuse', BETELGEUSE['teff'], '#8a4b08')]
+    for name, teff, color in stars:
+        x = lin(teff, tmin, tmax, PLOT_X1, PLOT_X0)
+        y = lin(balmer(teff), 0.0, 1.0, PLOT_Y0, PLOT_Y1)
+        svg += f"<line x1='{x:.1f}' y1='{PLOT_Y0}' x2='{x:.1f}' y2='{y:.1f}' stroke='{color}' stroke-width='1.5' stroke-dasharray='4,4'/>"
+        svg += dot(x, y, r=6, color=color, label=f'{name} ({teff:.0f} K)', dx=8, dy=-10)
+    svg += svg_caption('Above \u224810,000 K hydrogen ionizes past neutral; below \u22485,000-6,000 K it stays unexcited \u2014 both suppress Balmer absorption.')
+    svg += SVG_CLOSE
+    return svg
+
+
+def fig_03() -> str:
+    """Lecture 3: parallax baseline/angle geometry for two real stars."""
+    svg = svg_open(3, 'Parallax Distance', 'A larger parallax angle means a shorter distance (not to scale)')
+    bx0, bx1, by = 340, 620, 500
+    svg += f"<line x1='{bx0}' y1='{by}' x2='{bx1}' y2='{by}' stroke='#102a43' stroke-width='4'/>"
+    svg += f"<circle cx='{bx0}' cy='{by}' r='7' fill='#0f6b78'/><circle cx='{bx1}' cy='{by}' r='7' fill='#0f6b78'/>"
+    svg += f"<text x='{bx0}' y='{by+26}' font-size='14' text-anchor='middle' fill='#17202a' font-family='Segoe UI, sans-serif'>Earth (Jan)</text>"
+    svg += f"<text x='{bx1}' y='{by+26}' font-size='14' text-anchor='middle' fill='#17202a' font-family='Segoe UI, sans-serif'>Earth (Jul)</text>"
+    svg += f"<text x='{(bx0+bx1)/2:.0f}' y='{by+48}' font-size='13' text-anchor='middle' fill='#5b6773' font-family='Segoe UI, sans-serif'>baseline = 2 AU</text>"
+    apex_x1, apex_y1 = 480, 260
+    svg += f"<line x1='{bx0}' y1='{by}' x2='{apex_x1}' y2='{apex_y1}' stroke='#b87911' stroke-width='2.5'/>"
+    svg += f"<line x1='{bx1}' y1='{by}' x2='{apex_x1}' y2='{apex_y1}' stroke='#b87911' stroke-width='2.5'/>"
+    svg += dot(apex_x1, apex_y1, r=8, color='#b87911',
+               label=f'Proxima Centauri: p={PROXIMA["parallax_mas"]:.2f} mas \u2192 d={PROXIMA["d_pc"]:.2f} pc', dx=14, dy=4)
+    apex_x2, apex_y2 = 760, 165
+    svg += f"<line x1='{bx0}' y1='{by}' x2='{apex_x2}' y2='{apex_y2}' stroke='#0f6b78' stroke-width='2.5'/>"
+    svg += f"<line x1='{bx1}' y1='{by}' x2='{apex_x2}' y2='{apex_y2}' stroke='#0f6b78' stroke-width='2.5'/>"
+    svg += dot(apex_x2, apex_y2, r=8, color='#0f6b78',
+               label=f'Sirius A: p={SIRIUS_A["parallax_mas"]:.2f} mas \u2192 d={SIRIUS_A["d_pc"]:.2f} pc', dx=14, dy=4)
+    svg += svg_caption('Distance d(pc) = 1/p(arcsec): Proxima\u2019s larger parallax angle places it closer than Sirius A, even though Sirius A looks far brighter.')
+    svg += SVG_CLOSE
+    return svg
+
+
+def fig_04() -> str:
+    """Lecture 4: labeled concentric cross-section of stellar interior and energy transport."""
+    cx, cy = 470, 340
+    r_conv, r_rad, r_core = 220, 145, 68
+    svg = svg_open(4, 'Inside a Star', 'Hydrostatic equilibrium: layered structure supported from a fusing core')
+    svg += f"<circle cx='{cx}' cy='{cy}' r='{r_conv}' fill='#e5f4f6' stroke='#102a43' stroke-width='2'/>"
+    svg += f"<circle cx='{cx}' cy='{cy}' r='{r_rad}' fill='#b9dde2' stroke='#102a43' stroke-width='2'/>"
+    svg += f"<circle cx='{cx}' cy='{cy}' r='{r_core}' fill='#b87911' stroke='#102a43' stroke-width='2'/>"
+    svg += f"<text x='{cx}' y='{cy-4}' font-size='13' text-anchor='middle' fill='#fff' font-family='Segoe UI, sans-serif'>core</text>"
+    svg += f"<text x='{cx}' y='{cy+14}' font-size='12' text-anchor='middle' fill='#fff' font-family='Segoe UI, sans-serif'>T \u2248 1.5\u00d710\u2077 K</text>"
+    svg += f"<text x='{cx}' y='{cy-r_rad-14}' font-size='14' text-anchor='middle' fill='#102a43' font-family='Segoe UI, sans-serif'>radiative zone</text>"
+    svg += f"<text x='{cx}' y='{cy-r_conv-14}' font-size='14' text-anchor='middle' fill='#102a43' font-family='Segoe UI, sans-serif'>convective zone</text>"
+    svg += f"<text x='{cx}' y='{cy-r_conv-34}' font-size='13' text-anchor='middle' fill='#5b6773' font-family='Segoe UI, sans-serif'>photosphere: T_eff \u2248 {SUN_TEFF:.0f} K, R = {R_SUN_M/1000:.3e} km</text>"
+    svg += f"<path d='M{cx} {cy} L{cx+r_core+40} {cy-30}' stroke='#8a4b08' stroke-width='3' marker-end='url(#arrow)'/>"
+    svg += f"<text x='{cx+r_core+48}' y='{cy-30}' font-size='13' fill='#8a4b08' font-family='Segoe UI, sans-serif'>4\u00b9H \u2192 \u2074He + energy</text>"
+    svg += svg_caption('Outward pressure from core fusion balances gravity at every radius; energy diffuses out radiatively, then convectively, to the photosphere.')
+    svg += SVG_CLOSE
+    return svg
+
+
+def fig_05() -> str:
+    """Lecture 5: Jeans-criterion density-temperature phase diagram."""
+    nmin, nmax = 0.1, 1e6
+    tmin, tmax = 5.0, 10000.0
+    svg = svg_open(5, 'Stellar Nurseries', 'Collapse is favored only at high density and low temperature')
+    svg += plot_axes('number density n (cm\u207b\u00b3, log scale)', 'temperature T (K, log scale)')
+    boundary = []
+    n = nmin
+    while n <= nmax:
+        t_b = min(max(3000.0 * n ** -0.35, tmin), tmax)
+        boundary.append((loglin(n, nmin, nmax, PLOT_X0, PLOT_X1), loglin(t_b, tmin, tmax, PLOT_Y0, PLOT_Y1)))
+        n *= 2.0
+    svg += polyline(boundary, color='#8a4b08', width=3, dash='7,5')
+    svg += dot(loglin(1.0, nmin, nmax, PLOT_X0, PLOT_X1), loglin(1000.0, tmin, tmax, PLOT_Y0, PLOT_Y1),
+               color='#102a43', label='diffuse ISM: n\u22481 cm\u207b\u00b3, T\u2248100-10,000 K', dx=10, dy=-12)
+    svg += dot(loglin(3e4, nmin, nmax, PLOT_X0, PLOT_X1), loglin(15.0, tmin, tmax, PLOT_Y0, PLOT_Y1),
+               color='#0f6b78', label='molecular cloud core: n\u224810\u2074-10\u2075 cm\u207b\u00b3, T\u224810-20 K', dx=-10, dy=24, anchor='end')
+    svg += svg_caption('Dashed line: illustrative Jeans-instability boundary (M_Jeans \u221d T^1.5 n^-1/2); only cold, dense cores fall below it into the collapse-favored region.')
+    svg += SVG_CLOSE
+    return svg
+
+
+def fig_06() -> str:
+    """Lecture 6: log-log main-sequence lifetime vs mass curve."""
+    mmin, mmax = 0.1, 20.0
+    tmin, tmax = 1e-2, 1e4
+    curve = []
+    m = mmin
+    while m <= mmax:
+        t = min(max(ms_lifetime_gyr(m), tmin), tmax)
+        curve.append((loglin(m, mmin, mmax, PLOT_X0, PLOT_X1), loglin(t, tmin, tmax, PLOT_Y0, PLOT_Y1)))
+        m *= 1.2
+    svg = svg_open(6, 'Life After the Main Sequence', 't_MS \u221d M^-2.5: massive stars live fast and die young')
+    svg += plot_axes('mass M (M\u2609, log scale)', 'main-sequence lifetime (Gyr, log scale)')
+    svg += polyline(curve, color='#0f6b78', width=4)
+    marks = [(1.0, '#b87911', 10, -10, 'start'), (CLUSTER_TURNOFF_MASS, '#102a43', 10, -10, 'start'),
+             (10.0, '#8a4b08', -10, 20, 'end')]
+    for m, color, dx, dy, anchor in marks:
+        t = ms_lifetime_gyr(m)
+        svg += dot(loglin(m, mmin, mmax, PLOT_X0, PLOT_X1), loglin(t, tmin, tmax, PLOT_Y0, PLOT_Y1),
+                   color=color, label=f'{m:.0f} M\u2609: {t:.2f} Gyr', dx=dx, dy=dy, anchor=anchor)
+    svg += svg_caption('Because L \u221d M^3.5, lifetime falls steeply with mass; a cluster\u2019s main-sequence turnoff mass is a direct age clock.')
+    svg += SVG_CLOSE
+    return svg
+
+
+def fig_07() -> str:
+    """Lecture 7: white dwarf mass-radius curve anchored at Sirius B, with Chandrasekhar asymptote."""
+    mch = CHANDRASEKHAR_LIMIT_MSUN
+    m_sb = 1.018
+    r_sb = SIRIUS_B_RADIUS_M / R_SUN_M_FULL
+    mmin, mmax = 0.2, mch - 0.02
+    rmin, rmax = 0.0, 0.018
+    curve = []
+    m = mmin
+    while m <= mmax:
+        r = min(r_sb * (m_sb / m) ** (1.0 / 3.0), rmax)
+        curve.append((lin(m, 0.0, mch, PLOT_X0, PLOT_X1), lin(r, rmin, rmax, PLOT_Y0, PLOT_Y1)))
+        m += 0.02
+    svg = svg_open(7, 'White Dwarfs', 'Degenerate matter: radius shrinks as mass grows toward a hard limit')
+    svg += plot_axes('mass (M\u2609)', 'radius (R\u2609)')
+    svg += polyline(curve, color='#0f6b78', width=4)
+    xch = lin(mch, 0.0, mch, PLOT_X0, PLOT_X1)
+    svg += f"<line x1='{xch:.1f}' y1='{PLOT_Y0}' x2='{xch:.1f}' y2='{PLOT_Y1}' stroke='#8a4b08' stroke-width='2.5' stroke-dasharray='6,5'/>"
+    svg += f"<text x='{xch-8:.1f}' y='{PLOT_Y1+16}' font-size='13' fill='#8a4b08' text-anchor='end' font-family='Segoe UI, sans-serif'>Chandrasekhar limit ({mch:.1f} M\u2609)</text>"
+    svg += dot(lin(m_sb, 0.0, mch, PLOT_X0, PLOT_X1), lin(r_sb, rmin, rmax, PLOT_Y0, PLOT_Y1), color='#b87911',
+               label=f'Sirius B: {m_sb:.3f} M\u2609, {r_sb:.5f} R\u2609', dx=-10, dy=22, anchor='end')
+    svg += svg_caption('Illustrative R \u221d M^-1/3 degenerate-matter scaling anchored at Sirius B\u2019s measured mass and radius; the real relation steepens further as M\u2192the Chandrasekhar limit.')
+    svg += SVG_CLOSE
+    return svg
+
+
+def fig_08() -> str:
+    """Lecture 8: core-collapse spin-up, two circles at very different scale with rotation arrows."""
+    period_core_s = 2.6e6
+    r_core_km, r_ns_km = 1.0e4, 10.0
+    period_ns_s = period_core_s * (r_ns_km / r_core_km) ** 2
+    svg = svg_open(8, 'Supernovae and Neutron Stars', 'Conserved angular momentum spins a collapsing core up')
+    cx1, cy1, r1 = 260, 330, 130
+    cx2, cy2, r2 = 760, 330, 18
+    svg += f"<circle cx='{cx1}' cy='{cy1}' r='{r1}' fill='#e5f4f6' stroke='#102a43' stroke-width='2'/>"
+    svg += f"<circle cx='{cx2}' cy='{cy2}' r='{r2}' fill='#102a43' stroke='#0f6b78' stroke-width='2'/>"
+    svg += f"<path d='M{cx1-90} {cy1-36} A 96 96 0 1 1 {cx1-90} {cy1+36}' fill='none' stroke='#5b6773' stroke-width='3' marker-end='url(#arrow)'/>"
+    svg += f"<path d='M{cx2-22} {cy2-9} A 12 12 0 1 1 {cx2-22} {cy2+9}' fill='none' stroke='#5b6773' stroke-width='2' marker-end='url(#arrow)'/>"
+    svg += f"<path d='M{cx1+r1+25} {cy1} L{cx2-r2-25} {cy2}' stroke='#8a4b08' stroke-width='3' marker-end='url(#arrow)'/>"
+    svg += f"<text x='{(cx1+cx2)/2:.0f}' y='{cy1-18}' font-size='14' text-anchor='middle' fill='#8a4b08' font-family='Segoe UI, sans-serif'>core collapse</text>"
+    svg += f"<text x='{cx1}' y='{cy1+r1+30}' font-size='13' text-anchor='middle' fill='#17202a' font-family='Segoe UI, sans-serif'>massive-star core: R\u2248{r_core_km:.0e} km, P\u2248{period_core_s:.1e} s</text>"
+    svg += f"<text x='{cx2}' y='{cy1+r1+30}' font-size='13' text-anchor='middle' fill='#17202a' font-family='Segoe UI, sans-serif'>neutron star: R\u2248{r_ns_km:.0f} km, P\u2248{period_ns_s:.1f} s</text>"
+    svg += svg_caption('I\u03c9 \u2248 const with I\u221dR\u00b2: shrinking the radius by a factor of ~1,000 spins the remnant up by a factor of ~10\u2076.')
+    svg += SVG_CLOSE
+    return svg
+
+
+def fig_09() -> str:
+    """Lecture 9: log-log Schwarzschild radius vs mass, straight-line scaling."""
+    mmin, mmax = 1.0, 1e7
+    c_light = 2.998e8
+
+    def rs_km(m_msun):
+        return 2 * G_NEWTON * (m_msun * M_SUN_KG) / c_light ** 2 / 1000.0
+
+    rmin, rmax = rs_km(mmin), rs_km(mmax)
+    curve = []
+    m = mmin
+    while m <= mmax:
+        curve.append((loglin(m, mmin, mmax, PLOT_X0, PLOT_X1), loglin(rs_km(m), rmin, rmax, PLOT_Y0, PLOT_Y1)))
+        m *= 3.0
+    svg = svg_open(9, 'Black Holes', 'Event-horizon size scales linearly with mass')
+    svg += plot_axes('mass (M\u2609, log scale)', 'Schwarzschild radius R_s (km, log scale)')
+    svg += polyline(curve, color='#0f6b78', width=4)
+    marks = [(10.0, '10 M\u2609 stellar black hole', '#b87911', 10, -10, 'start'),
+             (4.3e6, 'Sagittarius A*', '#102a43', -10, 24, 'end')]
+    for m, label, color, dx, dy, anchor in marks:
+        svg += dot(loglin(m, mmin, mmax, PLOT_X0, PLOT_X1), loglin(rs_km(m), rmin, rmax, PLOT_Y0, PLOT_Y1),
+                   color=color, label=f'{label}: R_s\u2248{rs_km(m):.2e} km', dx=dx, dy=dy, anchor=anchor)
+    svg += svg_caption('R_s = 2GM/c\u00b2 is a straight line on log-log axes: more massive black holes have larger, not smaller, event horizons.')
+    svg += SVG_CLOSE
+    return svg
+
+
+def fig_10() -> str:
+    """Lecture 10: Milky Way rotation curve from real data, vs a Keplerian decline."""
+    rmin, rmax = 0.0, 26.0
+    vmin, vmax = 0.0, 260.0
+    curve = [(lin(r, rmin, rmax, PLOT_X0, PLOT_X1), lin(v, vmin, vmax, PLOT_Y0, PLOT_Y1)) for r, v in ROTATION_CURVE]
+    kepler = []
+    r = R_SUN_KPC
+    while r <= rmax:
+        v = V_SUN_KMS * math.sqrt(R_SUN_KPC / r)
+        kepler.append((lin(r, rmin, rmax, PLOT_X0, PLOT_X1), lin(v, vmin, vmax, PLOT_Y0, PLOT_Y1)))
+        r += 0.5
+    svg = svg_open(10, 'The Milky Way', 'A flat rotation curve implies mass far beyond the visible disk')
+    svg += plot_axes('galactocentric radius (kpc)', 'circular velocity (km/s)')
+    svg += polyline(kepler, color='#8a4b08', width=3, dash='6,5')
+    svg += polyline(curve, color='#0f6b78', width=4)
+    for x, y in curve:
+        svg += dot(x, y, r=6, color='#0f6b78')
+    svg += dot(lin(R_SUN_KPC, rmin, rmax, PLOT_X0, PLOT_X1), lin(V_SUN_KMS, vmin, vmax, PLOT_Y0, PLOT_Y1), r=8,
+               color='#b87911', label=f'Sun: R\u2080={R_SUN_KPC:.1f} kpc, V\u2080={V_SUN_KMS:.0f} km/s', dx=10, dy=-14)
+    svg += svg_caption('Solid: observed rotation curve (stays flat to 25 kpc). Dashed: Keplerian decline expected if mass were concentrated within the Sun\u2019s orbit.')
+    svg += SVG_CLOSE
+    return svg
+
+
+def fig_11() -> str:
+    """Lecture 11: Hubble tuning-fork morphological classification diagram."""
+    svg = svg_open(11, 'Sorting the Galaxies', 'The Hubble tuning fork: a morphological, not evolutionary, sequence')
+    ex0, ey = 150, 330
+    for i in range(5):
+        rx, ry = 34, max(34 - i * 6, 9)
+        cx = ex0 + i * 66
+        svg += f"<ellipse cx='{cx}' cy='{ey}' rx='{rx}' ry='{ry}' fill='#102a43'/>"
+    svg += f"<text x='{ex0}' y='{ey-46}' font-size='12' text-anchor='middle' fill='#5b6773' font-family='Segoe UI, sans-serif'>M87 (E0/cD)</text>"
+    svg += f"<text x='{ex0+2*66}' y='{ey+58}' font-size='13' text-anchor='middle' fill='#17202a' font-family='Segoe UI, sans-serif'>ellipticals E0\u2192E7 (increasing flattening)</text>"
+    forkx = ex0 + 4 * 66
+    upper_y, lower_y = 190, 470
+    svg += f"<path d='M{forkx} {ey} L{forkx+70} {upper_y}' stroke='#5b6773' stroke-width='3' fill='none'/>"
+    svg += f"<path d='M{forkx} {ey} L{forkx+70} {lower_y}' stroke='#5b6773' stroke-width='3' fill='none'/>"
+    upper = [('Sa', 'M104', forkx + 140, upper_y), ('Sb', None, forkx + 250, upper_y - 8), ('Sc', 'M101', forkx + 360, upper_y - 16)]
+    for label, gal, x, y in upper:
+        text = f'{label} ({gal})' if gal else label
+        svg += f"<circle cx='{x}' cy='{y}' r='26' fill='none' stroke='#0f6b78' stroke-width='3'/>"
+        svg += f"<path d='M{x-20} {y} Q{x} {y-28} {x+20} {y}' fill='none' stroke='#0f6b78' stroke-width='2'/>"
+        svg += f"<text x='{x}' y='{y+44}' font-size='12' text-anchor='middle' fill='#17202a' font-family='Segoe UI, sans-serif'>{escape(text)}</text>"
+    lower = [('SBa', None, forkx + 140, lower_y), ('SBb', 'NGC 1300', forkx + 250, lower_y + 8), ('SBc', None, forkx + 360, lower_y + 16)]
+    for label, gal, x, y in lower:
+        text = f'{label} ({gal})' if gal else label
+        svg += f"<circle cx='{x}' cy='{y}' r='26' fill='none' stroke='#b87911' stroke-width='3'/>"
+        svg += f"<line x1='{x-22}' y1='{y}' x2='{x+22}' y2='{y}' stroke='#b87911' stroke-width='3'/>"
+        svg += f"<text x='{x}' y='{y+44}' font-size='12' text-anchor='middle' fill='#17202a' font-family='Segoe UI, sans-serif'>{escape(text)}</text>"
+    svg += f"<rect x='{forkx+300}' y='{ey-14}' width='130' height='28' rx='4' fill='#8a4b08' opacity='.85'/>"
+    svg += f"<text x='{forkx+365}' y='{ey+5}' font-size='12' text-anchor='middle' fill='#fff' font-family='Segoe UI, sans-serif'>Irregular: M82</text>"
+    svg += svg_caption('Hubble\u2019s morphological sequence branches from ellipticals into ordinary and barred spirals of decreasing bulge-to-disk ratio; it is not an evolutionary timeline.')
+    svg += SVG_CLOSE
+    return svg
+
+
+def fig_12() -> str:
+    """Lecture 12: unified AGN model, axisymmetric disk/torus/jet cross-section."""
+    cx, cy = 470, 330
+    svg = svg_open(12, 'Active Galaxies', 'The unified AGN model: one structure, different viewing angles')
+    svg += f"<line x1='{cx}' y1='{cy}' x2='{cx}' y2='{cy-200}' stroke='#0f6b78' stroke-width='5' marker-end='url(#arrow)'/>"
+    svg += f"<line x1='{cx}' y1='{cy}' x2='{cx}' y2='{cy+200}' stroke='#0f6b78' stroke-width='5' marker-end='url(#arrow)'/>"
+    svg += f"<text x='{cx+14}' y='{cy-180}' font-size='13' fill='#0f6b78' font-family='Segoe UI, sans-serif'>relativistic jet</text>"
+    svg += f"<ellipse cx='{cx}' cy='{cy}' rx='120' ry='22' fill='none' stroke='#b87911' stroke-width='4'/>"
+    svg += f"<text x='{cx}' y='{cy+44}' font-size='12' text-anchor='middle' fill='#8a4b08' font-family='Segoe UI, sans-serif'>accretion disk</text>"
+    svg += f"<path d='M{cx-150} {cy-42} L{cx-70} {cy-10} L{cx-70} {cy+10} L{cx-150} {cy+42} Z' fill='#5b6773' opacity='.8'/>"
+    svg += f"<path d='M{cx+150} {cy-42} L{cx+70} {cy-10} L{cx+70} {cy+10} L{cx+150} {cy+42} Z' fill='#5b6773' opacity='.8'/>"
+    svg += f"<circle cx='{cx}' cy='{cy}' r='9' fill='#000'/>"
+    svg += f"<text x='{cx-195}' y='{cy}' font-size='12' text-anchor='middle' fill='#fff' font-family='Segoe UI, sans-serif'>dusty torus</text>"
+    svg += f"<path d='M{cx-260} {cy-215} L{cx} {cy}' stroke='#102a43' stroke-width='2' stroke-dasharray='5,4'/>"
+    svg += f"<text x='{cx-260}' y='{cy-225}' font-size='12' fill='#102a43' font-family='Segoe UI, sans-serif'>blazar view (down the jet)</text>"
+    svg += f"<path d='M{cx-300} {cy+30} L{cx} {cy}' stroke='#102a43' stroke-width='2' stroke-dasharray='5,4'/>"
+    svg += f"<text x='{cx-300}' y='{cy+50}' font-size='12' fill='#102a43' font-family='Segoe UI, sans-serif'>quasar/Seyfert view (disk visible)</text>"
+    svg += f"<path d='M{cx+300} {cy+10} L{cx} {cy}' stroke='#102a43' stroke-width='2' stroke-dasharray='5,4'/>"
+    svg += f"<text x='{cx+300}' y='{cy+30}' font-size='12' text-anchor='end' fill='#102a43' font-family='Segoe UI, sans-serif'>radio galaxy view (torus blocks disk)</text>"
+    svg += svg_caption('The unified model attributes Seyferts, quasars, radio galaxies, and blazars to the same disk+torus+jet structure seen from different angles.')
+    svg += SVG_CLOSE
+    return svg
+
+
+def fig_13() -> str:
+    """Lecture 13: pie chart of the universe's baryon/dark matter/dark energy budget."""
+    cx, cy, r = 420, 330, 175
+    slices = [('ordinary matter', 0.05, '#b87911'), ('dark matter', 0.25, '#0f6b78'), ('dark energy', 0.70, '#102a43')]
+    svg = svg_open(13, 'The Cosmic Web', '\u03a9_baryon + \u03a9_dark matter + \u03a9_dark energy = 1')
+    start = -90.0
+    for label, frac, color in slices:
+        end = start + frac * 360.0
+        large_arc = 1 if (end - start) > 180 else 0
+        x0 = cx + r * math.cos(math.radians(start))
+        y0 = cy + r * math.sin(math.radians(start))
+        x1 = cx + r * math.cos(math.radians(end))
+        y1 = cy + r * math.sin(math.radians(end))
+        svg += f"<path d='M{cx} {cy} L{x0:.1f} {y0:.1f} A{r} {r} 0 {large_arc} 1 {x1:.1f} {y1:.1f} Z' fill='{color}' stroke='#fff' stroke-width='2'/>"
+        mid = math.radians((start + end) / 2)
+        lx, ly = cx + (r + 45) * math.cos(mid), cy + (r + 45) * math.sin(mid)
+        svg += f"<text x='{lx:.1f}' y='{ly:.1f}' font-size='14' text-anchor='middle' fill='#17202a' font-family='Segoe UI, sans-serif'>{label}: {frac*100:.0f}%</text>"
+        start = end
+    svg += svg_caption('Rotation curves and cluster dynamics measure the dark-matter share; distant Type Ia supernovae measure the dark-energy share \u2014 independent evidence, one budget.')
+    svg += SVG_CLOSE
+    return svg
+
+
+def fig_14() -> str:
+    """Lecture 14: Hubble diagram scatter with fitted line through the origin."""
+    dmax = max(d for _, d, v in HUBBLE_CLUSTERS) * 1.1
+    vmax = max(v for _, d, v in HUBBLE_CLUSTERS) * 1.1
+    svg = svg_open(14, "Hubble's Law", 'Recession velocity is directly proportional to distance')
+    svg += plot_axes('distance (Mpc)', 'recession velocity (km/s)')
+    fitline = [(lin(0.0, 0.0, dmax, PLOT_X0, PLOT_X1), lin(0.0, 0.0, vmax, PLOT_Y0, PLOT_Y1)),
+               (lin(dmax, 0.0, dmax, PLOT_X0, PLOT_X1), lin(H0_FIT * dmax, 0.0, vmax, PLOT_Y0, PLOT_Y1))]
+    svg += polyline(fitline, color='#8a4b08', width=3, dash='7,5')
+    for name, d, v in HUBBLE_CLUSTERS:
+        svg += dot(lin(d, 0.0, dmax, PLOT_X0, PLOT_X1), lin(v, 0.0, vmax, PLOT_Y0, PLOT_Y1),
+                   color='#0f6b78', label=name, dx=8, dy=-10)
+    svg += svg_caption(f'Best-fit line through the origin: v = H\u2080 d with H\u2080 \u2248 {H0_FIT:.1f} km/s/Mpc, giving a Hubble time of about {HUBBLE_TIME_GYR:.1f} Gyr.')
+    svg += SVG_CLOSE
+    return svg
+
+
+FIGURE_BUILDERS = {
+    1: fig_01, 2: fig_02, 3: fig_03, 4: fig_04, 5: fig_05, 6: fig_06, 7: fig_07,
+    8: fig_08, 9: fig_09, 10: fig_10, 11: fig_11, 12: fig_12, 13: fig_13, 14: fig_14,
+}
+
 
 # ---------------------------------------------------------------------------
 # Lecture content
@@ -708,11 +1096,7 @@ LECTURES = [
 
 def slide_deck(item: dict) -> str:
     n = item['n']
-    fig = lecture_svg(
-        n, item['title'],
-        left_label='observation', mid_label='physical model', right_label='inferred quantity',
-        caption=item['synthesis'],
-    )
+    fig = FIGURE_BUILDERS[n]()
     body = f"""<main class='deck'>
 <section class='slide title'><p class='kicker'>ASTR 230 &middot; Lecture {n:02d}</p><h1>{escape(item['title'])}</h1><h2>{escape(item['subtitle'])}</h2></section>
 <section class='slide'><h2>Learning Goals</h2><ol>{li(item['goals'])}</ol><p class='small'>Reading anchor: {escape(item['openstax'])}</p></section>
@@ -723,7 +1107,7 @@ def slide_deck(item: dict) -> str:
 <section class='slide'><h2>Model</h2><ul>{li(item['model'])}</ul></section>
 <section class='slide'><h2>Quantitative Tool</h2><div class='equation'>\\[ {item['equation']} \\]</div></section>
 <section class='slide'><h2>Worked Example</h2><ol>{li(item['example'])}</ol></section>
-<section class='slide visual-slide'><h2>Visual Reasoning</h2><div class='visual-grid'><div><p>Trace the reasoning chain from raw observation to physical model to inferred quantity in this lecture\u2019s figure.</p><ul><li>Which stage is directly observed?</li><li>Which stage is the physical law or model step?</li><li>What would change if the model were wrong?</li></ul></div><figure class='visual-figure'>{fig}<figcaption>{escape(item['title'])}: from observation to inferred quantity.</figcaption></figure></div></section>
+<section class='slide visual-slide'><h2>Visual Reasoning</h2><div class='visual-grid'><div><p>Study this lecture\u2019s figure, built from the same numbers used in the worked example above.</p><ul><li>What quantity is plotted, measured, or compared, and over what range?</li><li>What trend, shape, or contrast in the figure carries the physical argument?</li><li>What would change in the figure if the underlying assumption or data point were different?</li></ul></div><figure class='visual-figure'>{fig}<figcaption>Lecture {n:02d} figure: {escape(item['title'])}.</figcaption></figure></div></section>
 <section class='slide'><h2>Common Misconception</h2><p class='warning'>{item['pitfall']}</p></section>
 <section class='slide'><h2>Active Learning Segment</h2><p>{item['activity']}</p></section>
 <section class='slide'><h2>Lab Connection</h2><p>{item['lab_connection']}</p></section>

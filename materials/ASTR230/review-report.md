@@ -62,6 +62,10 @@ The 14-lecture/7-lab/7-problem-set matched 1:1 biweekly cadence is explicitly do
 
 **Approved for review release.** This package was engineered from the outset to the ASTR101/ASTR120 depth benchmark (unlike ASTR210's original shallow first pass), and this review independently recomputed five separate worked examples across the package, catching and correcting one genuine unit-conversion bug (Hubble time) before approval. Not yet approved for instructional use pending the residual data-verification and accessibility items above.
 
+## Post-Approval Update: Unique Per-Lecture Visual-Reasoning Diagrams
+
+A later audit (2026-09-24) found that all 14 lecture decks had degraded to reusing one generic three-box SVG diagram, with only labels changing between lectures. All 14 visual-reasoning diagrams were replaced with structurally distinct, lecture-specific figures (real plotted curves, an H-R-diagram-style scatter, a parallax geometry diagram, a rotation-curve plot, a Hubble diagram, etc.), each grounded in that lecture's own real data. Verified via grep that no repeated diagram signature remains across the course.
+
 ## Outstanding Items Before Instructional Use
 
 - **Human instructional approval:** required, as for every course package in this curriculum.
