@@ -1,0 +1,40 @@
+{
+  "course": {
+    "courseNumber": "ASTR 476",
+    "courseCode": "ASTR476",
+    "title": "Observational Cosmology",
+    "credits": 3,
+    "term": "Year 4 elective",
+    "yearInCurriculum": 4,
+    "prerequisites": "ASTR 420 or concurrent enrollment",
+    "description": "Observational foundations of modern cosmology, including supernovae, BAO, the CMB, weak lensing, growth, parameter inference, and survey systematics."
+  },
+  "status": {
+    "stage": "approved for review release",
+    "reviewStatus": "Approved for review release; not yet approved for instructional use",
+    "lastUpdated": "2026-09-25"
+  },
+  "counts": {
+    "slides": 14,
+    "notes": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "solutionKeys": 7,
+    "assessmentInstructions": 7
+  },
+  "cadence": {
+    "lectures": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "rationale": "Each lab and problem set spans two lecture modules and is due at the end of the second week: Weeks 2, 4, 6, 8, 10, 12, and 14."
+  },
+  "environment": {
+    "python": "3.14.6",
+    "requirements": "requirements.txt"
+  },
+  "dataProvenance": {
+    "level1": "Pantheon+SH0ES public table and full covariance fetched and hashed during production; an 18-row redshift-stratified excerpt and exactly aligned covariance block are included.",
+    "level2": "Planck 2018, BOSS DR12, and DES Y3 published summary values; not raw survey likelihoods. Individual references and verification limits are in reference-log.md.",
+    "level3": "FLRW/growth model curves, synthetic parameter ellipses, theoretical CMB schematic, and schematic error-budget weights; none are observations."
+  }
+}

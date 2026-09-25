@@ -1,0 +1,12 @@
+probe,observable,redshift,value,lower_error,upper_error,unit,source
+"Planck 2018 TT,TE,EE+lowE, flat LCDM",H0,,67.4,0.5,0.5,km s-1 Mpc-1,Planck2018VI:abstract
+"Planck 2018 TT,TE,EE+lowE, flat LCDM",Omega_m,,0.315,0.007,0.007,dimensionless,Planck2018VI:abstract
+"Planck 2018 TT,TE,EE+lowE, flat LCDM",100theta_star,,1.0411,0.0003,0.0003,dimensionless,Planck2018VI:abstract
+"Pantheon+ SNe Ia only, flat LCDM",Omega_M,,0.334,0.018,0.018,dimensionless,PantheonPlus:abstract
+"Pantheon+ SNe Ia only, flat w0CDM",w0,,-0.9,0.14,0.14,dimensionless,PantheonPlus:abstract
+BOSS DR12 BAO+full shape consensus,D_V_times_rd_fid_over_rd,0.38,1477.0,16.0,16.0,Mpc,BOSS_DR12:section8.2_eq21
+BOSS DR12 BAO+full shape consensus,D_V_times_rd_fid_over_rd,0.51,1877.0,19.0,19.0,Mpc,BOSS_DR12:section8.2_eq22
+BOSS DR12 BAO+full shape consensus,D_V_times_rd_fid_over_rd,0.61,2140.0,22.0,22.0,Mpc,BOSS_DR12:section8.2_eq23
+"DES Y3 3x2pt, flat LCDM",S8,,0.776,0.017,0.017,dimensionless,DESY3:sectionV.1_eq17
+"DES Y3 3x2pt, flat LCDM",Omega_m,,0.339,0.031,0.032,dimensionless,DESY3:sectionV.1_eq17
+"DES Y3 3x2pt, flat wCDM",w,,-0.98,0.2,0.32,dimensionless,DESY3:sectionV.2_eq19

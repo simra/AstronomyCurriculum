@@ -1,0 +1,22 @@
+{
+  "dataset": "Pantheon+SH0ES public distance and covariance release",
+  "provenanceLevel": 1,
+  "accessDate": "2026-09-25",
+  "sourceDataUrl": "https://raw.githubusercontent.com/PantheonPlusSH0ES/DataRelease/main/Pantheon%2B_Data/4_DISTANCES_AND_COVAR/Pantheon%2BSH0ES.dat",
+  "sourceCovarianceUrl": "https://raw.githubusercontent.com/PantheonPlusSH0ES/DataRelease/main/Pantheon%2B_Data/4_DISTANCES_AND_COVAR/Pantheon%2BSH0ES_STAT%2BSYS.cov",
+  "sourceDataSha256": "1cb0fc379ef066afdc2ffd1857681cc478024570d8a3eba284fb645775198cf8",
+  "sourceCovarianceSha256": "abf806d966485e64afdb359c87bffc0ecc00d05eff0a31ced66f247385df0fdc",
+  "sourceRows": 1701,
+  "sourceCovarianceShape": [
+    1701,
+    1701
+  ],
+  "excerptRows": 18,
+  "excerptSelection": "For each fixed target redshift 0.025, 0.03, 0.04, 0.05, 0.07, 0.10, 0.15, 0.20, 0.30, 0.40, 0.60, 0.80, 1.00, 1.25, 1.50, 1.80, 2.00, and 2.20, choose the nearest unused unique CID with IS_CALIBRATOR=0 and zHD>=0.023. Preserve original source row order for covariance indexing.",
+  "excerptFiles": [
+    "pantheonplus-subset.csv",
+    "pantheonplus-subset-covariance.csv"
+  ],
+  "covarianceRounding": "The source covariance is printed to 8 decimal places and has maximum paired-entry difference 3e-8; paired entries were averaged after requiring absolute asymmetry <=5e-8.",
+  "limitations": "This redshift-stratified excerpt is suitable for plotting and a small covariance-aware demonstration only. It is not a representative random sample and must not be reported as a Pantheon+ cosmology constraint. MU_SH0ES_ERR_DIAG is included for plotting only; inference must use the matching covariance submatrix. The full 1701x1701 covariance is not bundled."
+}

@@ -1,0 +1,3 @@
+# ASTR 476 Source
+
+From the repository root, create a Python 3.14.6 environment, install `materials/ASTR476/requirements.txt`, then run `python materials/ASTR476/src/prepare_pantheon_excerpt.py` and `python materials/ASTR476/src/build_astr476_package.py`. The first command downloads the official Pantheon+ public source, verifies dimensions and covariance alignment, writes checksums/provenance, and extracts the compact subset. The second regenerates computed tables, instructional HTML, and index. `validate_astr476_package.py` checks counts, local links, index titles, unique diagrams, provenance, and the computation self-test.

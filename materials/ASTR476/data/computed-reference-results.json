@@ -1,0 +1,13 @@
+{
+  "h0_s-1": 2.1842852410855023e-18,
+  "age_hubble_gyr": 14.507302992296575,
+  "z1_comoving_distance_mpc": 3401.2629173468995,
+  "z1_luminosity_distance_mpc": 6802.525834693799,
+  "z1_distance_modulus_mag": 44.16335099911208,
+  "z1_angular_diameter_distance_mpc": 1700.6314586734497,
+  "z0_38_dv_mpc": 1477.9219306647674,
+  "planck_theta_star_deg": 0.5965063605106999,
+  "des_s8_asymmetry_fraction": 0.021907216494845363,
+  "des_source_density_per_arcmin2": 5.9,
+  "des_shape_noise_per_component": 0.26
+}
