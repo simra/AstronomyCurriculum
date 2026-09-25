@@ -1,0 +1,7 @@
+quantity,value,unit
+name,Keck HIRES,
+rv_precision_ms,1.0,
+detection_limit_mj_at_1au,0.2,
+resolving_power,67000,
+groove_density_per_mm,52.67,
+blaze_angle_deg,70.0,

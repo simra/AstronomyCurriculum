@@ -1,0 +1,6 @@
+band,central_wavelength_nm,effective_bandwidth_nm
+U,365,66
+B,445,94
+V,551,88
+R,658,138
+I,806,149

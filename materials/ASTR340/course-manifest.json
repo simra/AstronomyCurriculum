@@ -1,0 +1,40 @@
+{
+  "course": {
+    "courseNumber": "ASTR 340",
+    "courseCode": "ASTR340",
+    "title": "Astronomical Instrumentation",
+    "credits": 3,
+    "term": "Spring",
+    "yearInCurriculum": 3,
+    "prerequisites": "ASTR 210; PHYS 275",
+    "description": "Studies telescope optics, detectors, filters, spectrographs, adaptive optics, calibration systems, observatory operations, space-based instruments, error budgets, and instrument proposal design."
+  },
+  "status": {
+    "stage": "approved for review release",
+    "reviewStatus": "Approved for review release; not yet approved for instructional use",
+    "lastUpdated": "2026-09-24"
+  },
+  "counts": {
+    "slides": 14,
+    "notes": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "solutionKeys": 7,
+    "assessmentInstructions": 7
+  },
+  "cadence": {
+    "lectures": 14,
+    "labs": 7,
+    "problemSets": 7,
+    "rationale": "Matched 1:1 biweekly cadence, following the ASTR230/ASTR310/ASTR330 precedent (a 3-credit, 14-lecture structure consistent with ASTR320's own matched-cadence 3-credit course), because ASTR340's seven thematic units each build one self-contained instrumentation skill (telescope optics/resolution, focal-plane geometry/detectors, noise/SNR, calibration/photometry, spectroscopy, adaptive optics/space instruments, error budgets) toward a single capstone (Lab/PS 07, an instrument-proposal synthesis). See syllabus.html Lecture, Lab, and Problem-Set Cadence."
+  },
+  "dataProvenance": {
+    "src": "materials/ASTR340/src/generate_astr340_content.py and generate_astr340_labs_psets.py generate all worked examples, lecture slides/notes, labs, and problem sets programmatically from shared constants.",
+    "realData": [
+      "Keck I/II telescope aperture, collecting area, effective focal length, segment count/width, altitude, and active-optics surface accuracy - live-verified via direct web fetch this session (Wikipedia \"W. M. Keck Observatory\", 2026-09-24).",
+      "Keck HIRES radial-velocity precision (1.0 m/s) and 1 AU planet-detection limit (0.2 Jupiter masses) - live-verified via the same web fetch this session, citing Vogt et al. (1994), SPIE 2198, 362.",
+      "HIRES resolving power, groove density, and blaze angle; HST, VLT, JWST aperture/focal-length specifications; DECam pixel format; e2v-class CCD quantum-efficiency curve; Johnson-Cousins UBVRI bandpasses (Bessell 1990); Landolt standard star SA 98-978 (Landolt 1992); Keck adaptive optics Strehl-ratio figures (Wizinowich et al. 2000) - standard published instrument/mission/facility specifications, not independently re-verified this session, flagged for spot-check in reference-log.md.",
+      "System throughput, sky brightness, HIRES beam width, and photometric error-budget terms - representative illustrative values, explicitly labeled as such in reference-log.md, distinct from the real-data provenance items above."
+    ]
+  }
+}
