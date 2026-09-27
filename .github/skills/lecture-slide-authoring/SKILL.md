@@ -34,6 +34,7 @@ For each lecture deck, include:
 - Course number, lecture number, lecture title, and date or week placeholder.
 - Learning objectives tied to the syllabus.
 - Conceptual motivation and connection to previous lectures.
+- An early interactive "Terms for This Lecture" slide, normally immediately after the objectives or opening motivation.
 - A substantive sequence sized for a typical 60-minute lecture, usually 10-16 content slides plus title, objectives, synthesis, and references.
 - Definitions and physical principles with enough explanatory depth to teach from the deck.
 - Mathematical derivations, quantitative models, or order-of-magnitude reasoning appropriate to the course level.
@@ -42,6 +43,18 @@ For each lecture deck, include:
 - Short in-class questions or prompts for active reasoning, placed where they test a concept just developed.
 - Summary of key takeaways.
 - References and visual credits.
+
+## Interactive Term Explorer
+
+Replace passive vocabulary lists with the two-pane component in `slides.template.html`.
+
+- Put 5-8 lecture-critical terms in a selectable list on the left. Use fewer only when the lecture genuinely introduces fewer terms; do not pad with generic words.
+- Selecting a term must reveal a right-hand panel containing an original, course-level definition; why the term matters in this lecture; its relationship to an observable, model, equation, or neighboring term; and a limitation, boundary condition, or common confusion where relevant.
+- Include a compact equation, derivation step, labeled schematic, plot, spectrum, image crop, or comparison when it materially clarifies the term. Do not add decorative visuals.
+- Definitions must be substantive enough that a student can use the term in reasoning, not merely recognize a one-sentence dictionary gloss.
+- Use native buttons and the accessible tab/panel behavior from the template. Preserve keyboard operation, visible focus, semantic labels, a readable first panel before scripting, responsive stacking, and the print rule that exposes all definitions.
+- Treat the term explorer as instructional content, not an index. Later slides must use the terms consistently, and the matching lecture notes must develop every listed term in greater depth.
+- Record sources for non-original term visuals and for specialized definitions that rely on a particular published convention.
 
 ## Depth Requirements
 
@@ -107,6 +120,7 @@ Before finishing a slide deck, verify:
 - All citations and visual credits are real or explicitly marked as requiring verification.
 - Figures have labels and context.
 - Figures are lecture-specific, visually legible, and not repeated generic placeholders.
+- Every early term list has been converted to the interactive explorer, every listed term has a definition panel, and all panels remain usable by keyboard and in print.
 - Mathematical statements are correct for the course level.
 - Claims are consistent with the syllabus and neighboring lectures.
 - The deck can stand alone as a teaching artifact without relying on hidden context.

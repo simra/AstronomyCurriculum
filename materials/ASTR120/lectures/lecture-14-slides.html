@@ -25,13 +25,28 @@ figcaption,.small { color:var(--muted); font-size:.95rem; line-height:1.35; marg
 svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(--line); background:#fff; }
 .warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
 @media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+
+.term-explorer{display:grid;grid-template-columns:minmax(220px,.7fr) minmax(0,1.8fr);gap:28px;align-items:stretch;min-height:58vh}
+.term-list{display:flex;flex-direction:column;gap:10px}
+.term-button{width:100%;padding:12px 15px;border:2px solid var(--line);border-radius:8px;background:#fff;color:var(--navy);font:inherit;font-size:1.05rem;font-weight:700;text-align:left;cursor:pointer}
+.term-button:hover{border-color:var(--teal)}
+.term-button:focus-visible{outline:4px solid var(--gold);outline-offset:2px}
+.term-button[aria-selected="true"]{color:#fff;background:var(--teal);border-color:var(--teal)}
+.term-detail{border:1px solid var(--line);border-radius:10px;padding:20px 24px;background:var(--paper);overflow:auto}
+.term-detail h3{margin:0 0 10px;color:var(--teal);font-size:clamp(1.35rem,2.2vw,2rem)}
+.term-detail p{font-size:clamp(.96rem,1.35vw,1.22rem);margin:.55em 0}
+.term-detail[hidden]{display:none}
+.term-visual{font-size:1.12rem;padding:10px 14px;background:var(--teal-soft);border-left:4px solid var(--teal);margin-top:12px}
+@media(max-width:800px){.term-explorer{grid-template-columns:1fr}.term-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+@media print{.term-explorer{display:block;min-height:0}.term-list{display:none}.term-detail[hidden]{display:block}.term-detail{break-inside:avoid;margin:12px 0}}
 </style>
 </head>
 <body>
 <main class="deck">
 <section class="slide title"><p class="kicker">ASTR 120 · Lecture 14</p><h1>Mission Design, Synthesis, and Open Questions</h1><h2>Solar-system evidence, physics, and exploration</h2></section>
 <section class="slide"><h2>Why This Question Matters</h2><p>Every mission design encodes scientific priorities: what to measure, at what precision, from what orbit or flyby, with what risk.</p></section>
-<section class="slide"><h2>Learning Goals</h2><ul><li>Design a simple mission concept tied to testable solar-system science.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section>
+<section class="slide"><h2>Learning Goals</h2><ul><li>Design a simple mission concept tied to testable solar-system science.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section><section class="slide glossary-slide" aria-labelledby="l14-terms-heading"><h2 id="l14-terms-heading">Terms for This Lecture</h2><div class="term-explorer" data-term-explorer><div class="term-list" role="tablist" aria-label="Lecture 14 terms"><button class="term-button" id="l14-term-1-tab" type="button" role="tab" aria-selected="true" aria-controls="l14-term-1-panel" data-term-target="l14-term-1-panel" tabindex="0">Science traceability matrix</button><button class="term-button" id="l14-term-2-tab" type="button" role="tab" aria-selected="false" aria-controls="l14-term-2-panel" data-term-target="l14-term-2-panel" tabindex="-1">Payload</button><button class="term-button" id="l14-term-3-tab" type="button" role="tab" aria-selected="false" aria-controls="l14-term-3-panel" data-term-target="l14-term-3-panel" tabindex="-1">Trajectory</button><button class="term-button" id="l14-term-4-tab" type="button" role="tab" aria-selected="false" aria-controls="l14-term-4-panel" data-term-target="l14-term-4-panel" tabindex="-1">Measurement requirement</button><button class="term-button" id="l14-term-5-tab" type="button" role="tab" aria-selected="false" aria-controls="l14-term-5-panel" data-term-target="l14-term-5-panel" tabindex="-1">Uncertainty budget</button><button class="term-button" id="l14-term-6-tab" type="button" role="tab" aria-selected="false" aria-controls="l14-term-6-panel" data-term-target="l14-term-6-panel" tabindex="-1">Mission architecture</button></div><div class="term-details"><article class="term-detail" id="l14-term-1-panel" role="tabpanel" aria-labelledby="l14-term-1-tab"><h3>Science traceability matrix</h3><p><strong>Definition:</strong> A structured chain linking a science question to hypotheses, required observables, measurement performance, instruments, and mission operations.</p><p><strong>Why it matters and connects:</strong> It reveals whether every payload element produces evidence capable of answering the stated question.</p><p><strong>Boundary or common confusion:</strong> A filled table is not proof of feasibility; assumptions and performance margins still require testing.</p></article><article class="term-detail" id="l14-term-2-panel" role="tabpanel" aria-labelledby="l14-term-2-tab" hidden><h3>Payload</h3><p><strong>Definition:</strong> The scientific instruments and supporting measurement hardware carried to meet mission objectives.</p><p><strong>Why it matters and connects:</strong> Payload choice determines wavelength, sensitivity, spatial coverage, sampling environment, data rate, and many spacecraft requirements.</p><p><strong>Boundary or common confusion:</strong> More instruments do not automatically produce better science; mass, power, interference, and operations can reduce total return.</p></article><article class="term-detail" id="l14-term-3-panel" role="tabpanel" aria-labelledby="l14-term-3-tab" hidden><h3>Trajectory</h3><p><strong>Definition:</strong> The time-dependent path and velocity of a spacecraft under gravity, propulsion, and operational constraints.</p><p><strong>Why it matters and connects:</strong> Trajectory determines arrival energy, flyby geometry, illumination, communication distance, coverage, and radiation exposure.</p><p><strong>Boundary or common confusion:</strong> The shortest path is rarely the lowest-energy or highest-science option.</p></article><article class="term-detail" id="l14-term-4-panel" role="tabpanel" aria-labelledby="l14-term-4-tab" hidden><h3>Measurement requirement</h3><p><strong>Definition:</strong> A quantitative statement of the accuracy, precision, resolution, range, cadence, or coverage needed to discriminate among science hypotheses.</p><p><strong>Why it matters and connects:</strong> It translates scientific meaning into engineering performance that can be tested before launch.</p><p><strong>Boundary or common confusion:</strong> A requirement without a linked hypothesis or error budget can become arbitrary overdesign.</p></article><article class="term-detail" id="l14-term-5-panel" role="tabpanel" aria-labelledby="l14-term-5-tab" hidden><h3>Uncertainty budget</h3><p><strong>Definition:</strong> An accounting of independent and correlated sources of error that limit a derived result.</p><p><strong>Why it matters and connects:</strong> It identifies which calibration, instrument, environmental, sampling, or model uncertainty most threatens the science conclusion.</p><p><strong>Boundary or common confusion:</strong> Adding errors linearly or quoting precision without systematic effects can seriously misstate confidence.</p><div class="term-visual">\(\sigma_y^2\approx\sum_i(\partial y/\partial x_i)^2\sigma_i^2\)</div></article><article class="term-detail" id="l14-term-6-panel" role="tabpanel" aria-labelledby="l14-term-6-tab" hidden><h3>Mission architecture</h3><p><strong>Definition:</strong> The coordinated choice of spacecraft elements, encounters, communications, operations, and data flow used to execute a mission.</p><p><strong>Why it matters and connects:</strong> Flyby, orbiter, lander, rover, sample return, and multi-spacecraft designs offer different coverage, risk, duration, and evidence strength.</p><p><strong>Boundary or common confusion:</strong> Architecture is broader than trajectory and cannot be optimized on a single metric such as cost or resolution.</p></article></div></div></section>
 <section class="slide"><h2>Opening Phenomenon</h2><p>Space missions turn questions into payloads, trajectories, measurements, and tradeoffs.</p></section>
 <section class="slide"><h2>Mission Design Is Scientific Traceability</h2><div class="three"><article class="card"><p><strong>Question:</strong> one testable claim that changes planetary understanding.</p></article><article class="card"><p><strong>Measurement:</strong> observable quantity with needed precision, coverage, and context.</p></article><article class="card"><p><strong>Payload and trajectory:</strong> instruments and operations that can actually acquire the measurement.</p></article></div></section>
 <section class="slide"><h2>Review the Course Arc</h2><p>Every topic in ASTR 120 used the same discipline: connect a physical model to evidence, name the uncertainty, and choose the next observation that could discriminate among explanations.</p></section>
@@ -56,5 +71,33 @@ svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(
 <section class="slide"><h2>Capstone Prompt: Defend One Mission</h2><p>Choose Venus clouds, Europa plume flythrough, Enceladus plume sample return, Mars polar ice drill, or Trojan asteroid flyby. State the question, decisive measurement, biggest risk, and the result that would most change the field.</p></section>
 <section class="slide"><h2>Synthesis: ASTR 120 Reasoning Toolkit</h2><ul><li>Use scale, density, spectra, dynamics, geology, and climate as linked evidence systems.</li><li>Separate what was measured from what was inferred.</li><li>Design the next observation to discriminate among physical explanations.</li></ul></section>
 <section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax Astronomy 2e solar-system chapters and local reference copy.</li><li>NASA/OpenStax/ESA sources recorded in reference-log.md where external visuals are used.</li></ul></section>
-</main></body>
+</main>
+<script data-astr120-term-explorer>
+document.querySelectorAll("[data-term-explorer]").forEach((explorer)=>{
+  const tabs=[...explorer.querySelectorAll('[role="tab"]')];
+  const panels=[...explorer.querySelectorAll('[role="tabpanel"]')];
+  const select=(tab,moveFocus=false)=>{
+    tabs.forEach((item)=>{
+      const active=item===tab;
+      item.setAttribute("aria-selected",String(active));
+      item.tabIndex=active?0:-1;
+    });
+    panels.forEach((panel)=>{panel.hidden=panel.id!==tab.getAttribute("aria-controls");});
+    if(moveFocus)tab.focus();
+  };
+  tabs.forEach((tab,index)=>{
+    tab.addEventListener("click",()=>select(tab));
+    tab.addEventListener("keydown",(event)=>{
+      if(!["ArrowDown","ArrowUp","ArrowRight","ArrowLeft","Home","End"].includes(event.key))return;
+      event.preventDefault();
+      let next=index;
+      if(event.key==="Home")next=0;
+      else if(event.key==="End")next=tabs.length-1;
+      else next=(index+(["ArrowDown","ArrowRight"].includes(event.key)?1:-1)+tabs.length)%tabs.length;
+      select(tabs[next],true);
+    });
+  });
+});
+</script>
+</body>
 </html>

@@ -25,13 +25,28 @@ figcaption,.small { color:var(--muted); font-size:.95rem; line-height:1.35; marg
 svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(--line); background:#fff; }
 .warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
 @media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+
+.term-explorer{display:grid;grid-template-columns:minmax(220px,.7fr) minmax(0,1.8fr);gap:28px;align-items:stretch;min-height:58vh}
+.term-list{display:flex;flex-direction:column;gap:10px}
+.term-button{width:100%;padding:12px 15px;border:2px solid var(--line);border-radius:8px;background:#fff;color:var(--navy);font:inherit;font-size:1.05rem;font-weight:700;text-align:left;cursor:pointer}
+.term-button:hover{border-color:var(--teal)}
+.term-button:focus-visible{outline:4px solid var(--gold);outline-offset:2px}
+.term-button[aria-selected="true"]{color:#fff;background:var(--teal);border-color:var(--teal)}
+.term-detail{border:1px solid var(--line);border-radius:10px;padding:20px 24px;background:var(--paper);overflow:auto}
+.term-detail h3{margin:0 0 10px;color:var(--teal);font-size:clamp(1.35rem,2.2vw,2rem)}
+.term-detail p{font-size:clamp(.96rem,1.35vw,1.22rem);margin:.55em 0}
+.term-detail[hidden]{display:none}
+.term-visual{font-size:1.12rem;padding:10px 14px;background:var(--teal-soft);border-left:4px solid var(--teal);margin-top:12px}
+@media(max-width:800px){.term-explorer{grid-template-columns:1fr}.term-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+@media print{.term-explorer{display:block;min-height:0}.term-list{display:none}.term-detail[hidden]{display:block}.term-detail{break-inside:avoid;margin:12px 0}}
 </style>
 </head>
 <body>
 <main class="deck">
 <section class="slide title"><p class="kicker">ASTR 120 · Lecture 13</p><h1>Habitability and Planetary Protection</h1><h2>Solar-system evidence, physics, and exploration</h2></section>
 <section class="slide"><h2>Why This Question Matters</h2><p>Astrobiology combines planetary science, chemistry, geology, biology, and mission ethics.</p></section>
-<section class="slide"><h2>Learning Goals</h2><ul><li>Evaluate habitability claims using environment, energy, chemistry, and evidence quality.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section>
+<section class="slide"><h2>Learning Goals</h2><ul><li>Evaluate habitability claims using environment, energy, chemistry, and evidence quality.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section><section class="slide glossary-slide" aria-labelledby="l13-terms-heading"><h2 id="l13-terms-heading">Terms for This Lecture</h2><div class="term-explorer" data-term-explorer><div class="term-list" role="tablist" aria-label="Lecture 13 terms"><button class="term-button" id="l13-term-1-tab" type="button" role="tab" aria-selected="true" aria-controls="l13-term-1-panel" data-term-target="l13-term-1-panel" tabindex="0">Habitable zone</button><button class="term-button" id="l13-term-2-tab" type="button" role="tab" aria-selected="false" aria-controls="l13-term-2-panel" data-term-target="l13-term-2-panel" tabindex="-1">Habitability</button><button class="term-button" id="l13-term-3-tab" type="button" role="tab" aria-selected="false" aria-controls="l13-term-3-panel" data-term-target="l13-term-3-panel" tabindex="-1">Biosignature</button><button class="term-button" id="l13-term-4-tab" type="button" role="tab" aria-selected="false" aria-controls="l13-term-4-panel" data-term-target="l13-term-4-panel" tabindex="-1">False positive</button><button class="term-button" id="l13-term-5-tab" type="button" role="tab" aria-selected="false" aria-controls="l13-term-5-panel" data-term-target="l13-term-5-panel" tabindex="-1">Forward contamination</button><button class="term-button" id="l13-term-6-tab" type="button" role="tab" aria-selected="false" aria-controls="l13-term-6-panel" data-term-target="l13-term-6-panel" tabindex="-1">Backward contamination</button></div><div class="term-details"><article class="term-detail" id="l13-term-1-panel" role="tabpanel" aria-labelledby="l13-term-1-tab"><h3>Habitable zone</h3><p><strong>Definition:</strong> The range of orbital distances where a specified atmospheric model permits liquid water on a rocky planet&#x27;s surface.</p><p><strong>Why it matters and connects:</strong> It is a useful first filter connecting stellar luminosity, orbit, albedo, and greenhouse physics.</p><p><strong>Boundary or common confusion:</strong> It does not guarantee water, atmosphere, stability, or life and does not cover subsurface habitats.</p></article><article class="term-detail" id="l13-term-2-panel" role="tabpanel" aria-labelledby="l13-term-2-tab" hidden><h3>Habitability</h3><p><strong>Definition:</strong> The ability of an environment to support a specified form of life over a specified timescale.</p><p><strong>Why it matters and connects:</strong> It integrates solvent, energy, essential chemistry, environmental stability, and access among those requirements.</p><p><strong>Boundary or common confusion:</strong> Habitability is not a directly observed substance and must not be equated with evidence of life.</p></article><article class="term-detail" id="l13-term-3-panel" role="tabpanel" aria-labelledby="l13-term-3-tab" hidden><h3>Biosignature</h3><p><strong>Definition:</strong> An observable pattern, substance, or structure whose origin may be biological and whose alternatives can be tested.</p><p><strong>Why it matters and connects:</strong> It frames life detection as comparison between biological production and abiotic false-positive models.</p><p><strong>Boundary or common confusion:</strong> No single gas or morphology is universally diagnostic; context and multiple lines of evidence are essential.</p></article><article class="term-detail" id="l13-term-4-panel" role="tabpanel" aria-labelledby="l13-term-4-tab" hidden><h3>False positive</h3><p><strong>Definition:</strong> A nonbiological process or artifact that produces a signal resembling the proposed evidence for life.</p><p><strong>Why it matters and connects:</strong> Photochemistry, geology, contamination, and data processing must be evaluated before assigning biological significance.</p><p><strong>Boundary or common confusion:</strong> Listing a possible false positive does not automatically invalidate a signal; its plausibility must be quantified.</p></article><article class="term-detail" id="l13-term-5-panel" role="tabpanel" aria-labelledby="l13-term-5-tab" hidden><h3>Forward contamination</h3><p><strong>Definition:</strong> Transfer of terrestrial organisms or organic material from a spacecraft to another world.</p><p><strong>Why it matters and connects:</strong> Preventing it protects potentially habitable environments and preserves the scientific integrity of life-detection measurements.</p><p><strong>Boundary or common confusion:</strong> Sterilization can reduce but not always eliminate risk, and requirements depend on mission destination and activity.</p></article><article class="term-detail" id="l13-term-6-panel" role="tabpanel" aria-labelledby="l13-term-6-tab" hidden><h3>Backward contamination</h3><p><strong>Definition:</strong> Transfer of potentially hazardous extraterrestrial material to Earth&#x27;s biosphere during sample return.</p><p><strong>Why it matters and connects:</strong> Containment, verification, and controlled analysis protect Earth while allowing high-value laboratory science.</p><p><strong>Boundary or common confusion:</strong> It is a low-probability risk assessed under uncertainty, not evidence that returned samples are expected to contain life.</p></article></div></div></section>
 <section class="slide"><h2>Opening Phenomenon</h2><p>Habitability is a chain of evidence, not a single distance from a star.</p></section>
 <section class="slide"><h2>Habitability Is a Claim About Conditions</h2><div class="three"><article class="card"><p><strong>Environment:</strong> temperature, pressure, solvent stability, and radiation.</p></article><article class="card"><p><strong>Energy and chemistry:</strong> gradients that could support metabolism.</p></article><article class="card"><p><strong>Evidence quality:</strong> false positives, contamination, and preservation context.</p></article></div></section>
 <section class="slide"><h2>The Habitable Zone Is Only a First Filter</h2><p>A planet can orbit where liquid water could exist on a surface and still be sterile, airless, frozen, or unobservable. Conversely, ocean worlds may be habitable outside the classical surface-water zone.</p></section>
@@ -56,5 +71,33 @@ svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(
 <section class="slide"><h2>Reasoning Prompt: Europa or Mars?</h2><p>You have one mission focused on life detection. Compare Mars subsurface ice and Europa plume material using environment, energy, chemistry, contamination risk, and sample accessibility.</p></section>
 <section class="slide"><h2>Synthesis: Strong Claims Need Independent Tests</h2><ul><li>Habitability requires conditions, not just location.</li><li>Biosignatures require disequilibrium plus context.</li><li>Planetary protection protects both worlds and the credibility of the evidence.</li></ul></section>
 <section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax Astronomy 2e solar-system chapters and local reference copy.</li><li>NASA/OpenStax/ESA sources recorded in reference-log.md where external visuals are used.</li></ul></section>
-</main></body>
+</main>
+<script data-astr120-term-explorer>
+document.querySelectorAll("[data-term-explorer]").forEach((explorer)=>{
+  const tabs=[...explorer.querySelectorAll('[role="tab"]')];
+  const panels=[...explorer.querySelectorAll('[role="tabpanel"]')];
+  const select=(tab,moveFocus=false)=>{
+    tabs.forEach((item)=>{
+      const active=item===tab;
+      item.setAttribute("aria-selected",String(active));
+      item.tabIndex=active?0:-1;
+    });
+    panels.forEach((panel)=>{panel.hidden=panel.id!==tab.getAttribute("aria-controls");});
+    if(moveFocus)tab.focus();
+  };
+  tabs.forEach((tab,index)=>{
+    tab.addEventListener("click",()=>select(tab));
+    tab.addEventListener("keydown",(event)=>{
+      if(!["ArrowDown","ArrowUp","ArrowRight","ArrowLeft","Home","End"].includes(event.key))return;
+      event.preventDefault();
+      let next=index;
+      if(event.key==="Home")next=0;
+      else if(event.key==="End")next=tabs.length-1;
+      else next=(index+(["ArrowDown","ArrowRight"].includes(event.key)?1:-1)+tabs.length)%tabs.length;
+      select(tabs[next],true);
+    });
+  });
+});
+</script>
+</body>
 </html>

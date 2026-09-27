@@ -25,7 +25,7 @@ CSS = """
 
 SLIDE_CSS = """
 :root{--ink:#17202a;--muted:#5b6773;--paper:#fbfcfd;--panel:#fff;--line:#d9e0e7;--navy:#102a43;--teal:#0f6b78;--teal-soft:#e5f4f6;--gold:#b87911;--warning:#8a4b08}
-*{box-sizing:border-box}body{margin:0;font-family:"Aptos","Segoe UI",sans-serif;color:var(--ink);background:var(--paper)}.deck{scroll-snap-type:y mandatory;height:100vh;overflow-y:auto}.slide{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;padding:50px 68px;border-bottom:1px solid var(--line);background:var(--panel)}.title{background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff}h1{font-size:clamp(2.4rem,5vw,4.5rem);margin:0 0 18px;line-height:1.05}h2{font-size:clamp(1.8rem,3.2vw,3.1rem);margin:0 0 22px;color:var(--navy)}.title h2{color:#fff;opacity:.94}p,li{font-size:clamp(1.03rem,1.55vw,1.45rem);line-height:1.35}ul,ol{max-width:1050px}.kicker{color:var(--gold);text-transform:uppercase;letter-spacing:.08em;font-weight:700}.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center}.visual-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:30px;align-items:center}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{border:1px solid var(--line);background:#fff;border-radius:6px;padding:14px 16px}.equation{font-size:1.32rem;padding:14px 18px;background:var(--teal-soft);border-left:5px solid var(--teal);margin:12px 0}figcaption,.small,.credit{color:var(--muted);font-size:.95rem;line-height:1.35;margin-top:8px}svg,img{width:100%;max-height:72vh;object-fit:contain;border:1px solid var(--line);background:#fff}.warning{border-left:5px solid var(--warning);background:#fff8e8;padding:14px 18px}@media print{.deck{height:auto;overflow:visible}.slide{min-height:7.5in;page-break-after:always}}
+*{box-sizing:border-box}body{margin:0;font-family:"Aptos","Segoe UI",sans-serif;color:var(--ink);background:var(--paper)}.deck{scroll-snap-type:y mandatory;height:100vh;overflow-y:auto}.slide{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;padding:50px 68px;border-bottom:1px solid var(--line);background:var(--panel)}.title{background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff}h1{font-size:clamp(2.4rem,5vw,4.5rem);margin:0 0 18px;line-height:1.05}h2{font-size:clamp(1.8rem,3.2vw,3.1rem);margin:0 0 22px;color:var(--navy)}.title h2{color:#fff;opacity:.94}p,li{font-size:clamp(1.03rem,1.55vw,1.45rem);line-height:1.35}ul,ol{max-width:1050px}.kicker{color:var(--gold);text-transform:uppercase;letter-spacing:.08em;font-weight:700}.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center}.visual-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:30px;align-items:center}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{border:1px solid var(--line);background:#fff;border-radius:6px;padding:14px 16px}.equation{font-size:1.32rem;padding:14px 18px;background:var(--teal-soft);border-left:5px solid var(--teal);margin:12px 0}figcaption,.small,.credit{color:var(--muted);font-size:.95rem;line-height:1.35;margin-top:8px}svg,img{width:100%;max-height:72vh;object-fit:contain;border:1px solid var(--line);background:#fff}.warning{border-left:5px solid var(--warning);background:#fff8e8;padding:14px 18px}.term-explorer{display:grid;grid-template-columns:minmax(220px,.7fr) minmax(0,1.8fr);gap:28px;align-items:stretch;min-height:58vh}.term-list{display:flex;flex-direction:column;gap:10px}.term-button{width:100%;padding:12px 14px;border:2px solid var(--line);border-radius:8px;background:#fff;color:var(--navy);font:inherit;font-size:1.02rem;font-weight:700;text-align:left;cursor:pointer}.term-button:hover{border-color:var(--teal)}.term-button:focus-visible{outline:4px solid var(--gold);outline-offset:2px}.term-button[aria-selected="true"]{color:#fff;background:var(--teal);border-color:var(--teal)}.term-detail{border:1px solid var(--line);border-radius:10px;padding:18px 22px;background:var(--paper);overflow:auto}.term-detail h3{margin:0 0 10px;color:var(--teal);font-size:clamp(1.35rem,2.2vw,2rem)}.term-detail p{font-size:clamp(.98rem,1.35vw,1.25rem);margin:.55em 0}.term-detail[hidden]{display:none}.term-equation{font-size:1.02rem;padding:10px 12px;background:var(--teal-soft);border-left:4px solid var(--teal)}@media(max-width:800px){.slide{padding:36px 28px}.term-explorer{grid-template-columns:1fr}.term-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}@media print{.deck{height:auto;overflow:visible}.slide{min-height:7.5in;page-break-after:always}.term-explorer{display:block}.term-list{display:none}.term-detail[hidden]{display:block}.term-detail{break-inside:avoid;margin:12px 0}}
 """
 
 
@@ -1245,6 +1245,186 @@ LECTURES = [
 ]
 
 
+TERM_DEFINITIONS = {
+    'hydrostatic equilibrium': 'The local force balance in which an outward pressure gradient exactly opposes inward gravity, so a layer has no net radial acceleration.',
+    'scale height': 'The characteristic vertical distance over which pressure or density falls by a factor of e in an isothermal atmosphere with approximately constant gravity.',
+    'radiative zone': 'The solar-interior region where energy is carried mainly by photons diffusing through optically thick plasma rather than by bulk fluid motion.',
+    'convective zone': 'The outer solar-interior region where buoyant rising material and sinking cooler material transport most of the energy flux.',
+    'photosphere': 'The thin visible layer from which most solar optical photons escape, conventionally associated with continuum optical depth near unity.',
+    'effective temperature': 'The blackbody-equivalent temperature defined by luminosity and radius through L = 4 pi R squared sigma T_eff to the fourth power.',
+    'energy transport': 'The physical transfer of the Sun\'s luminosity outward by radiation, convection, conduction, waves, or bulk plasma flows.',
+    'chromosphere': 'The structured atmospheric layer above the photosphere in which temperature rises again and hydrogen and calcium lines become prominent.',
+    'transition region': 'A narrow interface where solar-atmosphere temperature rises from chromospheric to coronal values while density falls sharply.',
+    'corona': 'The Sun\'s hot, tenuous, magnetically structured outer atmosphere, visible in extreme ultraviolet, X-rays, and during total eclipses.',
+    'temperature minimum': 'The atmospheric height above the photosphere at which the mean temperature reaches its lowest value before chromospheric heating dominates.',
+    'coronal heating problem': 'The unresolved question of how magnetic and wave energy is converted into enough heat to maintain million-kelvin coronal plasma.',
+    'differential rotation': 'Rotation whose angular speed varies with latitude and depth; the solar equator rotates faster than the poles.',
+    'dynamo': 'A process in electrically conducting fluid that converts kinetic energy into an organized, self-sustaining magnetic field.',
+    'poloidal field': 'The component of a large-scale magnetic field lying in meridional planes, including the Sun\'s roughly dipolar north-south field.',
+    'toroidal field': 'The azimuthal magnetic-field component wrapped around the Sun, amplified when differential rotation shears a poloidal field.',
+    'sunspot number': 'A standardized activity index combining counted sunspot groups and individual spots rather than a direct measurement of magnetic flux.',
+    'butterfly diagram': 'A time-latitude plot showing sunspot emergence migrating from mid-latitudes toward the equator during each cycle.',
+    'solar cycle': 'The roughly 11-year modulation of sunspot activity embedded in a roughly 22-year magnetic-polarity cycle.',
+    'thin flux tube': 'An idealized magnetic structure whose cross-section is small enough that internal quantities are treated as uniform across it.',
+    'magnetic pressure': 'The isotropic energy-density term B squared over 2 mu-zero that contributes to force balance in magnetized plasma.',
+    'total pressure balance': 'Equality of gas plus magnetic pressure across a boundary when curvature forces and dynamic acceleration are negligible.',
+    'Wilson depression': 'The lower geometric height of the visible optical-depth-one surface inside an evacuated sunspot relative to the quiet photosphere.',
+    'umbra': 'The dark central part of a sunspot where strong, mostly vertical magnetic fields most strongly inhibit convection.',
+    'penumbra': 'The filamentary outer sunspot region where the magnetic field is more inclined and magnetoconvective flows remain important.',
+    'convective suppression': 'Reduction or reorganization of heat-carrying fluid motions by a strong magnetic field, lowering the emergent energy flux.',
+    'magnetic reconnection': 'A non-ideal plasma process that changes magnetic connectivity and converts stored field energy into heat, flows, and accelerated particles.',
+    'free magnetic energy': 'Magnetic energy stored above the minimum-energy potential field compatible with the measured boundary conditions.',
+    'potential field': 'A current-free magnetic field that minimizes magnetic energy for specified normal-field boundary conditions.',
+    'non-potential (sheared) field': 'A current-carrying magnetic configuration displaced from the potential state by shear or twist and therefore able to store free energy.',
+    'GOES classification': 'The A-B-C-M-X flare scale defined by peak 1-8 angstrom soft X-ray irradiance at Earth, with each letter class spanning a decade.',
+    'soft X-ray flux': 'Radiant power per unit area measured in a low-energy X-ray band; GOES uses the 1-8 angstrom band for operational flare classification.',
+    'active region': 'A localized, magnetically concentrated solar region containing sunspots, plages, loops, and enhanced eruptive activity.',
+    'case study': 'A bounded reconstruction of one event using multiple observations and models to test a causal physical chain.',
+    'GOES class': 'The numerical letter-and-multiplier label assigned from a flare\'s peak GOES 1-8 angstrom soft X-ray flux.',
+    'coronal mass ejection (CME)': 'A large-scale eruption of magnetized coronal plasma into the heliosphere, distinct from the electromagnetic flare emission.',
+    'geomagnetic storm': 'A prolonged global disturbance of Earth\'s magnetosphere driven by enhanced solar-wind energy and momentum input.',
+    'G-scale (NOAA storm scale)': 'NOAA\'s operational G1-G5 communication scale for geomagnetic-storm severity based primarily on planetary Kp.',
+    'coronagraph': 'An instrument that blocks the bright solar disk so faint coronal structures and outward-moving CMEs can be imaged.',
+    'plane-of-sky speed': 'The velocity component inferred from motion projected across an image plane, excluding unmeasured line-of-sight motion.',
+    'projection effect': 'Bias introduced when a three-dimensional position or velocity is inferred from a two-dimensional image.',
+    'CME kinematics': 'The time-dependent position, speed, and acceleration of a coronal mass ejection from the low corona through interplanetary space.',
+    'aerodynamic drag': 'Momentum exchange that tends to bring a CME\'s speed toward the ambient solar-wind speed during propagation.',
+    'kinetic energy budget': 'The translational energy one-half M v squared assigned to CME bulk motion, subject to uncertainties in both mass and speed.',
+    'hydrostatic corona (inconsistency)': 'The unphysical result that a sufficiently hot static corona retains finite pressure at very large radius instead of matching interstellar conditions.',
+    'Parker solar wind': 'The steady hydrodynamic outflow obtained when a hot corona passes smoothly from subsonic to supersonic speed.',
+    'critical point': 'The radius where the Parker wind speed equals the sound speed and the differential equation becomes singular unless its numerator also vanishes.',
+    'transonic solution': 'The unique physically continuous wind branch that crosses the critical point from subsonic to supersonic flow.',
+    'isothermal sound speed': 'The characteristic pressure-wave speed c_s equal to the square root of kT divided by mean-particle mass for an isothermal gas.',
+    'terminal wind speed': 'The asymptotic or far-heliosphere bulk speed approached by a solar-wind stream, not a universal constant for all streams.',
+    'helioseismology': 'Inference of solar internal structure and dynamics from the frequencies, phases, and spatial patterns of global oscillations.',
+    'p-mode oscillation': 'An acoustic standing-wave mode for which pressure provides the restoring force and frequency depends on the interior sound-speed profile.',
+    'Doppler imaging': 'Mapping line-of-sight velocity from wavelength shifts across a resolved image of the solar disk.',
+    'occulting disk': 'The physical or virtual mask in a coronagraph that suppresses direct photospheric light and reveals the much fainter corona.',
+    'magnetogram': 'A map of the solar magnetic field inferred from polarization and Zeeman signatures in spectral lines.',
+    'remote sensing': 'Inference of a distant plasma\'s properties from radiation or particles received by an instrument not immersed in that plasma.',
+    'in-situ measurement': 'Direct sampling of local plasma, fields, particles, or dust by an instrument located within the environment being studied.',
+    'perihelion': 'The point in a spacecraft or planet\'s orbit at which its distance from the Sun is smallest.',
+    'gravity assist': 'An exchange of energy and angular momentum with a moving planet that changes a spacecraft\'s heliocentric orbit without equivalent propellant use.',
+    'Alfven surface': 'The boundary where outward solar-wind speed first exceeds the inward communication speed of Alfven waves along the magnetic field.',
+    'magnetic switchback': 'A localized, often sharp reversal or fold in the heliospheric magnetic-field direction observed in the young solar wind.',
+    'Faraday cup': 'A particle detector that collects charged particles and uses the resulting current-versus-voltage response to infer plasma density, speed, and temperature.',
+    'solar wind travel time': 'The propagation interval from a solar or heliospheric reference point to Earth, dependent on the parcel\'s evolving speed rather than distance alone.',
+    'dynamic (ram) pressure': 'The momentum flux rho v squared carried by a directed flow and exerted on an obstacle such as Earth\'s magnetosphere.',
+    'magnetopause': 'The boundary separating plasma dominated by Earth\'s magnetic field from the shocked solar wind in the magnetosheath.',
+    'Chapman-Ferraro balance': 'The pressure-balance model in which magnetopause currents strengthen the terrestrial field until magnetic pressure balances solar-wind forcing.',
+    'magnetic compression': 'The inward displacement and strengthening of a magnetic boundary or field caused by increased external pressure.',
+    'geosynchronous orbit': 'An Earth orbit with a sidereal-day period; the circular equatorial geostationary case lies near 6.6 Earth radii.',
+    'ring current': 'A westward current carried by energetic ions and electrons drifting around Earth, which weakens the surface magnetic field during storms.',
+    'Dst index': 'An hourly, longitude-averaged low-latitude magnetic perturbation designed to track the symmetric storm-time ring current.',
+    'Dessler-Parker-Sckopke relation': 'An energy theorem relating the pressure-corrected Dst depression to the total kinetic energy of trapped magnetospheric particles.',
+    'storm main phase': 'The interval of rapid Dst decrease as sustained solar-wind driving injects and energizes ring-current particles.',
+    'recovery phase': 'The interval after peak storm intensity when ring-current losses return Dst toward its quiet-time baseline.',
+    'thermosphere': 'Earth\'s rarefied upper atmosphere where absorption of solar EUV and X-rays strongly controls temperature and density.',
+    'atmospheric drag': 'The velocity-opposing force produced as an orbiting body transfers momentum to residual atmospheric gas.',
+    'orbital decay': 'A progressive reduction of orbital energy and altitude, often accelerated in low Earth orbit by increased thermospheric drag.',
+    'solar energetic particle (SEP) event': 'A transient enhancement of high-energy ions and electrons accelerated by flares and especially CME-driven shocks.',
+    'total electron content (TEC)': 'The line-of-sight integral of ionospheric electron density, commonly reported in TEC units and important for radio propagation delay.',
+    'ionospheric scintillation': 'Rapid amplitude and phase fluctuations of radio signals caused by small-scale irregularities in ionospheric electron density.',
+    'geomagnetically induced current (GIC)': 'A quasi-direct current driven through long grounded conductors by geoelectric fields associated with rapid geomagnetic variation.',
+    'Faraday\u2019s law': 'The law stating that a changing magnetic flux induces an electromotive force around a conducting path.',
+    'transformer saturation': 'A nonlinear state in which geomagnetically driven offset current pushes a transformer core beyond its normal magnetic operating range.',
+    'extreme-event risk': 'Risk determined jointly by a low-probability event\'s occurrence rate, exposure, vulnerability, and potentially high consequence.',
+    'space-weather forecasting': 'The observation-and-model process used to estimate the timing, location, and severity of solar-terrestrial disturbances.',
+}
+
+
+def _term_contexts(item: dict, term: str) -> list[str]:
+    words = {word.strip("(),'-").lower() for word in term.split() if len(word.strip("(),'-")) > 3}
+    candidates = [item['phenomenon'], *item['evidence'], *item['model'], item['synthesis']]
+    ranked = sorted(
+        enumerate(candidates),
+        key=lambda pair: (-sum(word in pair[1].lower() for word in words), pair[0]),
+    )
+    return [text for _, text in ranked]
+
+
+def term_explorer(item: dict) -> str:
+    n = item['n']
+    buttons = []
+    panels = []
+    for index, term in enumerate(item['vocab'], 1):
+        tab_id = f"lecture-{n:02d}-term-{index}-tab"
+        panel_id = f"lecture-{n:02d}-term-{index}-panel"
+        selected = index == 1
+        contexts = _term_contexts(item, term)
+        neighbor = item['vocab'][index % len(item['vocab'])]
+        buttons.append(
+            f"<button class='term-button' id='{tab_id}' type='button' role='tab' "
+            f"aria-selected='{'true' if selected else 'false'}' aria-controls='{panel_id}' "
+            f"data-term-target='{panel_id}'>{escape(term)}</button>"
+        )
+        panels.append(
+            f"<article class='term-detail' id='{panel_id}' role='tabpanel' aria-labelledby='{tab_id}'"
+            f"{'' if selected else ' hidden'}><h3>{escape(term)}</h3>"
+            f"<p><strong>Definition:</strong> {escape(TERM_DEFINITIONS[term])}</p>"
+            f"<p><strong>Why it matters here:</strong> {escape(contexts[0])}</p>"
+            f"<p><strong>Relationship:</strong> Use this term alongside <em>{escape(neighbor)}</em>; "
+            f"the lecture's quantitative model is summarized below.</p>"
+            f"<div class='term-equation'>\\[ {item['equation']} \\]</div>"
+            f"<p><strong>Boundary or common confusion:</strong> {escape(item['pitfall'])}</p></article>"
+        )
+    heading_id = f"lecture-{n:02d}-terms-heading"
+    return (
+        f"<section class='slide glossary-slide' aria-labelledby='{heading_id}'>"
+        f"<h2 id='{heading_id}'>Terms for This Lecture</h2>"
+        f"<div class='term-explorer' data-term-explorer><div class='term-list' role='tablist' "
+        f"aria-label='Lecture {n:02d} terms'>{''.join(buttons)}</div>"
+        f"<div class='term-details'>{''.join(panels)}</div></div></section>"
+    )
+
+
+def terms_in_context(item: dict) -> str:
+    articles = []
+    terms = item['vocab']
+    for index, term in enumerate(terms):
+        contexts = _term_contexts(item, term)
+        neighbor = terms[(index + 1) % len(terms)]
+        articles.append(
+            f"<article><h3>{escape(term)}</h3>"
+            f"<p>{escape(TERM_DEFINITIONS[term])} In this lecture, the term is needed to interpret "
+            f"the following evidence or model claim: {escape(contexts[0])}</p>"
+            f"<p>Its relationship to <strong>{escape(neighbor)}</strong> is part of the lecture's "
+            f"reasoning chain rather than a synonym: {escape(contexts[1])} The working relation "
+            f"\\( {item['equation']} \\) makes the relevant observable or model dependence explicit.</p>"
+            f"<p><strong>Limitation and usage:</strong> {escape(item['pitfall'])} This caution sets "
+            f"the boundary on what can be inferred when using <em>{escape(term)}</em> in an explanation.</p>"
+            f"</article>"
+        )
+    return (
+        "<section><h2>Terms Developed in Context</h2>"
+        f"{''.join(articles)}</section>"
+    )
+
+
+TERM_EXPLORER_SCRIPT = """
+<script>
+document.querySelectorAll("[data-term-explorer]").forEach((explorer) => {
+  const tabs = [...explorer.querySelectorAll('[role="tab"]')];
+  const panels = [...explorer.querySelectorAll('[role="tabpanel"]')];
+  const select = (tab) => {
+    tabs.forEach((item) => item.setAttribute("aria-selected", String(item === tab)));
+    panels.forEach((panel) => { panel.hidden = panel.id !== tab.dataset.termTarget; });
+  };
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => select(tab));
+    tab.addEventListener("keydown", (event) => {
+      if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : (index + (event.key === "ArrowDown" ? 1 : -1) + tabs.length) % tabs.length;
+      tabs[nextIndex].focus();
+      select(tabs[nextIndex]);
+    });
+  });
+});
+</script>
+"""
+
+
 def slide_deck(item: dict) -> str:
     n = item['n']
     fig = lecture_svg(item)
@@ -1253,7 +1433,7 @@ def slide_deck(item: dict) -> str:
 <section class='slide'><h2>Learning Goals</h2><ol>{li(item['goals'])}</ol><p class='small'>Reading anchor: {escape(item['openstax'])}</p></section>
 <section class='slide'><h2>Why This Matters</h2><p>{item['why_matters']}</p></section>
 <section class='slide'><h2>Opening Phenomenon</h2><p>{item['phenomenon']}</p><p class='warning'><strong>First question:</strong> what here is directly observed or a published/live-verified measurement, and what follows only once a physical law is derived and applied?</p></section>
-<section class='slide'><h2>Vocabulary for Reasoning</h2><div class='three'>{cards(item['vocab'])}</div><p class='small'>Use these terms to describe derivations and evidence, not as isolated definitions.</p></section>
+{term_explorer(item)}
 <section class='slide'><h2>Evidence We Need to Explain</h2><ul>{li(item['evidence'])}</ul></section>
 <section class='slide'><h2>Derivation and Model</h2><ul>{li(item['model'])}</ul></section>
 <section class='slide'><h2>Quantitative Tool</h2><div class='equation'>\\[ {item['equation']} \\]</div></section>
@@ -1264,7 +1444,7 @@ def slide_deck(item: dict) -> str:
 <section class='slide'><h2>Lab Connection</h2><p>{item['lab_connection']}</p></section>
 <section class='slide'><h2>Synthesis</h2><p>{item['synthesis']}</p></section>
 <section class='slide'><h2>References</h2><ul><li>{escape(item['openstax'])}</li><li>Course dataset and derivations used in this lecture\u2019s worked example: <code>materials/ASTR370/data/</code> and <code>materials/ASTR370/src/generate_astr370_content.py</code>.</li></ul></section>
-</main>"""
+</main>{TERM_EXPLORER_SCRIPT}"""
     return page(f'ASTR 370 Lecture {n:02d} Slides', body, SLIDE_CSS)
 
 
@@ -1275,7 +1455,7 @@ def lecture_notes(item: dict) -> str:
 <section><h2>Context and Why This Matters</h2><p>{item['why_matters']}</p></section>
 <section><h2>Learning Goals</h2><ol>{li(item['goals'])}</ol></section>
 <section><h2>Opening Phenomenon</h2><p>{item['phenomenon']}</p></section>
-<section><h2>Vocabulary</h2><ul>{li(item['vocab'])}</ul></section>
+{terms_in_context(item)}
 <section><h2>Evidence</h2><ul>{li(item['evidence'])}</ul></section>
 <section><h2>Derivation and Model</h2><ul>{li(item['model'])}</ul></section>
 <section><h2>Working Equation</h2><p>\\[ {item['equation']} \\]</p></section>
@@ -1293,22 +1473,24 @@ def write_lectures():
     LECTURE_DIR.mkdir(parents=True, exist_ok=True)
     for item in LECTURES:
         n = item['n']
-        (LECTURE_DIR / f'lecture-{n:02d}-slides.html').write_text(slide_deck(item), encoding='utf-8')
-        (LECTURE_DIR / f'lecture-{n:02d}-notes.html').write_text(lecture_notes(item), encoding='utf-8')
+        with (LECTURE_DIR / f'lecture-{n:02d}-slides.html').open('w', encoding='utf-8', newline='\n') as f:
+            f.write(slide_deck(item))
+        with (LECTURE_DIR / f'lecture-{n:02d}-notes.html').open('w', encoding='utf-8', newline='\n') as f:
+            f.write(lecture_notes(item))
 
 
 def write_data_csv():
     import csv
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     with open(DATA_DIR / 'solar_cycle_sunspot_numbers.csv', 'w', newline='', encoding='utf-8') as f:
-        w = csv.writer(f)
+        w = csv.writer(f, lineterminator='\n')
         w.writerow(['cycle', 'metric', 'value', 'date', 'source_note'])
         w.writerow(['Solar Cycle 24', 'smoothed max SSN', CYCLE24_MAX_SMOOTHED_SSN, 'April 2014', 'standard published, level 2'])
         w.writerow(['Solar Cycle 25', 'smoothed min SSN', CYCLE25_MIN_SMOOTHED_SSN, CYCLE25_START, 'live-verified this session (SILSO via Wikipedia)'])
         w.writerow(['Solar Cycle 25', 'smoothed max SSN', CYCLE25_MAX_SMOOTHED_SSN, 'October 2024', 'live-verified this session (SILSO via Wikipedia)'])
         w.writerow(['Solar Cycle 25', 'not-smoothed max SSN', CYCLE25_MAX_MONTHLY_SSN, 'August 2024', 'live-verified this session (SILSO via Wikipedia)'])
     with open(DATA_DIR / 'real_events.csv', 'w', newline='', encoding='utf-8') as f:
-        w = csv.writer(f)
+        w = csv.writer(f, lineterminator='\n')
         w.writerow(['event', 'quantity', 'value', 'unit', 'source_note'])
         w.writerow(['AR 12673 X9.3 flare', 'GOES peak flux', FLARE_PEAK_FLUX_WM2, 'W/m^2', 'standard published NOAA/GOES value, level 2'])
         w.writerow(['6 Sept 2017 CME', 'LASCO linear speed', FLARE_CME_SPEED_KMS, 'km/s', 'standard published CDAW catalog value, level 2'])

@@ -25,13 +25,28 @@ figcaption,.small { color:var(--muted); font-size:.95rem; line-height:1.35; marg
 svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(--line); background:#fff; }
 .warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
 @media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+
+.term-explorer{display:grid;grid-template-columns:minmax(220px,.7fr) minmax(0,1.8fr);gap:28px;align-items:stretch;min-height:58vh}
+.term-list{display:flex;flex-direction:column;gap:10px}
+.term-button{width:100%;padding:12px 15px;border:2px solid var(--line);border-radius:8px;background:#fff;color:var(--navy);font:inherit;font-size:1.05rem;font-weight:700;text-align:left;cursor:pointer}
+.term-button:hover{border-color:var(--teal)}
+.term-button:focus-visible{outline:4px solid var(--gold);outline-offset:2px}
+.term-button[aria-selected="true"]{color:#fff;background:var(--teal);border-color:var(--teal)}
+.term-detail{border:1px solid var(--line);border-radius:10px;padding:20px 24px;background:var(--paper);overflow:auto}
+.term-detail h3{margin:0 0 10px;color:var(--teal);font-size:clamp(1.35rem,2.2vw,2rem)}
+.term-detail p{font-size:clamp(.96rem,1.35vw,1.22rem);margin:.55em 0}
+.term-detail[hidden]{display:none}
+.term-visual{font-size:1.12rem;padding:10px 14px;background:var(--teal-soft);border-left:4px solid var(--teal);margin-top:12px}
+@media(max-width:800px){.term-explorer{grid-template-columns:1fr}.term-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+@media print{.term-explorer{display:block;min-height:0}.term-list{display:none}.term-detail[hidden]{display:block}.term-detail{break-inside:avoid;margin:12px 0}}
 </style>
 </head>
 <body>
 <main class="deck">
 <section class="slide title"><p class="kicker">ASTR 120 · Lecture 02</p><h1>Solar System Architecture and Formation</h1><h2>Solar-system evidence, physics, and exploration</h2></section>
 <section class="slide"><h2>Why This Question Matters</h2><p>Kant and Laplace proposed nebular ideas; modern disks around young stars and meteorites now let us test formation models.</p></section>
-<section class="slide"><h2>Learning Goals</h2><ul><li>Explain how disk temperature and angular momentum shape planetary architecture.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section>
+<section class="slide"><h2>Learning Goals</h2><ul><li>Explain how disk temperature and angular momentum shape planetary architecture.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section><section class="slide glossary-slide" aria-labelledby="l02-terms-heading"><h2 id="l02-terms-heading">Terms for This Lecture</h2><div class="term-explorer" data-term-explorer><div class="term-list" role="tablist" aria-label="Lecture 02 terms"><button class="term-button" id="l02-term-1-tab" type="button" role="tab" aria-selected="true" aria-controls="l02-term-1-panel" data-term-target="l02-term-1-panel" tabindex="0">Protoplanetary disk</button><button class="term-button" id="l02-term-2-tab" type="button" role="tab" aria-selected="false" aria-controls="l02-term-2-panel" data-term-target="l02-term-2-panel" tabindex="-1">Angular momentum</button><button class="term-button" id="l02-term-3-tab" type="button" role="tab" aria-selected="false" aria-controls="l02-term-3-panel" data-term-target="l02-term-3-panel" tabindex="-1">Condensation sequence</button><button class="term-button" id="l02-term-4-tab" type="button" role="tab" aria-selected="false" aria-controls="l02-term-4-panel" data-term-target="l02-term-4-panel" tabindex="-1">Frost line</button><button class="term-button" id="l02-term-5-tab" type="button" role="tab" aria-selected="false" aria-controls="l02-term-5-panel" data-term-target="l02-term-5-panel" tabindex="-1">Accretion</button><button class="term-button" id="l02-term-6-tab" type="button" role="tab" aria-selected="false" aria-controls="l02-term-6-panel" data-term-target="l02-term-6-panel" tabindex="-1">Planetesimal</button></div><div class="term-details"><article class="term-detail" id="l02-term-1-panel" role="tabpanel" aria-labelledby="l02-term-1-tab"><h3>Protoplanetary disk</h3><p><strong>Definition:</strong> A rotating disk of gas and dust around a young star from which planets and smaller bodies can assemble.</p><p><strong>Why it matters and connects:</strong> Its temperature, density, composition, and angular momentum provide the initial conditions used to explain nearly coplanar, mostly prograde orbits.</p><p><strong>Boundary or common confusion:</strong> Disks evolve while planets grow; the present solar system is not a frozen image of the original disk.</p></article><article class="term-detail" id="l02-term-2-panel" role="tabpanel" aria-labelledby="l02-term-2-tab" hidden><h3>Angular momentum</h3><p><strong>Definition:</strong> The conserved measure of rotational motion; for a small body on a nearly circular orbit it scales with mass, orbital speed, and distance from the rotation axis.</p><p><strong>Why it matters and connects:</strong> Conservation of angular momentum helps a collapsing cloud flatten and rotate faster, and later constrains migration and orbital exchange.</p><p><strong>Boundary or common confusion:</strong> Angular momentum can be redistributed among gas, planets, and ejected bodies even though the total of an isolated system is conserved.</p><div class="term-visual">\(L\approx mvr\)</div></article><article class="term-detail" id="l02-term-3-panel" role="tabpanel" aria-labelledby="l02-term-3-tab" hidden><h3>Condensation sequence</h3><p><strong>Definition:</strong> The ordered appearance of solid materials as cooling gas crosses the temperatures at which different compounds become stable condensates.</p><p><strong>Why it matters and connects:</strong> It links disk temperature to the initial availability of metals, silicates, and volatile ices for planet building.</p><p><strong>Boundary or common confusion:</strong> Condensation predicts local starting materials, not final composition after radial mixing, impacts, atmospheric loss, and migration.</p></article><article class="term-detail" id="l02-term-4-panel" role="tabpanel" aria-labelledby="l02-term-4-tab" hidden><h3>Frost line</h3><p><strong>Definition:</strong> The approximate disk radius beyond which a chosen volatile, commonly water, can remain as solid ice during planet formation.</p><p><strong>Why it matters and connects:</strong> Beyond the water frost line, added ice increases the solid inventory available for rapid core growth and changes the composition of planetesimals.</p><p><strong>Boundary or common confusion:</strong> The frost line is a moving, species-dependent zone rather than a permanent sharp boundary.</p><div class="term-visual">\(T(r_{\rm frost})\approx T_{\rm cond}\)</div></article><article class="term-detail" id="l02-term-5-panel" role="tabpanel" aria-labelledby="l02-term-5-tab" hidden><h3>Accretion</h3><p><strong>Definition:</strong> Growth by collisions and gravitational capture of dust, pebbles, planetesimals, and planetary embryos.</p><p><strong>Why it matters and connects:</strong> Accretion connects microscopic solids to planets and predicts that collision speed, gas drag, and gravitational focusing affect growth rates.</p><p><strong>Boundary or common confusion:</strong> Not every collision produces growth; high-speed impacts can bounce, erode, fragment, or disrupt bodies.</p></article><article class="term-detail" id="l02-term-6-panel" role="tabpanel" aria-labelledby="l02-term-6-tab" hidden><h3>Planetesimal</h3><p><strong>Definition:</strong> A solid body large enough for gravity and orbital dynamics to dominate its subsequent growth and collisions.</p><p><strong>Why it matters and connects:</strong> Planetesimals are the building blocks sampled by asteroids, comets, and meteorites and are central to models of planetary embryo formation.</p><p><strong>Boundary or common confusion:</strong> The size threshold and formation mechanism are model-dependent; the term does not imply an untouched primitive composition.</p></article></div></div></section>
 <section class="slide"><h2>Opening Phenomenon</h2><p>Regularities in orbits, rotation, composition, and small bodies record formation in a protoplanetary disk.</p></section>
 <section class="slide"><h2>Architecture Clues to Formation</h2><div class="three"><article class="card"><p><strong>Nearly flat orbits:</strong> planets remember a rotating disk, not random capture.</p></article><article class="card"><p><strong>Composition gradient:</strong> rock and metal dominate close to the Sun; ices become available farther out.</p></article><article class="card"><p><strong>Leftover bodies:</strong> asteroids, comets, and meteorites preserve incomplete accretion.</p></article></div></section>
 <section class="slide"><h2>From Collapsing Cloud to Disk</h2><ul><li>A large cloud can shrink dramatically while keeping most of its angular momentum.</li><li>Rotation prevents direct collapse into the young Sun, so gas and dust spread into a disk.</li><li>Collisions damp vertical motion, which makes the planet-forming region thin and ordered.</li></ul></section>
@@ -56,5 +71,33 @@ svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(
 <section class="slide"><h2>Reasoning Prompt: What Would Break the Model?</h2><p>Suppose a system has giant planets close to the star and rocky planets farther out. Which part of the simple nebular story fails first: condensation chemistry, gas capture timing, or later orbital migration?</p></section>
 <section class="slide"><h2>Synthesis: Formation Leaves Multiple Fingerprints</h2><ul><li>Angular momentum explains flat, ordered planetary orbits.</li><li>Temperature controls which solids are available for planet building.</li><li>Modern architectures must be read as formation plus later migration and collision history.</li></ul></section>
 <section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax Astronomy 2e solar-system chapters and local reference copy.</li><li>NASA/OpenStax/ESA sources recorded in reference-log.md where external visuals are used.</li></ul></section>
-</main></body>
+</main>
+<script data-astr120-term-explorer>
+document.querySelectorAll("[data-term-explorer]").forEach((explorer)=>{
+  const tabs=[...explorer.querySelectorAll('[role="tab"]')];
+  const panels=[...explorer.querySelectorAll('[role="tabpanel"]')];
+  const select=(tab,moveFocus=false)=>{
+    tabs.forEach((item)=>{
+      const active=item===tab;
+      item.setAttribute("aria-selected",String(active));
+      item.tabIndex=active?0:-1;
+    });
+    panels.forEach((panel)=>{panel.hidden=panel.id!==tab.getAttribute("aria-controls");});
+    if(moveFocus)tab.focus();
+  };
+  tabs.forEach((tab,index)=>{
+    tab.addEventListener("click",()=>select(tab));
+    tab.addEventListener("keydown",(event)=>{
+      if(!["ArrowDown","ArrowUp","ArrowRight","ArrowLeft","Home","End"].includes(event.key))return;
+      event.preventDefault();
+      let next=index;
+      if(event.key==="Home")next=0;
+      else if(event.key==="End")next=tabs.length-1;
+      else next=(index+(["ArrowDown","ArrowRight"].includes(event.key)?1:-1)+tabs.length)%tabs.length;
+      select(tabs[next],true);
+    });
+  });
+});
+</script>
+</body>
 </html>

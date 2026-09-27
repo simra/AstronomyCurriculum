@@ -27,11 +27,24 @@ ul,ol { max-width:1050px; }
 .image-pair figure { margin:0; }
 .three { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
 .card { border:1px solid var(--line); background:#fff; border-radius:6px; padding:14px 16px; }
+.term-explorer { display:grid; grid-template-columns:minmax(210px,.68fr) minmax(0,1.75fr); gap:26px; min-height:58vh; align-items:stretch; }
+.term-list { display:flex; flex-direction:column; gap:9px; }
+.term-button { width:100%; padding:12px 15px; border:2px solid var(--line); border-radius:8px; background:#fff; color:var(--navy); font:inherit; font-size:1.02rem; font-weight:700; text-align:left; cursor:pointer; }
+.term-button:hover { border-color:var(--teal); }
+.term-button:focus-visible { outline:4px solid var(--gold); outline-offset:2px; }
+.term-button[aria-selected="true"] { color:#fff; background:var(--teal); border-color:var(--teal); }
+.term-details { min-width:0; }
+.term-detail { height:100%; border:1px solid var(--line); border-radius:10px; padding:18px 23px; background:var(--paper); overflow:auto; }
+.term-detail h3 { margin-top:0; font-size:clamp(1.35rem,2.25vw,2rem); }
+.term-detail p { font-size:clamp(.96rem,1.35vw,1.24rem); margin:.55em 0; }
+.term-detail[hidden] { display:none; }
+.term-visual { margin-top:12px; }
 .equation { font-size:1.34rem; padding:14px 18px; background:var(--teal-soft); border-left:5px solid var(--teal); margin:12px 0; }
 figcaption,.credit,.small { color:var(--muted); font-size:.95rem; line-height:1.35; margin-top:8px; }
 svg { width:100%; max-height:62vh; border:1px solid var(--line); background:#fff; }
 .warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
-@media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+@media (max-width:800px) { .slide { padding:34px 24px; } .term-explorer { grid-template-columns:1fr; } .term-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } .term-explorer { display:block; } .term-list { display:none; } .term-detail[hidden] { display:block !important; } .term-detail { height:auto; break-inside:avoid; margin:12px 0; } }
 </style>
 </head>
 <body>
@@ -44,13 +57,7 @@ svg { width:100%; max-height:62vh; border:1px solid var(--line); background:#fff
 <li>Correct the misconception: A light-year is a distance, not a time. It is the distance light travels in one year.</li></ol><p class="small">Reading anchor: OpenStax Astronomy 2e, Chapter 1.4 on astronomical scale and Chapter 19.2 on stellar parallax and distances.</p></section>
     <section class="slide"><h2>Why This Question Matters</h2><p>From Aristarchus to Bessel, distance was the central obstacle in astronomy. Parallax became powerful because it turned a tiny angular shift into geometry, giving astronomy its first direct stellar yardstick.</p></section>
     <section class="slide"><h2>Opening Phenomenon</h2><p>Astronomy studies objects too far away to touch. Distance measurement therefore relies on geometric baselines, calibrated relationships, and careful uncertainty accounting.</p><p class="warning"><strong>First question:</strong> what is directly observed, and what part is an explanation built from a model?</p></section>
-    <section class="slide"><h2>Vocabulary for Reasoning</h2><div class="three"><article class="card"><p>astronomical unit</p></article>
-<article class="card"><p>light-year</p></article>
-<article class="card"><p>parsec</p></article>
-<article class="card"><p>parallax</p></article>
-<article class="card"><p>baseline</p></article>
-<article class="card"><p>standard candle</p></article>
-<article class="card"><p>order of magnitude</p></article></div><p class="small">Use these terms to describe evidence and relationships, not as isolated vocabulary.</p></section>
+    <section class="slide glossary-slide" aria-labelledby="terms-heading"><h2 id="terms-heading">Terms for This Lecture</h2><div class="term-explorer" data-term-explorer><div class="term-list" role="tablist" aria-label="Lecture terms"><button class="term-button" id="lecture-03-term-01-tab" type="button" role="tab" aria-selected="true" aria-controls="lecture-03-term-01-panel" data-term-target="lecture-03-term-01-panel" tabindex="0">astronomical unit</button><button class="term-button" id="lecture-03-term-02-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-03-term-02-panel" data-term-target="lecture-03-term-02-panel" tabindex="-1">light-year</button><button class="term-button" id="lecture-03-term-03-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-03-term-03-panel" data-term-target="lecture-03-term-03-panel" tabindex="-1">parsec</button><button class="term-button" id="lecture-03-term-04-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-03-term-04-panel" data-term-target="lecture-03-term-04-panel" tabindex="-1">parallax</button><button class="term-button" id="lecture-03-term-05-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-03-term-05-panel" data-term-target="lecture-03-term-05-panel" tabindex="-1">baseline</button><button class="term-button" id="lecture-03-term-06-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-03-term-06-panel" data-term-target="lecture-03-term-06-panel" tabindex="-1">standard candle</button><button class="term-button" id="lecture-03-term-07-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-03-term-07-panel" data-term-target="lecture-03-term-07-panel" tabindex="-1">order of magnitude</button></div><div class="term-details"><article class="term-detail" id="lecture-03-term-01-panel" role="tabpanel" aria-labelledby="lecture-03-term-01-tab"><h3>astronomical unit</h3><p><strong>Definition:</strong> A distance unit defined as exactly 149,597,870,700 metres, close to Earth&#x27;s average distance from the Sun.</p><p><strong>Why it matters here:</strong> It puts solar-system distances on a manageable numerical scale.</p><p><strong>Relationships:</strong> The AU supplies the baseline for annual stellar parallax and links planetary distances to Kepler&#x27;s laws.</p><p><strong>Boundary or common confusion:</strong> It is a unit, not Earth&#x27;s instantaneous Sun distance, which varies along Earth&#x27;s orbit.</p></article><article class="term-detail" id="lecture-03-term-02-panel" role="tabpanel" aria-labelledby="lecture-03-term-02-tab" hidden><h3>light-year</h3><p><strong>Definition:</strong> The distance light travels in vacuum during one Julian year.</p><p><strong>Why it matters here:</strong> It connects cosmic distance to light-travel time and therefore to how far into the past we observe.</p><p><strong>Relationships:</strong> One parsec is about 3.26 light-years; both are distance units used beyond the solar system.</p><p><strong>Boundary or common confusion:</strong> Despite the word year, it measures distance, not duration.</p></article><article class="term-detail" id="lecture-03-term-03-panel" role="tabpanel" aria-labelledby="lecture-03-term-03-tab" hidden><h3>parsec</h3><p><strong>Definition:</strong> The distance at which one astronomical unit subtends a parallax angle of one arcsecond.</p><p><strong>Why it matters here:</strong> It ties a widely used stellar distance unit directly to a measurable geometric angle.</p><p><strong>Relationships:</strong> Distance in parsecs is the reciprocal of annual parallax in arcseconds for the standard small-angle geometry.</p><p><strong>Boundary or common confusion:</strong> The reciprocal formula becomes statistically delicate when parallax uncertainty is comparable to the measured parallax.</p><div class="term-visual equation">\[ d({\rm pc})=\frac{1}{p({\rm arcsec})} \]</div></article><article class="term-detail" id="lecture-03-term-04-panel" role="tabpanel" aria-labelledby="lecture-03-term-04-tab" hidden><h3>parallax</h3><p><strong>Definition:</strong> An apparent shift in an object&#x27;s direction caused by observing it from separated positions.</p><p><strong>Why it matters here:</strong> Annual stellar parallax provides a direct geometric rung of the cosmic distance ladder.</p><p><strong>Relationships:</strong> A larger baseline increases the shift, while a larger distance decreases it.</p><p><strong>Boundary or common confusion:</strong> Parallax is an angular effect and must be separated from proper motion and measurement systematics.</p></article><article class="term-detail" id="lecture-03-term-05-panel" role="tabpanel" aria-labelledby="lecture-03-term-05-tab" hidden><h3>baseline</h3><p><strong>Definition:</strong> The known separation between observing positions used in triangulation.</p><p><strong>Why it matters here:</strong> A longer baseline produces a larger parallax angle for the same target and improves geometric leverage.</p><p><strong>Relationships:</strong> Baseline, angular shift, and distance form the parallax triangle.</p><p><strong>Boundary or common confusion:</strong> Increasing baseline does not remove errors in pointing, reference-star calibration, or source motion.</p></article><article class="term-detail" id="lecture-03-term-06-panel" role="tabpanel" aria-labelledby="lecture-03-term-06-tab" hidden><h3>standard candle</h3><p><strong>Definition:</strong> An object or relation whose intrinsic luminosity can be estimated, allowing distance to be inferred from observed flux.</p><p><strong>Why it matters here:</strong> It extends distance measurement far beyond the direct reach of trigonometric parallax.</p><p><strong>Relationships:</strong> It uses the inverse-square law and must be calibrated by nearer distance indicators.</p><p><strong>Boundary or common confusion:</strong> Standard candles are not perfectly identical; extinction, metallicity, and calibration scatter can bias the inferred distance.</p><div class="term-visual equation">\[ F=\frac{L}{4\pi d^2} \]</div></article><article class="term-detail" id="lecture-03-term-07-panel" role="tabpanel" aria-labelledby="lecture-03-term-07-tab" hidden><h3>order of magnitude</h3><p><strong>Definition:</strong> A scale expressed by the nearest power of ten.</p><p><strong>Why it matters here:</strong> It allows rapid comparisons and exposes results that are physically implausible before detailed calculation.</p><p><strong>Relationships:</strong> Logarithmic scales, scientific notation, and ratio reasoning all use orders of magnitude.</p><p><strong>Boundary or common confusion:</strong> It deliberately suppresses factors of a few and should not replace precision when precision matters.</p></article></div></div></section>
   <section class="slide"><h2>Evidence We Need to Explain</h2><ul><li>Nearby stars shift position slightly against distant background stars over Earth&#x27;s orbit.</li>
 <li>Light travel time gives a physical meaning to distance.</li>
 <li>Different distance methods overlap, creating a distance ladder.</li></ul></section>
@@ -72,5 +79,34 @@ svg { width:100%; max-height:62vh; border:1px solid var(--line); background:#fff
 <li>How does scale affect every later physical claim?</li></ul></section>
     <section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax, <em>Astronomy 2e</em>: OpenStax Astronomy 2e, Chapter 1.4 on astronomical scale and Chapter 19.2 on stellar parallax and distances.</li><li>Local reference copy: <code>references/openstax-astronomy-2e.pdf</code>.</li><li>Visual: Parallax turns a measured angular shift across Earth&#x27;s orbital baseline into an inferred stellar distance. Credit: OpenStax Astronomy 2e, Fig. 19.6, CC BY-NC-SA 4.0.</li></ul></section>
 </main>
+<script>
+document.querySelectorAll("[data-term-explorer]").forEach((explorer) => {
+  const tabs = [...explorer.querySelectorAll('[role="tab"]')];
+  const panels = [...explorer.querySelectorAll('[role="tabpanel"]')];
+  const select = (tab, moveFocus = false) => {
+    tabs.forEach((item) => {
+      const active = item === tab;
+      item.setAttribute("aria-selected", String(active));
+      item.tabIndex = active ? 0 : -1;
+    });
+    panels.forEach((panel) => { panel.hidden = panel.id !== tab.getAttribute("aria-controls"); });
+    if (moveFocus) tab.focus();
+  };
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => select(tab));
+    tab.addEventListener("keydown", (event) => {
+      if (!["ArrowDown", "ArrowUp", "ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      let nextIndex = index;
+      if (event.key === "Home") nextIndex = 0;
+      else if (event.key === "End") nextIndex = tabs.length - 1;
+      else if (event.key === "ArrowDown" || event.key === "ArrowRight") nextIndex = (index + 1) % tabs.length;
+      else nextIndex = (index - 1 + tabs.length) % tabs.length;
+      select(tabs[nextIndex], true);
+    });
+  });
+});
+</script>
+
 </body>
 </html>

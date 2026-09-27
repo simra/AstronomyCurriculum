@@ -22,6 +22,7 @@ Inspect all available course artifacts:
 - Reference lists, visual credits, datasets, and software requirements.
 - Source indexes under `references/source-indexes/` when source-exact readings, figures, images, datasets, or textbook problems are cited.
 - Applicable templates and standards from `templates/course-materials/STYLE_GUIDE.md` and `templates/course-materials/`.
+- The dedicated lecture-note review procedure in `.github/skills/lecture-notes-review/SKILL.md`.
 - The expected course folder under `materials/<COURSECODE>/`, including `course-manifest.json`, `lectures/`, `labs/`, `problem-sets/`, `src/`, and `data/` where applicable.
 
 ## Review Priorities
@@ -46,6 +47,7 @@ Verify that:
 - The syllabus and schedule exist before lecture artifacts.
 - Slides follow the approved schedule.
 - Notes expand the slides without changing the sequence unexpectedly.
+- Every deck term explorer is matched by a developed definition in the notes.
 - Problem sets depend on lecture notes and slides already created.
 - Solution keys correspond exactly to problem sets.
 - Assessment instructions correspond to the correct problem set and solution key.
@@ -80,6 +82,8 @@ Treat shallow materials as blocking defects when they would prevent real instruc
 - Perform a mechanical check across a course's lecture files for a repeated generic visual-reasoning diagram: if the same SVG shape coordinates/layout (e.g., identical rectangle positions and colors) appear across most or all lectures with only text labels differing, treat this as a blocking defect, even if each lecture's surrounding prose is otherwise lecture-specific. A missing visual-reasoning slide in most/all lectures of a course (no figure at all) is likewise a blocking defect; omitting the slide is acceptable only as a rare, individually-justified exception.
 - Review slide quality against the standard of a serious undergraduate astronomy course at institutions such as MIT or Stanford: rigorous, visually legible, conceptually precise, and worthy of classroom use.
 - Lecture notes should expand slides into study-ready explanations, not merely repeat slide headings.
+- Apply `lecture-notes-review` to compare each notes file directly with its matching deck. Treat missing added explanation, near-paraphrase structure, unexpanded glossary terms, and vague or unverified resource pointers as blocking note-quality defects.
+- Check the interactive term explorer mechanically and pedagogically: every term button must map to exactly one definition panel; keyboard and print behavior must preserve access; definitions must explain use and relationships rather than provide isolated dictionary glosses; optional visuals must be scientifically meaningful and credited when non-original.
 - Problem sets should contain concrete, lecture-specific questions and should not reuse generic interchangeable prompts across assignments.
 - Problem sets should include exact textbook problem recommendations when a textbook is adopted and available. Verify the exercise category/type (for example, Review Question vs. Thought Question vs. Figuring for Yourself) as well as its chapter/section and number against the source index; a correct number with the wrong exercise type is still an inaccurate citation and a correction item. Vague textbook references are also a correction item.
 - Quantitative rigor should match course level and should ramp upward across the curriculum; upper-division astronomy courses should not be mostly conceptual unless the course design explicitly justifies it.
@@ -138,6 +142,7 @@ Before completing the review, verify:
 - Corrections are routed to the right authoring stage.
 - Approval is not granted if references, solutions, or scientific claims remain unverified.
 - Approval is not granted for template-complete but substantively shallow slides or notes.
+- Approval is not granted when lecture notes primarily duplicate their matching slides or when a notes audit has not compared each pair directly.
 - Approval is not granted for template-complete but substantively shallow or non-specific problem sets.
 - Approval is not granted when student-facing slides contain instructor-only commentary that should live in notes or review artifacts.
 - Approval is not granted when slide captions describe the production process rather than the scientific content students should learn.

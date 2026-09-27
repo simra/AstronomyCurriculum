@@ -27,11 +27,24 @@ ul,ol { max-width:1050px; }
 .image-pair figure { margin:0; }
 .three { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
 .card { border:1px solid var(--line); background:#fff; border-radius:6px; padding:14px 16px; }
+.term-explorer { display:grid; grid-template-columns:minmax(210px,.68fr) minmax(0,1.75fr); gap:26px; min-height:58vh; align-items:stretch; }
+.term-list { display:flex; flex-direction:column; gap:9px; }
+.term-button { width:100%; padding:12px 15px; border:2px solid var(--line); border-radius:8px; background:#fff; color:var(--navy); font:inherit; font-size:1.02rem; font-weight:700; text-align:left; cursor:pointer; }
+.term-button:hover { border-color:var(--teal); }
+.term-button:focus-visible { outline:4px solid var(--gold); outline-offset:2px; }
+.term-button[aria-selected="true"] { color:#fff; background:var(--teal); border-color:var(--teal); }
+.term-details { min-width:0; }
+.term-detail { height:100%; border:1px solid var(--line); border-radius:10px; padding:18px 23px; background:var(--paper); overflow:auto; }
+.term-detail h3 { margin-top:0; font-size:clamp(1.35rem,2.25vw,2rem); }
+.term-detail p { font-size:clamp(.96rem,1.35vw,1.24rem); margin:.55em 0; }
+.term-detail[hidden] { display:none; }
+.term-visual { margin-top:12px; }
 .equation { font-size:1.34rem; padding:14px 18px; background:var(--teal-soft); border-left:5px solid var(--teal); margin:12px 0; }
 figcaption,.credit,.small { color:var(--muted); font-size:.95rem; line-height:1.35; margin-top:8px; }
 svg { width:100%; max-height:62vh; border:1px solid var(--line); background:#fff; }
 .warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
-@media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+@media (max-width:800px) { .slide { padding:34px 24px; } .term-explorer { grid-template-columns:1fr; } .term-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } .term-explorer { display:block; } .term-list { display:none; } .term-detail[hidden] { display:block !important; } .term-detail { height:auto; break-inside:avoid; margin:12px 0; } }
 </style>
 </head>
 <body>
@@ -44,13 +57,7 @@ svg { width:100%; max-height:62vh; border:1px solid var(--line); background:#fff
 <li>Correct the misconception: The brightest-looking stars in the sky are not necessarily the most luminous; distance strongly affects apparent brightness.</li></ol><p class="small">Reading anchor: OpenStax Astronomy 2e, Chapters 17.1-17.4 and 18.2-18.4 on starlight, luminosity, spectra, and the H-R diagram.</p></section>
     <section class="slide"><h2>Why This Question Matters</h2><p>Annie Jump Cannon&#x27;s spectral classification and Hertzsprung and Russell&#x27;s luminosity-temperature diagram turned star catalogs into stellar physics. Patterns in data revealed structure.</p></section>
     <section class="slide"><h2>Opening Phenomenon</h2><p>Stars look like points, but their light encodes temperature, luminosity, size, composition, and evolutionary state.</p><p class="warning"><strong>First question:</strong> what is directly observed, and what part is an explanation built from a model?</p></section>
-    <section class="slide"><h2>Vocabulary for Reasoning</h2><div class="three"><article class="card"><p>luminosity</p></article>
-<article class="card"><p>flux</p></article>
-<article class="card"><p>apparent magnitude</p></article>
-<article class="card"><p>absolute magnitude</p></article>
-<article class="card"><p>spectral type</p></article>
-<article class="card"><p>main sequence</p></article>
-<article class="card"><p>H-R diagram</p></article></div><p class="small">Use these terms to describe evidence and relationships, not as isolated vocabulary.</p></section>
+    <section class="slide glossary-slide" aria-labelledby="terms-heading"><h2 id="terms-heading">Terms for This Lecture</h2><div class="term-explorer" data-term-explorer><div class="term-list" role="tablist" aria-label="Lecture terms"><button class="term-button" id="lecture-09-term-01-tab" type="button" role="tab" aria-selected="true" aria-controls="lecture-09-term-01-panel" data-term-target="lecture-09-term-01-panel" tabindex="0">luminosity</button><button class="term-button" id="lecture-09-term-02-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-09-term-02-panel" data-term-target="lecture-09-term-02-panel" tabindex="-1">flux</button><button class="term-button" id="lecture-09-term-03-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-09-term-03-panel" data-term-target="lecture-09-term-03-panel" tabindex="-1">apparent magnitude</button><button class="term-button" id="lecture-09-term-04-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-09-term-04-panel" data-term-target="lecture-09-term-04-panel" tabindex="-1">absolute magnitude</button><button class="term-button" id="lecture-09-term-05-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-09-term-05-panel" data-term-target="lecture-09-term-05-panel" tabindex="-1">spectral type</button><button class="term-button" id="lecture-09-term-06-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-09-term-06-panel" data-term-target="lecture-09-term-06-panel" tabindex="-1">main sequence</button><button class="term-button" id="lecture-09-term-07-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-09-term-07-panel" data-term-target="lecture-09-term-07-panel" tabindex="-1">H-R diagram</button></div><div class="term-details"><article class="term-detail" id="lecture-09-term-01-panel" role="tabpanel" aria-labelledby="lecture-09-term-01-tab"><h3>luminosity</h3><p><strong>Definition:</strong> The total radiant energy a source emits per unit time.</p><p><strong>Why it matters here:</strong> Luminosity is an intrinsic stellar property used to compare energy output independent of distance.</p><p><strong>Relationships:</strong> Observed flux follows \(F=L/(4\pi d^2)\); for a thermal star, \(L=4\pi R^2\sigma T^4\).</p><p><strong>Boundary or common confusion:</strong> Luminosity can refer to all wavelengths or a specified band, and anisotropic sources complicate the simple interpretation.</p><div class="term-visual equation">\[ L=4\pi R^2\sigma T^4 \]</div></article><article class="term-detail" id="lecture-09-term-02-panel" role="tabpanel" aria-labelledby="lecture-09-term-02-tab" hidden><h3>flux</h3><p><strong>Definition:</strong> Radiant power received per unit area at the observer or detector.</p><p><strong>Why it matters here:</strong> Flux is the directly measured brightness quantity from which luminosity is inferred.</p><p><strong>Relationships:</strong> It decreases with inverse square of distance for isotropic emission and is integrated over a stated wavelength band.</p><p><strong>Boundary or common confusion:</strong> Flux is affected by distance, extinction, filter response, and calibration; it is not intrinsic luminosity.</p><div class="term-visual equation">\[ F=\frac{L}{4\pi d^2} \]</div></article><article class="term-detail" id="lecture-09-term-03-panel" role="tabpanel" aria-labelledby="lecture-09-term-03-tab" hidden><h3>apparent magnitude</h3><p><strong>Definition:</strong> A logarithmic measure of how bright a source appears from Earth in a specified band.</p><p><strong>Why it matters here:</strong> It compresses enormous brightness ranges into the historical scale used in observing and catalogs.</p><p><strong>Relationships:</strong> A five-magnitude difference corresponds to a flux ratio of 100; smaller magnitudes are brighter.</p><p><strong>Boundary or common confusion:</strong> Apparent magnitude mixes luminosity, distance, extinction, and bandpass.</p><div class="term-visual equation">\[ m_2-m_1=-2.5\log_{10}\!\left(\frac{F_2}{F_1}\right) \]</div></article><article class="term-detail" id="lecture-09-term-04-panel" role="tabpanel" aria-labelledby="lecture-09-term-04-tab" hidden><h3>absolute magnitude</h3><p><strong>Definition:</strong> The apparent magnitude an object would have at a standard distance of 10 parsecs, with the relevant convention stated.</p><p><strong>Why it matters here:</strong> It provides a distance-normalized comparison of intrinsic brightness.</p><p><strong>Relationships:</strong> Apparent and absolute magnitude are linked by the distance modulus, with extinction added when relevant.</p><p><strong>Boundary or common confusion:</strong> It remains band-dependent and is not identical to bolometric luminosity.</p><div class="term-visual equation">\[ m-M=5\log_{10}\!\left(\frac{d}{10\,{\rm pc}}\right) \]</div></article><article class="term-detail" id="lecture-09-term-05-panel" role="tabpanel" aria-labelledby="lecture-09-term-05-tab" hidden><h3>spectral type</h3><p><strong>Definition:</strong> A classification based primarily on the pattern and strength of stellar absorption lines, strongly ordered by surface temperature.</p><p><strong>Why it matters here:</strong> It connects an observed spectrum to temperature, ionization state, and stellar population.</p><p><strong>Relationships:</strong> The O-B-A-F-G-K-M sequence runs from hot to cool and helps set horizontal position on an H-R diagram.</p><p><strong>Boundary or common confusion:</strong> Line strength reflects excitation and ionization, not simply elemental abundance.</p></article><article class="term-detail" id="lecture-09-term-06-panel" role="tabpanel" aria-labelledby="lecture-09-term-06-tab" hidden><h3>main sequence</h3><p><strong>Definition:</strong> The diagonal band on an H-R diagram occupied by stars stably fusing hydrogen in their cores.</p><p><strong>Why it matters here:</strong> It represents the longest-lived stage of most stars and links mass to luminosity, temperature, radius, and lifetime.</p><p><strong>Relationships:</strong> Higher-mass main-sequence stars are generally hotter, more luminous, and shorter-lived.</p><p><strong>Boundary or common confusion:</strong> It is not an evolutionary track that each star slides down from hot to cool.</p></article><article class="term-detail" id="lecture-09-term-07-panel" role="tabpanel" aria-labelledby="lecture-09-term-07-tab" hidden><h3>H-R diagram</h3><p><strong>Definition:</strong> A plot of stellar luminosity or absolute magnitude against surface temperature, color, or spectral type.</p><p><strong>Why it matters here:</strong> It organizes stellar properties and reveals main-sequence stars, giants, supergiants, and white dwarfs.</p><p><strong>Relationships:</strong> Position combines luminosity and temperature; the Stefan-Boltzmann law then constrains radius.</p><p><strong>Boundary or common confusion:</strong> Axis directions and observables vary, and a diagram is a population snapshot rather than one star&#x27;s path through time.</p></article></div></div></section>
   <section class="slide"><h2>Evidence We Need to Explain</h2><ul><li>Stellar spectra show temperature-sensitive absorption lines.</li>
 <li>Parallax distances allow apparent brightness to be converted into luminosity.</li>
 <li>Stars occupy structured regions in the H-R diagram rather than random positions.</li></ul></section>
@@ -81,5 +88,34 @@ svg { width:100%; max-height:62vh; border:1px solid var(--line); background:#fff
 <li>How does the H-R diagram organize physical states?</li></ul></section>
     <section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax, <em>Astronomy 2e</em>: OpenStax Astronomy 2e, Chapters 17.1-17.4 and 18.2-18.4 on starlight, luminosity, spectra, and the H-R diagram.</li><li>Local reference copy: <code>references/openstax-astronomy-2e.pdf</code>.</li><li>Diagram: original explanatory schematic for this lecture&#x27;s physical or geometric model.</li></ul></section>
 </main>
+<script>
+document.querySelectorAll("[data-term-explorer]").forEach((explorer) => {
+  const tabs = [...explorer.querySelectorAll('[role="tab"]')];
+  const panels = [...explorer.querySelectorAll('[role="tabpanel"]')];
+  const select = (tab, moveFocus = false) => {
+    tabs.forEach((item) => {
+      const active = item === tab;
+      item.setAttribute("aria-selected", String(active));
+      item.tabIndex = active ? 0 : -1;
+    });
+    panels.forEach((panel) => { panel.hidden = panel.id !== tab.getAttribute("aria-controls"); });
+    if (moveFocus) tab.focus();
+  };
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => select(tab));
+    tab.addEventListener("keydown", (event) => {
+      if (!["ArrowDown", "ArrowUp", "ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      let nextIndex = index;
+      if (event.key === "Home") nextIndex = 0;
+      else if (event.key === "End") nextIndex = tabs.length - 1;
+      else if (event.key === "ArrowDown" || event.key === "ArrowRight") nextIndex = (index + 1) % tabs.length;
+      else nextIndex = (index - 1 + tabs.length) % tabs.length;
+      select(tabs[nextIndex], true);
+    });
+  });
+});
+</script>
+
 </body>
 </html>

@@ -68,6 +68,144 @@ def lecture_pages(i: int, item: tuple[str,...]) -> tuple[str,str]:
     notes=[f'<section><h2>Learning objectives</h2>{bullets([outcome,f"Explain {scope} with the formal object.","Separate evidence, transformation, inference, and limitation."])}</section>',f'<section><h2>Method in context</h2><p>{html.escape(motivation)} Ask what a second researcher needs to reproduce the claim: raw input, processing state, software or database version, and inferential step.</p>{figure(i,scope)}</section>',f'<section><h2>Derivation and assumptions</h2><div class="equation">\\({html.escape(equation)}\\)</div><p>Define every symbol and explain the failure mode. A method becomes scientific when assumptions are visible enough to be tested.</p></section>',f'<section><h2>Worked example</h2><p>{html.escape(result)}</p><p>{html.escape(limit)} Require an independent recomputation and one perturbation.</p></section>',f'<section><h2>Misconceptions and study guidance</h2><p>Do not confuse a data service with a measurement, a catalog identifier with physical identity, a formal error with total uncertainty, or a polished figure with a validated inference. Reconstruct the evidence chain before interpreting.</p></section>',f'<section><h2>Verified reading</h2><p>{html.escape(reading)}</p><p>Use the exact documentation anchor in the reference log and record any access mismatch.</p></section>']
     return page(f"ASTR 430 Lecture {i:02d} Slides: {title}",'<div class="deck">'+''.join(slides)+'</div>',SLIDE_CSS),page(f"ASTR 430 Lecture {i:02d} Notes: {title}",header(f"ASTR 430 Lecture {i:02d}: {title}","Research Methods in Astronomy · study notes")+'<main>'+''.join(notes)+'</main>')
 
+
+TERM_SETS = [[('Claim-evidence chain', 'A traceable sequence connecting a scientific statement to observations, transformations, and assumptions.'),
+  ('Reproducibility', 'The ability of an independent researcher to obtain a stated result from specified inputs and procedures.'),
+  ('Computational environment', 'The recorded software, dependency, platform, and configuration state in which an analysis runs.'),
+  ('Provenance', 'Metadata describing the origin, custody, and transformations of data and results.'),
+  ('FAIR data', 'Data managed to be findable, accessible, interoperable, and reusable under explicit conditions.')],
+ [('Search query', 'The exact machine-readable expression submitted to a bibliographic database.'),
+  ('Inclusion criterion', 'A rule established to decide which retrieved records enter the evidence set.'),
+  ('Screening log', 'A record of candidate papers, decisions, and exclusion reasons.'),
+  ('Search scope', 'The selected databases, fields, dates, object classes, and document types covered by a search.'),
+  ('Recall-precision tradeoff', 'The balance between retrieving most relevant studies and limiting irrelevant results.')],
+ [('TAP', 'The Table Access Protocol used to query astronomical archive tables through standardized services.'),
+  ('ADQL', 'The SQL-like Astronomical Data Query Language supporting sky-region and catalog operations.'),
+  ('Schema', 'The documented table structure, column names, units, types, and relationships exposed by an archive.'),
+  ('Selection function', 'The probability that an object enters a sample as a function of its properties and observing conditions.'),
+  ('Query manifest', 'A durable record of service, query text, release, columns, constraints, timestamp, and output identity.')],
+ [('Sky coordinate', 'A position on the celestial sphere expressed in a declared reference frame and epoch.'),
+  ('Angular separation', 'The great-circle angle between two sky positions.'),
+  ('Positional uncertainty', 'The probability distribution describing error in a reported source location.'),
+  ('Likelihood ratio', 'A comparison of how probable a candidate association is under match and background hypotheses.'),
+  ('False-match rate', 'The expected fraction of accepted associations produced by unrelated background objects.')],
+ [('Jacobian', 'The matrix of partial derivatives that maps small input changes into output changes.'),
+  ('Covariance', 'The joint variation of two quantities, including correlated measurement or calibration errors.'),
+  ('Systematic offset', 'A shared displacement from the target scale that does not average away with more measurements.'),
+  ('Calibration transfer', 'The propagation of a reference standard through an instrument or analysis chain to science measurements.'),
+  ('Uncertainty budget', 'A structured accounting of statistical, calibration, selection, and model contributions to uncertainty.')],
+ [('Residual', 'The signed difference between an observation and a model prediction.'),
+  ('Weighted least squares', 'A fit minimizing squared residuals scaled by their uncertainty or covariance.'),
+  ('Likelihood', 'The probability assigned to observed data as a function of model parameters.'),
+  ('BIC', 'The Bayesian information criterion, a likelihood-based score with a sample-size-dependent complexity penalty.'),
+  ('Posterior predictive check',
+   'A comparison between observed structure and replicated data generated from a fitted probabilistic model.')],
+ [('Pure function', 'A computation whose output depends only on explicit inputs and that produces no hidden side effects.'),
+  ('Pinned environment', 'A dependency specification fixing versions sufficiently to recreate the software context.'),
+  ('Invariant test', 'A check of a property that should remain true across valid inputs or refactoring.'),
+  ('Random seed', 'A recorded initializer that makes a pseudorandom computational path repeatable.'),
+  ('Notebook execution order', 'The dependency sequence among interactive cells, which must be reproducible from a clean state.')],
+ [('Visual encoding', 'The mapping of data variables to position, length, color, shape, or other graphical channels.'),
+  ('Color map', 'An ordered mapping from numerical values or categories to colors.'),
+  ('Uncertainty display', 'A graphical representation of measurement spread, interval estimates, covariance, or model variation.'),
+  ('Axis transform', 'A declared mapping such as logarithmic scaling applied between values and plotted coordinates.'),
+  ('Scientific caption', 'Text that identifies data, transformation, uncertainty, and the claim supported by a figure.')],
+ [('Signal-to-noise ratio', 'A measure of expected source signal relative to combined statistical fluctuations and detector noise.'),
+  ('Exposure time', 'The interval over which usable signal is accumulated after accounting for interruptions and screening.'),
+  ('Overhead', 'Time required for acquisition, readout, slewing, configuration, or calibration rather than science integration.'),
+  ('Cadence', 'The timing and spacing of repeated observations relative to source variability.'),
+  ('Airmass', 'The approximate atmospheric path length relative to zenith that affects extinction and image quality.')],
+ [('Authorship', 'Credit and accountability assigned to people who made substantial scholarly contributions.'),
+  ('Acknowledgment', 'Recognition of support or contribution that does not meet the responsibilities of authorship.'),
+  ('Data stewardship', 'Responsible management of data access, documentation, preservation, sharing, and correction.'),
+  ('Informed consent', 'Voluntary agreement to data use based on understandable disclosure of purpose, risks, and choices.'),
+  ('Dual use', 'The possibility that a method or dataset can support both beneficial and harmful applications.')],
+ [('Multiple comparisons', 'The inflation of false-positive risk when many hypotheses or analysis choices are tested.'),
+  ('P-hacking', 'Selecting analyses or stopping rules after inspecting results to obtain a preferred significance claim.'),
+  ('Data leakage', 'The unintended use of evaluation information during model training, tuning, or feature construction.'),
+  ('Effect size', 'The magnitude of a relationship or difference, reported separately from its statistical significance.'),
+  ('Preregistration', 'A time-stamped declaration of hypotheses, data rules, and analyses made before examining outcomes.')],
+ [('Scientific abstract', 'A compact statement of question, method, principal evidence, uncertainty, and consequence.'),
+  ('Narrative arc', 'The ordered logic that moves an audience from motivation through evidence to a bounded conclusion.'),
+  ('Governing figure', 'The single visual carrying the central empirical or quantitative argument of a presentation.'),
+  ('Claim boundary', 'The explicit limit beyond which the presented evidence does not support inference.'),
+  ('Question handling', 'The practice of clarifying, answering from evidence, and acknowledging uncertainty during discussion.')],
+ [('Hypothesis', 'A testable statement linking a proposed mechanism or relation to an observable outcome.'),
+  ('Sample design', 'The rules defining targets, comparison groups, size, and selection effects.'),
+  ('Statistical power', 'The probability that a planned test detects an effect of specified size when it is present.'),
+  ('Risk register', 'A ranked record of technical or scientific failure modes, consequences, and mitigations.'),
+  ('Data-management plan', 'A plan for formats, metadata, access, preservation, sharing, and reproducible analysis products.')],
+ [('Validity', 'The degree to which a method and evidence support the intended scientific inference.'),
+  ('Peer review', 'Structured expert evaluation of methods, evidence, clarity, and limitations.'),
+  ('Reproducibility audit', 'A test of whether inputs, code, environment, and outputs can be reconstructed and rerun.'),
+  ('Constructive critique', 'Feedback that identifies a consequential defect and specifies an evidence-based revision.'),
+  ('Confidence', 'A bounded judgment integrating validity, reproducibility, transparency, and remaining uncertainty.')]]
+
+
+TERM_CSS = """
+.glossary-slide{justify-content:flex-start;padding-top:36px}.term-explorer{display:grid;grid-template-columns:minmax(210px,.72fr) minmax(0,1.8fr);gap:24px;align-items:stretch;min-height:58vh}.term-list{display:flex;flex-direction:column;gap:9px}.term-button{width:100%;padding:12px 14px;border:2px solid var(--line);border-radius:8px;background:#fff;color:var(--navy);font:inherit;font-size:1.02rem;font-weight:700;text-align:left;cursor:pointer}.term-button:hover{border-color:var(--teal)}.term-button:focus-visible{outline:4px solid var(--gold);outline-offset:2px}.term-button[aria-selected="true"]{color:#fff;background:var(--teal);border-color:var(--teal)}.term-detail{border:1px solid var(--line);border-radius:10px;padding:18px 22px;background:var(--paper);overflow:auto}.term-detail h3{margin-top:0;color:var(--teal);font-size:clamp(1.35rem,2.2vw,2rem)}.term-detail p{font-size:clamp(.94rem,1.1vw,1.15rem)}.term-detail[hidden]{display:none}.term-visual{margin-top:14px}.terms-developed dt{color:var(--teal);font-size:1.08rem;margin-top:18px}.terms-developed dd{margin:6px 0 16px 20px}.terms-developed dd p{margin:7px 0}@media(max-width:800px){.term-explorer{grid-template-columns:1fr}.term-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}@media print{.term-explorer{display:block}.term-list{display:none}.term-detail[hidden]{display:block}.term-detail{break-inside:avoid;margin:12px 0}}
+"""
+
+TERM_SCRIPT = """
+<script>
+document.querySelectorAll("[data-term-explorer]").forEach((explorer) => {
+  const tabs = [...explorer.querySelectorAll('[role="tab"]')];
+  const panels = [...explorer.querySelectorAll('[role="tabpanel"]')];
+  const select = (tab) => {
+    tabs.forEach((item) => item.setAttribute("aria-selected", String(item === tab)));
+    panels.forEach((panel) => { panel.hidden = panel.id !== tab.dataset.termTarget; });
+  };
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => select(tab));
+    tab.addEventListener("keydown", (event) => {
+      if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : (index + (event.key === "ArrowDown" ? 1 : -1) + tabs.length) % tabs.length;
+      tabs[nextIndex].focus();
+      select(tabs[nextIndex]);
+    });
+  });
+});
+</script>
+"""
+
+def term_explorer(lecture_number: int, title: str, scope: str, equation: str, limitation: str, terms: list[tuple[str, str]]) -> str:
+    buttons, panels = [], []
+    for index, (term, definition) in enumerate(terms, 1):
+        stem = f"l{lecture_number:02d}-term-{index}"
+        neighbor = terms[index % len(terms)][0]
+        buttons.append(f'<button class="term-button" id="{stem}-tab" type="button" role="tab" aria-selected="{"true" if index == 1 else "false"}" aria-controls="{stem}-panel" data-term-target="{stem}-panel">{html.escape(term)}</button>')
+        visual = f'<div class="term-visual equation">\\({equation}\\)</div>' if index == 1 else ""
+        panels.append(f'<article class="term-detail" id="{stem}-panel" role="tabpanel" aria-labelledby="{stem}-tab"{" hidden" if index > 1 else ""}><h3>{html.escape(term)}</h3><p><strong>Definition:</strong> {html.escape(definition)}</p><p><strong>Why it matters here:</strong> In {html.escape(title)}, {html.escape(term)} is needed to reason about {html.escape(scope)} rather than merely label the phenomenon.</p><p><strong>Relationship:</strong> It is interpreted alongside {html.escape(neighbor)} and the lecture relation below; identify which quantities are observed, calibrated, or model-derived.</p><p><strong>Limitation or common confusion:</strong> {html.escape(limitation)}</p>{visual}</article>')
+    return f'<section class="slide glossary-slide" aria-labelledby="terms-heading-{lecture_number:02d}"><h2 id="terms-heading-{lecture_number:02d}">Terms for This Lecture</h2><div class="term-explorer" data-term-explorer><div class="term-list" role="tablist" aria-label="Lecture {lecture_number:02d} terms">{"".join(buttons)}</div><div class="term-details">{"".join(panels)}</div></div></section>'
+
+def terms_in_context(title: str, scope: str, equation: str, limitation: str, terms: list[tuple[str, str]]) -> str:
+    entries = []
+    for index, (term, definition) in enumerate(terms):
+        prior = terms[index - 1][0]
+        following = terms[(index + 1) % len(terms)][0]
+        entries.append(f'<dt><strong>{html.escape(term)}</strong></dt><dd><p>{html.escape(definition)} In this lecture it supports the evidence-to-model chain for {html.escape(scope)}.</p><p><strong>Use and relationship:</strong> Read it together with {html.escape(prior)} and {html.escape(following)}. The governing relation \\({equation}\\) shows where the concept enters quantitatively; the student should state whether its value is measured, calibrated, adopted, or inferred.</p><p><strong>Boundary:</strong> {html.escape(limitation)} This caveat prevents the term from being treated as a unique explanation or a context-free number.</p></dd>')
+    return f'<section class="terms-developed"><h2>Terms Developed in Context</h2><p>These terms form the lecture&apos;s reasoning chain from observable through model to a bounded physical conclusion.</p><dl>{"".join(entries)}</dl></section>'
+
+def insert_after_section(document: str, heading: str, addition: str) -> str:
+    start = document.index(heading)
+    end = document.index("</section>", start) + len("</section>")
+    return document[:end] + addition + document[end:]
+
+_base_lecture_pages = lecture_pages
+
+def lecture_pages(i: int, item: tuple[str, ...]) -> tuple[str, str]:
+    title, outcome, scope, equation, prompt, motivation, reading = item
+    result, limitation = check(i)
+    slides, notes = _base_lecture_pages(i, item)
+    terms = TERM_SETS[i - 1]
+    slides = slides.replace("</style>", TERM_CSS + "</style>", 1)
+    slides = insert_after_section(slides, '<h2>Objectives and route</h2>', term_explorer(i, title, scope, equation, limitation, terms))
+    slides = slides.replace("</body>", TERM_SCRIPT + "</body>", 1)
+    notes = notes.replace("</style>", TERM_CSS + "</style>", 1)
+    notes = insert_after_section(notes, '<h2>Learning objectives</h2>', terms_in_context(title, scope, equation, limitation, terms))
+    return slides, notes
+
 LAB_SPECS=[("Reproducibility Manifest","01-02","reproducibility_records.csv","build a provenance manifest and rerun a deterministic calculation","A 5-record manifest has retention fraction 3/5 = 0.6.","remove one required provenance field and document the loss","Record service, query or search string, release, code commit, environment, input hash, output, and access date."),("ADS Literature Screening","02-03","literature_screen.csv","freeze a literature query and screen records using explicit criteria","A frozen screen retaining 6 of 18 records has fraction 0.333333.","change keyword scope and compare retained records","Record query string, database, timestamp, screening decision, exclusion reason, and identifier."),("Gaia Query and Cross-Match","03-04","gaia_query_manifest.csv","audit an ADQL query and propagate a cross-match decision","The 0.8 arcsec separation at 0.3 arcsec uncertainty gives weight 0.0285655.","vary match radius from 0.5 to 1.0 arcsec","Record endpoint, ADQL, columns, release, constraints, row count, timestamp, and citation."),("Uncertainty and Model Comparison","05-06","model_comparison.csv","compare two models with residuals, BIC, and calibration perturbation","For n=20 the two BIC values are 23.9915 and 23.9829.","add a shared calibration term and recompute","Record equation, likelihood, parameter count, residual definition, calibration, and software version."),("Figure Critique and Archive Choice","07-08","figure_audit.csv","critique an astronomy figure and choose an archive product","A log-log slope is d log y/d log x, not a new measurement.","rewrite the caption for a color-vision-safe encoding","Record source, product, transformation, units, colormap, caption claim, and limitation."),("Proposal Time Allocation","09-10","proposal_time.csv","turn a science case into an exposure and contingency budget","A 10-hour plan is 7.0 h integration + 1.0 h calibration + 1.0 h overhead + 1.0 h contingency.","reduce available time by 20% and preserve success criterion","Record target, exposure model, SNR requirement, overhead, cadence, weather, and fallback."),("Capstone Peer Review","11-14","capstone_review.csv","peer-review a proposal with a weighted rubric","Scores 4/3/4/2 at weights 40/30/20/10 give weighted score 3.5/4.","swap highest and lowest weights and explain impact","Record version, reviewer role, conflict disclosure, evidence checks, risk register, and revision decision.")]
 
 def lab_html(i:int,spec:tuple[str,...])->str:

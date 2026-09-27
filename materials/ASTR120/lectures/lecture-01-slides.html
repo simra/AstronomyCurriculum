@@ -25,13 +25,28 @@ figcaption,.small { color:var(--muted); font-size:.95rem; line-height:1.35; marg
 svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(--line); background:#fff; }
 .warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
 @media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+
+.term-explorer{display:grid;grid-template-columns:minmax(220px,.7fr) minmax(0,1.8fr);gap:28px;align-items:stretch;min-height:58vh}
+.term-list{display:flex;flex-direction:column;gap:10px}
+.term-button{width:100%;padding:12px 15px;border:2px solid var(--line);border-radius:8px;background:#fff;color:var(--navy);font:inherit;font-size:1.05rem;font-weight:700;text-align:left;cursor:pointer}
+.term-button:hover{border-color:var(--teal)}
+.term-button:focus-visible{outline:4px solid var(--gold);outline-offset:2px}
+.term-button[aria-selected="true"]{color:#fff;background:var(--teal);border-color:var(--teal)}
+.term-detail{border:1px solid var(--line);border-radius:10px;padding:20px 24px;background:var(--paper);overflow:auto}
+.term-detail h3{margin:0 0 10px;color:var(--teal);font-size:clamp(1.35rem,2.2vw,2rem)}
+.term-detail p{font-size:clamp(.96rem,1.35vw,1.22rem);margin:.55em 0}
+.term-detail[hidden]{display:none}
+.term-visual{font-size:1.12rem;padding:10px 14px;background:var(--teal-soft);border-left:4px solid var(--teal);margin-top:12px}
+@media(max-width:800px){.term-explorer{grid-template-columns:1fr}.term-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+@media print{.term-explorer{display:block;min-height:0}.term-list{display:none}.term-detail[hidden]{display:block}.term-detail{break-inside:avoid;margin:12px 0}}
 </style>
 </head>
 <body>
 <main class="deck">
 <section class="slide title"><p class="kicker">ASTR 120 · Lecture 01</p><h1>Why Study the Solar System?</h1><h2>Solar-system evidence, physics, and exploration</h2></section>
 <section class="slide"><h2>Why This Question Matters</h2><p>From Galileo&#x27;s telescopic moons to spacecraft reconnaissance, solar-system astronomy turned lights in the sky into worlds with geology, weather, chemistry, and histories.</p></section>
-<section class="slide"><h2>Learning Goals</h2><ul><li>Use scale, density, and mission evidence to compare worlds.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section>
+<section class="slide"><h2>Learning Goals</h2><ul><li>Use scale, density, and mission evidence to compare worlds.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section><section class="slide glossary-slide" aria-labelledby="l01-terms-heading"><h2 id="l01-terms-heading">Terms for This Lecture</h2><div class="term-explorer" data-term-explorer><div class="term-list" role="tablist" aria-label="Lecture 01 terms"><button class="term-button" id="l01-term-1-tab" type="button" role="tab" aria-selected="true" aria-controls="l01-term-1-panel" data-term-target="l01-term-1-panel" tabindex="0">Comparative planetology</button><button class="term-button" id="l01-term-2-tab" type="button" role="tab" aria-selected="false" aria-controls="l01-term-2-panel" data-term-target="l01-term-2-panel" tabindex="-1">Scale model</button><button class="term-button" id="l01-term-3-tab" type="button" role="tab" aria-selected="false" aria-controls="l01-term-3-panel" data-term-target="l01-term-3-panel" tabindex="-1">Bulk density</button><button class="term-button" id="l01-term-4-tab" type="button" role="tab" aria-selected="false" aria-controls="l01-term-4-panel" data-term-target="l01-term-4-panel" tabindex="-1">Remote sensing</button><button class="term-button" id="l01-term-5-tab" type="button" role="tab" aria-selected="false" aria-controls="l01-term-5-panel" data-term-target="l01-term-5-panel" tabindex="-1">In situ measurement</button><button class="term-button" id="l01-term-6-tab" type="button" role="tab" aria-selected="false" aria-controls="l01-term-6-panel" data-term-target="l01-term-6-panel" tabindex="-1">Selection effect</button></div><div class="term-details"><article class="term-detail" id="l01-term-1-panel" role="tabpanel" aria-labelledby="l01-term-1-tab"><h3>Comparative planetology</h3><p><strong>Definition:</strong> The study of worlds by comparing how the same physical processes operate under different masses, compositions, or environments.</p><p><strong>Why it matters and connects:</strong> It turns Venus, Earth, Mars, moons, and small bodies into controlled contrasts; observables such as density, spectra, and crater abundance test models of formation and evolution.</p><p><strong>Boundary or common confusion:</strong> A comparison is only fair when measurement quality, spatial scale, and geologic age are comparable.</p></article><article class="term-detail" id="l01-term-2-panel" role="tabpanel" aria-labelledby="l01-term-2-tab" hidden><h3>Scale model</h3><p><strong>Definition:</strong> A representation that preserves a stated ratio between model and real lengths, times, masses, or other quantities.</p><p><strong>Why it matters and connects:</strong> Scale exposes why planetary diameters, orbital separations, signal travel times, and spacecraft access cannot all be shown faithfully in one ordinary diagram.</p><p><strong>Boundary or common confusion:</strong> A model that preserves distance may not preserve size, area, brightness, or travel time; the chosen scale must be named.</p><div class="term-visual">\(s=d_{\rm model}/d_{\rm real}\)</div></article><article class="term-detail" id="l01-term-3-panel" role="tabpanel" aria-labelledby="l01-term-3-tab" hidden><h3>Bulk density</h3><p><strong>Definition:</strong> A world&#x27;s total mass divided by the volume implied by its mean radius.</p><p><strong>Why it matters and connects:</strong> Density is an early composition diagnostic: rock-metal planets, ice-rich moons, and gas-rich giants occupy different broad regimes.</p><p><strong>Boundary or common confusion:</strong> Mean density does not uniquely reveal layering, mineralogy, porosity, or compression; interior models require additional evidence.</p><div class="term-visual">\(\rho=M/(\tfrac{4}{3}\pi R^3)\)</div></article><article class="term-detail" id="l01-term-4-panel" role="tabpanel" aria-labelledby="l01-term-4-tab" hidden><h3>Remote sensing</h3><p><strong>Definition:</strong> Measurement of a target without physical contact, using reflected, emitted, or transmitted radiation and sometimes radar.</p><p><strong>Why it matters and connects:</strong> Most planetary knowledge begins with wavelength-dependent brightness, spectra, images, or timing measurements that are converted into temperature, composition, shape, or motion.</p><p><strong>Boundary or common confusion:</strong> Remote measurements depend on calibration, viewing geometry, resolution, and a model connecting signal to physical property.</p></article><article class="term-detail" id="l01-term-5-panel" role="tabpanel" aria-labelledby="l01-term-5-tab" hidden><h3>In situ measurement</h3><p><strong>Definition:</strong> A measurement made within the environment being studied by a flyby spacecraft, orbiter, lander, rover, or atmospheric probe.</p><p><strong>Why it matters and connects:</strong> Local fields, particles, chemistry, pressure, and texture can test interpretations made from distant observations and provide ground truth.</p><p><strong>Boundary or common confusion:</strong> A spacecraft samples a restricted place and time; local conditions may not represent an entire planet or moon.</p></article><article class="term-detail" id="l01-term-6-panel" role="tabpanel" aria-labelledby="l01-term-6-tab" hidden><h3>Selection effect</h3><p><strong>Definition:</strong> A systematic distortion caused by some objects, locations, wavelengths, or outcomes being easier to observe than others.</p><p><strong>Why it matters and connects:</strong> It explains why the best imaged, brightest, nearest, or most frequently visited worlds can appear more typical or more active than the full population.</p><p><strong>Boundary or common confusion:</strong> A selection effect is not random error and cannot be removed merely by collecting more of the same biased observations.</p></article></div></div></section>
 <section class="slide"><h2>Opening Phenomenon</h2><p>The solar system is our nearest laboratory for testing how planets form, evolve, and become habitable.</p></section>
 <section class="slide"><h2>Three Ways to Turn Worlds into Data</h2><div class="three"><article class="card"><p><strong>Scale:</strong> sizes, distances, and light-time show what can be resolved or sampled.</p></article><article class="card"><p><strong>Bulk properties:</strong> mass, radius, density, and gravity constrain composition and interior state.</p></article><article class="card"><p><strong>Mission context:</strong> wavelength, flyby geometry, and sample location determine what the evidence can mean.</p></article></div></section>
 <section class="slide"><h2>Comparative Planetology Is a Control Experiment</h2><ul><li>Venus and Earth have similar sizes but radically different climates.</li><li>Earth and Mars both preserve water-related evidence, but atmospheric pressure and gravity changed their paths.</li><li>Jupiter and Saturn show how low density, rotation, and retained volatiles produce giant-planet behavior.</li></ul></section>
@@ -44,5 +59,33 @@ svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(
 <section class="slide"><h2>Data Bridge: What the Planet Table Adds</h2><p>The local planetary-property table turns comparison into evidence: radius and mass give density, surface gravity shapes atmosphere retention, and moon counts flag dynamical histories. The table is the course baseline for moving from picture-based description to physical argument.</p></section>
 <section class="slide"><h2>Synthesis: The Solar System as a Laboratory</h2><ul><li>Scale tells us what can be observed directly and what needs spacecraft access.</li><li>Bulk properties sort first-order composition before detailed geology begins.</li><li>Mission evidence is strongest when independent measurements converge on the same physical interpretation.</li></ul></section>
 <section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax Astronomy 2e solar-system chapters and local reference copy.</li><li>NASA/OpenStax/ESA sources recorded in reference-log.md where external visuals are used.</li></ul></section>
-</main></body>
+</main>
+<script data-astr120-term-explorer>
+document.querySelectorAll("[data-term-explorer]").forEach((explorer)=>{
+  const tabs=[...explorer.querySelectorAll('[role="tab"]')];
+  const panels=[...explorer.querySelectorAll('[role="tabpanel"]')];
+  const select=(tab,moveFocus=false)=>{
+    tabs.forEach((item)=>{
+      const active=item===tab;
+      item.setAttribute("aria-selected",String(active));
+      item.tabIndex=active?0:-1;
+    });
+    panels.forEach((panel)=>{panel.hidden=panel.id!==tab.getAttribute("aria-controls");});
+    if(moveFocus)tab.focus();
+  };
+  tabs.forEach((tab,index)=>{
+    tab.addEventListener("click",()=>select(tab));
+    tab.addEventListener("keydown",(event)=>{
+      if(!["ArrowDown","ArrowUp","ArrowRight","ArrowLeft","Home","End"].includes(event.key))return;
+      event.preventDefault();
+      let next=index;
+      if(event.key==="Home")next=0;
+      else if(event.key==="End")next=tabs.length-1;
+      else next=(index+(["ArrowDown","ArrowRight"].includes(event.key)?1:-1)+tabs.length)%tabs.length;
+      select(tabs[next],true);
+    });
+  });
+});
+</script>
+</body>
 </html>

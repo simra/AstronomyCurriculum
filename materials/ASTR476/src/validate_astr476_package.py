@@ -9,6 +9,8 @@ from urllib.parse import unquote, urlsplit
 
 import numpy as np
 
+from validate_term_explorers import validate_all as validate_term_explorers
+
 
 ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = ROOT.parents[1]
@@ -205,10 +207,12 @@ def validate() -> dict[str, object]:
     calculations = self_test()
     links = verify_links()
     diagrams = verify_diagrams()
+    terms = validate_term_explorers(ROOT)
     return {"htmlPages": len(list(ROOT.rglob("*.html"))), "jsonFiles": len(json_files),
             "localLinks": links, "uniqueLectureDiagrams": diagrams,
             "artifactCounts": expected, "data": data_validation,
-            "calculationSelfTest": calculations, "curriculumLink": "materials/ASTR476/index.html"}
+            "calculationSelfTest": calculations, "termExplorers": terms,
+            "curriculumLink": "materials/ASTR476/index.html"}
 
 
 if __name__ == "__main__":

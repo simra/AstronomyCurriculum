@@ -10,6 +10,7 @@ interpreter:
 from __future__ import annotations
 
 import math
+import re
 from html import escape
 from pathlib import Path
 
@@ -25,22 +26,165 @@ CSS = """
 
 SLIDE_CSS = """
 :root{--ink:#17202a;--muted:#5b6773;--paper:#fbfcfd;--panel:#fff;--line:#d9e0e7;--navy:#102a43;--teal:#0f6b78;--teal-soft:#e5f4f6;--gold:#b87911;--warning:#8a4b08}
-*{box-sizing:border-box}body{margin:0;font-family:"Aptos","Segoe UI",sans-serif;color:var(--ink);background:var(--paper)}.deck{scroll-snap-type:y mandatory;height:100vh;overflow-y:auto}.slide{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;padding:50px 68px;border-bottom:1px solid var(--line);background:var(--panel)}.title{background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff}h1{font-size:clamp(2.4rem,5vw,4.5rem);margin:0 0 18px;line-height:1.05}h2{font-size:clamp(1.8rem,3.2vw,3.1rem);margin:0 0 22px;color:var(--navy)}.title h2{color:#fff;opacity:.94}p,li{font-size:clamp(1.03rem,1.55vw,1.45rem);line-height:1.35}ul,ol{max-width:1050px}.kicker{color:var(--gold);text-transform:uppercase;letter-spacing:.08em;font-weight:700}.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center}.visual-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:30px;align-items:center}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{border:1px solid var(--line);background:#fff;border-radius:6px;padding:14px 16px}.equation{font-size:1.32rem;padding:14px 18px;background:var(--teal-soft);border-left:5px solid var(--teal);margin:12px 0}figcaption,.small,.credit{color:var(--muted);font-size:.95rem;line-height:1.35;margin-top:8px}svg,img{width:100%;max-height:72vh;object-fit:contain;border:1px solid var(--line);background:#fff}.warning{border-left:5px solid var(--warning);background:#fff8e8;padding:14px 18px}@media print{.deck{height:auto;overflow:visible}.slide{min-height:7.5in;page-break-after:always}}
+*{box-sizing:border-box}body{margin:0;font-family:"Aptos","Segoe UI",sans-serif;color:var(--ink);background:var(--paper)}.deck{scroll-snap-type:y mandatory;height:100vh;overflow-y:auto}.slide{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;padding:50px 68px;border-bottom:1px solid var(--line);background:var(--panel)}.title{background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff}h1{font-size:clamp(2.4rem,5vw,4.5rem);margin:0 0 18px;line-height:1.05}h2{font-size:clamp(1.8rem,3.2vw,3.1rem);margin:0 0 22px;color:var(--navy)}.title h2{color:#fff;opacity:.94}p,li{font-size:clamp(1.03rem,1.55vw,1.45rem);line-height:1.35}ul,ol{max-width:1050px}.kicker{color:var(--gold);text-transform:uppercase;letter-spacing:.08em;font-weight:700}.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center}.visual-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:30px;align-items:center}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{border:1px solid var(--line);background:#fff;border-radius:6px;padding:14px 16px}.equation{font-size:1.32rem;padding:14px 18px;background:var(--teal-soft);border-left:5px solid var(--teal);margin:12px 0}.term-explorer{display:grid;grid-template-columns:minmax(220px,.7fr) minmax(0,1.8fr);gap:28px;align-items:stretch;min-height:58vh}.term-list{display:flex;flex-direction:column;gap:10px}.term-button{width:100%;padding:12px 15px;border:2px solid var(--line);border-radius:8px;background:#fff;color:var(--navy);font:inherit;font-size:1.02rem;font-weight:700;text-align:left;cursor:pointer}.term-button:hover{border-color:var(--teal)}.term-button:focus-visible{outline:4px solid var(--gold);outline-offset:2px}.term-button[aria-selected="true"]{color:#fff;background:var(--teal);border-color:var(--teal)}.term-detail{border:1px solid var(--line);border-radius:10px;padding:20px 24px;background:var(--paper);overflow:auto}.term-detail h3{margin:0 0 12px;color:var(--teal);font-size:clamp(1.35rem,2.2vw,2rem)}.term-detail p{font-size:clamp(1rem,1.35vw,1.3rem);margin:10px 0}.term-detail[hidden]{display:none}figcaption,.small,.credit{color:var(--muted);font-size:.95rem;line-height:1.35;margin-top:8px}svg,img{width:100%;max-height:72vh;object-fit:contain;border:1px solid var(--line);background:#fff}.warning{border-left:5px solid var(--warning);background:#fff8e8;padding:14px 18px}@media(max-width:800px){.slide{padding:36px 24px}.term-explorer{grid-template-columns:1fr}.term-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}@media print{.deck{height:auto;overflow:visible}.slide{min-height:7.5in;page-break-after:always}.term-explorer{display:block}.term-list{display:none}.term-detail[hidden]{display:block}.term-detail{break-inside:avoid;margin:12px 0}}
 """
+
+TERM_SCRIPT = """
+<script>
+document.querySelectorAll("[data-term-explorer]").forEach((explorer) => {
+  const tabs = [...explorer.querySelectorAll('[role="tab"]')];
+  const panels = [...explorer.querySelectorAll('[role="tabpanel"]')];
+  const select = (tab) => {
+    tabs.forEach((item) => item.setAttribute("aria-selected", String(item === tab)));
+    panels.forEach((panel) => { panel.hidden = panel.id !== tab.dataset.termTarget; });
+  };
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => select(tab));
+    tab.addEventListener("keydown", (event) => {
+      if (!["ArrowDown", "ArrowUp", "ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      const forward = event.key === "ArrowDown" || event.key === "ArrowRight";
+      const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : (index + (forward ? 1 : -1) + tabs.length) % tabs.length;
+      tabs[nextIndex].focus();
+      select(tabs[nextIndex]);
+    });
+  });
+});
+</script>
+"""
+
+TERMS_BY_LECTURE = {
+    1: ['comparative planetology', 'terrestrial planet', 'giant planet', 'mean density', 'surface gravity', 'escape velocity'],
+    2: ['solar nebula', 'condensation sequence', 'frost line', 'planetesimal', 'core accretion', 'planetary migration'],
+    3: ['differentiation', 'moment of inertia factor', 'core-mantle-crust structure', 'seismology', 'equation of state', 'self-compression'],
+    4: ['radiogenic heating', 'half-life', 'Rayleigh number', 'mantle convection', 'stagnant lid', 'surface-to-volume scaling'],
+    5: ['plate tectonics', 'seafloor spreading', 'subduction', 'stagnant lid', 'crater density', 'resurfacing'],
+    6: ['impact energy', 'crater scaling', 'crater-count chronology', 'lunar chronology function', 'secondary crater', 'saturation'],
+    7: ['hydrostatic equilibrium', 'ideal gas law', 'scale height', 'mean molecular mass', 'radio occultation', 'atmospheric column mass'],
+    8: ['radiative equilibrium', 'Bond albedo', 'equilibrium temperature', 'greenhouse effect', 'runaway greenhouse', 'radiative-convective model'],
+    9: ['Maxwell-Boltzmann distribution', 'exosphere', 'Jeans escape', 'Jeans parameter', 'hydrodynamic escape', 'carbon-silicate cycle'],
+    10: ['planetary dynamo', 'magnetic dipole moment', 'paleomagnetism', 'magnetosphere', 'magnetopause', 'ion pickup'],
+    11: ['metallic hydrogen', 'diffuse core', 'Kelvin-Helmholtz contraction', 'helium rain', 'gas giant', 'ice giant'],
+    12: ['tidal force', 'Roche limit', 'fluid Roche limit', 'density wave', 'shepherd moon', 'stellar occultation'],
+    13: ['tidal acceleration', 'tidal heating', 'orbital resonance', 'Laplace resonance', 'induced magnetic field', 'subsurface ocean'],
+    14: ['radial velocity', 'transit method', 'bulk density', 'equilibrium temperature', 'tidal locking', 'transmission spectroscopy'],
+}
+
+
+def safe_fragment(text: str) -> str:
+    text = re.sub(r'&(?!#(?:x[0-9A-Fa-f]+|\d+);|[A-Za-z][A-Za-z0-9]+;)', '&amp;', text)
+    return re.sub(r'<(?=\s*[0-9])', '&lt;', text)
 
 
 def page(title: str, body: str, css: str = CSS) -> str:
-    return (
+    document = (
         f"<!doctype html><html lang='en'><head><meta charset='utf-8'>"
         f"<meta name='viewport' content='width=device-width, initial-scale=1'>"
         f"<title>{escape(title)}</title>"
         f"<script id='MathJax-script' async src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>"
         f"<style>{css}</style></head><body>{body}</body></html>"
     )
+    return '\n'.join(line.rstrip() for line in document.splitlines()) + '\n'
 
 
 def li(items) -> str:
-    return ''.join(f'<li>{x}</li>' for x in items)
+    return ''.join(f'<li>{safe_fragment(x)}</li>' for x in items)
+
+
+def _sentences(text: str) -> list[str]:
+    return [part.strip() for part in re.split(r'(?<=[.!?])\s+', text) if part.strip()]
+
+
+def _term_keywords(term: str) -> list[str]:
+    words = re.findall(r"[A-Za-z0-9]+", re.sub(r"\([^)]*\)", "", term).lower())
+    stop = {'and', 'the', 'of', 'to', 'a', 'an', 'for', 'or', 'in'}
+    return [word for word in words if word not in stop and len(word) > 2]
+
+
+def _lecture_candidates(lec: dict) -> list[str]:
+    candidates = []
+    for heading, bullets, notes in lec['sections']:
+        candidates.append(heading)
+        candidates.extend(bullets)
+        candidates.append(notes)
+    candidates.extend(lec['objectives'])
+    candidates.extend(lec['summary'])
+    candidates.extend(lec['worked_steps'])
+    candidates.extend([lec['worked_notes'], lec['preview']])
+    return candidates
+
+
+def _term_context(lec: dict, term: str) -> tuple[str, str, str]:
+    sentences = [sentence for candidate in _lecture_candidates(lec) for sentence in _sentences(candidate)]
+    keywords = _term_keywords(term)
+
+    def score(sentence: str) -> int:
+        lowered = re.sub(r'<[^>]+>', ' ', sentence).lower()
+        matches = sum(1 for word in keywords if word in lowered)
+        defining = 3 if any(cue in lowered for cue in (' is ', ' are ', ' means ', ' refers ', ' gives ', ' describes ', ' occurs ')) else 0
+        return matches * 5 + defining
+
+    ranked = sorted(enumerate(sentences), key=lambda pair: (score(pair[1]), -pair[0]), reverse=True)
+    definition = ranked[0][1] if ranked and score(ranked[0][1]) > 0 else (
+        f"{escape(term)} is a lecture-critical concept used to connect planetary observations to the physical model developed here."
+    )
+    relationship = next(
+        (sentence for _, sentence in ranked[1:] if score(sentence) > 0 and sentence != definition),
+        lec['summary'][0],
+    )
+    limitation = next(
+        (sentence for sentence in sentences if any(cue in sentence.lower() for cue in ('limit', 'uncertain', 'approx', 'only', 'not ', 'cannot', 'depends'))),
+        'Use this term only within the assumptions stated in the lecture; it is not a substitute for the full physical model.',
+    )
+    return safe_fragment(definition), safe_fragment(relationship), safe_fragment(limitation)
+
+
+def term_explorer(lec: dict) -> str:
+    n = lec['n']
+    buttons = []
+    panels = []
+    for index, term in enumerate(TERMS_BY_LECTURE[n], start=1):
+        tab_id = f"term-{n:02d}-{index}-tab"
+        panel_id = f"term-{n:02d}-{index}-panel"
+        selected = index == 1
+        definition, relationship, limitation = _term_context(lec, term)
+        buttons.append(
+            f"<button class='term-button' id='{tab_id}' type='button' role='tab' "
+            f"aria-selected='{'true' if selected else 'false'}' aria-controls='{panel_id}' "
+            f"data-term-target='{panel_id}' tabindex='{'0' if selected else '-1'}'>{escape(term)}</button>"
+        )
+        panels.append(
+            f"<article class='term-detail' id='{panel_id}' role='tabpanel' aria-labelledby='{tab_id}'"
+            f"{'' if selected else ' hidden'}><h3>{escape(term)}</h3>"
+            f"<p><strong>Definition:</strong> {definition}</p>"
+            f"<p><strong>Why it matters here:</strong> {safe_fragment(lec['summary'][0])}</p>"
+            f"<p><strong>Relationship:</strong> {relationship}</p>"
+            f"<p><strong>Boundary or common confusion:</strong> {limitation}</p></article>"
+        )
+    return slide(
+        'glossary-slide',
+        f"<h2 id='terms-heading-{n:02d}'>Terms for This Lecture</h2>"
+        f"<div class='term-explorer' data-term-explorer><div class='term-list' role='tablist' "
+        f"aria-label='Lecture {n:02d} terms'>{''.join(buttons)}</div>"
+        f"<div class='term-details'>{''.join(panels)}</div></div>",
+    ).replace("<section class='slide glossary-slide'>", f"<section class='slide glossary-slide' aria-labelledby='terms-heading-{n:02d}'>", 1)
+
+
+def notes_terms(lec: dict) -> str:
+    entries = []
+    for term in TERMS_BY_LECTURE[lec['n']]:
+        definition, relationship, limitation = _term_context(lec, term)
+        entries.append(
+            f"<dt><strong>{escape(term)}</strong></dt><dd><p>{definition}</p>"
+            f"<p><strong>Use and relationship:</strong> {relationship} The worked example and the lecture's comparison cases show how the term changes an observable or model prediction.</p>"
+            f"<p><strong>Boundary or confusion:</strong> {limitation}</p></dd>"
+        )
+    return (
+        "<section><h2>Terms Developed in Context</h2>"
+        "<p>These terms organize the lecture's progression from measured planetary properties to physical interpretation. "
+        "Each entry expands the matching explorer panel and connects it to the lecture's evidence, model, or calculation.</p>"
+        f"<dl>{''.join(entries)}</dl></section>"
+    )
 
 
 def fmt(x, nd=3):
@@ -610,8 +754,9 @@ def objectives_slide(objectives) -> str:
 
 
 def worked_slide(title: str, steps) -> str:
-    body = ''.join(f"<div class='equation'>{s}</div>" if s.startswith('$') or '=' in s and len(s) < 90
-                    else f"<p>{s}</p>" for s in steps)
+    body = ''.join(f"<div class='equation'>{safe_fragment(s)}</div>" if s.startswith('$') or '=' in s and len(s) < 90
+                    else safe_fragment(s) if s.lstrip().startswith(('<table', '<div', '<ul', '<ol'))
+                    else f"<p>{safe_fragment(s)}</p>" for s in steps)
     return slide('', f"<h2>Worked Example: {escape(title)}</h2>{body}")
 
 
@@ -634,23 +779,26 @@ def visual_slide(lec) -> str:
 def build_deck(lec) -> str:
     body = title_slide(lec['n'], lec['title'], lec['kicker'], lec['subtitle'])
     body += objectives_slide(lec['objectives'])
+    body += term_explorer(lec)
     for heading, bullets, _notes in lec['sections']:
         body += bullets_slide(heading, bullets)
     body += worked_slide(lec['worked_title'], lec['worked_steps'])
     body += visual_slide(lec)
     body += summary_slide(lec['summary'], lec['preview'])
-    return page(f"ASTR 320 Lecture {lec['n']:02d}: {lec['title']}", f"<div class='deck'>{body}</div>", SLIDE_CSS)
+    return page(f"ASTR 320 Lecture {lec['n']:02d}: {lec['title']}", f"<div class='deck'>{body}</div>{TERM_SCRIPT}", SLIDE_CSS)
 
 
 def build_notes(lec) -> str:
     parts = [f"<header><div><h1>Lecture {lec['n']:02d}: {escape(lec['title'])}</h1>"
              f"<p>{escape(lec['subtitle'])}</p></div></header><main>"]
     parts.append("<section><h2>Learning Objectives</h2><ol>" + li(lec['objectives']) + "</ol></section>")
+    parts.append(notes_terms(lec))
     for heading, bullets, notes in lec['sections']:
-        parts.append(f"<section><h2>{escape(heading)}</h2><ul>{li(bullets)}</ul><p>{notes}</p></section>")
+        parts.append(f"<section><h2>{escape(heading)}</h2><ul>{li(bullets)}</ul><p>{safe_fragment(notes)}</p></section>")
     parts.append(f"<section class='notice'><h2>Worked Example: {escape(lec['worked_title'])}</h2>"
-                  + ''.join(f"<p>{s}</p>" for s in lec['worked_steps'])
-                  + f"<p>{lec['worked_notes']}</p></section>")
+                  + ''.join(safe_fragment(s) if s.lstrip().startswith(('<table', '<div', '<ul', '<ol'))
+                            else f"<p>{safe_fragment(s)}</p>" for s in lec['worked_steps'])
+                  + f"<p>{safe_fragment(lec['worked_notes'])}</p></section>")
     parts.append("<section><h2>Summary</h2><ul>" + li(lec['summary']) + f"</ul><p><strong>Looking ahead:</strong> {escape(lec['preview'])}</p></section>")
     parts.append("</main>")
     return page(f"ASTR 320 Lecture {lec['n']:02d} Notes: {lec['title']}", ''.join(parts))
@@ -1731,18 +1879,13 @@ LECTURES.append(dict(
 def main():
     LECTURE_DIR.mkdir(parents=True, exist_ok=True)
     for lec in LECTURES:
-        (LECTURE_DIR / f"lecture-{lec['n']:02d}-slides.html").write_text(build_deck(lec), encoding='utf-8')
-        (LECTURE_DIR / f"lecture-{lec['n']:02d}-notes.html").write_text(build_notes(lec), encoding='utf-8')
+        (LECTURE_DIR / f"lecture-{lec['n']:02d}-slides.html").write_text(build_deck(lec), encoding='utf-8', newline='\n')
+        (LECTURE_DIR / f"lecture-{lec['n']:02d}-notes.html").write_text(build_notes(lec), encoding='utf-8', newline='\n')
     print(f"Wrote {len(LECTURES)} lecture slide decks and notes files to {LECTURE_DIR}")
 
 
 if __name__ == '__main__':
     main()
-
-
-
-
-
 
 
 

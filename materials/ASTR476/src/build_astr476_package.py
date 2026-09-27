@@ -12,6 +12,12 @@ from pathlib import Path
 
 import numpy as np
 
+from term_explorer import (
+    TERM_EXPLORER_CSS,
+    TERM_EXPLORER_SCRIPT,
+    notes_section as term_notes_section,
+    slide_section as term_slide_section,
+)
 from astr476_computations import (
     H0_KM_S_MPC, OMEGA_M, PUBLISHED_SUMMARIES, angular_scale_degrees,
     comoving_distance_mpc, distance_modulus, expansion_rate,
@@ -89,11 +95,12 @@ def esc(value: object) -> str:
 
 
 def page(title: str, body: str) -> str:
+    interaction = TERM_EXPLORER_SCRIPT if "data-term-explorer" in body else ""
     return ("<!doctype html><html lang='en'><head><meta charset='utf-8'>"
             "<meta name='viewport' content='width=device-width,initial-scale=1'>"
-            f"<title>{esc(title)}</title><style>{CSS}</style>"
+            f"<title>{esc(title)}</title><style>{CSS}{TERM_EXPLORER_CSS}</style>"
             "<script defer src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>"
-            f"</head><body><header><div><h1>{esc(title)}</h1><p>ASTR 476: Observational Cosmology · {TODAY}</p></div></header><main>{body}</main></body></html>")
+            f"</head><body><header><div><h1>{esc(title)}</h1><p>ASTR 476: Observational Cosmology · {TODAY}</p></div></header><main>{body}</main>{interaction}</body></html>")
 
 
 def list_html(items: list[str], tag: str = "ul") -> str:
@@ -316,21 +323,23 @@ def lecture_pages(results: dict[str, object]) -> None:
         figure = f"<figure class='figure'>{diagram(lesson)}<figcaption>{esc(lesson['evidence'])}</figcaption></figure>"
         main = (f"<p><strong>Driving question:</strong> {esc(lesson['question'])}</p>"
                 f"<p><strong>Learning objectives</strong></p>{list_html(lesson['objectives'],'ol')}"
+                + term_slide_section(number, lesson["title"], lesson["question"], lesson["equation"], lesson["evidence"], lesson["caution"])
                 + "".join(slide_html) + figure
                 + f"<section><h2>Quantitative anchor</h2><p>{esc(worked[number-1])}</p><p class='equation'>\\[{esc(lesson['equation'])}\\]</p></section>"
                 + f"<section><h2>Interpretation and limits</h2><p>{esc(lesson['argument'])}</p><p class='notice'><strong>Boundary:</strong> {esc(lesson['caution'])}</p><p><strong>Evidence:</strong> {esc(lesson['evidence'])}</p><p><strong>Active check:</strong> {esc(lesson['slides'][-1][1])}</p></section>"
                 + f"<p class='meta'>ASTR 476 · Lecture {number:02d} · 60-minute module · {esc(lesson['title'])}</p>")
         slide_title = f"Lecture {number:02d}: {lesson['title']}"
-        (ROOT / "lectures" / f"lecture-{number:02d}-slides.html").write_text(page(slide_title, main), encoding="utf-8")
+        (ROOT / "lectures" / f"lecture-{number:02d}-slides.html").write_text(page(slide_title, main), encoding="utf-8", newline="\n")
 
         notes = (f"<p><strong>Preparation:</strong> algebra, introductory mechanics, and the previous module's stated prerequisites. This is a 60-minute instructional module; use the slide timings as a guide and pause at the active check.</p>"
-                 f"<section><h2>Physical and observational argument</h2><p>{esc(LECTURE_EXPANSIONS[number-1])}</p><p>{esc(lesson['argument'])}</p><p>{esc(lesson['evidence'])}</p></section>"
+                 + term_notes_section(number, lesson["title"], lesson["question"], lesson["equation"], lesson["evidence"], lesson["caution"])
+                 + f"<section><h2>Physical and observational argument</h2><p>{esc(LECTURE_EXPANSIONS[number-1])}</p><p>{esc(lesson['argument'])}</p><p>{esc(lesson['evidence'])}</p></section>"
                  f"<section><h2>Derivation and interpretation</h2><p class='equation'>\\[{esc(lesson['equation'])}\\]</p><p>Begin by naming observables, coordinate convention, and model assumptions; each algebraic transformation must preserve units and the distinction between measured and inferred quantities. Test a limiting case, then perturb one input and state which observable changes.</p><p>{esc(lesson['caution'])}</p></section>"
                  f"<section><h2>Worked numerical anchor</h2><p>{esc(worked[number-1])}</p><p>Reproduce the value with the course computation module, retain full precision in code, and round only for communication. Report units and all conditional assumptions with the result.</p></section>"
                  f"<section><h2>Evidence, systematics, and limits</h2><p>{esc(lesson['caution'])}</p><p>{esc(lesson['evidence'])}</p><p>Separate the directly recorded observable, its calibration, the derived intermediate quantity, and the model-dependent parameter. An uncertainty bar is not a complete likelihood when shared covariance or selection is omitted.</p></section>"
                  f"<section><h2>Study and retrieval practice</h2>{list_html(lesson['objectives'],'ol')}<p><strong>Checkpoint:</strong> {esc(lesson['slides'][-1][1])}</p><p>Answer in words before calculating; then identify one observation or null test that could falsify your interpretation.</p></section>"
                  + f"<figure class='figure'>{diagram(lesson)}<figcaption>{esc(lesson['evidence'])}</figcaption></figure><p class='meta'>Lecture {number:02d} notes · Sources and caveats in <a href='../reference-log.md'>reference-log.md</a>.</p>")
-        (ROOT / "lectures" / f"lecture-{number:02d}-notes.html").write_text(page(f"Lecture {number:02d} Notes: {lesson['title']}", notes), encoding="utf-8")
+        (ROOT / "lectures" / f"lecture-{number:02d}-notes.html").write_text(page(f"Lecture {number:02d} Notes: {lesson['title']}", notes), encoding="utf-8", newline="\n")
 
 
 def write_labs(results: dict[str, object]) -> None:

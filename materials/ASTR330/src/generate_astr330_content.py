@@ -10,6 +10,7 @@ interpreter:
 from __future__ import annotations
 
 import math
+import re
 from html import escape
 from pathlib import Path
 
@@ -26,8 +27,29 @@ CSS = """
 
 SLIDE_CSS = """
 :root{--ink:#17202a;--muted:#5b6773;--paper:#fbfcfd;--panel:#fff;--line:#d9e0e7;--navy:#102a43;--teal:#0f6b78;--teal-soft:#e5f4f6;--gold:#b87911;--warning:#8a4b08}
-*{box-sizing:border-box}body{margin:0;font-family:"Aptos","Segoe UI",sans-serif;color:var(--ink);background:var(--paper)}.deck{scroll-snap-type:y mandatory;height:100vh;overflow-y:auto}.slide{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;padding:50px 68px;border-bottom:1px solid var(--line);background:var(--panel)}.title{background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff}h1{font-size:clamp(2.4rem,5vw,4.5rem);margin:0 0 18px;line-height:1.05}h2{font-size:clamp(1.8rem,3.2vw,3.1rem);margin:0 0 22px;color:var(--navy)}.title h2{color:#fff;opacity:.94}p,li{font-size:clamp(1.03rem,1.55vw,1.45rem);line-height:1.35}ul,ol{max-width:1050px}.kicker{color:var(--gold);text-transform:uppercase;letter-spacing:.08em;font-weight:700}.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center}.visual-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:30px;align-items:center}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{border:1px solid var(--line);background:#fff;border-radius:6px;padding:14px 16px}.equation{font-size:1.32rem;padding:14px 18px;background:var(--teal-soft);border-left:5px solid var(--teal);margin:12px 0}figcaption,.small,.credit{color:var(--muted);font-size:.95rem;line-height:1.35;margin-top:8px}svg,img{width:100%;max-height:72vh;object-fit:contain;border:1px solid var(--line);background:#fff}.warning{border-left:5px solid var(--warning);background:#fff8e8;padding:14px 18px}@media print{.deck{height:auto;overflow:visible}.slide{min-height:7.5in;page-break-after:always}}
+*{box-sizing:border-box}body{margin:0;font-family:"Aptos","Segoe UI",sans-serif;color:var(--ink);background:var(--paper)}.deck{scroll-snap-type:y mandatory;height:100vh;overflow-y:auto}.slide{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;padding:50px 68px;border-bottom:1px solid var(--line);background:var(--panel)}.title{background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff}h1{font-size:clamp(2.4rem,5vw,4.5rem);margin:0 0 18px;line-height:1.05}h2{font-size:clamp(1.8rem,3.2vw,3.1rem);margin:0 0 22px;color:var(--navy)}.title h2{color:#fff;opacity:.94}p,li{font-size:clamp(1.03rem,1.55vw,1.45rem);line-height:1.35}ul,ol{max-width:1050px}.kicker{color:var(--gold);text-transform:uppercase;letter-spacing:.08em;font-weight:700}.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center}.visual-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:30px;align-items:center}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{border:1px solid var(--line);background:#fff;border-radius:6px;padding:14px 16px}.equation{font-size:1.32rem;padding:14px 18px;background:var(--teal-soft);border-left:5px solid var(--teal);margin:12px 0}figcaption,.small,.credit{color:var(--muted);font-size:.95rem;line-height:1.35;margin-top:8px}svg,img{width:100%;max-height:72vh;object-fit:contain;border:1px solid var(--line);background:#fff}.warning{border-left:5px solid var(--warning);background:#fff8e8;padding:14px 18px}.term-explorer{display:grid;grid-template-columns:minmax(220px,.7fr) minmax(0,1.8fr);gap:28px;align-items:stretch;min-height:58vh}.term-list{display:flex;flex-direction:column;gap:10px}.term-button{width:100%;padding:14px 16px;border:2px solid var(--line);border-radius:8px;background:#fff;color:var(--navy);font:inherit;font-size:1.05rem;font-weight:700;text-align:left;cursor:pointer}.term-button:hover{border-color:var(--teal)}.term-button:focus-visible{outline:4px solid var(--gold);outline-offset:2px}.term-button[aria-selected="true"]{color:#fff;background:var(--teal);border-color:var(--teal)}.term-detail{border:1px solid var(--line);border-radius:10px;padding:22px 26px;background:var(--paper);overflow:auto}.term-detail h3{margin-top:0;color:var(--teal);font-size:clamp(1.4rem,2.2vw,2rem)}.term-detail p{font-size:clamp(1rem,1.35vw,1.28rem)}.term-detail[hidden]{display:none}@media (max-width:800px){.term-explorer{grid-template-columns:1fr}.term-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}@media print{.deck{height:auto;overflow:visible}.slide{min-height:7.5in;page-break-after:always}.term-explorer{display:block}.term-list{display:none}.term-detail[hidden]{display:block}.term-detail{break-inside:avoid;margin:12px 0}}
 """
+
+TERM_EXPLORER_SCRIPT = """<script>
+document.querySelectorAll("[data-term-explorer]").forEach((explorer) => {
+  const tabs = [...explorer.querySelectorAll('[role="tab"]')];
+  const panels = [...explorer.querySelectorAll('[role="tabpanel"]')];
+  const select = (tab) => {
+    tabs.forEach((item) => item.setAttribute("aria-selected", String(item === tab)));
+    panels.forEach((panel) => { panel.hidden = panel.id !== tab.dataset.termTarget; });
+  };
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => select(tab));
+    tab.addEventListener("keydown", (event) => {
+      if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : (index + (event.key === "ArrowDown" ? 1 : -1) + tabs.length) % tabs.length;
+      tabs[nextIndex].focus();
+      select(tabs[nextIndex]);
+    });
+  });
+});
+</script>"""
 
 
 def page(title: str, body: str, css: str = CSS) -> str:
@@ -46,6 +68,123 @@ def li(items) -> str:
 
 def cards(items) -> str:
     return ''.join(f'<article class="card"><p>{escape(x)}</p></article>' for x in items)
+
+
+def _plain_text(value: str) -> str:
+    return re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', value)).strip()
+
+
+def _sentences(values) -> list[str]:
+    text = ' '.join(_plain_text(value) for value in values)
+    return [part.strip() for part in re.split(r'(?<=[.!?])\s+', text) if part.strip()]
+
+
+def _term_tokens(term: str) -> set[str]:
+    stop = {'and', 'the', 'of', 'for', 'in', 'a', 'an', 'to', 'per', 'stellar'}
+    return {token for token in re.findall(r'[a-z0-9]+', term.lower()) if len(token) > 2 and token not in stop}
+
+
+def _clip(text: str, limit: int) -> str:
+    if len(text) <= limit:
+        return text
+    return text[:limit].rsplit(' ', 1)[0] + '...'
+
+
+def _ranked_context(item: dict, term: str) -> list[str]:
+    tokens = _term_tokens(term)
+    ranked = []
+    source_groups = (
+        (4, item['model']),
+        (3, item['evidence']),
+        (2, item['example']),
+        (1, [item['synthesis'], item['phenomenon'], item['why_matters']]),
+    )
+    for priority, values in source_groups:
+        for sentence in _sentences(values):
+            overlap = sum(token in sentence.lower() for token in tokens)
+            ranked.append((overlap, priority, -len(sentence), sentence))
+    ranked.sort(reverse=True)
+    return [sentence for _, _, _, sentence in ranked]
+
+
+def _term_record(item: dict, term: str) -> dict:
+    ranked = _ranked_context(item, term)
+    definition = (
+        f"{term.capitalize()} denotes the physical quantity, process, or model component captured by this "
+        f"lecture-specific statement: {_clip(ranked[0], 290)}"
+    )
+    development = _clip(next((text for text in ranked[1:] if text != ranked[0]), item['why_matters']), 430)
+    index = item['vocab'].index(term)
+    neighbors = [item['vocab'][i] for i in (index - 1, index + 1) if 0 <= i < len(item['vocab'])]
+    relationship = (
+        f"It is used with {', '.join(neighbors)} to interpret the lecture model. "
+        f"The quantitative connection is the working relation \\({item['equation']}\\)."
+    )
+    return {
+        'term': term,
+        'definition': definition,
+        'why': _clip(item['why_matters'], 330),
+        'development': development,
+        'relationship': relationship,
+        'limitation': _clip(item['pitfall'], 360),
+    }
+
+
+def term_explorer(item: dict) -> str:
+    records = [_term_record(item, term) for term in item['vocab']]
+    n = item['n']
+    buttons = []
+    panels = []
+    for index, record in enumerate(records, start=1):
+        tab_id = f"term-{n:02d}-{index}-tab"
+        panel_id = f"term-{n:02d}-{index}-panel"
+        selected = 'true' if index == 1 else 'false'
+        hidden = '' if index == 1 else ' hidden'
+        buttons.append(
+            f"<button class='term-button' id='{tab_id}' type='button' role='tab' "
+            f"aria-selected='{selected}' aria-controls='{panel_id}' data-term-target='{panel_id}'>"
+            f"{escape(record['term'])}</button>"
+        )
+        panels.append(
+            f"<article class='term-detail' id='{panel_id}' role='tabpanel' aria-labelledby='{tab_id}'{hidden}>"
+            f"<h3>{escape(record['term'])}</h3>"
+            f"<p><strong>Definition:</strong> {escape(record['definition'])}</p>"
+            f"<p><strong>Why it matters here:</strong> {escape(record['why'])}</p>"
+            f"<p><strong>Relationships:</strong> {escape(record['relationship'])}</p>"
+            f"<p><strong>Boundary or common confusion:</strong> {escape(record['limitation'])}</p>"
+            f"</article>"
+        )
+    return (
+        "<section class='slide glossary-slide' aria-labelledby='terms-heading'>"
+        "<h2 id='terms-heading'>Terms for This Lecture</h2>"
+        "<div class='term-explorer' data-term-explorer>"
+        "<div class='term-list' role='tablist' aria-label='Lecture terms'>"
+        + ''.join(buttons)
+        + "</div><div class='term-details'>"
+        + ''.join(panels)
+        + "</div></div></section>"
+    )
+
+
+def terms_in_context(item: dict) -> str:
+    entries = []
+    for term in item['vocab']:
+        record = _term_record(item, term)
+        entries.append(
+            f"<dt><strong>{escape(term)}</strong></dt><dd>"
+            f"<p><strong>Definition and use:</strong> {escape(record['definition'])}</p>"
+            f"<p><strong>Development in this lecture:</strong> {escape(record['development'])}</p>"
+            f"<p><strong>Connections:</strong> {escape(record['relationship'])}</p>"
+            f"<p><strong>Boundary or common confusion:</strong> {escape(record['limitation'])}</p>"
+            f"</dd>"
+        )
+    return (
+        "<section><h2>Terms Developed in Context</h2>"
+        "<p>These terms form the vocabulary of the lecture's reasoning arc; each is tied to the model, "
+        "the working equation, and the evidence used to test the model.</p><dl>"
+        + ''.join(entries)
+        + "</dl></section>"
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -1313,7 +1452,7 @@ def slide_deck(item: dict) -> str:
 <section class='slide'><h2>Learning Goals</h2><ol>{li(item['goals'])}</ol><p class='small'>Reading anchor: {escape(item['openstax'])}</p></section>
 <section class='slide'><h2>Why This Matters</h2><p>{item['why_matters']}</p></section>
 <section class='slide'><h2>Opening Phenomenon</h2><p>{item['phenomenon']}</p><p class='warning'><strong>First question:</strong> what here is directly observed, and what follows only once a physical law is derived and applied?</p></section>
-<section class='slide'><h2>Vocabulary for Reasoning</h2><div class='three'>{cards(item['vocab'])}</div><p class='small'>Use these terms to describe derivations and evidence, not as isolated definitions.</p></section>
+{term_explorer(item)}
 <section class='slide'><h2>Evidence We Need to Explain</h2><ul>{li(item['evidence'])}</ul></section>
 <section class='slide'><h2>Derivation and Model</h2><ul>{li(item['model'])}</ul></section>
 <section class='slide'><h2>Quantitative Tool</h2><div class='equation'>\\[ {item['equation']} \\]</div></section>
@@ -1324,7 +1463,7 @@ def slide_deck(item: dict) -> str:
 <section class='slide'><h2>Lab Connection</h2><p>{item['lab_connection']}</p></section>
 <section class='slide'><h2>Synthesis</h2><p>{item['synthesis']}</p></section>
 <section class='slide'><h2>References</h2><ul><li>{escape(item['openstax'])}</li><li>Course dataset and derivations used in this lecture\u2019s worked example: <code>materials/ASTR330/data/</code> and <code>materials/ASTR330/src/generate_astr330_content.py</code>.</li></ul></section>
-</main>"""
+</main>{TERM_EXPLORER_SCRIPT}"""
     return page(f'ASTR 330 Lecture {n:02d} Slides', body, SLIDE_CSS)
 
 
@@ -1335,7 +1474,7 @@ def lecture_notes(item: dict) -> str:
 <section><h2>Context and Why This Matters</h2><p>{item['why_matters']}</p></section>
 <section><h2>Learning Goals</h2><ol>{li(item['goals'])}</ol></section>
 <section><h2>Opening Phenomenon</h2><p>{item['phenomenon']}</p></section>
-<section><h2>Vocabulary</h2><ul>{li(item['vocab'])}</ul></section>
+{terms_in_context(item)}
 <section><h2>Evidence</h2><ul>{li(item['evidence'])}</ul></section>
 <section><h2>Derivation and Model</h2><ul>{li(item['model'])}</ul></section>
 <section><h2>Working Equation</h2><p>\\[ {item['equation']} \\]</p></section>
@@ -1353,8 +1492,10 @@ def write_lectures():
     LECTURE_DIR.mkdir(parents=True, exist_ok=True)
     for item in LECTURES:
         n = item['n']
-        (LECTURE_DIR / f'lecture-{n:02d}-slides.html').write_text(slide_deck(item), encoding='utf-8')
-        (LECTURE_DIR / f'lecture-{n:02d}-notes.html').write_text(lecture_notes(item), encoding='utf-8')
+        (LECTURE_DIR / f'lecture-{n:02d}-slides.html').write_text(
+            slide_deck(item), encoding='utf-8', newline='\n')
+        (LECTURE_DIR / f'lecture-{n:02d}-notes.html').write_text(
+            lecture_notes(item), encoding='utf-8', newline='\n')
 
 
 def write_data_csv():
@@ -1383,6 +1524,3 @@ if __name__ == '__main__':
     write_lectures()
     write_data_csv()
     print(f'Wrote {len(LECTURES)} lecture slide decks and notes files, plus 3 data CSV files.')
-
-
-

@@ -19,6 +19,7 @@ CHECKSUM_FILE = GENERATED / "SHA256SUMS"
 sys.path.insert(0, str(REPO_ROOT))
 
 from materials.ASTR474.src.astr474_computations import compute_results
+from validate_term_explorers import validate_all as validate_term_explorers
 
 
 class ArtifactParser(HTMLParser):
@@ -286,12 +287,13 @@ def validate_package() -> dict[str, object]:
     index_counts = verify_index_links()
     local_links = verify_local_links()
     unique_diagrams = verify_diagrams()
+    terms = validate_term_explorers(COURSE_ROOT)
     curriculum = parse_html(REPO_ROOT / "astronomy_curriculum.html")
     if "materials/ASTR474/index.html" not in curriculum.hrefs:
         raise AssertionError("ASTR474 calendar card does not link to its course index")
     return {"indexLinks": index_counts, "localLinksChecked": local_links,
             "uniqueDiagrams": unique_diagrams, "checksumsVerified": len(checksum_entries()),
-            "computedResultsRecomputed": True}
+            "computedResultsRecomputed": True, "termExplorers": terms}
 
 
 def main() -> None:

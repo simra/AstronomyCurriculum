@@ -25,13 +25,28 @@ figcaption,.small { color:var(--muted); font-size:.95rem; line-height:1.35; marg
 svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(--line); background:#fff; }
 .warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
 @media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+
+.term-explorer{display:grid;grid-template-columns:minmax(220px,.7fr) minmax(0,1.8fr);gap:28px;align-items:stretch;min-height:58vh}
+.term-list{display:flex;flex-direction:column;gap:10px}
+.term-button{width:100%;padding:12px 15px;border:2px solid var(--line);border-radius:8px;background:#fff;color:var(--navy);font:inherit;font-size:1.05rem;font-weight:700;text-align:left;cursor:pointer}
+.term-button:hover{border-color:var(--teal)}
+.term-button:focus-visible{outline:4px solid var(--gold);outline-offset:2px}
+.term-button[aria-selected="true"]{color:#fff;background:var(--teal);border-color:var(--teal)}
+.term-detail{border:1px solid var(--line);border-radius:10px;padding:20px 24px;background:var(--paper);overflow:auto}
+.term-detail h3{margin:0 0 10px;color:var(--teal);font-size:clamp(1.35rem,2.2vw,2rem)}
+.term-detail p{font-size:clamp(.96rem,1.35vw,1.22rem);margin:.55em 0}
+.term-detail[hidden]{display:none}
+.term-visual{font-size:1.12rem;padding:10px 14px;background:var(--teal-soft);border-left:4px solid var(--teal);margin-top:12px}
+@media(max-width:800px){.term-explorer{grid-template-columns:1fr}.term-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+@media print{.term-explorer{display:block;min-height:0}.term-list{display:none}.term-detail[hidden]{display:block}.term-detail{break-inside:avoid;margin:12px 0}}
 </style>
 </head>
 <body>
 <main class="deck">
 <section class="slide title"><p class="kicker">ASTR 120 · Lecture 10</p><h1>Moons, Rings, and Icy Ocean Worlds</h1><h2>Solar-system evidence, physics, and exploration</h2></section>
 <section class="slide"><h2>Why This Question Matters</h2><p>Voyager and Cassini transformed icy moons from dots into candidate ocean worlds.</p></section>
-<section class="slide"><h2>Learning Goals</h2><ul><li>Assess evidence for subsurface oceans and active icy-world geology.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section>
+<section class="slide"><h2>Learning Goals</h2><ul><li>Assess evidence for subsurface oceans and active icy-world geology.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section><section class="slide glossary-slide" aria-labelledby="l10-terms-heading"><h2 id="l10-terms-heading">Terms for This Lecture</h2><div class="term-explorer" data-term-explorer><div class="term-list" role="tablist" aria-label="Lecture 10 terms"><button class="term-button" id="l10-term-1-tab" type="button" role="tab" aria-selected="true" aria-controls="l10-term-1-panel" data-term-target="l10-term-1-panel" tabindex="0">Tidal heating</button><button class="term-button" id="l10-term-2-tab" type="button" role="tab" aria-selected="false" aria-controls="l10-term-2-panel" data-term-target="l10-term-2-panel" tabindex="-1">Orbital resonance</button><button class="term-button" id="l10-term-3-tab" type="button" role="tab" aria-selected="false" aria-controls="l10-term-3-panel" data-term-target="l10-term-3-panel" tabindex="-1">Subsurface ocean</button><button class="term-button" id="l10-term-4-tab" type="button" role="tab" aria-selected="false" aria-controls="l10-term-4-panel" data-term-target="l10-term-4-panel" tabindex="-1">Induced magnetic field</button><button class="term-button" id="l10-term-5-tab" type="button" role="tab" aria-selected="false" aria-controls="l10-term-5-panel" data-term-target="l10-term-5-panel" tabindex="-1">Ring particle</button><button class="term-button" id="l10-term-6-tab" type="button" role="tab" aria-selected="false" aria-controls="l10-term-6-panel" data-term-target="l10-term-6-panel" tabindex="-1">Roche limit</button></div><div class="term-details"><article class="term-detail" id="l10-term-1-panel" role="tabpanel" aria-labelledby="l10-term-1-tab"><h3>Tidal heating</h3><p><strong>Definition:</strong> Conversion of mechanical energy into internal heat as changing tidal stresses deform a body and dissipate energy.</p><p><strong>Why it matters and connects:</strong> It can maintain volcanism or subsurface oceans in moons too small to retain much primordial heat.</p><p><strong>Boundary or common confusion:</strong> Tides require both forcing and dissipation; a perfectly circular, rigid, synchronous moon would generate little heat.</p></article><article class="term-detail" id="l10-term-2-panel" role="tabpanel" aria-labelledby="l10-term-2-tab" hidden><h3>Orbital resonance</h3><p><strong>Definition:</strong> A repeated orbital configuration produced by a near ratio of small whole-number periods.</p><p><strong>Why it matters and connects:</strong> Moon resonances can maintain eccentricity, focus gravitational forcing, and power long-lived tidal activity.</p><p><strong>Boundary or common confusion:</strong> A period ratio near an integer is insufficient by itself; the resonant geometry must remain bounded.</p><div class="term-visual">\(P_2/P_1\approx p/q\)</div></article><article class="term-detail" id="l10-term-3-panel" role="tabpanel" aria-labelledby="l10-term-3-tab" hidden><h3>Subsurface ocean</h3><p><strong>Definition:</strong> A persistent layer of liquid, usually water-rich, beneath an ice shell or crust.</p><p><strong>Why it matters and connects:</strong> Magnetic induction, gravity, libration, geology, and plume chemistry can provide independent tests of an ocean.</p><p><strong>Boundary or common confusion:</strong> Surface fractures or young terrain alone do not prove a global liquid layer.</p></article><article class="term-detail" id="l10-term-4-panel" role="tabpanel" aria-labelledby="l10-term-4-tab" hidden><h3>Induced magnetic field</h3><p><strong>Definition:</strong> A secondary magnetic response produced when a changing external field drives electric currents in a conductor.</p><p><strong>Why it matters and connects:</strong> At moons such as Europa, induction is evidence for a globally connected conductive layer consistent with salty liquid water.</p><p><strong>Boundary or common confusion:</strong> Conductivity and depth are partly degenerate, and plasma effects must be modeled.</p></article><article class="term-detail" id="l10-term-5-panel" role="tabpanel" aria-labelledby="l10-term-5-tab" hidden><h3>Ring particle</h3><p><strong>Definition:</strong> An individual ice, rock, or dust fragment orbiting within a planetary ring system.</p><p><strong>Why it matters and connects:</strong> Collective collisions, resonances, and shepherding create gaps, waves, sharp edges, and changing structures.</p><p><strong>Boundary or common confusion:</strong> Rings are not solid disks, and images usually do not resolve typical particles individually.</p></article><article class="term-detail" id="l10-term-6-panel" role="tabpanel" aria-labelledby="l10-term-6-tab" hidden><h3>Roche limit</h3><p><strong>Definition:</strong> The approximate distance within which tides from a primary can prevent a self-gravitating fluid satellite from remaining intact.</p><p><strong>Why it matters and connects:</strong> It helps explain why dense rings occupy regions where loose material may not accrete into a large moon.</p><p><strong>Boundary or common confusion:</strong> The limit depends on density, material strength, shape, and orbit; rigid bodies can survive inside the fluid estimate.</p><div class="term-visual">\(d_R\approx2.44R_p(\rho_p/\rho_s)^{1/3}\)</div></article></div></div></section>
 <section class="slide"><h2>Opening Phenomenon</h2><p>Moons and rings reveal tidal heating, orbital evolution, and possible subsurface oceans.</p></section>
 <section class="slide"><h2>Ocean Worlds Need Three Tests</h2><div class="three"><article class="card"><p><strong>Liquid:</strong> magnetic induction, gravity, libration, or plume evidence.</p></article><article class="card"><p><strong>Energy:</strong> tidal flexing, radiogenic heat, or chemical disequilibrium.</p></article><article class="card"><p><strong>Exchange:</strong> cracks, plumes, resurfacing, or chemistry connecting ocean and surface.</p></article></div></section>
 <section class="slide"><h2>Rings and Moons Share a Dynamical Environment</h2><p>Rings, resonances, shepherd moons, and tidal heating all arise because gravity is not just a central force in these systems; nearby bodies continually perturb each other.</p></section>
@@ -44,5 +59,33 @@ svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(
 <section class="slide"><h2>Reasoning Prompt: Choose a Flyby Measurement</h2><p>A Europa plume is reported but not confirmed. Would you prioritize UV imaging, dust analysis, magnetometry, or thermal mapping on the next flyby? Defend the choice by connecting it to liquid, energy, or exchange.</p></section>
 <section class="slide"><h2>Synthesis: Habitability Begins with Evidence Architecture</h2><ul><li>Liquid-water claims require interior evidence.</li><li>Activity claims require an energy source and present-day expression.</li><li>Habitability becomes stronger when ocean material can reach instruments or the surface.</li></ul></section>
 <section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax Astronomy 2e solar-system chapters and local reference copy.</li><li>NASA/OpenStax/ESA sources recorded in reference-log.md where external visuals are used.</li></ul></section>
-</main></body>
+</main>
+<script data-astr120-term-explorer>
+document.querySelectorAll("[data-term-explorer]").forEach((explorer)=>{
+  const tabs=[...explorer.querySelectorAll('[role="tab"]')];
+  const panels=[...explorer.querySelectorAll('[role="tabpanel"]')];
+  const select=(tab,moveFocus=false)=>{
+    tabs.forEach((item)=>{
+      const active=item===tab;
+      item.setAttribute("aria-selected",String(active));
+      item.tabIndex=active?0:-1;
+    });
+    panels.forEach((panel)=>{panel.hidden=panel.id!==tab.getAttribute("aria-controls");});
+    if(moveFocus)tab.focus();
+  };
+  tabs.forEach((tab,index)=>{
+    tab.addEventListener("click",()=>select(tab));
+    tab.addEventListener("keydown",(event)=>{
+      if(!["ArrowDown","ArrowUp","ArrowRight","ArrowLeft","Home","End"].includes(event.key))return;
+      event.preventDefault();
+      let next=index;
+      if(event.key==="Home")next=0;
+      else if(event.key==="End")next=tabs.length-1;
+      else next=(index+(["ArrowDown","ArrowRight"].includes(event.key)?1:-1)+tabs.length)%tabs.length;
+      select(tabs[next],true);
+    });
+  });
+});
+</script>
+</body>
 </html>

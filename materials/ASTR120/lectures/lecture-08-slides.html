@@ -25,13 +25,28 @@ figcaption,.small { color:var(--muted); font-size:.95rem; line-height:1.35; marg
 svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(--line); background:#fff; }
 .warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
 @media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+
+.term-explorer{display:grid;grid-template-columns:minmax(220px,.7fr) minmax(0,1.8fr);gap:28px;align-items:stretch;min-height:58vh}
+.term-list{display:flex;flex-direction:column;gap:10px}
+.term-button{width:100%;padding:12px 15px;border:2px solid var(--line);border-radius:8px;background:#fff;color:var(--navy);font:inherit;font-size:1.05rem;font-weight:700;text-align:left;cursor:pointer}
+.term-button:hover{border-color:var(--teal)}
+.term-button:focus-visible{outline:4px solid var(--gold);outline-offset:2px}
+.term-button[aria-selected="true"]{color:#fff;background:var(--teal);border-color:var(--teal)}
+.term-detail{border:1px solid var(--line);border-radius:10px;padding:20px 24px;background:var(--paper);overflow:auto}
+.term-detail h3{margin:0 0 10px;color:var(--teal);font-size:clamp(1.35rem,2.2vw,2rem)}
+.term-detail p{font-size:clamp(.96rem,1.35vw,1.22rem);margin:.55em 0}
+.term-detail[hidden]{display:none}
+.term-visual{font-size:1.12rem;padding:10px 14px;background:var(--teal-soft);border-left:4px solid var(--teal);margin-top:12px}
+@media(max-width:800px){.term-explorer{grid-template-columns:1fr}.term-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+@media print{.term-explorer{display:block;min-height:0}.term-list{display:none}.term-detail[hidden]{display:block}.term-detail{break-inside:avoid;margin:12px 0}}
 </style>
 </head>
 <body>
 <main class="deck">
 <section class="slide title"><p class="kicker">ASTR 120 · Lecture 08</p><h1>Mars: Water, Climate, and Exploration</h1><h2>Solar-system evidence, physics, and exploration</h2></section>
 <section class="slide"><h2>Why This Question Matters</h2><p>Mariner, Viking, Mars Global Surveyor, Spirit, Opportunity, Curiosity, and Perseverance changed Mars from a canal myth into a data-rich planet.</p></section>
-<section class="slide"><h2>Learning Goals</h2><ul><li>Evaluate evidence for past water and habitability on Mars.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section>
+<section class="slide"><h2>Learning Goals</h2><ul><li>Evaluate evidence for past water and habitability on Mars.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section><section class="slide glossary-slide" aria-labelledby="l08-terms-heading"><h2 id="l08-terms-heading">Terms for This Lecture</h2><div class="term-explorer" data-term-explorer><div class="term-list" role="tablist" aria-label="Lecture 08 terms"><button class="term-button" id="l08-term-1-tab" type="button" role="tab" aria-selected="true" aria-controls="l08-term-1-panel" data-term-target="l08-term-1-panel" tabindex="0">Valley network</button><button class="term-button" id="l08-term-2-tab" type="button" role="tab" aria-selected="false" aria-controls="l08-term-2-panel" data-term-target="l08-term-2-panel" tabindex="-1">Delta</button><button class="term-button" id="l08-term-3-tab" type="button" role="tab" aria-selected="false" aria-controls="l08-term-3-panel" data-term-target="l08-term-3-panel" tabindex="-1">Hydrated mineral</button><button class="term-button" id="l08-term-4-tab" type="button" role="tab" aria-selected="false" aria-controls="l08-term-4-panel" data-term-target="l08-term-4-panel" tabindex="-1">Ground truth</button><button class="term-button" id="l08-term-5-tab" type="button" role="tab" aria-selected="false" aria-controls="l08-term-5-panel" data-term-target="l08-term-5-panel" tabindex="-1">Paleoclimate proxy</button><button class="term-button" id="l08-term-6-tab" type="button" role="tab" aria-selected="false" aria-controls="l08-term-6-panel" data-term-target="l08-term-6-panel" tabindex="-1">Habitability</button></div><div class="term-details"><article class="term-detail" id="l08-term-1-panel" role="tabpanel" aria-labelledby="l08-term-1-tab"><h3>Valley network</h3><p><strong>Definition:</strong> A branching system of channels cut into ancient terrain, often resembling drainage networks produced by surface runoff.</p><p><strong>Why it matters and connects:</strong> Geometry and topographic integration make valley networks evidence for past moving liquid, precipitation, or snowmelt on Mars.</p><p><strong>Boundary or common confusion:</strong> A channel shape alone does not determine duration, discharge, climate, or whether flow was continuous.</p></article><article class="term-detail" id="l08-term-2-panel" role="tabpanel" aria-labelledby="l08-term-2-tab" hidden><h3>Delta</h3><p><strong>Definition:</strong> A sedimentary deposit formed where a sediment-bearing flow enters standing water and loses transport capacity.</p><p><strong>Why it matters and connects:</strong> Layered, fan-shaped deposits can indicate sustained inflow, a stable basin level, and preserved environments favorable for geologic records.</p><p><strong>Boundary or common confusion:</strong> Fan shape is not sufficient; stratigraphy, grain transport, and basin geometry must support the interpretation.</p></article><article class="term-detail" id="l08-term-3-panel" role="tabpanel" aria-labelledby="l08-term-3-tab" hidden><h3>Hydrated mineral</h3><p><strong>Definition:</strong> A mineral whose crystal structure contains water or hydroxyl produced or retained through chemical interaction.</p><p><strong>Why it matters and connects:</strong> Clays, sulfates, and related phases can record past water chemistry, temperature, and environmental conditions.</p><p><strong>Boundary or common confusion:</strong> Hydrated minerals show water–rock interaction, not necessarily a long-lived surface ocean or biological activity.</p></article><article class="term-detail" id="l08-term-4-panel" role="tabpanel" aria-labelledby="l08-term-4-tab" hidden><h3>Ground truth</h3><p><strong>Definition:</strong> Detailed local measurement used to test or calibrate interpretations made from orbital or remote data.</p><p><strong>Why it matters and connects:</strong> Rover imaging, chemistry, and texture connect kilometer-scale maps to specific rocks and sediments.</p><p><strong>Boundary or common confusion:</strong> A landing site is geographically limited and may not represent the planet as a whole.</p></article><article class="term-detail" id="l08-term-5-panel" role="tabpanel" aria-labelledby="l08-term-5-tab" hidden><h3>Paleoclimate proxy</h3><p><strong>Definition:</strong> An observable preserved in rock, landform, ice, or chemistry that responds predictably to past environmental conditions.</p><p><strong>Why it matters and connects:</strong> Mars climate history relies on proxies because ancient temperature, precipitation, and pressure cannot be measured directly.</p><p><strong>Boundary or common confusion:</strong> Most proxies are non-unique and require models to translate the preserved signal into climate variables.</p></article><article class="term-detail" id="l08-term-6-panel" role="tabpanel" aria-labelledby="l08-term-6-tab" hidden><h3>Habitability</h3><p><strong>Definition:</strong> The capacity of an environment to support a specified form of life for a specified interval, given liquid solvent, energy, chemistry, and stability.</p><p><strong>Why it matters and connects:</strong> Mars exploration often asks whether past environments were habitable even when no claim of life is made.</p><p><strong>Boundary or common confusion:</strong> Habitable does not mean inhabited, and Earth-like surface conditions are not the only possible criterion.</p></article></div></div></section>
 <section class="slide"><h2>Opening Phenomenon</h2><p>Mars preserves evidence for ancient water, climate change, volcanism, and habitability tests.</p></section>
 <section class="slide"><h2>Mars Water Evidence Comes in Layers</h2><div class="three"><article class="card"><p><strong>Landforms:</strong> valleys, fans, deltas, and shore-like margins record possible flow.</p></article><article class="card"><p><strong>Minerals:</strong> clays, sulfates, and hematite require specific alteration environments.</p></article><article class="card"><p><strong>Stratigraphy:</strong> rover and orbital context can show whether water was persistent or brief.</p></article></div></section>
 <section class="slide"><h2>The Hard Question Is Duration</h2><p>Finding that water was present is easier than proving how long it persisted, whether it was stable at the surface, and whether the environment was habitable.</p></section>
@@ -56,5 +71,33 @@ svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(
 <section class="slide"><h2>Evidence Bridge: Habitability Adds Requirements</h2><p>Past water is necessary for many Mars habitability arguments, but it is not sufficient. A stronger case also needs duration, chemical energy, pH or salinity constraints, and preservation of biosignature-bearing materials.</p></section>
 <section class="slide"><h2>Synthesis: Water Evidence Is a Chain</h2><ul><li>Landforms suggest process but rarely settle duration by themselves.</li><li>Hydrated minerals constrain water-rock chemistry.</li><li>Habitability claims require persistence, energy, chemistry, and preservation context.</li></ul></section>
 <section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax Astronomy 2e solar-system chapters and local reference copy.</li><li>NASA/OpenStax/ESA sources recorded in reference-log.md where external visuals are used.</li></ul></section>
-</main></body>
+</main>
+<script data-astr120-term-explorer>
+document.querySelectorAll("[data-term-explorer]").forEach((explorer)=>{
+  const tabs=[...explorer.querySelectorAll('[role="tab"]')];
+  const panels=[...explorer.querySelectorAll('[role="tabpanel"]')];
+  const select=(tab,moveFocus=false)=>{
+    tabs.forEach((item)=>{
+      const active=item===tab;
+      item.setAttribute("aria-selected",String(active));
+      item.tabIndex=active?0:-1;
+    });
+    panels.forEach((panel)=>{panel.hidden=panel.id!==tab.getAttribute("aria-controls");});
+    if(moveFocus)tab.focus();
+  };
+  tabs.forEach((tab,index)=>{
+    tab.addEventListener("click",()=>select(tab));
+    tab.addEventListener("keydown",(event)=>{
+      if(!["ArrowDown","ArrowUp","ArrowRight","ArrowLeft","Home","End"].includes(event.key))return;
+      event.preventDefault();
+      let next=index;
+      if(event.key==="Home")next=0;
+      else if(event.key==="End")next=tabs.length-1;
+      else next=(index+(["ArrowDown","ArrowRight"].includes(event.key)?1:-1)+tabs.length)%tabs.length;
+      select(tabs[next],true);
+    });
+  });
+});
+</script>
+</body>
 </html>

@@ -5,7 +5,7 @@ description: "Use when reviewing assembled astronomy course materials for comple
 
 # Course Materials Review Agent
 
-Before acting, load and follow `.github/skills/course-materials-review/SKILL.md`.
+Before acting, load and follow `.github/skills/course-materials-review/SKILL.md`. For any lecture-note review or audit, also load and apply `.github/skills/lecture-notes-review/SKILL.md`.
 
 ## Responsibilities
 
@@ -13,6 +13,8 @@ Before acting, load and follow `.github/skills/course-materials-review/SKILL.md`
 - Check scientific, mathematical, computational, observational, and reference correctness.
 - Check dependency order, folder naming, index links, manifest status, and template consistency.
 - Flag template-complete but substantively shallow slide decks or lecture notes as blocking defects.
+- Compare every lecture-notes file directly with its matching deck using the lecture-notes-review rubric; report where notes paraphrase rather than deepen the slides.
+- Verify that every interactive glossary term is usable by keyboard, has exactly one explanatory panel, prints with all definitions visible, and is developed more fully in the matching notes.
 - Check that slide decks are adequate for the intended lecture length and grounded in the adopted textbook or verified readings where available.
 - Flag instructor-facing or production-facing commentary inside student-facing slide decks; require replacement with student-directed explanatory material.
 - Flag meta captions such as "lecture-specific reasoning figure", "student task", "instructor-created", "verify against", "placeholder", or "to be replaced" in student-facing decks.

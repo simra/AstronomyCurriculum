@@ -18,11 +18,22 @@
     p,li { font-size:clamp(1.2rem,2vw,1.8rem); line-height:1.35; }
     .kicker { color:var(--gold); text-transform:uppercase; letter-spacing:.08em; font-weight:700; }
     .grid { display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:center; }
+    .term-explorer { display:grid; grid-template-columns:minmax(220px,.7fr) minmax(0,1.8fr); gap:28px; align-items:stretch; min-height:58vh; }
+    .term-list { display:flex; flex-direction:column; gap:10px; }
+    .term-button { width:100%; padding:14px 16px; border:2px solid var(--line); border-radius:8px; background:#fff; color:var(--navy); font:inherit; font-size:1.12rem; font-weight:700; text-align:left; cursor:pointer; }
+    .term-button:hover { border-color:var(--teal); }
+    .term-button:focus-visible { outline:4px solid var(--gold); outline-offset:2px; }
+    .term-button[aria-selected="true"] { color:#fff; background:var(--teal); border-color:var(--teal); }
+    .term-detail { border:1px solid var(--line); border-radius:10px; padding:22px 26px; background:var(--paper); overflow:auto; }
+    .term-detail h3 { margin-top:0; color:var(--teal); font-size:clamp(1.45rem,2.4vw,2.2rem); }
+    .term-detail[hidden] { display:none; }
+    .term-visual { margin-top:18px; }
     figure { margin:0; }
     img,svg,canvas { max-width:100%; max-height:65vh; border:1px solid var(--line); background:#fff; }
     figcaption,.credit { color:var(--muted); font-size:1rem; line-height:1.35; margin-top:8px; }
     .equation { font-size:1.45rem; padding:16px 20px; background:var(--teal-soft); border-left:5px solid var(--teal); }
-    @media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+    @media (max-width:800px) { .term-explorer { grid-template-columns:1fr; } .term-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); } }
+    @media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } .term-explorer { display:block; } .term-list { display:none; } .term-detail[hidden] { display:block; } .term-detail { break-inside:avoid; margin:12px 0; } }
   </style>
 </head>
 <body>
@@ -41,6 +52,32 @@
         <li>{{OBJECTIVE_2}}</li>
         <li>{{OBJECTIVE_3}}</li>
       </ol>
+    </section>
+
+    <section class="slide glossary-slide" aria-labelledby="terms-heading">
+      <h2 id="terms-heading">Terms for This Lecture</h2>
+      <div class="term-explorer" data-term-explorer>
+        <div class="term-list" role="tablist" aria-label="Lecture terms">
+          <button class="term-button" id="term-1-tab" type="button" role="tab" aria-selected="true" aria-controls="term-1-panel" data-term-target="term-1-panel">{{TERM_1}}</button>
+          <button class="term-button" id="term-2-tab" type="button" role="tab" aria-selected="false" aria-controls="term-2-panel" data-term-target="term-2-panel">{{TERM_2}}</button>
+          {{ADDITIONAL_TERM_BUTTONS}}
+        </div>
+        <div class="term-details">
+          <article class="term-detail" id="term-1-panel" role="tabpanel" aria-labelledby="term-1-tab">
+            <h3>{{TERM_1}}</h3>
+            <p><strong>Definition:</strong> {{TERM_1_DEFINITION}}</p>
+            <p><strong>Why it matters here:</strong> {{TERM_1_SIGNIFICANCE_AND_RELATIONSHIPS}}</p>
+            <div class="term-visual">{{TERM_1_EQUATION_DERIVATION_OR_VISUAL}}</div>
+          </article>
+          <article class="term-detail" id="term-2-panel" role="tabpanel" aria-labelledby="term-2-tab" hidden>
+            <h3>{{TERM_2}}</h3>
+            <p><strong>Definition:</strong> {{TERM_2_DEFINITION}}</p>
+            <p><strong>Why it matters here:</strong> {{TERM_2_SIGNIFICANCE_AND_RELATIONSHIPS}}</p>
+            <div class="term-visual">{{TERM_2_EQUATION_DERIVATION_OR_VISUAL}}</div>
+          </article>
+          {{ADDITIONAL_TERM_PANELS}}
+        </div>
+      </div>
     </section>
 
     <section class="slide">
@@ -72,5 +109,25 @@
       </ul>
     </section>
   </main>
+  <script>
+    document.querySelectorAll("[data-term-explorer]").forEach((explorer) => {
+      const tabs = [...explorer.querySelectorAll('[role="tab"]')];
+      const panels = [...explorer.querySelectorAll('[role="tabpanel"]')];
+      const select = (tab) => {
+        tabs.forEach((item) => item.setAttribute("aria-selected", String(item === tab)));
+        panels.forEach((panel) => { panel.hidden = panel.id !== tab.dataset.termTarget; });
+      };
+      tabs.forEach((tab, index) => {
+        tab.addEventListener("click", () => select(tab));
+        tab.addEventListener("keydown", (event) => {
+          if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+          event.preventDefault();
+          const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : (index + (event.key === "ArrowDown" ? 1 : -1) + tabs.length) % tabs.length;
+          tabs[nextIndex].focus();
+          select(tabs[nextIndex]);
+        });
+      });
+    });
+  </script>
 </body>
 </html>

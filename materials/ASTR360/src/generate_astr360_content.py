@@ -25,7 +25,7 @@ CSS = """
 
 SLIDE_CSS = """
 :root{--ink:#17202a;--muted:#5b6773;--paper:#fbfcfd;--panel:#fff;--line:#d9e0e7;--navy:#102a43;--teal:#0f6b78;--teal-soft:#e5f4f6;--gold:#b87911;--warning:#8a4b08}
-*{box-sizing:border-box}body{margin:0;font-family:"Aptos","Segoe UI",sans-serif;color:var(--ink);background:var(--paper)}.deck{scroll-snap-type:y mandatory;height:100vh;overflow-y:auto}.slide{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;padding:50px 68px;border-bottom:1px solid var(--line);background:var(--panel)}.title{background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff}h1{font-size:clamp(2.4rem,5vw,4.5rem);margin:0 0 18px;line-height:1.05}h2{font-size:clamp(1.8rem,3.2vw,3.1rem);margin:0 0 22px;color:var(--navy)}.title h2{color:#fff;opacity:.94}p,li{font-size:clamp(1.03rem,1.55vw,1.45rem);line-height:1.35}ul,ol{max-width:1050px}.kicker{color:var(--gold);text-transform:uppercase;letter-spacing:.08em;font-weight:700}.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center}.visual-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:30px;align-items:center}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{border:1px solid var(--line);background:#fff;border-radius:6px;padding:14px 16px}.equation{font-size:1.32rem;padding:14px 18px;background:var(--teal-soft);border-left:5px solid var(--teal);margin:12px 0}figcaption,.small,.credit{color:var(--muted);font-size:.95rem;line-height:1.35;margin-top:8px}svg,img{width:100%;max-height:72vh;object-fit:contain;border:1px solid var(--line);background:#fff}.warning{border-left:5px solid var(--warning);background:#fff8e8;padding:14px 18px}@media print{.deck{height:auto;overflow:visible}.slide{min-height:7.5in;page-break-after:always}}
+*{box-sizing:border-box}body{margin:0;font-family:"Aptos","Segoe UI",sans-serif;color:var(--ink);background:var(--paper)}.deck{scroll-snap-type:y mandatory;height:100vh;overflow-y:auto}.slide{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;padding:50px 68px;border-bottom:1px solid var(--line);background:var(--panel)}.title{background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff}h1{font-size:clamp(2.4rem,5vw,4.5rem);margin:0 0 18px;line-height:1.05}h2{font-size:clamp(1.8rem,3.2vw,3.1rem);margin:0 0 22px;color:var(--navy)}.title h2{color:#fff;opacity:.94}p,li{font-size:clamp(1.03rem,1.55vw,1.45rem);line-height:1.35}ul,ol{max-width:1050px}.kicker{color:var(--gold);text-transform:uppercase;letter-spacing:.08em;font-weight:700}.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center}.visual-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:30px;align-items:center}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{border:1px solid var(--line);background:#fff;border-radius:6px;padding:14px 16px}.equation{font-size:1.32rem;padding:14px 18px;background:var(--teal-soft);border-left:5px solid var(--teal);margin:12px 0}figcaption,.small,.credit{color:var(--muted);font-size:.95rem;line-height:1.35;margin-top:8px}svg,img{width:100%;max-height:72vh;object-fit:contain;border:1px solid var(--line);background:#fff}.warning{border-left:5px solid var(--warning);background:#fff8e8;padding:14px 18px}.term-explorer{display:grid;grid-template-columns:minmax(220px,.72fr) minmax(0,1.8fr);gap:28px;align-items:stretch;min-height:58vh}.term-list{display:flex;flex-direction:column;gap:9px}.term-button{width:100%;padding:12px 15px;border:2px solid var(--line);border-radius:8px;background:#fff;color:var(--navy);font:inherit;font-size:1rem;font-weight:700;text-align:left;cursor:pointer}.term-button:hover{border-color:var(--teal)}.term-button:focus-visible{outline:4px solid var(--gold);outline-offset:2px}.term-button[aria-selected="true"]{color:#fff;background:var(--teal);border-color:var(--teal)}.term-detail{border:1px solid var(--line);border-radius:10px;padding:18px 23px;background:var(--paper);overflow:auto}.term-detail h3{margin:0 0 10px;color:var(--teal);font-size:clamp(1.35rem,2.2vw,2rem)}.term-detail p{font-size:clamp(.96rem,1.3vw,1.2rem);margin:.55em 0}.term-detail[hidden]{display:none}@media(max-width:800px){.slide{padding:34px 24px}.term-explorer{grid-template-columns:1fr}.term-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}@media print{.deck{height:auto;overflow:visible}.slide{min-height:7.5in;page-break-after:always}.term-explorer{display:block}.term-list{display:none}.term-detail[hidden]{display:block}.term-detail{break-inside:avoid;margin:12px 0}}
 """
 
 
@@ -1429,6 +1429,200 @@ LECTURES = [
     ),
 ]
 
+TERM_DEFINITIONS = {
+    'interstellar medium (ISM)': 'The gas, dust, magnetic fields, radiation, and energetic particles occupying the space between stars in a galaxy.',
+    'cold/warm neutral medium (CNM/WNM)': 'Two predominantly atomic-hydrogen phases: a dense, cool CNM and a diffuse, warm WNM that can coexist over a common pressure range.',
+    'warm/hot ionized medium (WIM/HIM)': 'Low-density plasma phases distinguished mainly by temperature and origin: photoionized gas near 10,000 K and collisionally ionized, shock-heated gas near or above 10^6 K.',
+    'H II region': 'A volume of hydrogen kept ionized by Lyman-continuum photons from hot stars, with its size set by competition between photoionizations and recombinations.',
+    'molecular cloud': 'A cold, shielded, comparatively dense region in which hydrogen is mainly H2 and where self-gravity can organize gas into star-forming structures.',
+    'pressure equilibrium': 'A state in which adjacent phases have comparable total pressure, so no persistent net force drives their interface rapidly in one direction.',
+    'filling factor': 'The fraction of a specified volume occupied by a phase; it is a geometric quantity and need not track that phase’s mass fraction.',
+    'photoelectric heating': 'Gas heating caused when ultraviolet photons eject energetic electrons from dust grains or large molecules and those electrons transfer energy to the gas.',
+    'radiative cooling': 'Loss of gas thermal energy through photons emitted after collisional excitation, recombination, or other microscopic processes.',
+    'fine-structure line': 'A spectral line between closely spaced sublevels produced by spin-orbit coupling, often an efficient coolant because modest-temperature collisions can excite it.',
+    'thermal equilibrium curve': 'The locus of density, temperature, and pressure states for which volumetric heating equals volumetric cooling.',
+    'thermal instability': 'Runaway departure from an equilibrium state when a small thermal perturbation changes heating and cooling in a way that amplifies rather than erases the perturbation.',
+    'isobaric perturbation': 'A small change followed at approximately constant pressure, so density and temperature vary inversely while thermal stability is tested.',
+    'hyperfine structure': 'A small splitting of an atomic energy level caused by coupling between nuclear and electronic magnetic moments.',
+    'spin-flip transition': 'The 21 cm magnetic-dipole transition between the parallel and antiparallel proton-electron spin configurations of ground-state neutral hydrogen.',
+    'spin (excitation) temperature': 'The temperature parameter that reproduces the observed hyperfine-level population ratio through a Boltzmann relation; it need not always equal kinetic temperature.',
+    'optical depth': 'A dimensionless measure of attenuation or interaction probability along a sightline; emission saturates rather than growing linearly when optical depth is large.',
+    'brightness temperature': 'The Rayleigh-Jeans temperature assigned to a measured radio specific intensity, used as an intensity unit rather than necessarily a material temperature.',
+    'forbidden transition': 'A transition strongly suppressed by electric-dipole selection rules but still possible through weaker processes such as magnetic-dipole emission.',
+    'Einstein A coefficient': 'The spontaneous-emission probability per unit time for a particular downward radiative transition.',
+    'column density': 'The number of particles per unit projected area integrated along the line of sight, commonly expressed in cm^-2.',
+    'optically thin approximation': 'The first-order limit in which optical depth is much less than one, allowing 1-e^-tau to be replaced by tau.',
+    'brightness-temperature integral': 'The area under a radio-line brightness-temperature profile as a function of velocity, measured in K km/s.',
+    'velocity-integrated intensity': 'Spectral-line intensity summed over Doppler velocity, combining emission from all channels assigned to the component of interest.',
+    'HI4PI survey': 'A full-sky 21 cm neutral-hydrogen survey combining northern and southern single-dish data into a uniform spectral data set.',
+    'extinction': 'The wavelength-dependent loss of direct light from a beam through both absorption and scattering by intervening material.',
+    'reddening': 'A change in observed color caused by stronger extinction at short wavelengths than at long wavelengths.',
+    'color excess E(B-V)': 'The observed B-V color minus the intrinsic B-V color, equivalently the differential extinction A_B-A_V.',
+    'total-to-selective extinction R_V': 'The ratio A_V/E(B-V), which parameterizes the optical extinction-curve shape and correlates with the sightline’s grain-size distribution.',
+    'scattering': 'Redirection of photons by particles; photons scattered out of a narrow observing beam contribute to extinction.',
+    'absorption': 'Transfer of photon energy into internal energy of matter, followed in dust by heating and eventual infrared re-emission.',
+    'grain alignment': 'A statistical orientation of nonspherical dust grains relative to the local magnetic field rather than a perfectly parallel arrangement of every grain.',
+    'radiative torques': 'Torques exerted by anisotropic radiation on irregular grains that spin them up and help align their angular momenta with magnetic fields.',
+    'linear polarization': 'An imbalance between orthogonal electric-field components of light, described by a polarization fraction and a sky position angle.',
+    'modified blackbody': 'Thermal emission represented by the Planck function multiplied by a frequency-dependent opacity or emissivity.',
+    'dust emissivity index': 'The exponent beta in the approximate opacity law kappa_nu proportional to nu^beta at far-infrared and submillimeter wavelengths.',
+    'radiative equilibrium': 'An energy-balance state in which a grain’s absorbed radiant power equals its emitted thermal power.',
+    'spectral energy distribution (SED)': 'A source’s measured energy output or flux density as a function of wavelength or frequency.',
+    'molecular hydrogen (H2)': 'The dominant molecule in cold molecular gas, composed of two hydrogen atoms but difficult to detect directly at typical cloud temperatures.',
+    'grain-surface catalysis': 'Formation of molecules on dust surfaces, where adsorbed atoms can meet and the grain can accept excess reaction energy.',
+    'carbon monoxide (CO)': 'A trace molecule with readily excited rotational lines that is widely used to locate and kinematically map molecular gas.',
+    'X_CO conversion factor': 'The empirical proportionality between velocity-integrated CO brightness and inferred H2 column density.',
+    'CO luminosity': 'CO velocity-integrated brightness multiplied by projected emitting area, commonly used with a conversion factor to estimate molecular mass.',
+    'self-shielding': 'Protection of a molecule from dissociating radiation when its own absorption lines become optically thick along a column.',
+    'Larson’s laws': 'Empirical scaling relations among molecular-cloud size, linewidth, and density or mass, with substantial intrinsic scatter and selection dependence.',
+    'size-linewidth relation': 'The observed tendency for larger molecular structures to have larger internal velocity dispersions.',
+    'velocity dispersion': 'The standard deviation of line-of-sight velocities in a gas component, containing thermal, turbulent, and unresolved systematic contributions.',
+    'virial theorem': 'A relation between time-averaged kinetic, gravitational, surface, and other energy terms for a bounded system.',
+    'virial mass': 'The mass inferred by assuming a measured size and velocity dispersion satisfy a specified virial-equilibrium model.',
+    'gravitationally bound': 'Having sufficiently negative gravitational energy that the structure cannot disperse without added energy or altered boundary forces.',
+    'turbulent support': 'The contribution of disordered gas motions to resisting compression or collapse, often represented through an effective velocity dispersion.',
+    'Jeans instability': 'Growth of a density perturbation when self-gravity overwhelms pressure communication on the perturbation’s scale.',
+    'Jeans length': 'The critical wavelength separating pressure-restored perturbations from gravitationally growing perturbations in the idealized uniform medium.',
+    'Jeans mass': 'The mass contained on a chosen Jeans scale, used as an approximate threshold for gravitational instability.',
+    'linear perturbation analysis': 'A method that keeps only first-order departures from a background state to determine whether small disturbances oscillate, decay, or grow.',
+    'self-gravity': 'The gravitational field generated by the gas or stars within the structure itself.',
+    'pressure support': 'Resistance to gravitational compression supplied by pressure gradients, with thermal sound speed providing the simplest case.',
+    'sound speed': 'The propagation speed of small pressure disturbances; for isothermal gas it scales as the square root of temperature divided by mean particle mass.',
+    'free-fall time': 'The collapse timescale of an ideal pressureless, uniform-density sphere under its own gravity.',
+    'gravitational collapse': 'Contraction driven by self-gravity when support and boundary forces cannot maintain equilibrium.',
+    'star-formation efficiency': 'The fraction of an available gas mass converted into stars over a specified region and time interval.',
+    'star-formation rate': 'The stellar mass formed per unit time, distinct from the dimensionless efficiency of converting a gas reservoir.',
+    'turbulence/magnetic support': 'Nonthermal resistance to collapse supplied by gas motions and magnetic stresses, neither of which acts as a simple isotropic thermal pressure in every geometry.',
+    'initial mass function (IMF)': 'The distribution of stellar birth masses, usually expressed as the number of stars formed per mass interval.',
+    'photoionization': 'Removal of a bound electron by absorption of a photon whose energy exceeds the ionization threshold.',
+    'Lyman continuum photon': 'A photon with wavelength shorter than 91.2 nm and enough energy to ionize ground-state hydrogen.',
+    'recombination': 'Capture of a free electron by an ion, followed by radiative cascades that can produce diagnostic emission lines.',
+    'case B recombination coefficient': 'An effective recombination rate coefficient that excludes direct captures to the ground state because their ionizing photons are assumed to be reabsorbed locally.',
+    'Stromgren sphere': 'The idealized ionized volume whose integrated recombination rate balances the source’s ionizing-photon production rate.',
+    'ionization-bounded region': 'An H II region containing enough gas to absorb nearly all incident ionizing photons before they escape.',
+    'forbidden line': 'A low-probability transition from a metastable level that can radiate in tenuous gas before collisions remove the excitation.',
+    'collisional de-excitation': 'Removal of an atom or ion from an excited state by collision without emission of the diagnostic photon.',
+    'critical density': 'The density at which radiative decay and collisional de-excitation occur at equal rates for a selected level.',
+    'auroral line': 'A relatively weak, high-excitation forbidden line whose strength is strongly temperature-sensitive.',
+    'nebular line': 'A stronger forbidden line arising from a lower excited level and commonly paired with an auroral line for temperature diagnostics.',
+    'Balmer decrement': 'The ratio of hydrogen Balmer-line fluxes, especially Halpha/Hbeta, compared with the recombination prediction to diagnose extinction.',
+    'electron temperature diagnostic': 'A line ratio constructed so that its emissivity ratio depends strongly on electron kinetic temperature.',
+    'electron density diagnostic': 'A line ratio whose upper levels have different critical densities, making the ratio sensitive to collisional de-excitation and electron density.',
+    'shock front': 'A thin transition where supersonic flow is abruptly compressed, decelerated, and heated.',
+    'Rankine-Hugoniot conditions': 'Conservation relations for mass, momentum, and energy across a steady shock discontinuity.',
+    'Mach number': 'The flow speed divided by the relevant sound speed, quantifying how strongly supersonic a shock is.',
+    'strong shock limit': 'The high-Mach-number asymptotic regime in which upstream thermal pressure is negligible in the jump conditions.',
+    'compression ratio': 'The downstream-to-upstream mass-density ratio across a shock.',
+    'post-shock temperature': 'The thermal temperature immediately downstream of a shock after bulk kinetic energy has been randomized, subject to species equilibration.',
+    'cosmic ray': 'A high-energy charged particle, chiefly a proton or atomic nucleus, propagating through astrophysical magnetic fields.',
+    'diffusive shock (Fermi) acceleration': 'Repeated energy gain as particles scatter across a shock and sample converging upstream and downstream flows.',
+    'power-law energy spectrum': 'A particle distribution whose differential intensity scales as a fixed power of energy over a stated range.',
+    'the "knee"': 'The steepening of the all-particle Galactic cosmic-ray spectrum near 3 x 10^15 eV.',
+    'Zeeman effect': 'Splitting of magnetic sublevels and spectral-line components by a magnetic field, enabling a line-of-sight field measurement.',
+    'synchrotron emission': 'Broadband radiation from relativistic charged particles accelerated perpendicular to magnetic-field lines.',
+    'Faraday rotation': 'Rotation of a linearly polarized wave’s position angle while it traverses magnetized plasma, proportional to wavelength squared.',
+    'multiwavelength astronomy': 'Joint interpretation of observations across spectral bands to constrain components or processes that no single band measures completely.',
+}
+
+
+def term_records(item: dict) -> list[dict]:
+    records = []
+    for index, term in enumerate(item['vocab']):
+        records.append({
+            'term': term,
+            'definition': TERM_DEFINITIONS[term],
+            'significance': (
+                f'This concept is needed to reason about {item["title"].lower()}. '
+                f'{item["model"][index % len(item["model"])]}'
+            ),
+            'relationship': (
+                f'It is tied to the lecture’s observables or evidence in this way: '
+                f'{item["evidence"][index % len(item["evidence"])]}'
+            ),
+            'limitation': item['pitfall'],
+        })
+    return records
+
+
+def term_explorer(item: dict) -> str:
+    records = term_records(item)
+    buttons = []
+    panels = []
+    for index, record in enumerate(records, start=1):
+        stem = f'lecture-{item["n"]:02d}-term-{index}'
+        selected = 'true' if index == 1 else 'false'
+        hidden = '' if index == 1 else ' hidden'
+        buttons.append(
+            f'<button class="term-button" id="{stem}-tab" type="button" role="tab" '
+            f'aria-selected="{selected}" aria-controls="{stem}-panel" '
+            f'data-term-target="{stem}-panel">{escape(record["term"])}</button>'
+        )
+        panels.append(
+            f'<article class="term-detail" id="{stem}-panel" role="tabpanel" '
+            f'aria-labelledby="{stem}-tab"{hidden}>'
+            f'<h3>{escape(record["term"])}</h3>'
+            f'<p><strong>Definition:</strong> {escape(record["definition"])}</p>'
+            f'<p><strong>Why it matters here:</strong> {record["significance"]}</p>'
+            f'<p><strong>Relationship:</strong> {record["relationship"]}</p>'
+            f'<p><strong>Limitation or common confusion:</strong> {record["limitation"]}</p>'
+            f'</article>'
+        )
+    return (
+        "<section class='slide glossary-slide' aria-labelledby='terms-heading'>"
+        "<h2 id='terms-heading'>Terms for This Lecture</h2>"
+        "<div class='term-explorer' data-term-explorer>"
+        "<div class='term-list' role='tablist' aria-label='Lecture terms'>"
+        + ''.join(buttons)
+        + "</div><div class='term-details'>"
+        + ''.join(panels)
+        + "</div></div></section>"
+    )
+
+
+def terms_in_notes(item: dict) -> str:
+    articles = []
+    for index, record in enumerate(term_records(item)):
+        next_model = item['model'][(index + 1) % len(item['model'])]
+        next_evidence = item['evidence'][(index + 1) % len(item['evidence'])]
+        articles.append(
+            f'<article><h3>{escape(record["term"])}</h3>'
+            f'<p>{escape(record["definition"])} In this lecture, the term is not an isolated label: '
+            f'{record["significance"]}</p>'
+            f'<p>{record["relationship"]} A second connection is important for using the term in '
+            f'physical reasoning: {next_model} The observational interpretation is constrained by '
+            f'{next_evidence}</p>'
+            f'<p><strong>Boundary and common confusion.</strong> {record["limitation"]} '
+            f'The term should therefore be applied only after identifying the measured quantity, '
+            f'the model assumption that links it to the desired physical quantity, and the regime '
+            f'in which that link remains valid.</p></article>'
+        )
+    return ''.join(articles)
+
+
+TERM_EXPLORER_SCRIPT = """
+<script>
+document.querySelectorAll("[data-term-explorer]").forEach((explorer) => {
+  const tabs = [...explorer.querySelectorAll('[role="tab"]')];
+  const panels = [...explorer.querySelectorAll('[role="tabpanel"]')];
+  const select = (tab) => {
+    tabs.forEach((item) => item.setAttribute("aria-selected", String(item === tab)));
+    panels.forEach((panel) => { panel.hidden = panel.id !== tab.dataset.termTarget; });
+  };
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => select(tab));
+    tab.addEventListener("keydown", (event) => {
+      if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 :
+        (index + (event.key === "ArrowDown" ? 1 : -1) + tabs.length) % tabs.length;
+      tabs[nextIndex].focus();
+      select(tabs[nextIndex]);
+    });
+  });
+});
+</script>
+"""
+
 
 def slide_deck(item: dict) -> str:
     n = item['n']
@@ -1438,7 +1632,7 @@ def slide_deck(item: dict) -> str:
 <section class='slide'><h2>Learning Goals</h2><ol>{li(item['goals'])}</ol><p class='small'>Reading anchor: {escape(item['openstax'])}</p></section>
 <section class='slide'><h2>Why This Matters</h2><p>{item['why_matters']}</p></section>
 <section class='slide'><h2>Opening Phenomenon</h2><p>{item['phenomenon']}</p><p class='warning'><strong>First question:</strong> what here is directly observed or a published/live-verified measurement, and what follows only once a physical law is derived and applied?</p></section>
-<section class='slide'><h2>Vocabulary for Reasoning</h2><div class='three'>{cards(item['vocab'])}</div><p class='small'>Use these terms to describe derivations and evidence, not as isolated definitions.</p></section>
+{term_explorer(item)}
 <section class='slide'><h2>Evidence We Need to Explain</h2><ul>{li(item['evidence'])}</ul></section>
 <section class='slide'><h2>Derivation and Model</h2><ul>{li(item['model'])}</ul></section>
 <section class='slide'><h2>Quantitative Tool</h2><div class='equation'>\\[ {item['equation']} \\]</div></section>
@@ -1449,7 +1643,7 @@ def slide_deck(item: dict) -> str:
 <section class='slide'><h2>Lab Connection</h2><p>{item['lab_connection']}</p></section>
 <section class='slide'><h2>Synthesis</h2><p>{item['synthesis']}</p></section>
 <section class='slide'><h2>References</h2><ul><li>{escape(item['openstax'])}</li><li>Course dataset and derivations used in this lecture\u2019s worked example: <code>materials/ASTR360/data/</code> and <code>materials/ASTR360/src/generate_astr360_content.py</code>.</li></ul></section>
-</main>"""
+</main>{TERM_EXPLORER_SCRIPT}"""
     return page(f'ASTR 360 Lecture {n:02d} Slides', body, SLIDE_CSS)
 
 
@@ -1460,7 +1654,7 @@ def lecture_notes(item: dict) -> str:
 <section><h2>Context and Why This Matters</h2><p>{item['why_matters']}</p></section>
 <section><h2>Learning Goals</h2><ol>{li(item['goals'])}</ol></section>
 <section><h2>Opening Phenomenon</h2><p>{item['phenomenon']}</p></section>
-<section><h2>Vocabulary</h2><ul>{li(item['vocab'])}</ul></section>
+<section><h2>Terms Developed in Context</h2>{terms_in_notes(item)}</section>
 <section><h2>Evidence</h2><ul>{li(item['evidence'])}</ul></section>
 <section><h2>Derivation and Model</h2><ul>{li(item['model'])}</ul></section>
 <section><h2>Working Equation</h2><p>\\[ {item['equation']} \\]</p></section>
@@ -1478,20 +1672,22 @@ def write_lectures():
     LECTURE_DIR.mkdir(parents=True, exist_ok=True)
     for item in LECTURES:
         n = item['n']
-        (LECTURE_DIR / f'lecture-{n:02d}-slides.html').write_text(slide_deck(item), encoding='utf-8')
-        (LECTURE_DIR / f'lecture-{n:02d}-notes.html').write_text(lecture_notes(item), encoding='utf-8')
+        with open(LECTURE_DIR / f'lecture-{n:02d}-slides.html', 'w', encoding='utf-8', newline='\n') as f:
+            f.write(slide_deck(item))
+        with open(LECTURE_DIR / f'lecture-{n:02d}-notes.html', 'w', encoding='utf-8', newline='\n') as f:
+            f.write(lecture_notes(item))
 
 
 def write_data_csv():
     import csv
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     with open(DATA_DIR / 'ism_phases.csv', 'w', newline='', encoding='utf-8') as f:
-        w = csv.writer(f)
+        w = csv.writer(f, lineterminator='\n')
         w.writerow(['phase', 'n_cm3', 'T_k', 'P_over_k_cm3K', 'filling_factor'])
         for name, d in ISM_PHASES.items():
             w.writerow([name, d['n_cm3'], d['T_k'], PHASE_PRESSURE_K[name], d['filling']])
     with open(DATA_DIR / 'real_objects.csv', 'w', newline='', encoding='utf-8') as f:
-        w = csv.writer(f)
+        w = csv.writer(f, lineterminator='\n')
         w.writerow(['object', 'quantity', 'value', 'unit', 'source_note'])
         w.writerow(['3C 273 sightline', 'N(HI)', SIGHTLINE_3C273['n_hi_cm2'], 'cm^-2', 'HI4PI Collaboration 2016'])
         w.writerow(['Cygnus X-1 sightline', 'N(H)', SIGHTLINE_CYGX1['n_hi_cm2'], 'cm^-2', 'X-ray absorption studies'])

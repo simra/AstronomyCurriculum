@@ -25,13 +25,28 @@ figcaption,.small { color:var(--muted); font-size:.95rem; line-height:1.35; marg
 svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(--line); background:#fff; }
 .warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
 @media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+
+.term-explorer{display:grid;grid-template-columns:minmax(220px,.7fr) minmax(0,1.8fr);gap:28px;align-items:stretch;min-height:58vh}
+.term-list{display:flex;flex-direction:column;gap:10px}
+.term-button{width:100%;padding:12px 15px;border:2px solid var(--line);border-radius:8px;background:#fff;color:var(--navy);font:inherit;font-size:1.05rem;font-weight:700;text-align:left;cursor:pointer}
+.term-button:hover{border-color:var(--teal)}
+.term-button:focus-visible{outline:4px solid var(--gold);outline-offset:2px}
+.term-button[aria-selected="true"]{color:#fff;background:var(--teal);border-color:var(--teal)}
+.term-detail{border:1px solid var(--line);border-radius:10px;padding:20px 24px;background:var(--paper);overflow:auto}
+.term-detail h3{margin:0 0 10px;color:var(--teal);font-size:clamp(1.35rem,2.2vw,2rem)}
+.term-detail p{font-size:clamp(.96rem,1.35vw,1.22rem);margin:.55em 0}
+.term-detail[hidden]{display:none}
+.term-visual{font-size:1.12rem;padding:10px 14px;background:var(--teal-soft);border-left:4px solid var(--teal);margin-top:12px}
+@media(max-width:800px){.term-explorer{grid-template-columns:1fr}.term-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+@media print{.term-explorer{display:block;min-height:0}.term-list{display:none}.term-detail[hidden]{display:block}.term-detail{break-inside:avoid;margin:12px 0}}
 </style>
 </head>
 <body>
 <main class="deck">
 <section class="slide title"><p class="kicker">ASTR 120 · Lecture 03</p><h1>Orbital Dynamics and Resonances</h1><h2>Solar-system evidence, physics, and exploration</h2></section>
 <section class="slide"><h2>Why This Question Matters</h2><p>Kepler extracted empirical laws from Tycho&#x27;s data; Newton supplied the force law; spacecraft navigation now uses the same mechanics.</p></section>
-<section class="slide"><h2>Learning Goals</h2><ul><li>Use period, semi-major axis, and resonance ratios to interpret orbital systems.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section>
+<section class="slide"><h2>Learning Goals</h2><ul><li>Use period, semi-major axis, and resonance ratios to interpret orbital systems.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section><section class="slide glossary-slide" aria-labelledby="l03-terms-heading"><h2 id="l03-terms-heading">Terms for This Lecture</h2><div class="term-explorer" data-term-explorer><div class="term-list" role="tablist" aria-label="Lecture 03 terms"><button class="term-button" id="l03-term-1-tab" type="button" role="tab" aria-selected="true" aria-controls="l03-term-1-panel" data-term-target="l03-term-1-panel" tabindex="0">Semi-major axis</button><button class="term-button" id="l03-term-2-tab" type="button" role="tab" aria-selected="false" aria-controls="l03-term-2-panel" data-term-target="l03-term-2-panel" tabindex="-1">Orbital period</button><button class="term-button" id="l03-term-3-tab" type="button" role="tab" aria-selected="false" aria-controls="l03-term-3-panel" data-term-target="l03-term-3-panel" tabindex="-1">Mean-motion resonance</button><button class="term-button" id="l03-term-4-tab" type="button" role="tab" aria-selected="false" aria-controls="l03-term-4-panel" data-term-target="l03-term-4-panel" tabindex="-1">Perturbation</button><button class="term-button" id="l03-term-5-tab" type="button" role="tab" aria-selected="false" aria-controls="l03-term-5-panel" data-term-target="l03-term-5-panel" tabindex="-1">Tidal force</button><button class="term-button" id="l03-term-6-tab" type="button" role="tab" aria-selected="false" aria-controls="l03-term-6-panel" data-term-target="l03-term-6-panel" tabindex="-1">Hill sphere</button></div><div class="term-details"><article class="term-detail" id="l03-term-1-panel" role="tabpanel" aria-labelledby="l03-term-1-tab"><h3>Semi-major axis</h3><p><strong>Definition:</strong> Half the longest diameter of an ellipse; for an orbit it sets the orbit&#x27;s characteristic size and energy.</p><p><strong>Why it matters and connects:</strong> Kepler&#x27;s third law relates semi-major axis to period, making it measurable through repeated positions or timing.</p><p><strong>Boundary or common confusion:</strong> It is not the instantaneous star–planet distance except for a circular orbit.</p><div class="term-visual">\(P^2=a^3\)</div></article><article class="term-detail" id="l03-term-2-panel" role="tabpanel" aria-labelledby="l03-term-2-tab" hidden><h3>Orbital period</h3><p><strong>Definition:</strong> The time required for a body to complete one orbit relative to a specified reference direction.</p><p><strong>Why it matters and connects:</strong> Period ratios reveal resonances, and period combined with semi-major axis tests the central mass through Keplerian dynamics.</p><p><strong>Boundary or common confusion:</strong> Sidereal and synodic periods differ; the relevant definition must match the observation.</p><div class="term-visual">\(P^2=\frac{4\pi^2}{GM}a^3\)</div></article><article class="term-detail" id="l03-term-3-panel" role="tabpanel" aria-labelledby="l03-term-3-tab" hidden><h3>Mean-motion resonance</h3><p><strong>Definition:</strong> A configuration in which two orbital periods are close to a ratio of small integers, causing gravitational kicks to repeat at preferred phases.</p><p><strong>Why it matters and connects:</strong> Repeated geometry can protect or destabilize orbits, structure rings and asteroid populations, and maintain moon eccentricities.</p><p><strong>Boundary or common confusion:</strong> A near-integer period ratio alone does not prove resonant locking; the resonant angle must librate rather than circulate.</p><div class="term-visual">\(P_2/P_1\approx p/q\)</div></article><article class="term-detail" id="l03-term-4-panel" role="tabpanel" aria-labelledby="l03-term-4-tab" hidden><h3>Perturbation</h3><p><strong>Definition:</strong> A deviation from ideal two-body motion caused by additional masses, nonspherical gravity, drag, radiation, or relativity.</p><p><strong>Why it matters and connects:</strong> Small accumulated perturbations reveal unseen masses, shape orbital architecture, and must be modeled for spacecraft navigation.</p><p><strong>Boundary or common confusion:</strong> A perturbation is not necessarily negligible; weak forces acting repeatedly can dominate long-term evolution.</p></article><article class="term-detail" id="l03-term-5-panel" role="tabpanel" aria-labelledby="l03-term-5-tab" hidden><h3>Tidal force</h3><p><strong>Definition:</strong> The differential gravitational acceleration across an extended body.</p><p><strong>Why it matters and connects:</strong> Tides distort worlds, exchange spin and orbital angular momentum, and can dissipate orbital energy as interior heat.</p><p><strong>Boundary or common confusion:</strong> Tidal force is a gradient in gravity, not simply strong gravity; dissipation depends on material response and orbital state.</p><div class="term-visual">\(\Delta g\propto GM R/r^3\)</div></article><article class="term-detail" id="l03-term-6-panel" role="tabpanel" aria-labelledby="l03-term-6-tab" hidden><h3>Hill sphere</h3><p><strong>Definition:</strong> The region around an orbiting body where its gravity can dominate satellite motion against the tidal influence of the central object.</p><p><strong>Why it matters and connects:</strong> It provides a first estimate of where moons or rings can remain bound and how planet mass and orbital distance affect satellite systems.</p><p><strong>Boundary or common confusion:</strong> Stable satellite orbits occupy only part of the Hill sphere and are altered by eccentricity, inclination, and other perturbers.</p><div class="term-visual">\(r_H\approx a(m/3M)^{1/3}\)</div></article></div></div></section>
 <section class="slide"><h2>Opening Phenomenon</h2><p>Keplerian motion, perturbations, and resonances explain why orbits are structured rather than random.</p></section>
 <section class="slide"><h2>What Orbits Tell Us</h2><div class="three"><article class="card"><p><strong>Periods:</strong> timing measurements reveal distance through Keplerian scaling.</p></article><article class="card"><p><strong>Ratios:</strong> near-integer period ratios can maintain repeated gravitational kicks.</p></article><article class="card"><p><strong>Eccentricity:</strong> small departures from circular motion can power tides and geology.</p></article></div></section>
 <section class="slide"><h2>Resonance Is a Repeated Geometry</h2><p>A resonance is not just a numerical coincidence. It means bodies return to nearly the same relative positions often enough for small gravitational tugs to accumulate rather than average away.</p></section>
@@ -56,5 +71,33 @@ svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(
 <section class="slide"><h2>Evidence Bridge: Dynamics Predicts Geology</h2><p>The resonance table is not only an orbital catalog. It predicts where to look for tidal heating: moons locked in resonant chains with nonzero eccentricity should be compared against heat flow, volcanism, fractures, or plume evidence.</p></section>
 <section class="slide"><h2>Synthesis: Dynamics Connects Orbits to Worlds</h2><ul><li>Period ratios reveal repeated gravitational geometry.</li><li>Small eccentricities can have large geophysical consequences.</li><li>Orbital interpretation is strongest when timing data match physical evidence on the bodies.</li></ul></section>
 <section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax Astronomy 2e solar-system chapters and local reference copy.</li><li>NASA/OpenStax/ESA sources recorded in reference-log.md where external visuals are used.</li></ul></section>
-</main></body>
+</main>
+<script data-astr120-term-explorer>
+document.querySelectorAll("[data-term-explorer]").forEach((explorer)=>{
+  const tabs=[...explorer.querySelectorAll('[role="tab"]')];
+  const panels=[...explorer.querySelectorAll('[role="tabpanel"]')];
+  const select=(tab,moveFocus=false)=>{
+    tabs.forEach((item)=>{
+      const active=item===tab;
+      item.setAttribute("aria-selected",String(active));
+      item.tabIndex=active?0:-1;
+    });
+    panels.forEach((panel)=>{panel.hidden=panel.id!==tab.getAttribute("aria-controls");});
+    if(moveFocus)tab.focus();
+  };
+  tabs.forEach((tab,index)=>{
+    tab.addEventListener("click",()=>select(tab));
+    tab.addEventListener("keydown",(event)=>{
+      if(!["ArrowDown","ArrowUp","ArrowRight","ArrowLeft","Home","End"].includes(event.key))return;
+      event.preventDefault();
+      let next=index;
+      if(event.key==="Home")next=0;
+      else if(event.key==="End")next=tabs.length-1;
+      else next=(index+(["ArrowDown","ArrowRight"].includes(event.key)?1:-1)+tabs.length)%tabs.length;
+      select(tabs[next],true);
+    });
+  });
+});
+</script>
+</body>
 </html>

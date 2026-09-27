@@ -27,11 +27,24 @@ ul,ol { max-width:1050px; }
 .image-pair figure { margin:0; }
 .three { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
 .card { border:1px solid var(--line); background:#fff; border-radius:6px; padding:14px 16px; }
+.term-explorer { display:grid; grid-template-columns:minmax(210px,.68fr) minmax(0,1.75fr); gap:26px; min-height:58vh; align-items:stretch; }
+.term-list { display:flex; flex-direction:column; gap:9px; }
+.term-button { width:100%; padding:12px 15px; border:2px solid var(--line); border-radius:8px; background:#fff; color:var(--navy); font:inherit; font-size:1.02rem; font-weight:700; text-align:left; cursor:pointer; }
+.term-button:hover { border-color:var(--teal); }
+.term-button:focus-visible { outline:4px solid var(--gold); outline-offset:2px; }
+.term-button[aria-selected="true"] { color:#fff; background:var(--teal); border-color:var(--teal); }
+.term-details { min-width:0; }
+.term-detail { height:100%; border:1px solid var(--line); border-radius:10px; padding:18px 23px; background:var(--paper); overflow:auto; }
+.term-detail h3 { margin-top:0; font-size:clamp(1.35rem,2.25vw,2rem); }
+.term-detail p { font-size:clamp(.96rem,1.35vw,1.24rem); margin:.55em 0; }
+.term-detail[hidden] { display:none; }
+.term-visual { margin-top:12px; }
 .equation { font-size:1.34rem; padding:14px 18px; background:var(--teal-soft); border-left:5px solid var(--teal); margin:12px 0; }
 figcaption,.credit,.small { color:var(--muted); font-size:.95rem; line-height:1.35; margin-top:8px; }
 svg { width:100%; max-height:62vh; border:1px solid var(--line); background:#fff; }
 .warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
-@media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+@media (max-width:800px) { .slide { padding:34px 24px; } .term-explorer { grid-template-columns:1fr; } .term-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } .term-explorer { display:block; } .term-list { display:none; } .term-detail[hidden] { display:block !important; } .term-detail { height:auto; break-inside:avoid; margin:12px 0; } }
 </style>
 </head>
 <body>
@@ -44,13 +57,7 @@ svg { width:100%; max-height:62vh; border:1px solid var(--line); background:#fff
 <li>Correct the misconception: Color alone is not a complete temperature measurement; filters, extinction, detector response, and calibration matter.</li></ol><p class="small">Reading anchor: OpenStax Astronomy 2e, Chapter 5.1-5.5 on light, spectra, atoms, blackbody radiation, and Doppler shifts.</p></section>
     <section class="slide"><h2>Why This Question Matters</h2><p>Kirchhoff, Bunsen, Fraunhofer, and later quantum physicists transformed astronomy by showing that spectra are physical fingerprints. After spectroscopy, stars became laboratories rather than just lights.</p></section>
     <section class="slide"><h2>Opening Phenomenon</h2><p>Almost everything we know about distant objects arrives as light. Spectra transform light from a picture into a physical measurement of temperature, composition, and motion.</p><p class="warning"><strong>First question:</strong> what is directly observed, and what part is an explanation built from a model?</p></section>
-    <section class="slide"><h2>Vocabulary for Reasoning</h2><div class="three"><article class="card"><p>wavelength</p></article>
-<article class="card"><p>frequency</p></article>
-<article class="card"><p>photon</p></article>
-<article class="card"><p>blackbody</p></article>
-<article class="card"><p>emission line</p></article>
-<article class="card"><p>absorption line</p></article>
-<article class="card"><p>Doppler shift</p></article></div><p class="small">Use these terms to describe evidence and relationships, not as isolated vocabulary.</p></section>
+    <section class="slide glossary-slide" aria-labelledby="terms-heading"><h2 id="terms-heading">Terms for This Lecture</h2><div class="term-explorer" data-term-explorer><div class="term-list" role="tablist" aria-label="Lecture terms"><button class="term-button" id="lecture-05-term-01-tab" type="button" role="tab" aria-selected="true" aria-controls="lecture-05-term-01-panel" data-term-target="lecture-05-term-01-panel" tabindex="0">wavelength</button><button class="term-button" id="lecture-05-term-02-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-05-term-02-panel" data-term-target="lecture-05-term-02-panel" tabindex="-1">frequency</button><button class="term-button" id="lecture-05-term-03-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-05-term-03-panel" data-term-target="lecture-05-term-03-panel" tabindex="-1">photon</button><button class="term-button" id="lecture-05-term-04-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-05-term-04-panel" data-term-target="lecture-05-term-04-panel" tabindex="-1">blackbody</button><button class="term-button" id="lecture-05-term-05-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-05-term-05-panel" data-term-target="lecture-05-term-05-panel" tabindex="-1">emission line</button><button class="term-button" id="lecture-05-term-06-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-05-term-06-panel" data-term-target="lecture-05-term-06-panel" tabindex="-1">absorption line</button><button class="term-button" id="lecture-05-term-07-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-05-term-07-panel" data-term-target="lecture-05-term-07-panel" tabindex="-1">Doppler shift</button></div><div class="term-details"><article class="term-detail" id="lecture-05-term-01-panel" role="tabpanel" aria-labelledby="lecture-05-term-01-tab"><h3>wavelength</h3><p><strong>Definition:</strong> The spatial distance over which a wave&#x27;s pattern repeats.</p><p><strong>Why it matters here:</strong> Astronomical wavelength selects which physical processes, temperatures, and materials a detector can reveal.</p><p><strong>Relationships:</strong> In vacuum, wavelength and frequency satisfy \(c=\lambda\nu\); photon energy is inversely proportional to wavelength.</p><p><strong>Boundary or common confusion:</strong> Color names cover broad bands, and measured wavelength can be shifted by source motion or cosmic expansion.</p><div class="term-visual equation">\[ c=\lambda\nu \]</div></article><article class="term-detail" id="lecture-05-term-02-panel" role="tabpanel" aria-labelledby="lecture-05-term-02-tab" hidden><h3>frequency</h3><p><strong>Definition:</strong> The number of wave cycles passing a point per unit time.</p><p><strong>Why it matters here:</strong> Frequency is directly linked to photon energy and provides an alternative coordinate for spectra.</p><p><strong>Relationships:</strong> It increases as wavelength decreases in vacuum, and \(E=h\nu\).</p><p><strong>Boundary or common confusion:</strong> Wavelength and frequency axes run in opposite directions, so spectral trends must be read carefully.</p><div class="term-visual equation">\[ E=h\nu \]</div></article><article class="term-detail" id="lecture-05-term-03-panel" role="tabpanel" aria-labelledby="lecture-05-term-03-tab" hidden><h3>photon</h3><p><strong>Definition:</strong> A quantum of electromagnetic radiation carrying energy and momentum.</p><p><strong>Why it matters here:</strong> Detectors ultimately count or convert photons, so astronomical evidence is limited by photon statistics.</p><p><strong>Relationships:</strong> Photon energy is \(E=h\nu=hc/\lambda\), linking quantum detections to spectral wavelength.</p><p><strong>Boundary or common confusion:</strong> A photon is not a tiny colored pellet following a classical trajectory; quantum behavior depends on the measurement.</p><div class="term-visual equation">\[ E=h\nu=\frac{hc}{\lambda} \]</div></article><article class="term-detail" id="lecture-05-term-04-panel" role="tabpanel" aria-labelledby="lecture-05-term-04-tab" hidden><h3>blackbody</h3><p><strong>Definition:</strong> An ideal absorber and emitter whose thermal spectrum depends only on temperature.</p><p><strong>Why it matters here:</strong> It provides the baseline model for interpreting stellar continua and planetary thermal emission.</p><p><strong>Relationships:</strong> Wien&#x27;s law links peak wavelength to temperature, while Stefan-Boltzmann links emitted flux to \(T^4\).</p><p><strong>Boundary or common confusion:</strong> Real spectra contain absorption, emission, opacity effects, and geometric complications.</p><div class="term-visual equation">\[ \lambda_{\max}T=b \]</div></article><article class="term-detail" id="lecture-05-term-05-panel" role="tabpanel" aria-labelledby="lecture-05-term-05-tab" hidden><h3>emission line</h3><p><strong>Definition:</strong> A narrow spectral feature where intensity exceeds the surrounding continuum because atoms, ions, or molecules emit at particular transitions.</p><p><strong>Why it matters here:</strong> Emission lines identify material and diagnose temperature, density, ionization, and motion.</p><p><strong>Relationships:</strong> The line wavelength reflects an energy-level difference; Doppler shifts move the observed wavelength.</p><p><strong>Boundary or common confusion:</strong> A line&#x27;s strength is not a simple abundance meter because excitation, opacity, and geometry also matter.</p></article><article class="term-detail" id="lecture-05-term-06-panel" role="tabpanel" aria-labelledby="lecture-05-term-06-tab" hidden><h3>absorption line</h3><p><strong>Definition:</strong> A narrow reduction in intensity where intervening material removes photons at specific transition wavelengths.</p><p><strong>Why it matters here:</strong> Stellar absorption lines reveal atmospheric composition, temperature class, pressure, and radial motion.</p><p><strong>Relationships:</strong> They occur when cooler gas lies in front of a brighter continuous source and share transition wavelengths with corresponding emission lines.</p><p><strong>Boundary or common confusion:</strong> A missing or weak line does not prove an element is absent; the atoms may be in the wrong excitation or ionization state.</p></article><article class="term-detail" id="lecture-05-term-07-panel" role="tabpanel" aria-labelledby="lecture-05-term-07-tab" hidden><h3>Doppler shift</h3><p><strong>Definition:</strong> A change in observed wavelength or frequency caused by relative line-of-sight motion between source and observer.</p><p><strong>Why it matters here:</strong> It measures radial velocity in stars, gas clouds, galaxies, and exoplanet-host systems.</p><p><strong>Relationships:</strong> At speeds much less than light, \(\Delta\lambda/\lambda_0\approx v_r/c\).</p><p><strong>Boundary or common confusion:</strong> It measures only the line-of-sight component, and cosmological redshift requires a broader expansion model at large distances.</p><div class="term-visual equation">\[ \frac{\Delta\lambda}{\lambda_0}\approx\frac{v_r}{c} \]</div></article></div></div></section>
   <section class="slide"><h2>Evidence We Need to Explain</h2><ul><li>Hot dense objects produce continuous spectra whose peak color depends on temperature.</li>
 <li>Thin gases emit or absorb light at characteristic wavelengths.</li>
 <li>Shifted spectral lines reveal radial motion.</li></ul></section>
@@ -72,5 +79,34 @@ svg { width:100%; max-height:62vh; border:1px solid var(--line); background:#fff
 <li>What physical claim can the data support?</li></ul></section>
     <section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax, <em>Astronomy 2e</em>: OpenStax Astronomy 2e, Chapter 5.1-5.5 on light, spectra, atoms, blackbody radiation, and Doppler shifts.</li><li>Local reference copy: <code>references/openstax-astronomy-2e.pdf</code>.</li><li>Visual: Continuous, absorption, and emission spectra depend on source geometry and gas excitation. Credit: OpenStax Astronomy 2e, Fig. 5.21, CC BY-NC-SA 4.0.</li></ul></section>
 </main>
+<script>
+document.querySelectorAll("[data-term-explorer]").forEach((explorer) => {
+  const tabs = [...explorer.querySelectorAll('[role="tab"]')];
+  const panels = [...explorer.querySelectorAll('[role="tabpanel"]')];
+  const select = (tab, moveFocus = false) => {
+    tabs.forEach((item) => {
+      const active = item === tab;
+      item.setAttribute("aria-selected", String(active));
+      item.tabIndex = active ? 0 : -1;
+    });
+    panels.forEach((panel) => { panel.hidden = panel.id !== tab.getAttribute("aria-controls"); });
+    if (moveFocus) tab.focus();
+  };
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => select(tab));
+    tab.addEventListener("keydown", (event) => {
+      if (!["ArrowDown", "ArrowUp", "ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      let nextIndex = index;
+      if (event.key === "Home") nextIndex = 0;
+      else if (event.key === "End") nextIndex = tabs.length - 1;
+      else if (event.key === "ArrowDown" || event.key === "ArrowRight") nextIndex = (index + 1) % tabs.length;
+      else nextIndex = (index - 1 + tabs.length) % tabs.length;
+      select(tabs[nextIndex], true);
+    });
+  });
+});
+</script>
+
 </body>
 </html>

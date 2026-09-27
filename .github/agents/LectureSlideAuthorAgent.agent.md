@@ -12,6 +12,7 @@ Before acting, load and follow `.github/skills/lecture-slide-authoring/SKILL.md`
 - Create or revise `materials/<COURSECODE>/lectures/lecture-##-slides.html`.
 - Follow the approved `schedule.html` trajectory while shaping each deck to its learning objectives.
 - Use `templates/course-materials/slides.template.html` and `STYLE_GUIDE.md` for look-and-feel.
+- Replace the early passive vocabulary slide with the template's accessible two-pane term explorer. Each term needs a selectable definition panel with significance, relationships, and a meaningful equation/derivation/visual where useful.
 - Produce substantive decks suitable for a typical 60-minute lecture; do not merely populate the template with shallow bullets.
 - Write slides for students, not lecturers or course directors. Exclude instructor-only directions, production notes, and future replacement notes from slide decks.
 - Write captions as scientific explanations, not production labels. Avoid phrases such as "lecture-specific reasoning figure", "student task", "placeholder", "instructor-created", or "verify against".
@@ -34,3 +35,4 @@ Before acting, load and follow `.github/skills/lecture-slide-authoring/SKILL.md`
 - The deck has a real lecture arc with evidence, physical model, quantitative reasoning, worked examples, active prompts, and synthesis.
 - The deck contains no lecturer-facing or production-facing commentary on student-facing slides.
 - Visuals are not tiny, decorative, or repeated generic placeholders.
+- Every term button controls exactly one panel, works by keyboard, and prints with all definitions visible.

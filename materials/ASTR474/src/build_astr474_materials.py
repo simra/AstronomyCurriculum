@@ -11,6 +11,12 @@ import numpy as np
 
 REPO = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO))
+from term_explorer import (
+    TERM_EXPLORER_CSS,
+    TERM_EXPLORER_SCRIPT,
+    notes_section as term_notes_section,
+    slide_section as term_slide_section,
+)
 from materials.ASTR474.src.astr474_computations import (  # noqa: E402
     DATA, ROOT, beta_posterior, compute_results, hydro_resolution_study,
     monte_carlo_transmission, radial_velocity_fit, rebound_ephemeris_check,
@@ -164,10 +170,11 @@ CSS = """
 
 
 def page(title: str, body: str) -> str:
+    interaction = TERM_EXPLORER_SCRIPT if "data-term-explorer" in body else ""
     return ("<!doctype html><html lang='en'><head><meta charset='utf-8'>"
             "<meta name='viewport' content='width=device-width,initial-scale=1'>"
             "<script id='MathJax-script' async src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>"
-            f"<title>{html.escape(title)}</title><style>{CSS}</style></head><body>{body}</body></html>")
+            f"<title>{html.escape(title)}</title><style>{CSS}{TERM_EXPLORER_CSS}</style></head><body>{body}{interaction}</body></html>")
 
 
 def f(value: float, digits: int = 4) -> str:
@@ -352,6 +359,7 @@ def build_lecture(number: int, item: dict[str, str], results: dict[str, object])
         f"<section class='slide title'><p class='kicker'>ASTR 474 · Computational Astrophysics · Lecture {number:02d}</p><h1>{html.escape(full_title)}</h1><p>{html.escape(item['question'])}</p><p class='small'>14-week course · 3 credits · Week {number}</p></section>",
         f"<section class='slide'><p class='kicker'>Motivation</p><h2>{html.escape(item['question'])}</h2><p>{html.escape(item['concept'])}</p><p>Today’s result must be interpretable as a physical statement with declared data, algorithm, uncertainty, and a check that could fail.</p></section>",
         "<section class='slide'><p class='kicker'>Learning objectives</p><h2>After this lecture, you can</h2><ul>" + "".join(f"<li>{html.escape(text)}</li>" for text in objectives) + "</ul></section>",
+        term_slide_section(number, title, item["question"], item["equation"], item["concept"], item["limit"]),
         f"<section class='slide'><p class='kicker'>Physical and mathematical model</p><h2>State what is being evolved</h2><p>{html.escape(item['concept'])}</p><div class='equation'>\\[{item['equation']}\\]</div><p>Define the state, coordinates, units, initial/boundary conditions, and domain before interpreting solver output.</p></section>",
         f"<section class='slide'><p class='kicker'>Numerical method</p><h2>Algorithm choice is a modeling decision</h2><p>{html.escape(item['algorithm'])}</p><ol><li>Write the model and its assumptions.</li><li>Choose a solver and identify its stability, accuracy, and conservation properties.</li><li>Record configuration, tolerances or timestep, and output sampling.</li><li>Compare against an analytic limit, independent method, or controlled refinement.</li></ol></section>",
         f"<section class='slide'><p class='kicker'>Visual reasoning</p><h2>{html.escape(figure_title)}</h2><figure class='figure'>{figure_svg}<figcaption>{html.escape(figure_caption)}</figcaption></figure></section>",
@@ -366,6 +374,7 @@ def build_lecture(number: int, item: dict[str, str], results: dict[str, object])
     ]
     slide_doc = page(full_title, "<div class='deck'>" + "".join(slides) + "</div>")
     notes_sections = f"""
+{term_notes_section(number, title, item["question"], item["equation"], item["concept"], item["limit"])}
 <section><h2>Problem and physical meaning</h2><p>{html.escape(item['concept'])}</p><p>{html.escape(item['question'])} Begin from the scientific observable or state variable, and name what is directly specified versus inferred. The model should be simple enough to validate, but not quietly presented as the entire astrophysical system.</p></section>
 <section><h2>Model and derivation</h2><p>The governing expression for this lecture is:</p><div class='equation'>\\[{item['equation']}\\]</div><p>Define the symbols and the independent variable before numerical evaluation. Dimensional analysis checks that both sides have matching units; if the model is dimensionless, state the adopted scale factors and the transformation back to physical units.</p><p>{html.escape(item['concept'])}</p></section>
 <section><h2>Numerical implementation</h2><p>{html.escape(item['algorithm'])}</p><p>Keep physical quantities and numerical arrays conceptually separate. Convert units at well-defined boundaries, preserve raw inputs, and record dtype, solver, tolerances/timestep, grid, and software versions. A numerical method is part of the model evidence, not an invisible implementation detail.</p></section>
@@ -551,8 +560,8 @@ def build_all() -> None:
     results = compute_results()
     for number, item in enumerate(LECTURES, 1):
         slides, notes = build_lecture(number, item, results)
-        (ROOT / "lectures" / f"lecture-{number:02d}-slides.html").write_text(slides, encoding="utf-8")
-        (ROOT / "lectures" / f"lecture-{number:02d}-notes.html").write_text(notes, encoding="utf-8")
+        (ROOT / "lectures" / f"lecture-{number:02d}-slides.html").write_text(slides, encoding="utf-8", newline="\n")
+        (ROOT / "lectures" / f"lecture-{number:02d}-notes.html").write_text(notes, encoding="utf-8", newline="\n")
     for number, item in enumerate(LABS, 1):
         (ROOT / "labs" / f"lab-{number:02d}.html").write_text(build_lab(number, item, results), encoding="utf-8")
     for number in range(1, 8):

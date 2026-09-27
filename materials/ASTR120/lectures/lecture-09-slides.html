@@ -25,13 +25,28 @@ figcaption,.small { color:var(--muted); font-size:.95rem; line-height:1.35; marg
 svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(--line); background:#fff; }
 .warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
 @media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+
+.term-explorer{display:grid;grid-template-columns:minmax(220px,.7fr) minmax(0,1.8fr);gap:28px;align-items:stretch;min-height:58vh}
+.term-list{display:flex;flex-direction:column;gap:10px}
+.term-button{width:100%;padding:12px 15px;border:2px solid var(--line);border-radius:8px;background:#fff;color:var(--navy);font:inherit;font-size:1.05rem;font-weight:700;text-align:left;cursor:pointer}
+.term-button:hover{border-color:var(--teal)}
+.term-button:focus-visible{outline:4px solid var(--gold);outline-offset:2px}
+.term-button[aria-selected="true"]{color:#fff;background:var(--teal);border-color:var(--teal)}
+.term-detail{border:1px solid var(--line);border-radius:10px;padding:20px 24px;background:var(--paper);overflow:auto}
+.term-detail h3{margin:0 0 10px;color:var(--teal);font-size:clamp(1.35rem,2.2vw,2rem)}
+.term-detail p{font-size:clamp(.96rem,1.35vw,1.22rem);margin:.55em 0}
+.term-detail[hidden]{display:none}
+.term-visual{font-size:1.12rem;padding:10px 14px;background:var(--teal-soft);border-left:4px solid var(--teal);margin-top:12px}
+@media(max-width:800px){.term-explorer{grid-template-columns:1fr}.term-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+@media print{.term-explorer{display:block;min-height:0}.term-list{display:none}.term-detail[hidden]{display:block}.term-detail{break-inside:avoid;margin:12px 0}}
 </style>
 </head>
 <body>
 <main class="deck">
 <section class="slide title"><p class="kicker">ASTR 120 · Lecture 09</p><h1>Giant Planets</h1><h2>Solar-system evidence, physics, and exploration</h2></section>
 <section class="slide"><h2>Why This Question Matters</h2><p>Pioneer, Voyager, Galileo, Cassini, and Juno revealed that giant planets are dynamic systems with deep interiors and complex atmospheres.</p></section>
-<section class="slide"><h2>Learning Goals</h2><ul><li>Compare giant planets using composition, heat flow, rotation, and magnetic fields.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section>
+<section class="slide"><h2>Learning Goals</h2><ul><li>Compare giant planets using composition, heat flow, rotation, and magnetic fields.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section><section class="slide glossary-slide" aria-labelledby="l09-terms-heading"><h2 id="l09-terms-heading">Terms for This Lecture</h2><div class="term-explorer" data-term-explorer><div class="term-list" role="tablist" aria-label="Lecture 09 terms"><button class="term-button" id="l09-term-1-tab" type="button" role="tab" aria-selected="true" aria-controls="l09-term-1-panel" data-term-target="l09-term-1-panel" tabindex="0">Fluid interior</button><button class="term-button" id="l09-term-2-tab" type="button" role="tab" aria-selected="false" aria-controls="l09-term-2-panel" data-term-target="l09-term-2-panel" tabindex="-1">Differential rotation</button><button class="term-button" id="l09-term-3-tab" type="button" role="tab" aria-selected="false" aria-controls="l09-term-3-panel" data-term-target="l09-term-3-panel" tabindex="-1">Zonal jet</button><button class="term-button" id="l09-term-4-tab" type="button" role="tab" aria-selected="false" aria-controls="l09-term-4-panel" data-term-target="l09-term-4-panel" tabindex="-1">Intrinsic heat</button><button class="term-button" id="l09-term-5-tab" type="button" role="tab" aria-selected="false" aria-controls="l09-term-5-panel" data-term-target="l09-term-5-panel" tabindex="-1">Magnetosphere</button><button class="term-button" id="l09-term-6-tab" type="button" role="tab" aria-selected="false" aria-controls="l09-term-6-panel" data-term-target="l09-term-6-panel" tabindex="-1">Gravity harmonics</button></div><div class="term-details"><article class="term-detail" id="l09-term-1-panel" role="tabpanel" aria-labelledby="l09-term-1-tab"><h3>Fluid interior</h3><p><strong>Definition:</strong> An interior that deforms and flows on relevant timescales rather than behaving as a rigid solid surface.</p><p><strong>Why it matters and connects:</strong> Giant planets are modeled through pressure, temperature, composition, rotation, gravity, and magnetic fields instead of surface geology.</p><p><strong>Boundary or common confusion:</strong> Fluid does not mean low density or ordinary liquid; hydrogen can become metallic under extreme pressure.</p></article><article class="term-detail" id="l09-term-2-panel" role="tabpanel" aria-labelledby="l09-term-2-tab" hidden><h3>Differential rotation</h3><p><strong>Definition:</strong> Rotation at different angular rates with latitude or depth.</p><p><strong>Why it matters and connects:</strong> Cloud tracking and magnetic measurements reveal zonal winds and help separate atmospheric motion from deeper rotation.</p><p><strong>Boundary or common confusion:</strong> A cloud feature&#x27;s period may trace wind rather than the bulk planet, so &#x27;day length&#x27; can be model-dependent.</p></article><article class="term-detail" id="l09-term-3-panel" role="tabpanel" aria-labelledby="l09-term-3-tab" hidden><h3>Zonal jet</h3><p><strong>Definition:</strong> A broad east–west atmospheric current organized mainly by latitude.</p><p><strong>Why it matters and connects:</strong> Alternating jets create giant-planet belts and zones and redistribute heat and momentum.</p><p><strong>Boundary or common confusion:</strong> Visible color bands are not identical to wind speed; clouds, chemistry, and altitude also affect appearance.</p></article><article class="term-detail" id="l09-term-4-panel" role="tabpanel" aria-labelledby="l09-term-4-tab" hidden><h3>Intrinsic heat</h3><p><strong>Definition:</strong> Thermal energy emitted from a planet in excess of absorbed and reradiated sunlight.</p><p><strong>Why it matters and connects:</strong> Excess emission reveals ongoing cooling, contraction, differentiation, or other interior energy sources.</p><p><strong>Boundary or common confusion:</strong> A planet&#x27;s total infrared emission includes reprocessed sunlight; the absorbed solar contribution must be subtracted.</p><div class="term-visual">\(L_{\rm int}=L_{\rm emitted}-L_{\rm absorbed}\)</div></article><article class="term-detail" id="l09-term-5-panel" role="tabpanel" aria-labelledby="l09-term-5-tab" hidden><h3>Magnetosphere</h3><p><strong>Definition:</strong> The region where a planet&#x27;s magnetic field strongly controls charged-particle motion and interacts with the solar wind.</p><p><strong>Why it matters and connects:</strong> Its size, aurorae, radiation belts, and field geometry constrain the internal dynamo and plasma environment.</p><p><strong>Boundary or common confusion:</strong> A large magnetosphere does not imply a safe environment; trapped radiation can be intense.</p></article><article class="term-detail" id="l09-term-6-panel" role="tabpanel" aria-labelledby="l09-term-6-tab" hidden><h3>Gravity harmonics</h3><p><strong>Definition:</strong> Coefficients describing departures of a planet&#x27;s gravity field from that of a perfect sphere.</p><p><strong>Why it matters and connects:</strong> They encode rotational flattening, winds, and radial mass distribution and therefore constrain giant-planet interiors.</p><p><strong>Boundary or common confusion:</strong> Interpretation is non-unique and depends on rotation rate, equations of state, and atmospheric-flow models.</p></article></div></div></section>
 <section class="slide"><h2>Opening Phenomenon</h2><p>Jupiter, Saturn, Uranus, and Neptune are laboratories for fluid planets, magnetospheres, rings, and formation models.</p></section>
 <section class="slide"><h2>Giant Planets Are Fluid Worlds</h2><div class="three"><article class="card"><p><strong>Composition:</strong> hydrogen, helium, ices, and heavy elements dominate different layers.</p></article><article class="card"><p><strong>Rotation:</strong> fast spin organizes belts, zones, oblateness, and winds.</p></article><article class="card"><p><strong>Magnetism:</strong> conducting interiors drive powerful magnetospheres.</p></article></div></section>
 <section class="slide"><h2>No Solid Surface to Stand On</h2><p>The visible cloud tops are pressure levels in moving atmospheres. When we compare giant planets, radius, temperature, gravity, and composition are model-dependent choices rather than simple surface measurements.</p></section>
@@ -44,5 +59,33 @@ svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(
 <section class="slide"><h2>Reasoning Prompt: Which Planet Retains Gas?</h2><p>Compare an Earth-mass planet at 1 AU with a Jupiter-mass planet at 5 AU. Use escape speed, temperature, and gas molecular mass to explain which retains hydrogen over billions of years.</p></section>
 <section class="slide"><h2>Synthesis: Giants Link Atmosphere and Interior</h2><ul><li>Composition and gravity control volatile retention.</li><li>Rotation and heat flow organize visible weather.</li><li>Magnetic fields make giant planets space environments, not only atmospheric objects.</li></ul></section>
 <section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax Astronomy 2e solar-system chapters and local reference copy.</li><li>NASA/OpenStax/ESA sources recorded in reference-log.md where external visuals are used.</li></ul></section>
-</main></body>
+</main>
+<script data-astr120-term-explorer>
+document.querySelectorAll("[data-term-explorer]").forEach((explorer)=>{
+  const tabs=[...explorer.querySelectorAll('[role="tab"]')];
+  const panels=[...explorer.querySelectorAll('[role="tabpanel"]')];
+  const select=(tab,moveFocus=false)=>{
+    tabs.forEach((item)=>{
+      const active=item===tab;
+      item.setAttribute("aria-selected",String(active));
+      item.tabIndex=active?0:-1;
+    });
+    panels.forEach((panel)=>{panel.hidden=panel.id!==tab.getAttribute("aria-controls");});
+    if(moveFocus)tab.focus();
+  };
+  tabs.forEach((tab,index)=>{
+    tab.addEventListener("click",()=>select(tab));
+    tab.addEventListener("keydown",(event)=>{
+      if(!["ArrowDown","ArrowUp","ArrowRight","ArrowLeft","Home","End"].includes(event.key))return;
+      event.preventDefault();
+      let next=index;
+      if(event.key==="Home")next=0;
+      else if(event.key==="End")next=tabs.length-1;
+      else next=(index+(["ArrowDown","ArrowRight"].includes(event.key)?1:-1)+tabs.length)%tabs.length;
+      select(tabs[next],true);
+    });
+  });
+});
+</script>
+</body>
 </html>

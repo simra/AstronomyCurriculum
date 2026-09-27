@@ -51,6 +51,7 @@ Do not allow generic or template-level generation to count as course content. Th
 - Problem sets must be concrete and lecture-specific, with exact figures, quantities, scenarios, or datasets, not generic prompts.
 - Lab activities must include step-by-step apparatus/setup, data collection, calculations, uncertainty treatment, and deliverables.
 - Lecture slides and notes must contain lecture-specific explanation, evidence, worked examples, and quantitative reasoning, not template bullets.
+- Every lecture deck must replace its early passive term list with the accessible two-pane term explorer defined in `slides.template.html`; every listed term must be developed more fully in the matching notes.
 - If a specialized agent does not produce sufficiently specific content, the orchestrator must rewrite or directly improve the artifact instead of accepting a generic pass.
 - Compute every worked example, sample calculation, or numeric result shown in lectures, labs, or problem sets with a script rather than hand-typed arithmetic, and reuse the same underlying constants/data across the lecture, lab, and problem set that reference the same scenario, so numbers stay internally consistent and arithmetic errors cannot creep in silently.
 - Before defaulting to synthetic or "instructor-provided" placeholder data for a lab or problem set, check whether real, verifiable local data already exists (e.g., the user's own observing/imaging archives, institutional datasets, or other workspace files) and ground the artifact in it instead, with exact file, instrument, and provenance citations.
@@ -196,6 +197,7 @@ When review identifies defects, use this deterministic loop:
 - Apply `lecture-slide-authoring` lecture by lecture or module by module.
 - Ensure every deck follows the schedule and contains verified visual/reference information.
 - Ensure each lecture deck has enough depth for the intended meeting length. For a typical 60-minute lecture, reject decks that merely populate template sections with brief generic bullets.
+- Ensure each deck has an early interactive term explorer with complete definitions, explanatory relationships, optional meaningful visuals, keyboard access, and print fallback.
 - Use adopted textbooks, local reference copies, or verified readings to ground scope and terminology.
 - Use `VisualReferenceResearchAgent` or equivalent verification before incorporating Creative Commons, public-domain, mission, observatory, or other external visuals.
 - If slide authoring exposes schedule defects, return to Step 2.
@@ -205,6 +207,7 @@ When review identifies defects, use this deterministic loop:
 - Apply `lecture-notes-authoring` to each lecture after its slide deck exists.
 - Ensure notation, examples, references, and assumptions match the slides.
 - Ensure notes are study-ready and expand the slide content; do not accept notes that simply restate slide bullets.
+- Apply the dedicated `lecture-notes-review` rubric before accepting notes. Require pairwise evidence that each notes file adds derivations, context, examples, limitations, and verified resource guidance beyond its matching deck.
 - If notes expose slide defects, return to Step 3; if they expose sequence defects, return to Step 2.
 
 ### 4a. Create Labs and Observing Activities

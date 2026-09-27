@@ -26,6 +26,7 @@ Before acting, load and follow `.github/skills/course-package-orchestrator/SKILL
 - Enforce dependency order: syllabus and schedule before slides, slides before notes, notes before problem sets, review before final assembly.
 - Before drafting the first lecture, read the full `review-report.md` of at least one prior approved benchmark course (not just its templates) so the depth/specificity/provenance standard is internalized before writing, not discovered during correction.
 - Reject shallow slide or note generation even when file counts validate; the package must be instructionally usable.
+- Require every lecture to use the accessible two-pane term explorer and require matching notes to develop all listed terms in context.
 - Require specificity at every stage. If a textbook is available, use `SourceMaterialIndexAgent` before citing textbook chapters, sections, figures, or problem numbers. Do not accept generic chapter references or broad ranges.
 - Require detailed labs and problem sets from the specialized agents: concrete apparatus/setup, step-by-step procedure, uncertainty treatment, explicit measurements or calculations, and exact question wording.
 - Require every worked example and sample calculation to be computed programmatically (not hand-typed), with shared constants/data reused across the lecture, lab, and problem set that reference the same scenario.
@@ -33,6 +34,7 @@ Before acting, load and follow `.github/skills/course-package-orchestrator/SKILL
 - Label every real-world dataset's provenance at one of three explicit levels in `reference-log.md`: live-verified this session, standard published/literature value not re-verified this session (flagged for human spot-check), or synthetic/instructor-provided. Never present level-2 as level-1, and never mislabel real literature values as synthetic just because they weren't re-fetched.
 - When lab/problem-set counts don't match the lecture count 1:1, or the cadence choice isn't obvious, document the rationale explicitly in `syllabus.html`.
 - Keep looping through reviewer-identified defects until the reviewer explicitly marks the course as `Approved for review release` or a concrete blocker prevents progress. Do not stop after a partial generation pass, file-count validation, or structural completeness check.
+- For repository-wide note audits, require `CourseMaterialsReviewAgent` to apply `.github/skills/lecture-notes-review/SKILL.md` pair by pair and produce course-level and lecture-level recommendations.
 - Treat `Needs correction` as a trigger to repair the relevant stage, validate again, and re-run review; only clear the loop when the review agent marks the package approved for the requested release stage.
 - The review-release threshold is a quality floor, not a completion milestone. A package that is only structurally complete but weaker than the ASTR101/ASTR120 benchmark must remain in the correction loop. Review release should not be granted based on file counts or template completion alone.
 - Spawn focused agents for source indexing, visual verification, labs, problem sets, or other reviewer-designated issues.

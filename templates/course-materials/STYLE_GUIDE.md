@@ -91,6 +91,19 @@ Use MathJax-compatible LaTeX syntax in HTML:
 - Keep contrast high and text sizes readable.
 - Tables should have headers and concise captions when needed.
 - Slide decks should remain usable when printed or exported to PDF.
+- Put the early lecture terminology in an accessible two-pane glossary: term-selection buttons on the left and the selected term's definition, significance, relationships/equations, and optional explanatory visual on the right.
+- Glossary controls must use native buttons, visible focus styles, `aria-selected`, and associated panels. Clicking a term or reaching it by keyboard must reveal the matching panel without requiring a mouse.
+- The first term must be readable before JavaScript runs. When printed or exported, show every term and definition; do not print an unusable interactive control with hidden content.
+- Do not use hover-only definitions, title attributes, tiny tooltips, or color alone to identify the selected term.
+- A glossary visual must explain the selected term and follow the same source, credit, caption, alt-text, and legibility rules as every other instructional visual.
+
+## Slides and Notes as Complementary Artifacts
+
+- Slides organize the live instructional argument: concise definitions, evidence, diagrams, equations, worked steps, and prompts that are legible in a classroom.
+- Notes support independent study and must add explanatory value beyond the deck. They should unpack assumptions, supply intermediate reasoning, connect ideas historically and observationally, compare alternatives, identify limitations, and point to verified resources.
+- Lecture notes must not reproduce slide prose section by section with only connective sentences added. Shared equations, terminology, and claims are expected; duplicated exposition is not.
+- For each major concept, notes should add at least three useful forms of expansion where appropriate: derivation or intermediate steps, physical interpretation, worked example, observational or computational context, misconception analysis, historical context, comparison with an alternative model, or a verified reading/data/software resource.
+- Notes should identify how each glossary term is used in the lecture's reasoning and how it relates to at least one other term, observable, equation, or model.
 
 ## Grading and Resubmission Tone
 

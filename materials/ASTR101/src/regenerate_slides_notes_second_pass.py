@@ -1,8 +1,9 @@
 from __future__ import annotations
 
-from datetime import date
 from html import escape
 from pathlib import Path
+
+from term_explorer_content import TERM_DETAILS
 
 ROOT = Path(__file__).resolve().parents[1]
 LECTURES_DIR = ROOT / "lectures"
@@ -100,11 +101,24 @@ ul,ol { max-width:1050px; }
 .image-pair figure { margin:0; }
 .three { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
 .card { border:1px solid var(--line); background:#fff; border-radius:6px; padding:14px 16px; }
+.term-explorer { display:grid; grid-template-columns:minmax(210px,.68fr) minmax(0,1.75fr); gap:26px; min-height:58vh; align-items:stretch; }
+.term-list { display:flex; flex-direction:column; gap:9px; }
+.term-button { width:100%; padding:12px 15px; border:2px solid var(--line); border-radius:8px; background:#fff; color:var(--navy); font:inherit; font-size:1.02rem; font-weight:700; text-align:left; cursor:pointer; }
+.term-button:hover { border-color:var(--teal); }
+.term-button:focus-visible { outline:4px solid var(--gold); outline-offset:2px; }
+.term-button[aria-selected="true"] { color:#fff; background:var(--teal); border-color:var(--teal); }
+.term-details { min-width:0; }
+.term-detail { height:100%; border:1px solid var(--line); border-radius:10px; padding:18px 23px; background:var(--paper); overflow:auto; }
+.term-detail h3 { margin-top:0; font-size:clamp(1.35rem,2.25vw,2rem); }
+.term-detail p { font-size:clamp(.96rem,1.35vw,1.24rem); margin:.55em 0; }
+.term-detail[hidden] { display:none; }
+.term-visual { margin-top:12px; }
 .equation { font-size:1.34rem; padding:14px 18px; background:var(--teal-soft); border-left:5px solid var(--teal); margin:12px 0; }
 figcaption,.credit,.small { color:var(--muted); font-size:.95rem; line-height:1.35; margin-top:8px; }
 svg { width:100%; max-height:62vh; border:1px solid var(--line); background:#fff; }
 .warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
-@media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+@media (max-width:800px) { .slide { padding:34px 24px; } .term-explorer { grid-template-columns:1fr; } .term-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } .term-explorer { display:block; } .term-list { display:none; } .term-detail[hidden] { display:block !important; } .term-detail { height:auto; break-inside:avoid; margin:12px 0; } }
 """
 
 NOTE_CSS = """
@@ -849,8 +863,100 @@ def bullets(items: list[str]) -> str:
     return "\n".join(f"<li>{escape(item)}</li>" for item in items)
 
 
-def cards(items: list[str]) -> str:
-    return "\n".join(f"<article class=\"card\"><p>{escape(item)}</p></article>" for item in items)
+def term_explorer(lecture: dict) -> str:
+    entries = TERM_DETAILS[lecture["n"]]
+    expected = lecture["terms"]
+    actual = [entry["term"] for entry in entries]
+    if actual != expected:
+        raise ValueError(f"Lecture {lecture['n']:02d} term source mismatch: {actual!r} != {expected!r}")
+    buttons = []
+    panels = []
+    for index, entry in enumerate(entries, start=1):
+        stem = f"lecture-{lecture['n']:02d}-term-{index:02d}"
+        selected = index == 1
+        buttons.append(
+            f'<button class="term-button" id="{stem}-tab" type="button" role="tab" '
+            f'aria-selected="{str(selected).lower()}" aria-controls="{stem}-panel" '
+            f'data-term-target="{stem}-panel" tabindex="{"0" if selected else "-1"}">'
+            f'{escape(entry["term"])}</button>'
+        )
+        equation = entry.get("equation")
+        visual = f'<div class="term-visual equation">\\[ {equation} \\]</div>' if equation else ""
+        hidden = "" if selected else " hidden"
+        panels.append(
+            f'<article class="term-detail" id="{stem}-panel" role="tabpanel" '
+            f'aria-labelledby="{stem}-tab"{hidden}>'
+            f'<h3>{escape(entry["term"])}</h3>'
+            f'<p><strong>Definition:</strong> {escape(entry["definition"])}</p>'
+            f'<p><strong>Why it matters here:</strong> {escape(entry["matters"])}</p>'
+            f'<p><strong>Relationships:</strong> {escape(entry["relationships"])}</p>'
+            f'<p><strong>Boundary or common confusion:</strong> {escape(entry["limitation"])}</p>'
+            f'{visual}</article>'
+        )
+    return (
+        '<section class="slide glossary-slide" aria-labelledby="terms-heading">'
+        '<h2 id="terms-heading">Terms for This Lecture</h2>'
+        '<div class="term-explorer" data-term-explorer>'
+        '<div class="term-list" role="tablist" aria-label="Lecture terms">'
+        + "".join(buttons)
+        + '</div><div class="term-details">'
+        + "".join(panels)
+        + "</div></div></section>"
+    )
+
+
+def terms_in_context(lecture: dict) -> str:
+    entries = TERM_DETAILS[lecture["n"]]
+    definitions = []
+    for entry in entries:
+        definitions.append(
+            f'<dt><strong>{escape(entry["term"])}</strong></dt><dd>'
+            f'<p>{escape(entry["definition"])} {escape(entry["matters"])} '
+            f'{escape(entry["relationships"])}</p>'
+            f'<p><strong>In context:</strong> {escape(entry["notes"])} '
+            f'<strong>Boundary:</strong> {escape(entry["limitation"])}</p></dd>'
+        )
+    return (
+        '<section><h2>Terms Developed in Context</h2>'
+        '<p>These terms form a connected reasoning system for the lecture. Each entry '
+        'extends the concise slide panel by showing how the term is used, what it is '
+        'linked to observationally or mathematically, and where its interpretation can fail.</p>'
+        '<dl class="terms-in-context">'
+        + "".join(definitions)
+        + "</dl></section>"
+    )
+
+
+TERM_EXPLORER_SCRIPT = """
+<script>
+document.querySelectorAll("[data-term-explorer]").forEach((explorer) => {
+  const tabs = [...explorer.querySelectorAll('[role="tab"]')];
+  const panels = [...explorer.querySelectorAll('[role="tabpanel"]')];
+  const select = (tab, moveFocus = false) => {
+    tabs.forEach((item) => {
+      const active = item === tab;
+      item.setAttribute("aria-selected", String(active));
+      item.tabIndex = active ? 0 : -1;
+    });
+    panels.forEach((panel) => { panel.hidden = panel.id !== tab.getAttribute("aria-controls"); });
+    if (moveFocus) tab.focus();
+  };
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => select(tab));
+    tab.addEventListener("keydown", (event) => {
+      if (!["ArrowDown", "ArrowUp", "ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      let nextIndex = index;
+      if (event.key === "Home") nextIndex = 0;
+      else if (event.key === "End") nextIndex = tabs.length - 1;
+      else if (event.key === "ArrowDown" || event.key === "ArrowRight") nextIndex = (index + 1) % tabs.length;
+      else nextIndex = (index - 1 + tabs.length) % tabs.length;
+      select(tabs[nextIndex], true);
+    });
+  });
+});
+</script>
+"""
 
 
 def deck(lecture: dict) -> str:
@@ -868,7 +974,7 @@ def deck(lecture: dict) -> str:
     <section class=\"slide\"><h2>Learning Goals</h2><ol>{goals}</ol><p class=\"small\">Reading anchor: {escape(anchor)}</p></section>
     <section class=\"slide\"><h2>Why This Question Matters</h2><p>{escape(historical_context(lecture))}</p></section>
     <section class=\"slide\"><h2>Opening Phenomenon</h2><p>{escape(lecture['phenomenon'])}</p><p class=\"warning\"><strong>First question:</strong> what is directly observed, and what part is an explanation built from a model?</p></section>
-    <section class=\"slide\"><h2>Vocabulary for Reasoning</h2><div class=\"three\">{cards(lecture['terms'])}</div><p class=\"small\">Use these terms to describe evidence and relationships, not as isolated vocabulary.</p></section>
+    {term_explorer(lecture)}
   <section class=\"slide\"><h2>Evidence We Need to Explain</h2><ul>{bullets(lecture['evidence'])}</ul></section>
   <section class=\"slide\"><h2>Physical or Geometric Model</h2><ul>{bullets(lecture['model'])}</ul></section>
     <section class=\"slide\"><h2>Quantitative Tool</h2><div class=\"equation\">\\[ {lecture['equation']} \\]</div><p>{escape(quantitative)}</p></section>
@@ -879,7 +985,7 @@ def deck(lecture: dict) -> str:
     <section class=\"slide\"><h2>Lab or Observing Connection</h2><p>{escape(lab_connection(lecture))}</p></section>
     <section class=\"slide\"><h2>Synthesis</h2><p>{escape(lecture['synthesis'])}</p><ul>{synth_qs}</ul></section>
     <section class=\"slide\"><h2>References and Visual Credits</h2><ul><li>OpenStax, <em>Astronomy 2e</em>: {escape(anchor)}</li><li>Local reference copy: <code>references/openstax-astronomy-2e.pdf</code>.</li><li>{escape(visual_credit_bullet(lecture))}</li></ul></section>
-</main>"""
+</main>{TERM_EXPLORER_SCRIPT}"""
     return html(f"ASTR 101 Lecture {n:02d} Slides", body, SLIDE_CSS)
 
 
@@ -892,7 +998,7 @@ def notes(lecture: dict) -> str:
 <main>
 <section><h2>Reading Anchor</h2><p>{escape(anchor)} The local textbook reference is stored at <code>references/openstax-astronomy-2e.pdf</code>. These notes use the textbook for scope and terminology while presenting original explanations and examples.</p></section>
 <section><h2>Lecture Arc</h2><p>{escape(lecture['phenomenon'])}</p><p>The lecture should begin by asking students what can be observed directly. Only after that should the explanatory model be introduced. This helps students distinguish evidence from interpretation, a distinction that becomes essential when the course moves from the night sky to stars, galaxies, and cosmology.</p></section>
-<section><h2>Key Vocabulary in Context</h2><p>The important terms for this lecture are: {escape(', '.join(lecture['terms']))}. Each term should be introduced through use. Students should be able to write a sentence using each term to describe an observation or explain a model, rather than merely define it from memory.</p></section>
+{terms_in_context(lecture)}
 <section><h2>Evidence Table</h2><table><thead><tr><th>#</th><th>Evidence or observation</th><th>How students should interrogate it</th></tr></thead><tbody>{evidence_rows}</tbody></table></section>
 <section><h2>Model Development</h2><p>The model for this lecture has three linked parts:</p><ol>{bullets(lecture['model'])}</ol><p>The instructor should emphasize where the model is a simplification. Introductory astronomy often works by adopting a useful first model, identifying its assumptions, and then refining it when new evidence demands more detail.</p></section>
 <section><h2>Quantitative Reasoning</h2><div class=\"box\">\\[ {lecture['equation']} \\]</div><p>This equation or proportionality is not just a formula to memorize. It is a compact statement of a physical or geometric relationship. A strong student solution defines each symbol, states the unit system, identifies the assumptions, and interprets the result in words.</p></section>
@@ -974,12 +1080,13 @@ Last updated: {TODAY}
 def main() -> None:
     for lecture in LECTURE_TOPICS:
         n = lecture["n"]
-        (LECTURES_DIR / f"lecture-{n:02d}-slides.html").write_text(deck(lecture), encoding="utf-8")
-        (LECTURES_DIR / f"lecture-{n:02d}-notes.html").write_text(notes(lecture), encoding="utf-8")
-    update_reference_log()
-    update_review_report()
+        slide_path = LECTURES_DIR / f"lecture-{n:02d}-slides.html"
+        notes_path = LECTURES_DIR / f"lecture-{n:02d}-notes.html"
+        with slide_path.open("w", encoding="utf-8", newline="\n") as stream:
+            stream.write(deck(lecture))
+        with notes_path.open("w", encoding="utf-8", newline="\n") as stream:
+            stream.write(notes(lecture))
 
 
 if __name__ == "__main__":
     main()
-

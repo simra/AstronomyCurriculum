@@ -27,11 +27,24 @@ ul,ol { max-width:1050px; }
 .image-pair figure { margin:0; }
 .three { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
 .card { border:1px solid var(--line); background:#fff; border-radius:6px; padding:14px 16px; }
+.term-explorer { display:grid; grid-template-columns:minmax(210px,.68fr) minmax(0,1.75fr); gap:26px; min-height:58vh; align-items:stretch; }
+.term-list { display:flex; flex-direction:column; gap:9px; }
+.term-button { width:100%; padding:12px 15px; border:2px solid var(--line); border-radius:8px; background:#fff; color:var(--navy); font:inherit; font-size:1.02rem; font-weight:700; text-align:left; cursor:pointer; }
+.term-button:hover { border-color:var(--teal); }
+.term-button:focus-visible { outline:4px solid var(--gold); outline-offset:2px; }
+.term-button[aria-selected="true"] { color:#fff; background:var(--teal); border-color:var(--teal); }
+.term-details { min-width:0; }
+.term-detail { height:100%; border:1px solid var(--line); border-radius:10px; padding:18px 23px; background:var(--paper); overflow:auto; }
+.term-detail h3 { margin-top:0; font-size:clamp(1.35rem,2.25vw,2rem); }
+.term-detail p { font-size:clamp(.96rem,1.35vw,1.24rem); margin:.55em 0; }
+.term-detail[hidden] { display:none; }
+.term-visual { margin-top:12px; }
 .equation { font-size:1.34rem; padding:14px 18px; background:var(--teal-soft); border-left:5px solid var(--teal); margin:12px 0; }
 figcaption,.credit,.small { color:var(--muted); font-size:.95rem; line-height:1.35; margin-top:8px; }
 svg { width:100%; max-height:62vh; border:1px solid var(--line); background:#fff; }
 .warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
-@media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+@media (max-width:800px) { .slide { padding:34px 24px; } .term-explorer { grid-template-columns:1fr; } .term-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } .term-explorer { display:block; } .term-list { display:none; } .term-detail[hidden] { display:block !important; } .term-detail { height:auto; break-inside:avoid; margin:12px 0; } }
 </style>
 </head>
 <body>
@@ -44,13 +57,7 @@ svg { width:100%; max-height:62vh; border:1px solid var(--line); background:#fff
 <li>Correct the misconception: Constellations are not physical clusters of nearby stars. They are line-of-sight patterns whose member stars may be at very different distances.</li></ol><p class="small">Reading anchor: OpenStax Astronomy 2e, Chapter 2.1-2.2 on the sky above and celestial coordinates, with Chapter 1.2 on scientific reasoning.</p></section>
     <section class="slide"><h2>Why This Question Matters</h2><p>Astronomy began as a human need to make time, direction, seasons, navigation, ritual calendars, and stories reliable. Ancient sky watchers did not begin with equations; they began by noticing repeatable patterns and building shared records of the sky.</p></section>
     <section class="slide"><h2>Opening Phenomenon</h2><p>The sky appears to rotate nightly, the visible constellations change with season, and different cultures have mapped the same sky in different ways. The scientific task is to separate what is directly observed from the model that explains it.</p><p class="warning"><strong>First question:</strong> what is directly observed, and what part is an explanation built from a model?</p></section>
-    <section class="slide"><h2>Vocabulary for Reasoning</h2><div class="three"><article class="card"><p>celestial sphere</p></article>
-<article class="card"><p>horizon</p></article>
-<article class="card"><p>zenith</p></article>
-<article class="card"><p>meridian</p></article>
-<article class="card"><p>altitude</p></article>
-<article class="card"><p>azimuth</p></article>
-<article class="card"><p>angular size</p></article></div><p class="small">Use these terms to describe evidence and relationships, not as isolated vocabulary.</p></section>
+    <section class="slide glossary-slide" aria-labelledby="terms-heading"><h2 id="terms-heading">Terms for This Lecture</h2><div class="term-explorer" data-term-explorer><div class="term-list" role="tablist" aria-label="Lecture terms"><button class="term-button" id="lecture-01-term-01-tab" type="button" role="tab" aria-selected="true" aria-controls="lecture-01-term-01-panel" data-term-target="lecture-01-term-01-panel" tabindex="0">celestial sphere</button><button class="term-button" id="lecture-01-term-02-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-01-term-02-panel" data-term-target="lecture-01-term-02-panel" tabindex="-1">horizon</button><button class="term-button" id="lecture-01-term-03-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-01-term-03-panel" data-term-target="lecture-01-term-03-panel" tabindex="-1">zenith</button><button class="term-button" id="lecture-01-term-04-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-01-term-04-panel" data-term-target="lecture-01-term-04-panel" tabindex="-1">meridian</button><button class="term-button" id="lecture-01-term-05-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-01-term-05-panel" data-term-target="lecture-01-term-05-panel" tabindex="-1">altitude</button><button class="term-button" id="lecture-01-term-06-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-01-term-06-panel" data-term-target="lecture-01-term-06-panel" tabindex="-1">azimuth</button><button class="term-button" id="lecture-01-term-07-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-01-term-07-panel" data-term-target="lecture-01-term-07-panel" tabindex="-1">angular size</button></div><div class="term-details"><article class="term-detail" id="lecture-01-term-01-panel" role="tabpanel" aria-labelledby="lecture-01-term-01-tab"><h3>celestial sphere</h3><p><strong>Definition:</strong> An imaginary sphere centered on the observer onto which directions to celestial objects are projected.</p><p><strong>Why it matters here:</strong> It turns a three-dimensional universe with mostly unknown distances into a two-dimensional map of observable directions.</p><p><strong>Relationships:</strong> Altitude and azimuth locate points on the local celestial sphere; daily apparent rotation traces arcs on it as Earth rotates.</p><p><strong>Boundary or common confusion:</strong> It is a geometric model, not a physical shell, and it does not by itself encode an object&#x27;s distance.</p></article><article class="term-detail" id="lecture-01-term-02-panel" role="tabpanel" aria-labelledby="lecture-01-term-02-tab" hidden><h3>horizon</h3><p><strong>Definition:</strong> The great circle separating the visible half of the sky from directions blocked by the ground for a particular observer.</p><p><strong>Why it matters here:</strong> Rise, set, and target visibility are defined relative to this local boundary.</p><p><strong>Relationships:</strong> Altitude is measured upward from the horizon, while azimuth is measured around it; both depend on location and time.</p><p><strong>Boundary or common confusion:</strong> A real skyline may sit above the ideal astronomical horizon because of terrain, buildings, trees, or atmospheric refraction.</p></article><article class="term-detail" id="lecture-01-term-03-panel" role="tabpanel" aria-labelledby="lecture-01-term-03-tab" hidden><h3>zenith</h3><p><strong>Definition:</strong> The point on the celestial sphere directly above an observer.</p><p><strong>Why it matters here:</strong> Objects near the zenith are viewed through less atmosphere than objects near the horizon.</p><p><strong>Relationships:</strong> The zenith has altitude \(90^\circ\); its position among the stars changes continuously as Earth rotates.</p><p><strong>Boundary or common confusion:</strong> Zenith is observer-specific: two separated observers generally have different zenith directions.</p><div class="term-visual equation">\[ h_{\rm zenith}=90^\circ \]</div></article><article class="term-detail" id="lecture-01-term-04-panel" role="tabpanel" aria-labelledby="lecture-01-term-04-tab" hidden><h3>meridian</h3><p><strong>Definition:</strong> The great circle passing through north, the zenith, and south on an observer&#x27;s sky.</p><p><strong>Why it matters here:</strong> A target crossing the meridian is usually at its greatest altitude for that day and is often best placed for observation.</p><p><strong>Relationships:</strong> Meridian crossing connects local sky geometry to hour angle and local sidereal time.</p><p><strong>Boundary or common confusion:</strong> Crossing the meridian does not guarantee visibility if the target culminates below the horizon or daylight is present.</p></article><article class="term-detail" id="lecture-01-term-05-panel" role="tabpanel" aria-labelledby="lecture-01-term-05-tab" hidden><h3>altitude</h3><p><strong>Definition:</strong> The angular height of an object above the local horizon.</p><p><strong>Why it matters here:</strong> Altitude determines whether a target is visible and strongly affects atmospheric extinction and image quality.</p><p><strong>Relationships:</strong> It ranges from \(0^\circ\) at the ideal horizon to \(90^\circ\) at the zenith and is paired with azimuth.</p><p><strong>Boundary or common confusion:</strong> Altitude changes with time and observer location, so it is not a permanent coordinate of a star.</p></article><article class="term-detail" id="lecture-01-term-06-panel" role="tabpanel" aria-labelledby="lecture-01-term-06-tab" hidden><h3>azimuth</h3><p><strong>Definition:</strong> The compass direction of an object measured around the local horizon, conventionally from north through east.</p><p><strong>Why it matters here:</strong> Together with altitude it gives an immediately usable pointing direction for naked-eye or telescope observations.</p><p><strong>Relationships:</strong> Azimuth is the horizontal coordinate in the altitude-azimuth system and changes as a celestial object follows its daily arc.</p><p><strong>Boundary or common confusion:</strong> Conventions can differ in other fields, so the zero direction and direction of increase must be stated.</p></article><article class="term-detail" id="lecture-01-term-07-panel" role="tabpanel" aria-labelledby="lecture-01-term-07-tab" hidden><h3>angular size</h3><p><strong>Definition:</strong> The angle an object spans at the observer, rather than its physical diameter.</p><p><strong>Why it matters here:</strong> Astronomers can measure angular size directly even when physical size or distance is unknown.</p><p><strong>Relationships:</strong> For small angles, physical size \(D\), distance \(d\), and angular size \(\theta\) satisfy \(D\approx d\theta\) when \(\theta\) is in radians.</p><p><strong>Boundary or common confusion:</strong> Large angular size does not necessarily mean large physical size; a nearby small object can appear larger than a distant giant object.</p><div class="term-visual equation">\[ D \approx d\theta\quad(\theta\ {\rm in\ radians}) \]</div></article></div></div></section>
   <section class="slide"><h2>Evidence We Need to Explain</h2><ul><li>Stars rise and set in repeatable arcs whose tilt depends on observer latitude.</li>
 <li>Some stars remain circumpolar, while others are visible only during particular seasons.</li>
 <li>Angular separations can be measured before distances are known, making angular geometry the first language of sky observation.</li></ul></section>
@@ -84,5 +91,34 @@ svg { width:100%; max-height:62vh; border:1px solid var(--line); background:#fff
 <li>What uncertainty belongs in your observing log?</li></ul></section>
     <section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax, <em>Astronomy 2e</em>: OpenStax Astronomy 2e, Chapter 2.1-2.2 on the sky above and celestial coordinates, with Chapter 1.2 on scientific reasoning.</li><li>Local reference copy: <code>references/openstax-astronomy-2e.pdf</code>.</li><li>Diagram: original explanatory schematic for this lecture&#x27;s physical or geometric model.</li></ul></section>
 </main>
+<script>
+document.querySelectorAll("[data-term-explorer]").forEach((explorer) => {
+  const tabs = [...explorer.querySelectorAll('[role="tab"]')];
+  const panels = [...explorer.querySelectorAll('[role="tabpanel"]')];
+  const select = (tab, moveFocus = false) => {
+    tabs.forEach((item) => {
+      const active = item === tab;
+      item.setAttribute("aria-selected", String(active));
+      item.tabIndex = active ? 0 : -1;
+    });
+    panels.forEach((panel) => { panel.hidden = panel.id !== tab.getAttribute("aria-controls"); });
+    if (moveFocus) tab.focus();
+  };
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => select(tab));
+    tab.addEventListener("keydown", (event) => {
+      if (!["ArrowDown", "ArrowUp", "ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      let nextIndex = index;
+      if (event.key === "Home") nextIndex = 0;
+      else if (event.key === "End") nextIndex = tabs.length - 1;
+      else if (event.key === "ArrowDown" || event.key === "ArrowRight") nextIndex = (index + 1) % tabs.length;
+      else nextIndex = (index - 1 + tabs.length) % tabs.length;
+      select(tabs[nextIndex], true);
+    });
+  });
+});
+</script>
+
 </body>
 </html>

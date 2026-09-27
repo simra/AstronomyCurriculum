@@ -25,13 +25,28 @@ figcaption,.small { color:var(--muted); font-size:.95rem; line-height:1.35; marg
 svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(--line); background:#fff; }
 .warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
 @media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+
+.term-explorer{display:grid;grid-template-columns:minmax(220px,.7fr) minmax(0,1.8fr);gap:28px;align-items:stretch;min-height:58vh}
+.term-list{display:flex;flex-direction:column;gap:10px}
+.term-button{width:100%;padding:12px 15px;border:2px solid var(--line);border-radius:8px;background:#fff;color:var(--navy);font:inherit;font-size:1.05rem;font-weight:700;text-align:left;cursor:pointer}
+.term-button:hover{border-color:var(--teal)}
+.term-button:focus-visible{outline:4px solid var(--gold);outline-offset:2px}
+.term-button[aria-selected="true"]{color:#fff;background:var(--teal);border-color:var(--teal)}
+.term-detail{border:1px solid var(--line);border-radius:10px;padding:20px 24px;background:var(--paper);overflow:auto}
+.term-detail h3{margin:0 0 10px;color:var(--teal);font-size:clamp(1.35rem,2.2vw,2rem)}
+.term-detail p{font-size:clamp(.96rem,1.35vw,1.22rem);margin:.55em 0}
+.term-detail[hidden]{display:none}
+.term-visual{font-size:1.12rem;padding:10px 14px;background:var(--teal-soft);border-left:4px solid var(--teal);margin-top:12px}
+@media(max-width:800px){.term-explorer{grid-template-columns:1fr}.term-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+@media print{.term-explorer{display:block;min-height:0}.term-list{display:none}.term-detail[hidden]{display:block}.term-detail{break-inside:avoid;margin:12px 0}}
 </style>
 </head>
 <body>
 <main class="deck">
 <section class="slide title"><p class="kicker">ASTR 120 · Lecture 04</p><h1>Planetary Interiors and Differentiation</h1><h2>Solar-system evidence, physics, and exploration</h2></section>
 <section class="slide"><h2>Why This Question Matters</h2><p>Seismology transformed Earth science; planetary missions extend similar inference to the Moon, Mars, and icy worlds.</p></section>
-<section class="slide"><h2>Learning Goals</h2><ul><li>Infer interior structure from mass, radius, density, and magnetic evidence.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section>
+<section class="slide"><h2>Learning Goals</h2><ul><li>Infer interior structure from mass, radius, density, and magnetic evidence.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section><section class="slide glossary-slide" aria-labelledby="l04-terms-heading"><h2 id="l04-terms-heading">Terms for This Lecture</h2><div class="term-explorer" data-term-explorer><div class="term-list" role="tablist" aria-label="Lecture 04 terms"><button class="term-button" id="l04-term-1-tab" type="button" role="tab" aria-selected="true" aria-controls="l04-term-1-panel" data-term-target="l04-term-1-panel" tabindex="0">Mean density</button><button class="term-button" id="l04-term-2-tab" type="button" role="tab" aria-selected="false" aria-controls="l04-term-2-panel" data-term-target="l04-term-2-panel" tabindex="-1">Differentiation</button><button class="term-button" id="l04-term-3-tab" type="button" role="tab" aria-selected="false" aria-controls="l04-term-3-panel" data-term-target="l04-term-3-panel" tabindex="-1">Moment of inertia</button><button class="term-button" id="l04-term-4-tab" type="button" role="tab" aria-selected="false" aria-controls="l04-term-4-panel" data-term-target="l04-term-4-panel" tabindex="-1">Gravity field</button><button class="term-button" id="l04-term-5-tab" type="button" role="tab" aria-selected="false" aria-controls="l04-term-5-panel" data-term-target="l04-term-5-panel" tabindex="-1">Dynamo</button><button class="term-button" id="l04-term-6-tab" type="button" role="tab" aria-selected="false" aria-controls="l04-term-6-panel" data-term-target="l04-term-6-panel" tabindex="-1">Heat flow</button></div><div class="term-details"><article class="term-detail" id="l04-term-1-panel" role="tabpanel" aria-labelledby="l04-term-1-tab"><h3>Mean density</h3><p><strong>Definition:</strong> The total mass of a world divided by the volume set by its mean radius.</p><p><strong>Why it matters and connects:</strong> It constrains broad rock, metal, ice, gas, and porosity fractions before a detailed interior model is attempted.</p><p><strong>Boundary or common confusion:</strong> Different mixtures and compression states can share the same mean density.</p><div class="term-visual">\(\bar{\rho}=3M/(4\pi R^3)\)</div></article><article class="term-detail" id="l04-term-2-panel" role="tabpanel" aria-labelledby="l04-term-2-tab" hidden><h3>Differentiation</h3><p><strong>Definition:</strong> Separation of materials into layers according to density and chemical affinity while part of a body is mobile or molten.</p><p><strong>Why it matters and connects:</strong> It explains metal-rich cores, silicate mantles, crusts, and the release or storage of heat-producing elements.</p><p><strong>Boundary or common confusion:</strong> A layered body need not be fully molten today, and later impacts or convection can modify the original layering.</p></article><article class="term-detail" id="l04-term-3-panel" role="tabpanel" aria-labelledby="l04-term-3-tab" hidden><h3>Moment of inertia</h3><p><strong>Definition:</strong> A measure of how mass is distributed relative to a rotation axis.</p><p><strong>Why it matters and connects:</strong> For a known mass and radius, the normalized moment of inertia helps distinguish centrally concentrated from nearly uniform interiors.</p><p><strong>Boundary or common confusion:</strong> It is usually inferred through rotational response or gravity measurements and is model-dependent when data are sparse.</p><div class="term-visual">\(I=C\,MR^2\)</div></article><article class="term-detail" id="l04-term-4-panel" role="tabpanel" aria-labelledby="l04-term-4-tab" hidden><h3>Gravity field</h3><p><strong>Definition:</strong> The spatial pattern of gravitational acceleration produced by a body&#x27;s total mass and its internal mass distribution.</p><p><strong>Why it matters and connects:</strong> Tracking spacecraft Doppler shifts and trajectories reveals departures from spherical symmetry, buried structures, and interior concentration.</p><p><strong>Boundary or common confusion:</strong> Gravity maps do not directly identify composition; several density distributions can reproduce similar fields.</p></article><article class="term-detail" id="l04-term-5-panel" role="tabpanel" aria-labelledby="l04-term-5-tab" hidden><h3>Dynamo</h3><p><strong>Definition:</strong> A process in which motion of electrically conducting fluid sustains a planetary magnetic field.</p><p><strong>Why it matters and connects:</strong> A field can indicate a conducting layer, energy to drive motion, and sufficient rotation or organization of flow.</p><p><strong>Boundary or common confusion:</strong> The absence of a present global field does not prove that a body never had a dynamo.</p></article><article class="term-detail" id="l04-term-6-panel" role="tabpanel" aria-labelledby="l04-term-6-tab" hidden><h3>Heat flow</h3><p><strong>Definition:</strong> Thermal energy crossing a unit area per unit time from a body&#x27;s interior toward its surface.</p><p><strong>Why it matters and connects:</strong> Heat flow constrains radioactive decay, leftover formation energy, differentiation, tidal dissipation, and the ability to sustain geology.</p><p><strong>Boundary or common confusion:</strong> Surface heat flow may vary spatially and does not identify the heat source by itself.</p><div class="term-visual">\(q=-k\,dT/dz\)</div></article></div></div></section>
 <section class="slide"><h2>Opening Phenomenon</h2><p>Density, gravity, magnetic fields, and heat flow reveal interiors we cannot sample directly.</p></section>
 <section class="slide"><h2>Interior Evidence Is Indirect</h2><div class="three"><article class="card"><p><strong>Density:</strong> average composition, not a layer-by-layer map.</p></article><article class="card"><p><strong>Shape and gravity:</strong> mass distribution and possible differentiated interiors.</p></article><article class="card"><p><strong>Magnetism:</strong> clues to conductive liquids, rotation, and present internal motion.</p></article></div></section>
 <section class="slide"><h2>Why Differentiation Happens</h2><p>When a young body is warm enough to partially melt, dense metal can sink and lighter silicate or ice can rise. Accretion energy, radioactive decay, and giant impacts all help determine whether a world separates into layers.</p></section>
@@ -56,5 +71,33 @@ svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(
 <section class="slide"><h2>Evidence Bridge: Magnetic Fields Need Mechanisms</h2><p>A magnetic field can be intrinsic, induced, or absent for different reasons. Distinguish a dynamo in a moving conductive layer from an induced response to a parent planet's field before turning magnetism into an interior claim.</p></section>
 <section class="slide"><h2>Synthesis: Interiors Are Model-Built</h2><ul><li>Mass and radius give the first compositional constraint.</li><li>Thermal history explains whether differentiation should occur.</li><li>Magnetism and gravity test whether the inferred layers are active or static today.</li></ul></section>
 <section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax Astronomy 2e solar-system chapters and local reference copy.</li><li>NASA/OpenStax/ESA sources recorded in reference-log.md where external visuals are used.</li></ul></section>
-</main></body>
+</main>
+<script data-astr120-term-explorer>
+document.querySelectorAll("[data-term-explorer]").forEach((explorer)=>{
+  const tabs=[...explorer.querySelectorAll('[role="tab"]')];
+  const panels=[...explorer.querySelectorAll('[role="tabpanel"]')];
+  const select=(tab,moveFocus=false)=>{
+    tabs.forEach((item)=>{
+      const active=item===tab;
+      item.setAttribute("aria-selected",String(active));
+      item.tabIndex=active?0:-1;
+    });
+    panels.forEach((panel)=>{panel.hidden=panel.id!==tab.getAttribute("aria-controls");});
+    if(moveFocus)tab.focus();
+  };
+  tabs.forEach((tab,index)=>{
+    tab.addEventListener("click",()=>select(tab));
+    tab.addEventListener("keydown",(event)=>{
+      if(!["ArrowDown","ArrowUp","ArrowRight","ArrowLeft","Home","End"].includes(event.key))return;
+      event.preventDefault();
+      let next=index;
+      if(event.key==="Home")next=0;
+      else if(event.key==="End")next=tabs.length-1;
+      else next=(index+(["ArrowDown","ArrowRight"].includes(event.key)?1:-1)+tabs.length)%tabs.length;
+      select(tabs[next],true);
+    });
+  });
+});
+</script>
+</body>
 </html>

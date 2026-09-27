@@ -10,6 +10,8 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 
+from validate_term_explorers import validate_all as validate_term_explorers
+
 ROOT = Path(__file__).resolve().parents[1]
 REPO = ROOT.parents[1]
 C = 299_792_458.0
@@ -215,7 +217,8 @@ def main() -> None:
     verify_lecture_examples_and_figures()
     verify_assignments()
     verify_index_titles()
-    print("ASTR 472 independent validation passed: files/counts, HTML/local links, 14 lecture calculations, 14 unique SVG geometries, assignment/solution sets, and index-title agreement where assembled.")
+    terms = validate_term_explorers(ROOT)
+    print(f"ASTR 472 independent validation passed: files/counts, HTML/local links, 14 lecture calculations, 14 unique SVG geometries, assignment/solution sets, index-title agreement where assembled, and {terms['lecturePairs']} term-explorer/note pairs ({terms['terms']} terms).")
 
 
 if __name__ == "__main__":

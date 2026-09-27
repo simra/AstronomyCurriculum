@@ -21,7 +21,28 @@ DATA = ROOT / "data"
 CSS = """
 :root{--ink:#17202a;--muted:#5b6773;--paper:#fbfcfd;--panel:#fff;--line:#d9e0e7;--navy:#102a43;--teal:#0f6b78;--teal-soft:#e5f4f6;--gold:#b87911;--warning:#8a4b08}*{box-sizing:border-box}body{margin:0;font-family:Georgia,'Times New Roman',serif;color:var(--ink);background:var(--paper);line-height:1.6}header{padding:38px 24px 26px;background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff}header div,main{max-width:1080px;margin:0 auto}main{padding:30px 24px 64px}h1,h2,h3{line-height:1.15}h1{margin:0 0 8px;font-size:clamp(2rem,4vw,3.2rem)}h2{margin-top:34px;color:var(--navy);border-bottom:2px solid var(--line);padding-bottom:8px}h3{color:var(--teal)}section,article.problem{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px 18px;margin:16px 0}.notice{border-left:5px solid var(--teal);background:var(--teal-soft)}table{width:100%;border-collapse:collapse;margin:14px 0}th,td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}th{background:var(--teal-soft)}code{background:#eef3f5;padding:1px 4px;border-radius:3px}a{color:var(--teal);font-weight:700}.small{color:var(--muted);font-size:.94rem}.figure{margin:18px 0}.figure svg{width:100%;height:300px;border:1px solid var(--line);background:#fff}.figure figcaption{color:var(--muted);font-size:.94rem}.equation{padding:12px 16px;border-left:5px solid var(--teal);background:var(--teal-soft);overflow:auto}
 """
-SLIDE_CSS = CSS + ".deck{scroll-snap-type:y mandatory;height:100vh;overflow-y:auto}.slide{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;padding:46px 7vw;border-bottom:1px solid var(--line);background:#fff}.title{background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff}.title h2{color:#fff}.slide h2{font-family:'Aptos','Segoe UI',sans-serif;font-size:clamp(1.8rem,3.2vw,3.1rem);margin:0 0 20px}.slide p,.slide li{font-size:clamp(1.02rem,1.35vw,1.35rem);line-height:1.38}.grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}.figure svg{height:50vh;max-height:480px}.prompt{border-left:5px solid var(--gold);padding:14px 18px;background:#fff8e8}.kicker{color:var(--gold);text-transform:uppercase;letter-spacing:.08em;font-weight:700}.credit{color:var(--muted);font-size:.9rem}@media print{.deck{height:auto;overflow:visible}.slide{min-height:7.5in;page-break-after:always}}"
+SLIDE_CSS = CSS + ".deck{scroll-snap-type:y mandatory;height:100vh;overflow-y:auto}.slide{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;padding:46px 7vw;border-bottom:1px solid var(--line);background:#fff}.title{background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff}.title h2{color:#fff}.slide h2{font-family:'Aptos','Segoe UI',sans-serif;font-size:clamp(1.8rem,3.2vw,3.1rem);margin:0 0 20px}.slide p,.slide li{font-size:clamp(1.02rem,1.35vw,1.35rem);line-height:1.38}.grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}.figure svg{height:50vh;max-height:480px}.prompt{border-left:5px solid var(--gold);padding:14px 18px;background:#fff8e8}.kicker{color:var(--gold);text-transform:uppercase;letter-spacing:.08em;font-weight:700}.credit{color:var(--muted);font-size:.9rem}.term-explorer{display:grid;grid-template-columns:minmax(210px,.72fr) minmax(0,1.8fr);gap:24px;align-items:stretch;min-height:58vh}.term-list{display:flex;flex-direction:column;gap:9px}.term-button{width:100%;padding:12px 14px;border:2px solid var(--line);border-radius:8px;background:#fff;color:var(--navy);font:inherit;font-size:1.02rem;font-weight:700;text-align:left;cursor:pointer}.term-button:hover{border-color:var(--teal)}.term-button:focus-visible{outline:4px solid var(--gold);outline-offset:2px}.term-button[aria-selected='true']{color:#fff;background:var(--teal);border-color:var(--teal)}.term-detail{border:1px solid var(--line);border-radius:10px;padding:20px 24px;background:var(--paper);overflow:auto}.term-detail h3{margin-top:0;font-size:clamp(1.35rem,2.2vw,2rem)}.term-detail p{font-size:clamp(.95rem,1.2vw,1.18rem)}.term-detail[hidden]{display:none}@media(max-width:800px){.term-explorer{grid-template-columns:1fr}.term-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.slide{padding:34px 5vw}}@media print{.deck{height:auto;overflow:visible}.slide{min-height:7.5in;page-break-after:always}.term-explorer{display:block}.term-list{display:none}.term-detail[hidden]{display:block}.term-detail{break-inside:avoid;margin:12px 0}}"
+
+TERM_EXPLORER_SCRIPT = """<script>
+document.querySelectorAll("[data-term-explorer]").forEach((explorer) => {
+  const tabs = [...explorer.querySelectorAll('[role="tab"]')];
+  const panels = [...explorer.querySelectorAll('[role="tabpanel"]')];
+  const select = (tab) => {
+    tabs.forEach((item) => item.setAttribute("aria-selected", String(item === tab)));
+    panels.forEach((panel) => { panel.hidden = panel.id !== tab.dataset.termTarget; });
+  };
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => select(tab));
+    tab.addEventListener("keydown", (event) => {
+      if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : (index + (event.key === "ArrowDown" ? 1 : -1) + tabs.length) % tabs.length;
+      tabs[nextIndex].focus();
+      select(tabs[nextIndex]);
+    });
+  });
+});
+</script>"""
 
 G = 6.67430e-11
 KPC_M = 3.085677581e19
@@ -123,7 +144,7 @@ LECTURE_DATA = [
 ("From Light to Orbits: Galactic Coordinates and Distances", "Convert observables into positions and velocities while tracking degeneracies.", "distance ladders and coordinate transforms", "Gaia turns angular measurements into phase-space samples, but distance and extinction remain coupled.", r"\(v_t=4.74047\,\mu\,d\)", "A proper motion of 2.5 mas yr^-1 at 1.6 kpc implies a tangential speed computed from the conversion constant.", "coordinate geometry", "Parallax inversion is biased at low signal-to-noise; a prior is not a measurement."),
 ("Stellar Populations as Fossils of Formation", "Use color-magnitude diagrams and abundance patterns to distinguish populations.", "main sequence, age, and metallicity", "A color-magnitude diagram is a time-integrated record of star formation, enrichment, and selection.", r"\([\mathrm{Fe/H}]=\log_{10}(N_{Fe}/N_H)-\log_{10}(N_{Fe}/N_H)_\odot\)", "Compare the iron abundance ratio for [Fe/H]=-1.55 with solar composition.", "population histogram", "Age-metallicity degeneracy means one photometric color rarely identifies an age uniquely."),
 ("Stellar Motions and the Galactic Phase Space", "Interpret proper motions, radial velocities, and velocity ellipsoids.", "6D phase space and asymmetric drift", "The disk is not a rigid carousel: random motions encode heating, birth conditions, and resonances.", r"\(v_t=4.74047\,\mu d\),  \quad \sigma_R>\sigma_\phi>\sigma_z\)", "Compute tangential speed for a 1.8 mas yr^-1 star at 2.4 kpc and compare it with disk dispersions.", "velocity vector", "A large proper motion can mean proximity rather than extreme space velocity."),
-("The Rotation Curve and the Missing Mass", "Derive enclosed mass from circular motion and identify the flat-curve anomaly.", "circular speed and mass", "Rotation curves made the mass problem quantitative: outer disk speeds do not fall as a luminous point-mass model predicts.", r"\(M(<R)=Rv_c^2/G\)", "Use R=8.2 kpc and v_c=232 km s^-1 to estimate the enclosed mass.", "rotation curve", "The inference is mass within radius, not a direct photograph of dark matter."),
+("The Rotation Curve and the Missing Mass", "Derive enclosed mass from circular motion and identify the flat-curve anomaly.", "circular speed and mass", "Rotation curves made the mass problem quantitative: outer disk speeds do not fall as a luminous point-mass model predicts.", r"\(M(\lt R)=Rv_c^2/G\)", "Use R=8.2 kpc and v_c=232 km s^-1 to estimate the enclosed mass.", "rotation curve", "The inference is mass within radius, not a direct photograph of dark matter."),
 ("Spiral Structure, Bars, and Galactic Resonances", "Explain spiral arms as patterns and locate resonances with orbital frequencies.", "density waves, bars, and pattern speed", "Stars cross spiral arms; the arm is a gravitational pattern whose speed need not equal the local circular speed.", r"\(m(\Omega-\Omega_p)=\kappa\)", "At a flat rotation curve, evaluate the orbital period at 8.2 kpc and discuss a plausible pattern speed.", "spiral pattern", "A density-wave picture is a model family; transient and recurrent arms remain active research topics."),
 ("Chemical Evolution of the Galactic Disk", "Connect gas flows, star formation, yields, and abundance gradients.", "closed-box limits and leaky evolution", "Metallicity is not merely a label: it records the competition among enrichment, inflow, outflow, and stellar lifetimes.", r"\(Z=y\ln(1/\mu)\)", "For yield y=0.020 and gas fraction mu=0.35, compute the closed-box metallicity and test its assumption.", "chemical cycle", "The closed-box model is pedagogical; inflow and outflow are required by observed populations."),
 ("Dark Matter Halos and the Local Mass Budget", "Compare baryonic and halo mass profiles and test halo models.", "halo density laws and dynamical evidence", "The same mass discrepancy appears in rotation, satellites, lensing, and structure formation, but each probe has distinct systematics.", r"\(\rho_{NFW}(r)=\rho_s/[x(1+x)^2]\)", "Compare the enclosed mass from the local circular speed with a baryonic benchmark and state what is actually inferred.", "halo geometry", "A flat curve alone does not determine a unique halo profile."),
@@ -135,6 +156,107 @@ LECTURE_DATA = [
 ("A Working Synthesis: What Makes a Galaxy?", "Integrate structure, populations, dynamics, chemistry, and comparison into a defensible model.", "evidence-weighted Galactic astronomy", "No single map explains the Galaxy; a credible model survives independent checks across tracers.", r"\(\mathcal{M}=\{\rho_\star,\rho_{DM},\Phi,\mathrm{SFH},Z(r)\}\)", "Compare a disk-plus-halo explanation against a baryons-only rotation curve and identify the strongest discriminant.", "galaxy decomposition", "Model comparison is conditional on assumptions and data quality; residuals are evidence, not failure."),
 ]
 
+# Term, definition, lecture significance, relationship, and limitation/common confusion.
+TERMS_DATA = [
+[
+("Galactocentric coordinates", "A position system whose origin is the Galactic center, commonly expressed by cylindrical \\(R,\\phi,z\\) or Cartesian axes.", "It lets us describe Milky Way structure without confusing the Sun's off-center viewpoint with the Galaxy's intrinsic geometry.", "The coordinates turn heliocentric distance and sky direction into the \\(R\\) and \\(z\\) used by density models.", "The transformation depends on adopted solar position and orientation; it is not a direct observable."),
+("Thin disk", "The flattened, dynamically cold stellar and gaseous component concentrated near the Galactic mid-plane.", "It contains much of the current star formation and supplies the baseline population for the vertical-density calculation.", "Its characteristic scale height enters \\(\\rho(z)=\\rho_0e^{-|z|/h}\\) and differs by tracer age.", "Thin disk is a population model, not a sharply bounded physical sheet."),
+("Thick disk", "A vertically extended, kinematically hotter disk population with older stars and distinct abundance trends.", "Contrasting it with the thin disk shows why one exponential cannot represent every stellar sample.", "A two-component density model sums exponentials with different scale heights and normalizations.", "It should not be identified by height alone because disk populations overlap in chemistry and motion."),
+("Bulge", "The centrally concentrated stellar component occupying the inner few kiloparsecs, including a barred or box-peanut structure.", "It is one of the major components that a Galactic mass and light model must separate.", "Bulge star counts and infrared surface brightness constrain central density but overlap the disk along many sightlines.", "Bulge does not mean a simple spherical classical bulge."),
+("Stellar halo", "A diffuse, approximately spheroidal population of old, metal-poor stars extending far beyond the disk.", "It provides tracers of the Galaxy's outer structure and assembly while contributing little of the total stellar light.", "Halo density is inferred from selected tracers such as RR Lyrae and relates to, but is not the same as, the dark-matter halo.", "Stellar halo and dark-matter halo are distinct components with different observables."),
+],
+[
+("Galactic longitude and latitude", "Angular sky coordinates \\((l,b)\\) aligned with the Galactic plane and center direction.", "They specify a sightline from the Sun before distance converts that direction into a three-dimensional position.", "Together with distance, \\(l\\) and \\(b\\) map into Galactocentric coordinates and projected velocity components.", "They are heliocentric angles and do not by themselves locate a star in the Galaxy."),
+("Parallax", "The apparent annual angular displacement caused by Earth's orbital baseline, with distance approximately inverse to parallax at high signal-to-noise.", "It anchors Gaia distances that are needed to turn angles and proper motions into Galactic positions and speeds.", "Distance enters \\(v_t=4.74047\\mu d\\), so parallax uncertainty propagates directly into tangential velocity.", "Naively inverting a noisy or non-positive measured parallax produces biased distances."),
+("Proper motion", "A source's angular velocity across the sky, usually reported in milliarcseconds per year.", "It supplies two transverse components of stellar motion measured by astrometry.", "Multiplication by distance through \\(v_t=4.74047\\mu d\\) converts angular motion into km s\\(^{-1}\\).", "A large proper motion may indicate a nearby star rather than an unusually fast one."),
+("Radial velocity", "The line-of-sight velocity inferred primarily from Doppler shifts of spectral features.", "It complements proper motion to recover a star's three-dimensional velocity.", "Combining radial velocity with distance and proper motion yields phase-space coordinates after correcting for solar motion.", "It is one projected component and can include binary orbital motion."),
+("Extinction", "Wavelength-dependent attenuation and reddening of starlight by interstellar dust.", "It couples apparent brightness and color to distance, especially in disk and central sightlines.", "Distance modulus must include an extinction term, while multiband colors can help constrain the dust correction.", "Extinction is not the same as geometric dimming and is not uniform across the sky."),
+],
+[
+("Color-magnitude diagram", "A plot of stellar luminosity or absolute magnitude against a color index that traces temperature.", "Its morphology encodes the age, composition, distance, and selection of a stellar population.", "Isochrones map stellar-evolution models onto the observed main sequence, turnoff, and giant branch.", "A CMD is not a literal evolutionary track followed by one star."),
+("Main-sequence turnoff", "The CMD location where stars of a population begin exhausting core hydrogen and leave the main sequence.", "It is one of the most age-sensitive features available for resolved stellar populations.", "Turnoff luminosity is compared with isochrones at an assumed metallicity and distance.", "Age, metallicity, binaries, and photometric errors can shift or broaden the turnoff."),
+("Metallicity [Fe/H]", "A logarithmic iron-to-hydrogen abundance relative to the Sun: \\([\\mathrm{Fe/H}]=\\log_{10}(N_{\\rm Fe}/N_{\\rm H})-\\log_{10}(N_{\\rm Fe}/N_{\\rm H})_\\odot\\).", "It distinguishes broad Galactic populations and records chemical enrichment.", "A value of -1.55 means about \\(10^{-1.55}\\) of the solar iron-to-hydrogen ratio.", "It is not the fraction of all heavy elements and does not uniquely specify an age."),
+("Isochrone", "A model locus in a CMD for stars of one age and initial chemical composition but different masses.", "It links stellar-evolution theory to observed population ages and metallicities.", "Fitting an isochrone requires distance, extinction, abundance, and a treatment of binaries and completeness.", "A visually good fit is not unique when age-metallicity-extinction degeneracies are present."),
+("Selection function", "The probability that an object with given properties enters the observed sample.", "Population fractions and CMD shapes cannot be interpreted without knowing which stars the survey could detect.", "It connects the underlying stellar distribution to the catalogue likelihood and completeness corrections.", "The observed sample is not automatically representative of the Galactic population."),
+],
+[
+("Phase space", "The six-dimensional specification of three positions and three velocities for each star.", "Galactic dynamics predicts how stellar distributions evolve in this space rather than on a sky map alone.", "Gaia astrometry plus radial velocities approximates 6D phase-space coordinates after coordinate transformations.", "A catalogue with six reported numbers still has correlated errors and selection effects."),
+("Velocity ellipsoid", "A covariance description of the distribution of stellar velocities along chosen axes.", "Its axis lengths and orientation quantify random motions, disk heating, and population differences.", "Disk populations often satisfy \\(\\sigma_R>\\sigma_\\phi>\\sigma_z\\), linking dispersions to epicyclic dynamics.", "It describes a distribution, not a solid object or a single star's orbit."),
+("Asymmetric drift", "The lag of a pressure-supported stellar population's mean rotation behind the local circular speed.", "It explains why hotter populations rotate more slowly even in the same gravitational potential.", "The lag is related through the Jeans equations to radial dispersion and density gradients.", "It is not evidence that every lagging star belongs to the halo."),
+("Solar motion", "The Sun's velocity relative to a chosen local standard of rest or Galactic reference frame.", "Observed stellar velocities must be corrected for the observer's own motion before Galactic patterns are inferred.", "It enters transformations from heliocentric radial velocity and proper motion to Galactocentric components.", "Different reference-frame conventions produce different quoted solar-motion values."),
+("Tangential velocity", "The linear component of motion perpendicular to the line of sight.", "It is the physical speed inferred from angular proper motion and distance.", "The conversion \\(v_t=4.74047\\mu d\\) couples astrometric and distance uncertainties.", "Tangential speed alone is not the total space speed."),
+],
+[
+("Rotation curve", "The circular speed \\(v_c(R)\\) inferred as a function of Galactocentric radius.", "Its outer shape is the central dynamical evidence for mass beyond the luminous disk.", "Under an idealized spherical interpretation, \\(M(\\lt R)=Rv_c^2/G\\).", "A rotation curve is inferred from tracers and geometry; it is not a direct plot of all stellar orbital speeds."),
+("Circular speed", "The speed required for a circular orbit in a specified gravitational potential at a given radius.", "It links the measured kinematics to the radial gravitational force.", "It satisfies \\(v_c^2=R\\,\\partial\\Phi/\\partial R\\) in an axisymmetric mid-plane model.", "It differs from the mean azimuthal speed of a population with random motion."),
+("Enclosed mass", "The mass inside radius \\(R\\) that produces the inferred gravitational acceleration under a stated geometry.", "It converts a flat outer rotation curve into a growing dynamical mass estimate.", "For spherical symmetry, \\(M(\\lt R)=Rv_c^2/G\\), so constant \\(v_c\\) implies \\(M\\propto R\\).", "The simple formula is not exact for a flattened disk and does not separate baryons from dark matter."),
+("Baryonic mass", "Mass in ordinary matter, chiefly stars and gas, that emits, absorbs, or otherwise interacts electromagnetically.", "Its predicted gravitational contribution can be compared with the observed rotation curve.", "Stellar mass-to-light ratios and gas maps build the baryonic rotation model.", "Baryonic mass is not identical to visible light because faint stars and cold gas also contribute."),
+("Dark matter", "A non-luminous mass component inferred from gravity whose distribution extends beyond the stellar disk.", "It provides the standard explanation for flat outer rotation curves and multiple independent dynamical probes.", "A halo contribution is added in quadrature to bulge, disk, and gas contributions to \\(v_c^2\\).", "A mass discrepancy establishes missing gravity under the model, not a direct image or unique particle identity."),
+],
+[
+("Pattern speed", "The angular rate \\(\\Omega_p\\) at which a bar or spiral pattern rotates.", "It separates the motion of the density pattern from the orbital angular speed of individual stars and gas.", "Resonances occur where combinations of \\(\\Omega-\\Omega_p\\) and epicyclic frequency \\(\\kappa\\) match.", "Stars do not generally remain attached to the same spiral arm."),
+("Epicyclic frequency", "The frequency \\(\\kappa\\) of small radial oscillations about a nearly circular guiding-center orbit.", "It provides the dynamical clock used to locate Lindblad resonances.", "For an \\(m\\)-armed pattern, resonance conditions involve \\(m(\\Omega-\\Omega_p)=\\pm\\kappa\\).", "The approximation is least reliable for strongly eccentric or chaotic orbits."),
+("Corotation resonance", "The radius where the orbital angular frequency equals the pattern speed, \\(\\Omega=\\Omega_p\\).", "At corotation, a star sees the pattern as approximately stationary and can exchange angular momentum efficiently.", "It lies between inner and outer resonance regions and helps constrain bar or spiral dynamics.", "Corotation is a radius or zone, not proof that material and pattern permanently co-rotate."),
+("Lindblad resonance", "A resonance where radial epicyclic motion and passage through an \\(m\\)-fold pattern are commensurate.", "It organizes orbital responses, rings, heating, and angular-momentum transfer.", "The idealized conditions are \\(m(\\Omega-\\Omega_p)=\\pm\\kappa\\) for inner and outer resonances.", "Sign conventions vary, and real bars can make the weak-perturbation picture incomplete."),
+("Density wave", "A coherent overdensity pattern that propagates through disk material rather than consisting of permanently bound arm stars.", "It explains how spiral structure can persist longer than the differential-rotation winding time.", "Gas compression and star formation can trace the phase of the gravitational pattern with offsets.", "Not all spirals are steady waves; transient and recurrent arms are viable alternatives."),
+],
+[
+("Metal yield", "The mass of newly synthesized heavy elements returned to gas per unit mass locked into long-lived stars, under a stated convention.", "It sets the enrichment scale in the closed-box relation \\(Z=y\\ln(1/\\mu)\\).", "Yield combines stellar nucleosynthesis with an assumed initial mass function and return fraction.", "It is an effective model parameter, not the metallicity of an individual star."),
+("Gas fraction", "The fraction \\(\\mu\\) of a system's relevant baryonic mass that remains in gas.", "It tracks how much fuel is available and controls closed-box metallicity growth.", "As \\(\\mu\\) declines, the idealized model predicts \\(Z=y\\ln(1/\\mu)\\).", "The definition depends on the adopted boundary and ignores uncounted or ionized phases if the inventory is incomplete."),
+("Closed-box model", "A one-zone chemical-evolution model with no inflow or outflow and instantaneous, well-mixed recycling.", "It supplies a transparent benchmark against which observed abundance distributions can be tested.", "Its metallicity relation connects yield and gas fraction without a detailed star-formation history.", "Real Galactic disks exchange gas and violate instantaneous mixing and recycling assumptions."),
+("Inflow", "Gas accretion into the modeled Galactic region.", "Low-metallicity inflow can sustain star formation and dilute enriched interstellar gas.", "In chemical-evolution equations it adds gas and metals at an external composition.", "Inflow cannot be inferred from low metallicity alone because yields and outflows are degenerate."),
+("Abundance gradient", "A systematic change in elemental abundance with Galactocentric radius or height.", "It constrains inside-out growth, gas flows, enrichment, and radial migration.", "The slope \\(d[\\mathrm{Fe/H}]/dR\\) links stellar or gas tracers to chemical-evolution models.", "Different ages and tracers can have different gradients, so one slope is not universal."),
+],
+[
+("Dark-matter halo", "The extended gravitating component surrounding a galaxy and dominating its mass at large radii in standard models.", "It connects local rotation evidence to satellite motions, lensing, and cosmological structure formation.", "Its density profile determines the halo contribution to the circular-speed curve.", "It is distinct from the sparse stellar halo and its shape is not fixed by one probe."),
+("NFW profile", "A cusped spherical density law \\(\\rho=\\rho_s/[x(1+x)^2]\\), with \\(x=r/r_s\\), motivated by collisionless simulations.", "It provides a standard parameterized halo model for comparison with dynamical data.", "The scale density \\(\\rho_s\\) and scale radius \\(r_s\\) set concentration and enclosed mass.", "Baryonic evolution and limited radial data can make an NFW fit non-unique."),
+("Local mass density", "The total gravitating mass per unit volume near the Sun.", "Vertical stellar motions constrain the combined local inventory of stars, gas, and dark matter.", "The vertical Jeans and Poisson equations connect tracer density and velocity dispersion to gravitational density.", "It is not the same quantity as mass enclosed inside the solar circle."),
+("Mass decomposition", "The separation of an observed gravitational field into bulge, disk, gas, and halo contributions.", "It tests whether known baryons can account for the rotation curve and local force.", "Component contributions add through the potential, often displayed as contributions to \\(v_c^2\\).", "Different stellar mass-to-light ratios can trade off against halo parameters."),
+("Dynamical tracer", "An object population whose positions and velocities respond to the gravitational potential.", "Stars, gas, and satellites probe different radii and systematic uncertainties.", "A tracer distribution enters Jeans, orbit, or rotation models rather than equaling the mass distribution.", "Tracer density need not follow total mass density."),
+],
+[
+("Sgr A*", "The compact radio source at the Milky Way's dynamical center, associated with the central supermassive black hole.", "It defines the focus of short-period stellar orbits used to measure the central mass.", "Orbital semimajor axes and periods constrain enclosed mass through Kepler's law.", "The radio source's faint emission does not imply a low black-hole mass."),
+("Keplerian orbit", "An orbit governed predominantly by a central point mass, with period and semimajor axis related by \\(M=4\\pi^2a^3/(GP^2)\\).", "Near Sgr A*, stellar trajectories provide a direct dynamical mass measurement.", "Departures from a pure Kepler ellipse can test extended mass and relativistic effects.", "The observed angular orbit still requires distance and projection modeling."),
+("Extinction window", "A wavelength range or sightline where dust attenuation is reduced enough to reveal the Galactic center.", "Near-infrared observations penetrate dust that blocks optical views of the nuclear region.", "The extinction law converts observed colors and fluxes into intrinsic stellar properties.", "Infrared reduces but does not eliminate extinction or source confusion."),
+("Nuclear star cluster", "The dense stellar system surrounding Sgr A* within the central few parsecs.", "It supplies orbital tracers and contributes extended mass around the black hole.", "Its luminosity and kinematics must be modeled alongside the point-mass potential.", "It is not synonymous with the bulge, which occupies a much larger volume."),
+("Enclosed central mass", "The total gravitating mass inside a stellar orbit near the Galactic center.", "Consistency among multiple stellar orbits demonstrates a compact mass of millions of solar masses.", "Kepler's relation estimates the dominant mass when the orbit lies inside most extended material.", "Dynamics establishes compactness and mass but does not alone specify the accretion physics."),
+],
+[
+("Local Group", "The gravitationally associated collection dominated by the Milky Way and M31, together with M33 and many dwarf galaxies.", "It supplies nearby comparative laboratories for galaxy structure and environmental effects.", "Member positions and velocities constrain group dynamics and future Milky Way-M31 interaction.", "Its boundary and membership are not perfectly sharp or necessarily virialized."),
+("Dwarf satellite", "A low-luminosity galaxy gravitationally associated with a more massive host.", "Satellites trace halo mass, tidal processing, and the small-scale galaxy population.", "Their velocity dispersions and orbital distributions enter dynamical mass estimates.", "A high mass-to-light ratio can be sensitive to membership and binary contamination."),
+("Virial mass estimator", "An approximate mass relation based on characteristic size and velocity dispersion, such as \\(M\\sim5R\\sigma^2/G\\).", "It turns group or satellite kinematics into an order-of-magnitude dynamical mass.", "The estimator follows from the virial theorem under equilibrium and structural assumptions.", "It is unreliable for sparse, anisotropic, or non-equilibrium systems."),
+("Velocity dispersion", "The statistical spread of member velocities about their mean motion.", "It measures random kinetic support in groups and pressure-supported galaxies.", "Together with a scale radius, \\(\\sigma\\) controls virial and Jeans mass estimates.", "Dispersion is not the same as measurement error or ordered rotation."),
+("Environmental transformation", "Change in a galaxy's gas, star formation, or morphology driven by interactions with its surroundings.", "Local Group dwarfs show how tides, ram pressure, and host proximity shape evolution.", "Comparisons of gas content and star-formation history with distance from a host test environmental models.", "Correlation with host distance does not by itself identify a unique mechanism."),
+],
+[
+("Tully-Fisher relation", "An empirical correlation between a disk galaxy's luminosity or baryonic mass and characteristic rotation speed.", "It constrains galaxy formation and can provide relative distances when calibrated.", "A common form is \\(L\\propto v_c^\\alpha\\), with slope and scatter depending on observable choices.", "It is a statistical relation, not an exact law for every galaxy."),
+("Characteristic rotation speed", "A consistently defined velocity measure, often from the flat part or width of a rotation curve.", "It is the kinematic coordinate of the Tully-Fisher relation.", "Inclination-corrected spectral line width can serve as a proxy for \\(v_c\\).", "Mixing velocity definitions changes the fitted slope and scatter."),
+("Mass-to-light ratio", "The ratio of inferred mass to emitted luminosity in a specified band.", "It links observed light to stellar mass and helps interpret scaling-relation residuals.", "Population synthesis predicts stellar mass-to-light ratio from age, metallicity, and IMF assumptions.", "It is band-dependent and does not automatically include dark matter."),
+("Intrinsic scatter", "The astrophysical dispersion around a relation remaining after measurement errors are accounted for.", "It determines both the physical informativeness and distance precision of a scaling relation.", "Likelihood models separate observational uncertainty from a population-level scatter term.", "Observed scatter is not all intrinsic if errors or selection are misspecified."),
+("Inclination correction", "The geometric conversion from projected line-of-sight rotation to the disk-plane speed.", "It is essential because a face-on disk shows little Doppler rotation even when rotating rapidly.", "For an ideal disk, observed amplitude scales approximately as \\(v_c\\sin i\\).", "Small inclination errors become severe near face-on orientation."),
+],
+[
+("Likelihood", "A model for the probability of the observed data as a function of parameters, \\(p(D|\\theta)\\).", "It encodes the measurement uncertainties used to compare Galactic models with survey data.", "For independent Gaussian rotation points it is related to a chi-square residual sum.", "A convenient likelihood can be precise yet wrong if errors are correlated or non-Gaussian."),
+("Prior", "A probability distribution for parameters before conditioning on the current data.", "It regularizes underconstrained distance and Galactic-structure inferences and makes assumptions explicit.", "Bayes' theorem combines it with the likelihood to form \\(p(\\theta|D)\\).", "A prior is not an additional observation, and an apparently weak prior can matter with sparse data."),
+("Posterior", "The probability distribution of model parameters after combining likelihood and prior.", "It summarizes parameter estimates, uncertainty, and covariance for the adopted model.", "Posterior predictive checks connect inferred parameters back to observable catalogues.", "A narrow posterior does not protect against a misspecified model or selection function."),
+("Selection function", "The probability that an astronomical source is detected and retained as a function of its properties.", "It is part of the data-generating process and must enter population inference.", "The predicted underlying population is multiplied by selection before comparison with a catalogue.", "Cuts applied by the analyst are part of the selection, not harmless bookkeeping."),
+("Posterior predictive check", "A comparison between data simulated from the fitted posterior model and the actual observations.", "It tests whether the model reproduces features beyond the fitted parameter summary.", "Residual distributions, trends, and replicated catalogues reveal model-data mismatch.", "Passing selected checks does not prove the model unique or physically true."),
+],
+[
+("Stellar stream", "A coherent, elongated structure of stars stripped from a cluster or dwarf galaxy along its orbit.", "Streams preserve phase-space evidence of accretion and probe the Galactic potential.", "Their track, distance, velocities, and width are compared with orbit or disruption models.", "A stream is not exactly one orbit because stripping occurs over time and stars have finite dispersion."),
+("Accretion event", "The incorporation and tidal disruption of a smaller stellar system by the Milky Way.", "It contributes stars, clusters, and dark matter while leaving kinematic and chemical substructure.", "Common integrals of motion and abundance patterns can associate debris with a progenitor.", "A named debris structure may combine multiple events or overlap in projected phase space."),
+("Chemical tagging", "The probabilistic association of stars through multidimensional elemental-abundance patterns.", "It can connect dispersed stars to shared formation environments after spatial coherence is lost.", "Abundance vectors complement ages and orbital information in archaeology.", "Similar chemistry is not a unique birth certificate because enrichment pathways overlap."),
+("Radial migration", "A lasting change in a disk star's guiding-center radius, often driven by resonant interactions.", "It mixes stars born at different radii and blurs present-day chemical gradients.", "Migration connects spiral or bar resonances to the age-metallicity-radius distribution.", "It differs from epicyclic blurring, which changes instantaneous radius without shifting the guiding center."),
+("Lookback time", "The elapsed time between emitted light or a past formation event and the present epoch.", "It places stellar ages and assembly episodes on a common temporal axis.", "For a formation time \\(t_{\\rm formation}\\), \\(t_{\\rm lookback}=t_0-t_{\\rm formation}\\).", "For Galactic stars it is usually an age inference, not a cosmological light-travel measurement."),
+],
+[
+("Tracer", "An observable population or signal used to constrain an underlying Galactic property.", "Synthesis depends on comparing stars, gas, abundances, lensing, and satellites that respond differently.", "Each tracer connects to model components through its own measurement equation and selection function.", "A tracer distribution is not automatically the mass distribution it probes."),
+("Gravitational potential", "The scalar field \\(\\Phi\\) whose gradient determines gravitational acceleration and orbital motion.", "It is the common dynamical object that disk, bulge, and halo mass models must reproduce.", "Circular speed satisfies \\(v_c^2=R\\,\\partial\\Phi/\\partial R\\), while stellar orbits sample more dimensions.", "Different density decompositions can generate similar potentials over the observed region."),
+("Star-formation history", "The rate at which a galaxy formed stars as a function of time and, often, position.", "It links present-day populations to gas supply, feedback, and assembly.", "CMD fitting and abundance distributions constrain \\(\\mathrm{SFH}\\) with stellar-evolution models.", "It is model-dependent and limited by age resolution and selection."),
+("Model residual", "The signed difference between an observation and the corresponding model prediction.", "Residual structure identifies missing physics, calibration errors, or inappropriate assumptions.", "Residuals normalized by uncertainty contribute to chi-square and posterior predictive checks.", "A nonzero residual is evidence to investigate, not automatically a failed experiment or a new component."),
+("Cross-validation by independent probes", "Testing one physical model against datasets with substantially different observables and systematics.", "Agreement among rotation, vertical dynamics, chemistry, and external-galaxy comparisons makes a Galactic model more credible.", "The synthesis model \\(\\mathcal{M}\\) must map each component to a distinct prediction.", "Two probes are not independent if they share calibrations, priors, or selected tracers."),
+],
+]
 
 def worked(i: int) -> tuple[str, str]:
     if i == 1:
@@ -164,14 +286,60 @@ def worked(i: int) -> tuple[str, str]:
     m = enclosed_mass_msun(8.2, 232); return f"The synthesis retains the local enclosed mass {fmt(m,5)} solar masses as a cross-check across dynamics and populations.", "The conclusion is strongest when independent tracers agree rather than when one model fits one plot."
 
 
+def term_explorer(i: int, terms: list[tuple[str, str, str, str, str]]) -> str:
+    buttons = []
+    panels = []
+    for j, (term, definition, significance, relationship, limitation) in enumerate(terms, 1):
+        tab_id = f"lecture-{i:02d}-term-{j}-tab"
+        panel_id = f"lecture-{i:02d}-term-{j}-panel"
+        selected = "true" if j == 1 else "false"
+        hidden = "" if j == 1 else " hidden"
+        buttons.append(
+            f'<button class="term-button" id="{tab_id}" type="button" role="tab" '
+            f'aria-selected="{selected}" aria-controls="{panel_id}" '
+            f'data-term-target="{panel_id}">{term}</button>'
+        )
+        panels.append(
+            f'<article class="term-detail" id="{panel_id}" role="tabpanel" '
+            f'aria-labelledby="{tab_id}"{hidden}><h3>{term}</h3>'
+            f'<p><strong>Definition:</strong> {definition}</p>'
+            f'<p><strong>Why it matters here:</strong> {significance}</p>'
+            f'<p><strong>Relationship:</strong> {relationship}</p>'
+            f'<p><strong>Limitation or common confusion:</strong> {limitation}</p></article>'
+        )
+    return (
+        '<section class="slide glossary-slide" aria-labelledby="terms-heading-'
+        f'{i:02d}"><h2 id="terms-heading-{i:02d}">Terms for This Lecture</h2>'
+        '<div class="term-explorer" data-term-explorer>'
+        '<div class="term-list" role="tablist" aria-label="Lecture terms">'
+        + "".join(buttons) + '</div><div class="term-details">'
+        + "".join(panels) + "</div></div></section>"
+    )
+
+
+def terms_notes(i: int, scope: str, equation: str, terms: list[tuple[str, str, str, str, str]]) -> str:
+    entries = []
+    for term, definition, significance, relationship, limitation in terms:
+        entries.append(
+            f"<article><h3>{term}</h3><p>{definition} {significance} "
+            f"{relationship} In this lecture, use this term while reasoning about {scope}, "
+            f"and distinguish the measured quantity from the model-dependent quantity in {equation}. "
+            f"{limitation} This boundary is important when comparing tracers or carrying the result "
+            "into the worked example.</p></article>"
+        )
+    return "<section><h2>Terms Developed in Context</h2>" + "".join(entries) + "</section>"
+
+
 def lecture_pages(i: int, item: tuple[str, ...]) -> tuple[str, str]:
     title, outcome, scope, motivation, equation, prompt, visual_name, limitation = item
     calc, interp = worked(i)
+    terms = TERMS_DATA[i - 1]
     figure = f'<figure class="figure">{svg(i, title)}<figcaption>{html.escape(visual_name.title())}: a lecture-specific schematic or model plot. Axes and annotations identify the inference being made; it is not presented as a raw survey image.</figcaption></figure>'
     slides = [
         f'<section class="slide title"><div class="kicker">ASTR 410 · Lecture {i:02d}</div><h1>Lecture {i:02d}: {html.escape(title)}</h1><h2>Galactic Astronomy</h2><p>{html.escape(motivation)}</p></section>',
         f'<section class="slide"><h2>Objectives and route</h2>{bullets([f"{outcome}", f"Connect {scope} to observations and model assumptions.", "Make one auditable calculation and interpret its limitation.", "Use an evidence chain rather than treating a visualization as a direct measurement."])}</section>',
         f'<section class="slide"><h2>Why this question is hard</h2><div class="grid"><div><p>{motivation}</p><p>Galactic astronomy observes projected light, velocities, and abundances from one moving vantage point. The inverse problem is underdetermined until geometry, selection, and a physical model are made explicit.</p></div>{figure}</div></section>',
+        term_explorer(i, terms),
         f'<section class="slide"><h2>Physical tool</h2><p>The central relation for this lecture is:</p><div class="equation">{equation}</div><p>Define every symbol before substitution. State the coordinate system, units, and approximation. A formula is evidence only when its assumptions match the tracer and regime.</p></section>',
         f'<section class="slide"><h2>Evidence display</h2><p>The evidence display for this lecture is the labeled model/data relationship introduced above. Read the axes and annotations before accepting the inferred trend.</p><p class="credit">Data context: the accompanying values are standard published or survey-like values; see the course reference log for provenance level and spot-check targets.</p></section>',
         f'<section class="slide"><h2>Worked calculation</h2><div class="equation">{html.escape(calc)}</div><p>{html.escape(interp)}</p><p>Write the units beside each intermediate quantity. The numerical result is generated from the shared course constants and recomputed independently during review.</p></section>',
@@ -185,12 +353,13 @@ def lecture_pages(i: int, item: tuple[str, ...]) -> tuple[str, str]:
     notes_sections = [
         f"<section><h2>Learning objectives</h2>{bullets([outcome, f'Explain the role of {scope}.', 'Audit an inference from observable to physical conclusion.'])}</section>",
         f"<section><h2>Lecture arc</h2><p>{html.escape(motivation)} Start by asking students what the telescope actually measures. Then introduce {scope}; delay the equation until the geometry and assumptions are visible. Use the visual as an argument: students should identify what is data, what is a model, and what is inferred.</p><p>The lecture should return to the one-dimensional worked calculation and ask whether the answer is stable under a plausible change in distance, tracer selection, or model family.</p></section>",
+        terms_notes(i, scope, equation, terms),
         f"<section><h2>Derivation and interpretation</h2><div class='equation'>{equation}</div><p>Define the symbols and units aloud. The relation is useful because it turns an observable into a dynamical or population constraint, but it is conditional on the stated approximation. In discussion, distinguish a parameter that is directly measured from one that is inferred after adopting a model.</p>{figure}</section>",
         f"<section><h2>Worked example</h2><p>{html.escape(calc)}</p><p>{html.escape(interp)} Have students estimate the order of magnitude before revealing the computed value. Require units and one sentence of physical interpretation. This example is generated by the course source and can be regenerated if a shared constant changes.</p></section>",
         f"<section><h2>Misconceptions and evidence</h2><p>{html.escape(limitation)} A map or fitted curve is not a direct inventory. Ask students to list a calibration, selection, or projection effect that could mimic the displayed trend. Then connect the answer to the paired data activity.</p></section>",
         f"<section><h2>Study guidance</h2><p>Students should be able to reproduce the calculation, explain the approximation, and compare the result with at least one independent tracer. Suggested practice: OpenStax Astronomy 2e Chapter 25 review and exercise material after checking the adopted PDF; exact local index entries are recorded in the reference log rather than guessed.</p></section>",
     ]
-    slide_body = '<div class="deck">' + ''.join(slides) + '</div>'
+    slide_body = '<div class="deck">' + ''.join(slides) + '</div>' + TERM_EXPLORER_SCRIPT
     note_body = header(f"ASTR 410 Lecture {i:02d}: {title}", "Galactic Astronomy · study notes") + '<main>' + ''.join(notes_sections) + '</main>'
     return page(f"ASTR 410 Lecture {i:02d} Slides: {title}", slide_body, SLIDE_CSS), page(f"ASTR 410 Lecture {i:02d} Notes: {title}", note_body)
 
@@ -225,7 +394,7 @@ def ps_html(i: int, title: str, calc: str) -> tuple[str, str, str]:
 
 def write(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(text, encoding="utf-8")
+    path.write_text(text, encoding="utf-8", newline="\n")
 
 
 def build() -> None:
@@ -236,11 +405,11 @@ def build() -> None:
         write(LECTURE_DIR / f"lecture-{i:02d}-notes.html", notes)
     # Real published values are used where practical; all values are disclosed in reference-log.md.
     with (DATA / "rotation-curve.csv").open("w", newline="", encoding="utf-8") as f:
-        out = csv.writer(f); out.writerow(["R_kpc", "v_c_km_s"]); out.writerows(ROTATION)
+        out = csv.writer(f, lineterminator="\n"); out.writerow(["R_kpc", "v_c_km_s"]); out.writerows(ROTATION)
     with (DATA / "population-abundances.csv").open("w", newline="", encoding="utf-8") as f:
-        out = csv.writer(f); out.writerow(["population", "mean_feh", "sigma_feh"]); out.writerows(ABUNDANCE)
+        out = csv.writer(f, lineterminator="\n"); out.writerow(["population", "mean_feh", "sigma_feh"]); out.writerows(ABUNDANCE)
     with (DATA / "nearby-galaxy-kinematics.csv").open("w", newline="", encoding="utf-8") as f:
-        out = csv.writer(f); out.writerow(["projected_radius_kpc", "sigma_km_s", "v_proxy_km_s"]); out.writerows(APOGEE_LIKE)
+        out = csv.writer(f, lineterminator="\n"); out.writerow(["projected_radius_kpc", "sigma_km_s", "v_proxy_km_s"]); out.writerows(APOGEE_LIKE)
     for lab in range(1, 8):
         topic = LECTURE_DATA[2*lab-2][0] + " and " + LECTURE_DATA[2*lab-1][0]
         dataset = ["published Milky Way rotation-curve points in data/rotation-curve.csv", "published stellar-population abundance summaries in data/population-abundances.csv", "published-like Gaia kinematic columns in data/nearby-galaxy-kinematics.csv", "rotation-curve values and a reproducible model comparison", "population and kinematic tables for a selection-function exercise", "nearby-galaxy dispersion values and a virial-estimator exercise", "the complete course data bundle, with one independent cross-check"][lab-1]

@@ -27,11 +27,24 @@ ul,ol { max-width:1050px; }
 .image-pair figure { margin:0; }
 .three { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
 .card { border:1px solid var(--line); background:#fff; border-radius:6px; padding:14px 16px; }
+.term-explorer { display:grid; grid-template-columns:minmax(210px,.68fr) minmax(0,1.75fr); gap:26px; min-height:58vh; align-items:stretch; }
+.term-list { display:flex; flex-direction:column; gap:9px; }
+.term-button { width:100%; padding:12px 15px; border:2px solid var(--line); border-radius:8px; background:#fff; color:var(--navy); font:inherit; font-size:1.02rem; font-weight:700; text-align:left; cursor:pointer; }
+.term-button:hover { border-color:var(--teal); }
+.term-button:focus-visible { outline:4px solid var(--gold); outline-offset:2px; }
+.term-button[aria-selected="true"] { color:#fff; background:var(--teal); border-color:var(--teal); }
+.term-details { min-width:0; }
+.term-detail { height:100%; border:1px solid var(--line); border-radius:10px; padding:18px 23px; background:var(--paper); overflow:auto; }
+.term-detail h3 { margin-top:0; font-size:clamp(1.35rem,2.25vw,2rem); }
+.term-detail p { font-size:clamp(.96rem,1.35vw,1.24rem); margin:.55em 0; }
+.term-detail[hidden] { display:none; }
+.term-visual { margin-top:12px; }
 .equation { font-size:1.34rem; padding:14px 18px; background:var(--teal-soft); border-left:5px solid var(--teal); margin:12px 0; }
 figcaption,.credit,.small { color:var(--muted); font-size:.95rem; line-height:1.35; margin-top:8px; }
 svg { width:100%; max-height:62vh; border:1px solid var(--line); background:#fff; }
 .warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
-@media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+@media (max-width:800px) { .slide { padding:34px 24px; } .term-explorer { grid-template-columns:1fr; } .term-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } .term-explorer { display:block; } .term-list { display:none; } .term-detail[hidden] { display:block !important; } .term-detail { height:auto; break-inside:avoid; margin:12px 0; } }
 </style>
 </head>
 <body>
@@ -44,13 +57,7 @@ svg { width:100%; max-height:62vh; border:1px solid var(--line); background:#fff
 <li>Correct the misconception: Similar size does not guarantee similar climate or habitability; Venus and Earth are the warning case.</li></ol><p class="small">Reading anchor: OpenStax Astronomy 2e, Chapter 7.1-7.4 on solar-system overview and formation, plus Chapters 9-10 for terrestrial worlds.</p></section>
     <section class="slide"><h2>Why This Question Matters</h2><p>Spacecraft turned planetary astronomy from telescopic appearance into comparative geology. The same physics that explains Earth can be tested against Mercury, Venus, Mars, and the Moon.</p></section>
     <section class="slide"><h2>Opening Phenomenon</h2><p>The inner planets share a formation environment but have dramatically different surfaces, atmospheres, and geological histories.</p><p class="warning"><strong>First question:</strong> what is directly observed, and what part is an explanation built from a model?</p></section>
-    <section class="slide"><h2>Vocabulary for Reasoning</h2><div class="three"><article class="card"><p>protoplanetary disk</p></article>
-<article class="card"><p>accretion</p></article>
-<article class="card"><p>differentiation</p></article>
-<article class="card"><p>cratering</p></article>
-<article class="card"><p>volcanism</p></article>
-<article class="card"><p>greenhouse effect</p></article>
-<article class="card"><p>comparative planetology</p></article></div><p class="small">Use these terms to describe evidence and relationships, not as isolated vocabulary.</p></section>
+    <section class="slide glossary-slide" aria-labelledby="terms-heading"><h2 id="terms-heading">Terms for This Lecture</h2><div class="term-explorer" data-term-explorer><div class="term-list" role="tablist" aria-label="Lecture terms"><button class="term-button" id="lecture-07-term-01-tab" type="button" role="tab" aria-selected="true" aria-controls="lecture-07-term-01-panel" data-term-target="lecture-07-term-01-panel" tabindex="0">protoplanetary disk</button><button class="term-button" id="lecture-07-term-02-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-07-term-02-panel" data-term-target="lecture-07-term-02-panel" tabindex="-1">accretion</button><button class="term-button" id="lecture-07-term-03-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-07-term-03-panel" data-term-target="lecture-07-term-03-panel" tabindex="-1">differentiation</button><button class="term-button" id="lecture-07-term-04-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-07-term-04-panel" data-term-target="lecture-07-term-04-panel" tabindex="-1">cratering</button><button class="term-button" id="lecture-07-term-05-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-07-term-05-panel" data-term-target="lecture-07-term-05-panel" tabindex="-1">volcanism</button><button class="term-button" id="lecture-07-term-06-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-07-term-06-panel" data-term-target="lecture-07-term-06-panel" tabindex="-1">greenhouse effect</button><button class="term-button" id="lecture-07-term-07-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-07-term-07-panel" data-term-target="lecture-07-term-07-panel" tabindex="-1">comparative planetology</button></div><div class="term-details"><article class="term-detail" id="lecture-07-term-01-panel" role="tabpanel" aria-labelledby="lecture-07-term-01-tab"><h3>protoplanetary disk</h3><p><strong>Definition:</strong> A rotating disk of gas and dust surrounding a young star from which planets and smaller bodies can form.</p><p><strong>Why it matters here:</strong> Its flattened structure explains the broadly coplanar, same-direction architecture of many planetary systems.</p><p><strong>Relationships:</strong> Temperature gradients across the disk influence condensation, the ice line, and the materials available for accretion.</p><p><strong>Boundary or common confusion:</strong> Disk evolution is dynamic and diverse; the solar nebula is reconstructed from incomplete evidence rather than observed directly.</p></article><article class="term-detail" id="lecture-07-term-02-panel" role="tabpanel" aria-labelledby="lecture-07-term-02-tab" hidden><h3>accretion</h3><p><strong>Definition:</strong> Growth by gravitationally or collisionally gathering smaller particles and bodies.</p><p><strong>Why it matters here:</strong> It links microscopic dust grains to planetesimals, embryos, planets, and continuing impact histories.</p><p><strong>Relationships:</strong> Collision speed, sticking efficiency, gravity, and gas drag determine whether encounters build or erode bodies.</p><p><strong>Boundary or common confusion:</strong> Accretion is not automatically smooth; fragmentation, migration, and giant impacts can interrupt or reverse growth.</p></article><article class="term-detail" id="lecture-07-term-03-panel" role="tabpanel" aria-labelledby="lecture-07-term-03-tab" hidden><h3>differentiation</h3><p><strong>Definition:</strong> Separation of a planetary body into layers of different composition or density, commonly during heating and melting.</p><p><strong>Why it matters here:</strong> It explains cores, mantles, crusts, magnetic-field potential, and volcanic chemistry.</p><p><strong>Relationships:</strong> Dense materials sink while buoyant materials rise when the interior can flow; heat comes from accretion, radioactivity, and impacts.</p><p><strong>Boundary or common confusion:</strong> Small or cold bodies may remain only partly differentiated, and later mixing can obscure the original layering.</p></article><article class="term-detail" id="lecture-07-term-04-panel" role="tabpanel" aria-labelledby="lecture-07-term-04-tab" hidden><h3>cratering</h3><p><strong>Definition:</strong> The excavation and deformation of a surface by high-speed impacts.</p><p><strong>Why it matters here:</strong> Crater abundance and preservation provide a relative record of surface age and resurfacing.</p><p><strong>Relationships:</strong> Impact rate, projectile properties, gravity, atmosphere, erosion, and volcanism all shape the observed crater population.</p><p><strong>Boundary or common confusion:</strong> Crater counts require calibration and assumptions; a crater-poor surface may be young or actively resurfaced.</p></article><article class="term-detail" id="lecture-07-term-05-panel" role="tabpanel" aria-labelledby="lecture-07-term-05-tab" hidden><h3>volcanism</h3><p><strong>Definition:</strong> Transport of molten or volatile-rich material from a body&#x27;s interior to its surface.</p><p><strong>Why it matters here:</strong> It reshapes terrain, releases atmospheric gases, and reveals internal heat.</p><p><strong>Relationships:</strong> Volcanism competes with cratering and erosion in setting surface age; tidal heating can sustain it on some moons.</p><p><strong>Boundary or common confusion:</strong> Volcanic-looking landforms require geological context because impacts or tectonics can make similar shapes.</p></article><article class="term-detail" id="lecture-07-term-06-panel" role="tabpanel" aria-labelledby="lecture-07-term-06-tab" hidden><h3>greenhouse effect</h3><p><strong>Definition:</strong> Surface warming produced when an atmosphere absorbs and re-emits outgoing infrared radiation while remaining comparatively transparent to incoming stellar energy.</p><p><strong>Why it matters here:</strong> It is central to explaining the divergent climates of Venus, Earth, and Mars.</p><p><strong>Relationships:</strong> Atmospheric composition, pressure, clouds, albedo, and energy balance determine its magnitude.</p><p><strong>Boundary or common confusion:</strong> It is not caused by a glass-like lid or by ozone, and the existence of a natural greenhouse effect does not specify its strength.</p></article><article class="term-detail" id="lecture-07-term-07-panel" role="tabpanel" aria-labelledby="lecture-07-term-07-tab" hidden><h3>comparative planetology</h3><p><strong>Definition:</strong> The study of planets and moons by comparing their properties, histories, and physical processes.</p><p><strong>Why it matters here:</strong> Controlled comparisons reveal why similar starting conditions can lead to different outcomes.</p><p><strong>Relationships:</strong> It integrates accretion, differentiation, cratering, volcanism, atmospheres, and orbital environment.</p><p><strong>Boundary or common confusion:</strong> Planets are not controlled laboratory duplicates; many variables change together, so causal claims require care.</p></article></div></div></section>
   <section class="slide"><h2>Evidence We Need to Explain</h2><ul><li>Planet orbits mostly lie in the same plane and direction.</li>
 <li>Rocky planets are denser and closer to the Sun than giant planets.</li>
 <li>Crater counts, volcanic features, and atmospheres preserve different histories.</li></ul></section>
@@ -72,5 +79,34 @@ svg { width:100%; max-height:62vh; border:1px solid var(--line); background:#fff
 <li>Why do Earth and Venus make comparison powerful?</li></ul></section>
     <section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax, <em>Astronomy 2e</em>: OpenStax Astronomy 2e, Chapter 7.1-7.4 on solar-system overview and formation, plus Chapters 9-10 for terrestrial worlds.</li><li>Local reference copy: <code>references/openstax-astronomy-2e.pdf</code>.</li><li>Visual: Earth and Venus are similar in size, but their visible atmospheres already show divergent climate histories. Credits: NASA/Apollo 17 crew/JSC; L. Esposito, University of Colorado Boulder, and NASA/ESA.</li></ul></section>
 </main>
+<script>
+document.querySelectorAll("[data-term-explorer]").forEach((explorer) => {
+  const tabs = [...explorer.querySelectorAll('[role="tab"]')];
+  const panels = [...explorer.querySelectorAll('[role="tabpanel"]')];
+  const select = (tab, moveFocus = false) => {
+    tabs.forEach((item) => {
+      const active = item === tab;
+      item.setAttribute("aria-selected", String(active));
+      item.tabIndex = active ? 0 : -1;
+    });
+    panels.forEach((panel) => { panel.hidden = panel.id !== tab.getAttribute("aria-controls"); });
+    if (moveFocus) tab.focus();
+  };
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => select(tab));
+    tab.addEventListener("keydown", (event) => {
+      if (!["ArrowDown", "ArrowUp", "ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      let nextIndex = index;
+      if (event.key === "Home") nextIndex = 0;
+      else if (event.key === "End") nextIndex = tabs.length - 1;
+      else if (event.key === "ArrowDown" || event.key === "ArrowRight") nextIndex = (index + 1) % tabs.length;
+      else nextIndex = (index - 1 + tabs.length) % tabs.length;
+      select(tabs[nextIndex], true);
+    });
+  });
+});
+</script>
+
 </body>
 </html>

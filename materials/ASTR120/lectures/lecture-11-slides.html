@@ -25,13 +25,28 @@ figcaption,.small { color:var(--muted); font-size:.95rem; line-height:1.35; marg
 svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(--line); background:#fff; }
 .warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
 @media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+
+.term-explorer{display:grid;grid-template-columns:minmax(220px,.7fr) minmax(0,1.8fr);gap:28px;align-items:stretch;min-height:58vh}
+.term-list{display:flex;flex-direction:column;gap:10px}
+.term-button{width:100%;padding:12px 15px;border:2px solid var(--line);border-radius:8px;background:#fff;color:var(--navy);font:inherit;font-size:1.05rem;font-weight:700;text-align:left;cursor:pointer}
+.term-button:hover{border-color:var(--teal)}
+.term-button:focus-visible{outline:4px solid var(--gold);outline-offset:2px}
+.term-button[aria-selected="true"]{color:#fff;background:var(--teal);border-color:var(--teal)}
+.term-detail{border:1px solid var(--line);border-radius:10px;padding:20px 24px;background:var(--paper);overflow:auto}
+.term-detail h3{margin:0 0 10px;color:var(--teal);font-size:clamp(1.35rem,2.2vw,2rem)}
+.term-detail p{font-size:clamp(.96rem,1.35vw,1.22rem);margin:.55em 0}
+.term-detail[hidden]{display:none}
+.term-visual{font-size:1.12rem;padding:10px 14px;background:var(--teal-soft);border-left:4px solid var(--teal);margin-top:12px}
+@media(max-width:800px){.term-explorer{grid-template-columns:1fr}.term-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+@media print{.term-explorer{display:block;min-height:0}.term-list{display:none}.term-detail[hidden]{display:block}.term-detail{break-inside:avoid;margin:12px 0}}
 </style>
 </head>
 <body>
 <main class="deck">
 <section class="slide title"><p class="kicker">ASTR 120 · Lecture 11</p><h1>Small Bodies: Asteroids, Comets, and Meteorites</h1><h2>Solar-system evidence, physics, and exploration</h2></section>
 <section class="slide"><h2>Why This Question Matters</h2><p>Meteorite laboratories and missions such as Rosetta, Hayabusa, OSIRIS-REx, and DART connect samples, orbits, and planetary defense.</p></section>
-<section class="slide"><h2>Learning Goals</h2><ul><li>Use composition, orbit, and impact evidence to interpret small bodies.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section>
+<section class="slide"><h2>Learning Goals</h2><ul><li>Use composition, orbit, and impact evidence to interpret small bodies.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section><section class="slide glossary-slide" aria-labelledby="l11-terms-heading"><h2 id="l11-terms-heading">Terms for This Lecture</h2><div class="term-explorer" data-term-explorer><div class="term-list" role="tablist" aria-label="Lecture 11 terms"><button class="term-button" id="l11-term-1-tab" type="button" role="tab" aria-selected="true" aria-controls="l11-term-1-panel" data-term-target="l11-term-1-panel" tabindex="0">Asteroid</button><button class="term-button" id="l11-term-2-tab" type="button" role="tab" aria-selected="false" aria-controls="l11-term-2-panel" data-term-target="l11-term-2-panel" tabindex="-1">Comet</button><button class="term-button" id="l11-term-3-tab" type="button" role="tab" aria-selected="false" aria-controls="l11-term-3-panel" data-term-target="l11-term-3-panel" tabindex="-1">Meteorite</button><button class="term-button" id="l11-term-4-tab" type="button" role="tab" aria-selected="false" aria-controls="l11-term-4-panel" data-term-target="l11-term-4-panel" tabindex="-1">Sublimation</button><button class="term-button" id="l11-term-5-tab" type="button" role="tab" aria-selected="false" aria-controls="l11-term-5-panel" data-term-target="l11-term-5-panel" tabindex="-1">Rubble pile</button><button class="term-button" id="l11-term-6-tab" type="button" role="tab" aria-selected="false" aria-controls="l11-term-6-panel" data-term-target="l11-term-6-panel" tabindex="-1">Planetary defense</button></div><div class="term-details"><article class="term-detail" id="l11-term-1-panel" role="tabpanel" aria-labelledby="l11-term-1-tab"><h3>Asteroid</h3><p><strong>Definition:</strong> A small solid solar-system body whose observed activity is not dominated by volatile sublimation.</p><p><strong>Why it matters and connects:</strong> Asteroid orbits, spectra, densities, and samples preserve evidence of accretion, differentiation, collisions, and dynamical transport.</p><p><strong>Boundary or common confusion:</strong> The asteroid–comet distinction is not absolute; some bodies are dormant, transitional, or active for non-sublimation reasons.</p></article><article class="term-detail" id="l11-term-2-panel" role="tabpanel" aria-labelledby="l11-term-2-tab" hidden><h3>Comet</h3><p><strong>Definition:</strong> A small body containing volatiles that can produce a coma and tails when heated.</p><p><strong>Why it matters and connects:</strong> Comet composition and activity probe cold-region materials and volatile delivery, while orbital families record dynamical reservoirs.</p><p><strong>Boundary or common confusion:</strong> A comet nucleus is not a dirty snowball of uniform composition, and visible tails are not trails left behind in the orbital path.</p></article><article class="term-detail" id="l11-term-3-panel" role="tabpanel" aria-labelledby="l11-term-3-tab" hidden><h3>Meteorite</h3><p><strong>Definition:</strong> A natural extraterrestrial fragment that survives atmospheric passage and reaches the ground.</p><p><strong>Why it matters and connects:</strong> Laboratory measurements provide precise ages, isotopes, minerals, and textures unavailable from most remote observations.</p><p><strong>Boundary or common confusion:</strong> A meteorite is not a meteor, and its parent body or launch location may be uncertain.</p></article><article class="term-detail" id="l11-term-4-panel" role="tabpanel" aria-labelledby="l11-term-4-tab" hidden><h3>Sublimation</h3><p><strong>Definition:</strong> Direct transition from solid to gas under conditions where a stable liquid phase is absent.</p><p><strong>Why it matters and connects:</strong> It drives cometary activity and can move volatiles across airless surfaces.</p><p><strong>Boundary or common confusion:</strong> Observed gas production depends on illumination, thermal inertia, dust mantles, and composition, not only distance from the Sun.</p></article><article class="term-detail" id="l11-term-5-panel" role="tabpanel" aria-labelledby="l11-term-5-tab" hidden><h3>Rubble pile</h3><p><strong>Definition:</strong> A gravitational aggregate of fragments with substantial void space and little tensile strength.</p><p><strong>Why it matters and connects:</strong> Low density, spin behavior, and impact response affect sampling, deflection, and hazard mitigation.</p><p><strong>Boundary or common confusion:</strong> A rubble pile is not simply loose surface regolith; it describes much or all of the body&#x27;s internal structure.</p></article><article class="term-detail" id="l11-term-6-panel" role="tabpanel" aria-labelledby="l11-term-6-tab" hidden><h3>Planetary defense</h3><p><strong>Definition:</strong> The coordinated detection, orbit determination, hazard assessment, and possible mitigation of objects that could impact Earth.</p><p><strong>Why it matters and connects:</strong> It turns orbital and impact physics into a testable risk-reduction program, as demonstrated by kinetic-impact experiments.</p><p><strong>Boundary or common confusion:</strong> Deflection is useful only with sufficient warning and accurate tracking; destruction is not the default objective.</p><div class="term-visual">\(E_k=\tfrac12 mv^2\)</div></article></div></div></section>
 <section class="slide"><h2>Opening Phenomenon</h2><p>Small bodies preserve primitive material and record collisions, migration, and delivery of volatiles.</p></section>
 <section class="slide"><h2>Small Bodies Are Archives and Hazards</h2><div class="three"><article class="card"><p><strong>Asteroids:</strong> rocky and metallic remnants shaped by collisions and heating.</p></article><article class="card"><p><strong>Comets:</strong> volatile-rich bodies that become active near the Sun.</p></article><article class="card"><p><strong>Meteorites:</strong> hand-sample evidence linking laboratory chemistry to parent bodies.</p></article></div></section>
 <section class="slide"><h2>Why Leftovers Matter</h2><p>Planets are processed worlds. Small bodies can preserve earlier material, record collisional evolution, and deliver impact energy that reshapes planetary surfaces and atmospheres.</p></section>
@@ -56,5 +71,33 @@ svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(
 <section class="slide"><h2>Reasoning Prompt: Primitive or Processed?</h2><p>You observe a dark object with a main-belt orbit, low albedo, and hydrated minerals. Is it primitive, aqueously altered, or comet-like? Choose two follow-up observations that would sharpen the classification.</p></section>
 <section class="slide"><h2>Synthesis: Small Bodies Connect Time Scales</h2><ul><li>Composition records early condensation and alteration.</li><li>Orbits record delivery pathways and resonant transport.</li><li>Impacts connect small bodies to planetary surface evolution and risk.</li></ul></section>
 <section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax Astronomy 2e solar-system chapters and local reference copy.</li><li>NASA/OpenStax/ESA sources recorded in reference-log.md where external visuals are used.</li></ul></section>
-</main></body>
+</main>
+<script data-astr120-term-explorer>
+document.querySelectorAll("[data-term-explorer]").forEach((explorer)=>{
+  const tabs=[...explorer.querySelectorAll('[role="tab"]')];
+  const panels=[...explorer.querySelectorAll('[role="tabpanel"]')];
+  const select=(tab,moveFocus=false)=>{
+    tabs.forEach((item)=>{
+      const active=item===tab;
+      item.setAttribute("aria-selected",String(active));
+      item.tabIndex=active?0:-1;
+    });
+    panels.forEach((panel)=>{panel.hidden=panel.id!==tab.getAttribute("aria-controls");});
+    if(moveFocus)tab.focus();
+  };
+  tabs.forEach((tab,index)=>{
+    tab.addEventListener("click",()=>select(tab));
+    tab.addEventListener("keydown",(event)=>{
+      if(!["ArrowDown","ArrowUp","ArrowRight","ArrowLeft","Home","End"].includes(event.key))return;
+      event.preventDefault();
+      let next=index;
+      if(event.key==="Home")next=0;
+      else if(event.key==="End")next=tabs.length-1;
+      else next=(index+(["ArrowDown","ArrowRight"].includes(event.key)?1:-1)+tabs.length)%tabs.length;
+      select(tabs[next],true);
+    });
+  });
+});
+</script>
+</body>
 </html>

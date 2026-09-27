@@ -25,13 +25,28 @@ figcaption,.small { color:var(--muted); font-size:.95rem; line-height:1.35; marg
 svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(--line); background:#fff; }
 .warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
 @media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+
+.term-explorer{display:grid;grid-template-columns:minmax(220px,.7fr) minmax(0,1.8fr);gap:28px;align-items:stretch;min-height:58vh}
+.term-list{display:flex;flex-direction:column;gap:10px}
+.term-button{width:100%;padding:12px 15px;border:2px solid var(--line);border-radius:8px;background:#fff;color:var(--navy);font:inherit;font-size:1.05rem;font-weight:700;text-align:left;cursor:pointer}
+.term-button:hover{border-color:var(--teal)}
+.term-button:focus-visible{outline:4px solid var(--gold);outline-offset:2px}
+.term-button[aria-selected="true"]{color:#fff;background:var(--teal);border-color:var(--teal)}
+.term-detail{border:1px solid var(--line);border-radius:10px;padding:20px 24px;background:var(--paper);overflow:auto}
+.term-detail h3{margin:0 0 10px;color:var(--teal);font-size:clamp(1.35rem,2.2vw,2rem)}
+.term-detail p{font-size:clamp(.96rem,1.35vw,1.22rem);margin:.55em 0}
+.term-detail[hidden]{display:none}
+.term-visual{font-size:1.12rem;padding:10px 14px;background:var(--teal-soft);border-left:4px solid var(--teal);margin-top:12px}
+@media(max-width:800px){.term-explorer{grid-template-columns:1fr}.term-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+@media print{.term-explorer{display:block;min-height:0}.term-list{display:none}.term-detail[hidden]{display:block}.term-detail{break-inside:avoid;margin:12px 0}}
 </style>
 </head>
 <body>
 <main class="deck">
 <section class="slide title"><p class="kicker">ASTR 120 · Lecture 05</p><h1>Terrestrial Planet Surfaces</h1><h2>Solar-system evidence, physics, and exploration</h2></section>
 <section class="slide"><h2>Why This Question Matters</h2><p>The Moon became a calibration surface after Apollo; Mars orbiters and rovers made comparative geology quantitative.</p></section>
-<section class="slide"><h2>Learning Goals</h2><ul><li>Use surface features to infer relative age and geological process.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section>
+<section class="slide"><h2>Learning Goals</h2><ul><li>Use surface features to infer relative age and geological process.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section><section class="slide glossary-slide" aria-labelledby="l05-terms-heading"><h2 id="l05-terms-heading">Terms for This Lecture</h2><div class="term-explorer" data-term-explorer><div class="term-list" role="tablist" aria-label="Lecture 05 terms"><button class="term-button" id="l05-term-1-tab" type="button" role="tab" aria-selected="true" aria-controls="l05-term-1-panel" data-term-target="l05-term-1-panel" tabindex="0">Impact crater</button><button class="term-button" id="l05-term-2-tab" type="button" role="tab" aria-selected="false" aria-controls="l05-term-2-panel" data-term-target="l05-term-2-panel" tabindex="-1">Crater density</button><button class="term-button" id="l05-term-3-tab" type="button" role="tab" aria-selected="false" aria-controls="l05-term-3-panel" data-term-target="l05-term-3-panel" tabindex="-1">Resurfacing</button><button class="term-button" id="l05-term-4-tab" type="button" role="tab" aria-selected="false" aria-controls="l05-term-4-panel" data-term-target="l05-term-4-panel" tabindex="-1">Stratigraphy</button><button class="term-button" id="l05-term-5-tab" type="button" role="tab" aria-selected="false" aria-controls="l05-term-5-panel" data-term-target="l05-term-5-panel" tabindex="-1">Volcanism</button><button class="term-button" id="l05-term-6-tab" type="button" role="tab" aria-selected="false" aria-controls="l05-term-6-panel" data-term-target="l05-term-6-panel" tabindex="-1">Tectonics</button></div><div class="term-details"><article class="term-detail" id="l05-term-1-panel" role="tabpanel" aria-labelledby="l05-term-1-tab"><h3>Impact crater</h3><p><strong>Definition:</strong> A roughly circular depression excavated when a projectile transfers energy and momentum to a planetary surface.</p><p><strong>Why it matters and connects:</strong> Crater size, morphology, ejecta, and abundance record impact conditions, target properties, and surface history.</p><p><strong>Boundary or common confusion:</strong> Crater diameter is not the projectile diameter, and later erosion or burial can erase the record.</p></article><article class="term-detail" id="l05-term-2-panel" role="tabpanel" aria-labelledby="l05-term-2-tab" hidden><h3>Crater density</h3><p><strong>Definition:</strong> The number of craters above a stated size per unit surface area.</p><p><strong>Why it matters and connects:</strong> When impact flux and preservation are comparable, higher crater density generally indicates longer exposure and an older surface.</p><p><strong>Boundary or common confusion:</strong> It is a relative clock unless calibrated, and resurfacing, saturation, and image resolution can bias counts.</p><div class="term-visual">\(N(>D)/A\)</div></article><article class="term-detail" id="l05-term-3-panel" role="tabpanel" aria-labelledby="l05-term-3-tab" hidden><h3>Resurfacing</h3><p><strong>Definition:</strong> Any process that buries, erodes, deforms, or replaces an older surface and resets part of its visible crater record.</p><p><strong>Why it matters and connects:</strong> Volcanism, tectonics, sedimentation, glacial flow, and impacts can create young-looking terrain on an old world.</p><p><strong>Boundary or common confusion:</strong> Few craters date the exposed surface, not necessarily the planet or underlying rock.</p></article><article class="term-detail" id="l05-term-4-panel" role="tabpanel" aria-labelledby="l05-term-4-tab" hidden><h3>Stratigraphy</h3><p><strong>Definition:</strong> The ordering of geologic units and events using superposition, cross-cutting, embayment, and other spatial relationships.</p><p><strong>Why it matters and connects:</strong> It reconstructs relative history even when absolute ages or samples are unavailable.</p><p><strong>Boundary or common confusion:</strong> Local stratigraphic order may not transfer globally without correlation evidence.</p></article><article class="term-detail" id="l05-term-5-panel" role="tabpanel" aria-labelledby="l05-term-5-tab" hidden><h3>Volcanism</h3><p><strong>Definition:</strong> The transport and eruption of molten or mobilized interior material onto or near a surface.</p><p><strong>Why it matters and connects:</strong> Volcanic plains, shields, domes, and gases reveal internal heat, composition, and pathways through the lithosphere.</p><p><strong>Boundary or common confusion:</strong> Smooth terrain is not automatically volcanic; morphology, spectra, and context must rule out sedimentary or impact deposits.</p></article><article class="term-detail" id="l05-term-6-panel" role="tabpanel" aria-labelledby="l05-term-6-tab" hidden><h3>Tectonics</h3><p><strong>Definition:</strong> Deformation of a planetary lithosphere by extension, compression, shear, loading, contraction, or convection.</p><p><strong>Why it matters and connects:</strong> Faults, folds, rifts, ridges, and scarps reveal stress and interior evolution.</p><p><strong>Boundary or common confusion:</strong> Tectonics does not imply Earth-like plate tectonics; most worlds deform without mobile global plates.</p></article></div></div></section>
 <section class="slide"><h2>Opening Phenomenon</h2><p>Craters, volcanoes, tectonics, and erosion make planetary surfaces historical records.</p></section>
 <section class="slide"><h2>Surfaces Preserve Competing Processes</h2><div class="three"><article class="card"><p><strong>Impacts:</strong> add craters and expose subsurface material.</p></article><article class="card"><p><strong>Volcanism and tectonics:</strong> erase, deform, or bury older terrain.</p></article><article class="card"><p><strong>Weathering:</strong> changes slopes, brightness, and small-scale texture over time.</p></article></div></section>
 <section class="slide"><h2>A Surface Is a Geological Argument</h2><p>When you inspect a planetary surface, ask which process made the feature, which process modified it, and whether the observed terrain is old enough to preserve the evidence.</p></section>
@@ -56,5 +71,33 @@ svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(
 <section class="slide"><h2>Reasoning Prompt: Old Highlands or Young Plains?</h2><p>You are given two equal-area image tiles: one densely cratered and rough, one smooth with lobate margins and wrinkle ridges. Build a two-step argument for which is older and name one observation that could overturn your interpretation.</p></section>
 <section class="slide"><h2>Synthesis: Surfaces Are Histories</h2><ul><li>Features record formation, modification, and preservation.</li><li>Crater density is powerful only with scale and resurfacing context.</li><li>Robust geological interpretations compare landform shape, cross-cutting relations, and physical process.</li></ul></section>
 <section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax Astronomy 2e solar-system chapters and local reference copy.</li><li>NASA/OpenStax/ESA sources recorded in reference-log.md where external visuals are used.</li></ul></section>
-</main></body>
+</main>
+<script data-astr120-term-explorer>
+document.querySelectorAll("[data-term-explorer]").forEach((explorer)=>{
+  const tabs=[...explorer.querySelectorAll('[role="tab"]')];
+  const panels=[...explorer.querySelectorAll('[role="tabpanel"]')];
+  const select=(tab,moveFocus=false)=>{
+    tabs.forEach((item)=>{
+      const active=item===tab;
+      item.setAttribute("aria-selected",String(active));
+      item.tabIndex=active?0:-1;
+    });
+    panels.forEach((panel)=>{panel.hidden=panel.id!==tab.getAttribute("aria-controls");});
+    if(moveFocus)tab.focus();
+  };
+  tabs.forEach((tab,index)=>{
+    tab.addEventListener("click",()=>select(tab));
+    tab.addEventListener("keydown",(event)=>{
+      if(!["ArrowDown","ArrowUp","ArrowRight","ArrowLeft","Home","End"].includes(event.key))return;
+      event.preventDefault();
+      let next=index;
+      if(event.key==="Home")next=0;
+      else if(event.key==="End")next=tabs.length-1;
+      else next=(index+(["ArrowDown","ArrowRight"].includes(event.key)?1:-1)+tabs.length)%tabs.length;
+      select(tabs[next],true);
+    });
+  });
+});
+</script>
+</body>
 </html>

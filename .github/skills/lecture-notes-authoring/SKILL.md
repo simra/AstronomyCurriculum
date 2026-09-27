@@ -30,6 +30,7 @@ For each lecture, produce notes that include:
 - Learning objectives.
 - Brief connection to previous and upcoming lectures.
 - Core concepts and definitions.
+- A "Terms Developed in Context" section that expands every term in the deck's interactive term explorer.
 - Derivations, equations, and physical interpretation.
 - Worked examples with units, assumptions, and intermediate steps.
 - Notes on common misconceptions and conceptual traps.
@@ -46,6 +47,10 @@ For each lecture, produce notes that include:
 - For observational topics, distinguish raw data, calibrated data, inferred quantities, and model-dependent conclusions.
 - For computational topics, explain numerical assumptions and sources of error.
 - Notes accompanying a 60-minute lecture should be substantial enough for independent study: develop the lecture arc, expand definitions, include worked reasoning, identify misconceptions, and connect the topic to readings.
+- Treat the slide deck as an outline and visual argument, not prose to paraphrase. For each major concept, add at least three appropriate forms of value beyond the slides: intermediate derivation steps, physical interpretation, a new worked example, observational/computational context, historical context, comparison with an alternative model, limitation analysis, or a verified follow-up resource.
+- Define every deck term in complete prose, show how it is used in the lecture, and connect it to at least one other term, observable, equation, model, or boundary condition. Do not copy a short slide definition and stop.
+- Include at least one verified follow-up resource per lecture when a suitable source exists, and state what the student should learn or examine there. Prefer exact textbook sections, authoritative mission/data documentation, open tutorials, review articles, or primary literature appropriate to the course level.
+- Remove instructor-stage directions such as "tell students," "have students," or timing cues from student study notes unless the file is explicitly an instructor edition.
 - When an adopted textbook is available, especially OpenStax Astronomy 2e for ASTR 101, use it to anchor chapter mapping, terminology, and standard scope while writing original notes.
 - Do not produce notes that merely restate slide titles or short slide bullets. Shallow notes should be treated as incomplete.
 
@@ -76,6 +81,9 @@ Before finishing, verify:
 
 - Notes align with the lecture objectives and slide deck.
 - Notes are substantive enough to support independent study after a 60-minute lecture.
+- Every term in the slide explorer is defined and developed in context in the notes.
+- A slide-to-notes comparison shows meaningful added explanation rather than section-by-section paraphrase.
+- Suggested resources are verified, specific, and annotated with their instructional value.
 - Equations and variables use consistent notation.
 - Examples are dimensionally correct.
 - References are real or explicitly flagged for verification.

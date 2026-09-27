@@ -27,11 +27,24 @@ ul,ol { max-width:1050px; }
 .image-pair figure { margin:0; }
 .three { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
 .card { border:1px solid var(--line); background:#fff; border-radius:6px; padding:14px 16px; }
+.term-explorer { display:grid; grid-template-columns:minmax(210px,.68fr) minmax(0,1.75fr); gap:26px; min-height:58vh; align-items:stretch; }
+.term-list { display:flex; flex-direction:column; gap:9px; }
+.term-button { width:100%; padding:12px 15px; border:2px solid var(--line); border-radius:8px; background:#fff; color:var(--navy); font:inherit; font-size:1.02rem; font-weight:700; text-align:left; cursor:pointer; }
+.term-button:hover { border-color:var(--teal); }
+.term-button:focus-visible { outline:4px solid var(--gold); outline-offset:2px; }
+.term-button[aria-selected="true"] { color:#fff; background:var(--teal); border-color:var(--teal); }
+.term-details { min-width:0; }
+.term-detail { height:100%; border:1px solid var(--line); border-radius:10px; padding:18px 23px; background:var(--paper); overflow:auto; }
+.term-detail h3 { margin-top:0; font-size:clamp(1.35rem,2.25vw,2rem); }
+.term-detail p { font-size:clamp(.96rem,1.35vw,1.24rem); margin:.55em 0; }
+.term-detail[hidden] { display:none; }
+.term-visual { margin-top:12px; }
 .equation { font-size:1.34rem; padding:14px 18px; background:var(--teal-soft); border-left:5px solid var(--teal); margin:12px 0; }
 figcaption,.credit,.small { color:var(--muted); font-size:.95rem; line-height:1.35; margin-top:8px; }
 svg { width:100%; max-height:62vh; border:1px solid var(--line); background:#fff; }
 .warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
-@media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+@media (max-width:800px) { .slide { padding:34px 24px; } .term-explorer { grid-template-columns:1fr; } .term-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } .term-explorer { display:block; } .term-list { display:none; } .term-detail[hidden] { display:block !important; } .term-detail { height:auto; break-inside:avoid; margin:12px 0; } }
 </style>
 </head>
 <body>
@@ -44,13 +57,7 @@ svg { width:100%; max-height:62vh; border:1px solid var(--line); background:#fff
 <li>Correct the misconception: The Hubble tuning fork is a classification diagram, not a simple evolutionary path from one type to another.</li></ol><p class="small">Reading anchor: OpenStax Astronomy 2e, Chapters 26.1-26.5 and 27.1-27.4 on galaxy types, distances, active galaxies, and galaxy evolution.</p></section>
     <section class="slide"><h2>Why This Question Matters</h2><p>The Curtis-Shapley debate and Hubble&#x27;s distance measurements moved galaxies from &#x27;spiral nebulae&#x27; to island universes. Morphology became a clue, not the whole story.</p></section>
     <section class="slide"><h2>Opening Phenomenon</h2><p>Galaxies are not isolated static islands. Their shapes, colors, star formation, and activity carry evidence of environment and history.</p><p class="warning"><strong>First question:</strong> what is directly observed, and what part is an explanation built from a model?</p></section>
-    <section class="slide"><h2>Vocabulary for Reasoning</h2><div class="three"><article class="card"><p>spiral galaxy</p></article>
-<article class="card"><p>elliptical galaxy</p></article>
-<article class="card"><p>irregular galaxy</p></article>
-<article class="card"><p>redshift</p></article>
-<article class="card"><p>starburst</p></article>
-<article class="card"><p>active galactic nucleus</p></article>
-<article class="card"><p>merger</p></article></div><p class="small">Use these terms to describe evidence and relationships, not as isolated vocabulary.</p></section>
+    <section class="slide glossary-slide" aria-labelledby="terms-heading"><h2 id="terms-heading">Terms for This Lecture</h2><div class="term-explorer" data-term-explorer><div class="term-list" role="tablist" aria-label="Lecture terms"><button class="term-button" id="lecture-12-term-01-tab" type="button" role="tab" aria-selected="true" aria-controls="lecture-12-term-01-panel" data-term-target="lecture-12-term-01-panel" tabindex="0">spiral galaxy</button><button class="term-button" id="lecture-12-term-02-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-12-term-02-panel" data-term-target="lecture-12-term-02-panel" tabindex="-1">elliptical galaxy</button><button class="term-button" id="lecture-12-term-03-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-12-term-03-panel" data-term-target="lecture-12-term-03-panel" tabindex="-1">irregular galaxy</button><button class="term-button" id="lecture-12-term-04-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-12-term-04-panel" data-term-target="lecture-12-term-04-panel" tabindex="-1">redshift</button><button class="term-button" id="lecture-12-term-05-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-12-term-05-panel" data-term-target="lecture-12-term-05-panel" tabindex="-1">starburst</button><button class="term-button" id="lecture-12-term-06-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-12-term-06-panel" data-term-target="lecture-12-term-06-panel" tabindex="-1">active galactic nucleus</button><button class="term-button" id="lecture-12-term-07-tab" type="button" role="tab" aria-selected="false" aria-controls="lecture-12-term-07-panel" data-term-target="lecture-12-term-07-panel" tabindex="-1">merger</button></div><div class="term-details"><article class="term-detail" id="lecture-12-term-01-panel" role="tabpanel" aria-labelledby="lecture-12-term-01-tab"><h3>spiral galaxy</h3><p><strong>Definition:</strong> A galaxy with a rotating stellar disk, gas and dust, and often spiral arms surrounding a central bulge.</p><p><strong>Why it matters here:</strong> Its structure connects angular momentum, ongoing star formation, and environmental history.</p><p><strong>Relationships:</strong> Spirals tend to contain colder gas and bluer young populations than many ellipticals.</p><p><strong>Boundary or common confusion:</strong> Morphology alone does not specify mass, age, or a fixed evolutionary stage.</p></article><article class="term-detail" id="lecture-12-term-02-panel" role="tabpanel" aria-labelledby="lecture-12-term-02-tab" hidden><h3>elliptical galaxy</h3><p><strong>Definition:</strong> A galaxy with a smooth ellipsoidal light distribution and little obvious disk or spiral structure.</p><p><strong>Why it matters here:</strong> Ellipticals provide evidence about stellar aging, mergers, gas loss, and pressure-supported dynamics.</p><p><strong>Relationships:</strong> Their stars commonly have more randomly oriented motions than stars in a cold rotating disk.</p><p><strong>Boundary or common confusion:</strong> Elliptical does not mean featureless or uniformly old, and some retain gas, dust, or recent star formation.</p></article><article class="term-detail" id="lecture-12-term-03-panel" role="tabpanel" aria-labelledby="lecture-12-term-03-tab" hidden><h3>irregular galaxy</h3><p><strong>Definition:</strong> A galaxy lacking a clear spiral or elliptical form at the observed scale and wavelength.</p><p><strong>Why it matters here:</strong> Irregular structure can expose tidal disturbance, intense star formation, or low-mass disk dynamics.</p><p><strong>Relationships:</strong> Some irregulars result from interactions, while others are isolated dwarf systems.</p><p><strong>Boundary or common confusion:</strong> The label describes appearance, not one formation mechanism.</p></article><article class="term-detail" id="lecture-12-term-04-panel" role="tabpanel" aria-labelledby="lecture-12-term-04-tab" hidden><h3>redshift</h3><p><strong>Definition:</strong> The fractional increase in observed wavelength relative to a laboratory or emitted reference wavelength.</p><p><strong>Why it matters here:</strong> It measures line-of-sight motion at low speeds and traces cosmic expansion for distant galaxies.</p><p><strong>Relationships:</strong> It is defined by \(z=(\lambda_{\rm obs}-\lambda_0)/\lambda_0\); at small \(z\), \(v\approx cz\).</p><p><strong>Boundary or common confusion:</strong> Large cosmological redshift is not adequately described as an ordinary speed through static space.</p><div class="term-visual equation">\[ z=\frac{\lambda_{\rm obs}-\lambda_0}{\lambda_0} \]</div></article><article class="term-detail" id="lecture-12-term-05-panel" role="tabpanel" aria-labelledby="lecture-12-term-05-tab" hidden><h3>starburst</h3><p><strong>Definition:</strong> An episode of unusually intense star formation relative to a galaxy&#x27;s past average or available gas.</p><p><strong>Why it matters here:</strong> Starbursts rapidly transform gas, dust, luminosity, chemical enrichment, and feedback.</p><p><strong>Relationships:</strong> Interactions and mergers can compress gas and trigger bursts; massive young stars then produce ultraviolet light and supernovae.</p><p><strong>Boundary or common confusion:</strong> Bright infrared or ultraviolet emission can be obscured or contaminated by an active nucleus.</p></article><article class="term-detail" id="lecture-12-term-06-panel" role="tabpanel" aria-labelledby="lecture-12-term-06-tab" hidden><h3>active galactic nucleus</h3><p><strong>Definition:</strong> A compact, unusually luminous galactic center powered by matter accreting onto a supermassive black hole.</p><p><strong>Why it matters here:</strong> AGN can outshine their host galaxies and influence surrounding gas through radiation, winds, and jets.</p><p><strong>Relationships:</strong> Accretion converts gravitational energy into radiation; orientation and obscuration help explain observed AGN classes.</p><p><strong>Boundary or common confusion:</strong> A central point source is not automatically an AGN, and black-hole mass alone does not set luminosity without fuel.</p></article><article class="term-detail" id="lecture-12-term-07-panel" role="tabpanel" aria-labelledby="lecture-12-term-07-tab" hidden><h3>merger</h3><p><strong>Definition:</strong> The gravitational interaction and eventual combination of two or more galaxies.</p><p><strong>Why it matters here:</strong> Mergers rearrange stellar orbits, compress gas, trigger star formation or AGN activity, and build galactic structure.</p><p><strong>Relationships:</strong> Tidal tails and distorted morphologies are evidence of interaction; dark-matter halos strongly affect the dynamics.</p><p><strong>Boundary or common confusion:</strong> Most stars do not collide directly because stellar separations are enormous, even though the galaxies merge.</p></article></div></div></section>
   <section class="slide"><h2>Evidence We Need to Explain</h2><ul><li>Galaxy colors and spectra trace stellar populations and star formation.</li>
 <li>Tidal tails, bridges, and disturbed shapes reveal interactions.</li>
 <li>Redshift connects spectra to motion and, in cosmology, distance scale.</li></ul></section>
@@ -72,5 +79,34 @@ svg { width:100%; max-height:62vh; border:1px solid var(--line); background:#fff
 <li>What evidence reveals interaction or activity?</li></ul></section>
     <section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax, <em>Astronomy 2e</em>: OpenStax Astronomy 2e, Chapters 26.1-26.5 and 27.1-27.4 on galaxy types, distances, active galaxies, and galaxy evolution.</li><li>Local reference copy: <code>references/openstax-astronomy-2e.pdf</code>.</li><li>Visual: Tidal distortion and compact blue star clusters show that galaxy morphology can record interaction history. Credit: NASA, ESA, and the Hubble Heritage Team (STScI/AURA)-ESA/Hubble Collaboration; acknowledgement B. Whitmore and James Long; CC BY 4.0.</li></ul></section>
 </main>
+<script>
+document.querySelectorAll("[data-term-explorer]").forEach((explorer) => {
+  const tabs = [...explorer.querySelectorAll('[role="tab"]')];
+  const panels = [...explorer.querySelectorAll('[role="tabpanel"]')];
+  const select = (tab, moveFocus = false) => {
+    tabs.forEach((item) => {
+      const active = item === tab;
+      item.setAttribute("aria-selected", String(active));
+      item.tabIndex = active ? 0 : -1;
+    });
+    panels.forEach((panel) => { panel.hidden = panel.id !== tab.getAttribute("aria-controls"); });
+    if (moveFocus) tab.focus();
+  };
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => select(tab));
+    tab.addEventListener("keydown", (event) => {
+      if (!["ArrowDown", "ArrowUp", "ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      let nextIndex = index;
+      if (event.key === "Home") nextIndex = 0;
+      else if (event.key === "End") nextIndex = tabs.length - 1;
+      else if (event.key === "ArrowDown" || event.key === "ArrowRight") nextIndex = (index + 1) % tabs.length;
+      else nextIndex = (index - 1 + tabs.length) % tabs.length;
+      select(tabs[nextIndex], true);
+    });
+  });
+});
+</script>
+
 </body>
 </html>

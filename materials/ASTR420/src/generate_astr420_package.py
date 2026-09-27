@@ -237,6 +237,156 @@ def lecture_pages(i: int, item: tuple[str, ...]) -> tuple[str, str]:
     return slides, notes
 
 
+
+TERM_SETS = [[('Redshift', 'The fractional displacement of a spectral feature from its emitted wavelength, conventionally written z.'),
+  ('Scale factor',
+   'The dimensionless function a(t) that describes how cosmological distances between comoving locations change with time.'),
+  ('Comoving distance',
+   'A distance coordinate that factors out uniform cosmic expansion so freely moving reference locations remain fixed.'),
+  ('Hubble parameter',
+   'The instantaneous fractional expansion rate H(t)=a-dot/a, inferred by combining distance and redshift information.'),
+  ('Peculiar velocity', "A galaxy's local motion relative to the idealized Hubble flow caused by nearby gravitational structure.")],
+ [('Doppler redshift', 'A wavelength shift produced by relative motion through spacetime between emitter and observer.'),
+  ('Cosmological redshift', 'A wavelength stretch accumulated as light propagates while the cosmic scale factor grows.'),
+  ('Luminosity distance', 'The distance defined by the inverse-square relation between intrinsic luminosity and observed flux.'),
+  ('Angular-diameter distance', "The distance defined by the ratio of an object's physical transverse size to its observed angular size."),
+  ('Distance duality', 'The relation D_L=(1+z)^2 D_A that connects luminosity and angular-diameter distances when photons are conserved.')],
+ [('Friedmann equation', 'The general-relativistic expansion equation relating H(a) to cosmic energy densities and spatial curvature.'),
+  ('Critical density', 'The total energy density that makes the spatial-curvature term vanish for a specified Hubble rate.'),
+  ('Density parameter',
+   'A component density divided by the critical density, allowing radiation, matter, curvature, and dark energy to be compared.'),
+  ('Spatial curvature', 'The large-scale geometric departure of spatial slices from Euclidean geometry.'),
+  ('Equation of state', 'A relation between pressure and energy density that determines how a cosmic component evolves with expansion.')],
+ [('Lookback time', 'The elapsed cosmic time between emission at redshift z and observation today.'),
+  ('Conformal time', 'A time coordinate weighted by 1/a(t) that makes radial light propagation appear at 45 degrees in comoving diagrams.'),
+  ('Particle horizon', 'The greatest comoving distance from which a signal could have reached an observer since the initial epoch.'),
+  ('Event horizon', 'The greatest comoving distance from which a signal emitted now can ever reach an observer in the future.'),
+  ('Light cone', 'The causal boundary separating events that can exchange light signals from those that cannot.')],
+ [('Adiabatic cooling', 'The decrease of the radiation temperature as wavelengths stretch during expansion without net heat exchange.'),
+  ('Recombination', 'The epoch when electrons combined with nuclei rapidly enough for neutral atoms to become abundant.'),
+  ('Ionization fraction', 'The fraction of hydrogen nuclei associated with free electrons rather than neutral hydrogen.'),
+  ('Photon decoupling', 'The transition when Thomson scattering became too infrequent to keep photons tightly coupled to matter.'),
+  ('Last-scattering surface',
+   'The redshift-dependent visibility region from which most observed cosmic microwave background photons last scattered.')],
+ [('Blackbody spectrum', 'The thermal radiation distribution fixed by temperature when matter and radiation have reached equilibrium.'),
+  ('Temperature anisotropy', 'A direction-dependent fractional variation in the cosmic microwave background temperature.'),
+  ('Acoustic peak', 'A maximum in CMB angular power caused by a photon-baryon oscillation mode observed at a characteristic phase.'),
+  ('Sound horizon', 'The maximum comoving distance an acoustic disturbance could travel before photon-baryon decoupling.'),
+  ('Optical depth',
+   'The integrated scattering probability along a line of sight, which controls how strongly primordial anisotropy is attenuated.')],
+ [('Weak freeze-out',
+   'The epoch when weak-interaction rates fell below expansion, preventing the neutron-to-proton ratio from tracking equilibrium.'),
+  ('Neutron-to-proton ratio', 'The relative abundance of free neutrons and protons that largely sets the eventual helium-4 yield.'),
+  ('Deuterium bottleneck',
+   'The delay in nucleosynthesis until the photon bath became cool enough for deuterium to survive photodissociation.'),
+  ('Helium mass fraction', 'The fraction of baryonic mass bound into helium-4 after primordial nucleosynthesis.'),
+  ('Baryon density', 'The cosmic density of ordinary matter, which controls nuclear reaction opportunities and primordial abundances.')],
+ [('Inflation', 'A proposed early interval of accelerated expansion that greatly enlarged a causally connected region.'),
+  ('E-fold', 'A logarithmic unit of expansion corresponding to an increase of the scale factor by e.'),
+  ('Comoving Hubble radius', 'The scale (aH)^-1 that separates modes evolving inside and outside the expansion timescale.'),
+  ('Horizon crossing', 'The epoch when a perturbation wavelength equals the comoving Hubble scale during expansion.'),
+  ('Primordial perturbation', 'A small early fluctuation in density or spacetime curvature that seeds later cosmic structure.')],
+ [('Density contrast', 'The fractional density departure delta=(rho-rhobar)/rhobar from the cosmic mean.'),
+  ('Linear growth factor',
+   'The time-dependent multiplier describing perturbation growth while density contrasts remain much smaller than unity.'),
+  ('Transfer function', 'The scale-dependent processing that maps primordial perturbations into the later matter distribution.'),
+  ('Cold dark matter', 'A nonrelativistic, weakly interacting matter component that clusters gravitationally on cosmological scales.'),
+  ('Nonlinear collapse', 'The regime in which density contrasts approach or exceed unity and linear perturbation theory fails.')],
+ [('Baryon acoustic oscillation', 'The preferred separation imprinted in matter clustering by pre-recombination sound waves.'),
+  ('Drag epoch', 'The time when baryons ceased to be dynamically dragged by photons, fixing the late-time acoustic ruler.'),
+  ('Sound horizon', 'The comoving distance traveled by acoustic waves before the drag epoch.'),
+  ('Correlation function', 'A statistic measuring excess pair probability as a function of galaxy separation.'),
+  ('Alcock-Paczynski effect',
+   'A geometric distortion test comparing apparent radial and transverse scales when an assumed cosmology is incorrect.')],
+ [('Standardizable candle', 'An object whose luminosity can be empirically corrected to provide a calibrated distance indicator.'),
+  ('Distance modulus', 'The logarithmic difference m-M that relates apparent and absolute magnitude to luminosity distance.'),
+  ('Luminosity distance', 'The distance that converts intrinsic luminosity into observed flux through the inverse-square law.'),
+  ('Hubble residual', 'The difference between an observed standardized distance modulus and the prediction of a reference cosmology.'),
+  ('Selection bias',
+   'A systematic shift caused when detection or inclusion probability depends on brightness, redshift, or another measured property.')],
+ [('Convergence', 'The dimensionless projected surface-density field that describes isotropic gravitational-lensing magnification.'),
+  ('Shear', 'The anisotropic image distortion produced by gradients in the projected gravitational potential.'),
+  ('Critical surface density', 'The lens-source geometry factor that converts physical projected mass density into convergence.'),
+  ('Lensing kernel', 'The redshift-dependent weight describing how efficiently foreground matter lenses a chosen source population.'),
+  ('Mass-sheet degeneracy',
+   'The invariance that allows a uniform convergence sheet and rescaled source plane to reproduce the same reduced shear.')],
+ [('Fourier mode', 'A sinusoidal spatial component labeled by wavevector k used to decompose the density field by scale.'),
+  ('Matter power spectrum', 'The variance of density-contrast Fourier amplitudes as a function of wavenumber.'),
+  ('Dimensionless power', 'The contribution to variance per logarithmic interval in scale, commonly proportional to k^3 P(k).'),
+  ('Turnover scale', 'The broad power-spectrum maximum associated with the horizon near matter-radiation equality.'),
+  ('Galaxy bias', 'The scale- and population-dependent relation between observed galaxy clustering and underlying matter clustering.')],
+ [('Joint likelihood', 'The combined probability of multiple datasets given shared model parameters and stated dependence assumptions.'),
+  ('Covariance matrix', 'A matrix encoding variances and correlated errors among measured quantities or fitted summaries.'),
+  ('Posterior tension', 'A quantified mismatch between parameter constraints after priors, likelihoods, and covariance are specified.'),
+  ('Model comparison',
+   'The assessment of relative explanatory performance while accounting for fit quality, complexity, and prior assumptions.'),
+  ('Concordance model', 'A cosmological model supported by mutually consistent constraints from several independent probes and epochs.')]]
+
+
+TERM_CSS = """
+.glossary-slide{justify-content:flex-start;padding-top:36px}.term-explorer{display:grid;grid-template-columns:minmax(210px,.72fr) minmax(0,1.8fr);gap:24px;align-items:stretch;min-height:58vh}.term-list{display:flex;flex-direction:column;gap:9px}.term-button{width:100%;padding:12px 14px;border:2px solid var(--line);border-radius:8px;background:#fff;color:var(--navy);font:inherit;font-size:1.02rem;font-weight:700;text-align:left;cursor:pointer}.term-button:hover{border-color:var(--teal)}.term-button:focus-visible{outline:4px solid var(--gold);outline-offset:2px}.term-button[aria-selected="true"]{color:#fff;background:var(--teal);border-color:var(--teal)}.term-detail{border:1px solid var(--line);border-radius:10px;padding:18px 22px;background:var(--paper);overflow:auto}.term-detail h3{margin-top:0;color:var(--teal);font-size:clamp(1.35rem,2.2vw,2rem)}.term-detail p{font-size:clamp(.94rem,1.1vw,1.15rem)}.term-detail[hidden]{display:none}.term-visual{margin-top:14px}.terms-developed dt{color:var(--teal);font-size:1.08rem;margin-top:18px}.terms-developed dd{margin:6px 0 16px 20px}.terms-developed dd p{margin:7px 0}@media(max-width:800px){.term-explorer{grid-template-columns:1fr}.term-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}@media print{.term-explorer{display:block}.term-list{display:none}.term-detail[hidden]{display:block}.term-detail{break-inside:avoid;margin:12px 0}}
+"""
+
+TERM_SCRIPT = """
+<script>
+document.querySelectorAll("[data-term-explorer]").forEach((explorer) => {
+  const tabs = [...explorer.querySelectorAll('[role="tab"]')];
+  const panels = [...explorer.querySelectorAll('[role="tabpanel"]')];
+  const select = (tab) => {
+    tabs.forEach((item) => item.setAttribute("aria-selected", String(item === tab)));
+    panels.forEach((panel) => { panel.hidden = panel.id !== tab.dataset.termTarget; });
+  };
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => select(tab));
+    tab.addEventListener("keydown", (event) => {
+      if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : (index + (event.key === "ArrowDown" ? 1 : -1) + tabs.length) % tabs.length;
+      tabs[nextIndex].focus();
+      select(tabs[nextIndex]);
+    });
+  });
+});
+</script>
+"""
+
+def term_explorer(lecture_number: int, title: str, scope: str, equation: str, limitation: str, terms: list[tuple[str, str]]) -> str:
+    buttons, panels = [], []
+    for index, (term, definition) in enumerate(terms, 1):
+        stem = f"l{lecture_number:02d}-term-{index}"
+        neighbor = terms[index % len(terms)][0]
+        buttons.append(f'<button class="term-button" id="{stem}-tab" type="button" role="tab" aria-selected="{"true" if index == 1 else "false"}" aria-controls="{stem}-panel" data-term-target="{stem}-panel">{html.escape(term)}</button>')
+        visual = f'<div class="term-visual equation">\\({equation}\\)</div>' if index == 1 else ""
+        panels.append(f'<article class="term-detail" id="{stem}-panel" role="tabpanel" aria-labelledby="{stem}-tab"{" hidden" if index > 1 else ""}><h3>{html.escape(term)}</h3><p><strong>Definition:</strong> {html.escape(definition)}</p><p><strong>Why it matters here:</strong> In {html.escape(title)}, {html.escape(term)} is needed to reason about {html.escape(scope)} rather than merely label the phenomenon.</p><p><strong>Relationship:</strong> It is interpreted alongside {html.escape(neighbor)} and the lecture relation below; identify which quantities are observed, calibrated, or model-derived.</p><p><strong>Limitation or common confusion:</strong> {html.escape(limitation)}</p>{visual}</article>')
+    return f'<section class="slide glossary-slide" aria-labelledby="terms-heading-{lecture_number:02d}"><h2 id="terms-heading-{lecture_number:02d}">Terms for This Lecture</h2><div class="term-explorer" data-term-explorer><div class="term-list" role="tablist" aria-label="Lecture {lecture_number:02d} terms">{"".join(buttons)}</div><div class="term-details">{"".join(panels)}</div></div></section>'
+
+def terms_in_context(title: str, scope: str, equation: str, limitation: str, terms: list[tuple[str, str]]) -> str:
+    entries = []
+    for index, (term, definition) in enumerate(terms):
+        prior = terms[index - 1][0]
+        following = terms[(index + 1) % len(terms)][0]
+        entries.append(f'<dt><strong>{html.escape(term)}</strong></dt><dd><p>{html.escape(definition)} In this lecture it supports the evidence-to-model chain for {html.escape(scope)}.</p><p><strong>Use and relationship:</strong> Read it together with {html.escape(prior)} and {html.escape(following)}. The governing relation \\({equation}\\) shows where the concept enters quantitatively; the student should state whether its value is measured, calibrated, adopted, or inferred.</p><p><strong>Boundary:</strong> {html.escape(limitation)} This caveat prevents the term from being treated as a unique explanation or a context-free number.</p></dd>')
+    return f'<section class="terms-developed"><h2>Terms Developed in Context</h2><p>These terms form the lecture&apos;s reasoning chain from observable through model to a bounded physical conclusion.</p><dl>{"".join(entries)}</dl></section>'
+
+def insert_after_section(document: str, heading: str, addition: str) -> str:
+    start = document.index(heading)
+    end = document.index("</section>", start) + len("</section>")
+    return document[:end] + addition + document[end:]
+
+_base_lecture_pages = lecture_pages
+
+def lecture_pages(i: int, item: tuple[str, ...]) -> tuple[str, str]:
+    title, outcome, scope, equation, prompt, motivation, reading = item
+    calc, limitation = calculation(i)
+    slides, notes = _base_lecture_pages(i, item)
+    terms = TERM_SETS[i - 1]
+    slides = slides.replace("</style>", TERM_CSS + "</style>", 1)
+    slides = insert_after_section(slides, '<h2>Objectives and route</h2>', term_explorer(i, title, scope, equation, limitation, terms))
+    slides = slides.replace("</body>", TERM_SCRIPT + "</body>", 1)
+    notes = notes.replace("</style>", TERM_CSS + "</style>", 1)
+    notes = insert_after_section(notes, '<h2>Learning objectives</h2>', terms_in_context(title, scope, equation, limitation, terms))
+    return slides, notes
+
 def unit_calc(unit: int) -> str:
     return calculation(2 * unit - 1)[0]
 

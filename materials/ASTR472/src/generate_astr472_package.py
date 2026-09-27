@@ -11,6 +11,13 @@ import json
 import math
 from pathlib import Path
 
+from term_explorer import (
+    TERM_EXPLORER_CSS,
+    TERM_EXPLORER_SCRIPT,
+    notes_section as term_notes_section,
+    slide_section as term_slide_section,
+)
+
 ROOT = Path(__file__).resolve().parents[1]
 LECTURE_DIR = ROOT / "lectures"
 LAB_DIR = ROOT / "labs"
@@ -126,7 +133,7 @@ LECTURES = [
         "objectives": ["Propagate independent fractional calibration terms in quadrature.", "Separate thermal noise from multiplicative and spatially correlated systematics.", "Design residual and jackknife checks for a calibrated image."],
         "evidence": ["Independent small fractional errors combine in quadrature, whereas shared calibration errors correlate many image pixels.", "Primary-beam correction amplifies both signal and noise toward the field edge.", "Residual images, calibrator closure quantities, split-data comparisons, and injection tests probe different failure modes."],
         "derivation": "For a derived flux S=f(x_i), first-order propagation gives sigma_S^2=sum_i (partial f/partial x_i)^2 sigma_i^2 plus covariance terms. For independent fractional terms f_j, (sigma_S/S)^2=sum_j f_j^2. A multiplicative flux-scale term remains correlated among sources calibrated with the same solution and should not be averaged down as independent pixel noise.",
-        "equation": r"\left(\frac{\sigma_S}{S}\right)^2=\sum_j f_j^2+2\sum_{i<j}\rho_{ij}f_i f_j",
+        "equation": r"\left(\frac{\sigma_S}{S}\right)^2=\sum_j f_j^2+2\sum_{i&lt;j}\rho_{ij}f_i f_j",
         "example": 8,
         "limit": "Quadrature is justified only for independent zero-mean errors; common-mode flux-scale uncertainty requires covariance-aware comparisons.",
         "prompt": "Two sources share the same 5% flux-scale error but have independent 1% thermal errors. Which uncertainty cancels in their flux ratio, and which does not?",
@@ -241,7 +248,8 @@ LABS[6]["steps"].insert(
 )
 
 def page(title: str, body: str, css: str = CSS) -> str:
-    return f"<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>{html.escape(title)}</title><script id='MathJax-script' async src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script><style>{css}</style></head><body>{body}</body></html>"
+    interaction = TERM_EXPLORER_SCRIPT if "data-term-explorer" in body else ""
+    return f"<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>{html.escape(title)}</title><script id='MathJax-script' async src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script><style>{css}</style></head><body>{body}{interaction}</body></html>"
 
 def fmt(value: float, digits: int = 4) -> str:
     return f"{value:.{digits}g}"
@@ -350,6 +358,7 @@ def lecture_pages(number: int, item: dict) -> tuple[str, str]:
     slides = [
         f'<section class="slide title"><p class="kicker">ASTR 472 · Lecture {number:02d}</p><h1>Lecture {number:02d}: {html.escape(title)}</h1><h2>Radio Astronomy</h2><p>{html.escape(item["hook"])}</p></section>',
         f'<section class="slide"><h2>Objectives and route</h2><ol>{objectives}</ol><p>Route: identify what the receiver measures, derive the physical/instrument relation, calculate a scale, then test its assumptions against a diagnostic.</p></section>',
+        term_slide_section(number, title, item["prompt"], item["equation"], item["evidence"][0], item["limit"]),
         f'<section class="slide"><h2>Observation before interpretation</h2><p>{html.escape(item["hook"])}</p><ul>{evidence}</ul><p>Keep four layers distinct in your notebook: raw correlation or spectrum, calibrated product, model parameter, and physical claim.</p></section>',
         f'<section class="slide"><h2>Physical model</h2><p>{html.escape(item["derivation"])}</p><div class="equation">\\({item["equation"]}\\)</div><p>Define each quantity and convention before substitution. A relation is useful only inside its stated regime.</p></section>',
         f'<section class="slide"><h2>Worked calculation</h2><p>Inputs: {html.escape(str(calc(number)["inputs"]))}.</p><div class="equation">{html.escape(res)}</div><p>{html.escape(item["limit"])}</p><p>Independent audit: carry SI units through the derivation, then check the limiting direction and scale.</p></section>',
@@ -362,6 +371,7 @@ def lecture_pages(number: int, item: dict) -> tuple[str, str]:
     ]
     notes = f"""<header><div><h1>ASTR 472 Lecture {number:02d}: {html.escape(title)}</h1><p>Radio Astronomy · study notes · 400-level elective</p></div></header><main>
 <section><h2>Learning objectives</h2><ol>{objectives}</ol><p><strong>Prerequisites in use:</strong> ASTR 340; PHYS 341 electromagnetism is recommended for receiver and radiation physics.</p></section>
+{term_notes_section(number, title, item["prompt"], item["equation"], item["evidence"][0], item["limit"])}
 <section><h2>Conceptual entry point</h2><p>{html.escape(item['hook'])} Begin with the receiver product: a spectrum, time series, image, or set of complex visibilities. The object we ultimately discuss is several inference steps removed from that product.</p><p>Radio astronomy's history makes this distinction concrete. Karl Jansky's 1930s rotating antenna detected persistent celestial interference while he investigated radio communication noise; Grote Reber then built a purpose-designed reflector and mapped the radio sky. Instrumental curiosity became a new window on the Galaxy.</p>{figure_html(item['figure'], item['evidence'][0])}</section>
 <section><h2>Evidence and measurement layers</h2><ul>{evidence}</ul><p>A calibrated brightness scale is not equivalent to a flux measurement, and a catalog parameter is not equivalent to a direct observable. State the processing stage whenever comparing results.</p></section>
 <section><h2>Derivation and assumptions</h2><p>{html.escape(item['derivation'])}</p><div class="equation">\\({item['equation']}\\)</div><p>The approximation is useful because it compresses a full electromagnetic/instrument problem into a scale relation. It is not a substitute for the response model: explicitly retain the beam, bandpass, convention, sampling, or plasma assumptions relevant to this lecture.</p></section>
@@ -371,7 +381,7 @@ def lecture_pages(number: int, item: dict) -> tuple[str, str]:
 <section><h2>Study and transfer questions</h2><ol><li>{html.escape(item['prompt'])}</li><li>Change the dominant input by 10%. Predict the direction of the output change before computing it.</li><li>Name one raw diagnostic and one independent data product that could falsify the preferred interpretation.</li></ol></section>
 <section><h2>Reading</h2><p>{html.escape(item['reading'])}</p><p>See <code>materials/ASTR472/reference-log.md</code> for sources, verification dates, exact OpenStax anchors, and human spot-check caveats.</p></section>
 </main>"""
-    slide_css = CSS + ".slide{padding-top:30px;padding-bottom:30px}.slide .figure svg{max-height:42vh}.slide .figure{margin:5px 0}.slide .figure figcaption{font-size:.82rem}.slide h2{font-size:1.8rem}"
+    slide_css = CSS + TERM_EXPLORER_CSS + ".slide{padding-top:30px;padding-bottom:30px}.slide .figure svg{max-height:42vh}.slide .figure{margin:5px 0}.slide .figure figcaption{font-size:.82rem}.slide h2{font-size:1.8rem}"
     return page(f"ASTR 472 Lecture {number:02d} Slides: {title}", '<main class="deck">'+"".join(slides)+"</main>", slide_css), page(f"ASTR 472 Lecture {number:02d} Notes: {title}", notes)
 
 def lab_page(number: int, item: dict) -> str:
@@ -592,8 +602,8 @@ def build() -> None:
     datasets()
     for number, item in enumerate(LECTURES, 1):
         slides, notes = lecture_pages(number, item)
-        (LECTURE_DIR / f"lecture-{number:02d}-slides.html").write_text(slides, encoding="utf-8")
-        (LECTURE_DIR / f"lecture-{number:02d}-notes.html").write_text(notes, encoding="utf-8")
+        (LECTURE_DIR / f"lecture-{number:02d}-slides.html").write_text(slides, encoding="utf-8", newline="\n")
+        (LECTURE_DIR / f"lecture-{number:02d}-notes.html").write_text(notes, encoding="utf-8", newline="\n")
     for number, item in enumerate(LABS, 1):
         (LAB_DIR / f"lab-{number:02d}.html").write_text(lab_page(number, item), encoding="utf-8")
         student, solutions, assessment = pset_pages(number, PSET_CONTENT[number-1])

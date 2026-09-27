@@ -25,13 +25,28 @@ figcaption,.small { color:var(--muted); font-size:.95rem; line-height:1.35; marg
 svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(--line); background:#fff; }
 .warning { border-left:5px solid var(--warning); background:#fff8e8; padding:14px 18px; }
 @media print { .deck { height:auto; overflow:visible; } .slide { min-height:7.5in; page-break-after:always; } }
+
+.term-explorer{display:grid;grid-template-columns:minmax(220px,.7fr) minmax(0,1.8fr);gap:28px;align-items:stretch;min-height:58vh}
+.term-list{display:flex;flex-direction:column;gap:10px}
+.term-button{width:100%;padding:12px 15px;border:2px solid var(--line);border-radius:8px;background:#fff;color:var(--navy);font:inherit;font-size:1.05rem;font-weight:700;text-align:left;cursor:pointer}
+.term-button:hover{border-color:var(--teal)}
+.term-button:focus-visible{outline:4px solid var(--gold);outline-offset:2px}
+.term-button[aria-selected="true"]{color:#fff;background:var(--teal);border-color:var(--teal)}
+.term-detail{border:1px solid var(--line);border-radius:10px;padding:20px 24px;background:var(--paper);overflow:auto}
+.term-detail h3{margin:0 0 10px;color:var(--teal);font-size:clamp(1.35rem,2.2vw,2rem)}
+.term-detail p{font-size:clamp(.96rem,1.35vw,1.22rem);margin:.55em 0}
+.term-detail[hidden]{display:none}
+.term-visual{font-size:1.12rem;padding:10px 14px;background:var(--teal-soft);border-left:4px solid var(--teal);margin-top:12px}
+@media(max-width:800px){.term-explorer{grid-template-columns:1fr}.term-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+@media print{.term-explorer{display:block;min-height:0}.term-list{display:none}.term-detail[hidden]{display:block}.term-detail{break-inside:avoid;margin:12px 0}}
 </style>
 </head>
 <body>
 <main class="deck">
 <section class="slide title"><p class="kicker">ASTR 120 · Lecture 07</p><h1>The Moon, Mercury, and Airless Worlds</h1><h2>Solar-system evidence, physics, and exploration</h2></section>
 <section class="slide"><h2>Why This Question Matters</h2><p>Lunar samples and crater chronology anchor much of inner solar-system history.</p></section>
-<section class="slide"><h2>Learning Goals</h2><ul><li>Interpret airless surfaces using craters, rays, regolith, and composition.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section>
+<section class="slide"><h2>Learning Goals</h2><ul><li>Interpret airless surfaces using craters, rays, regolith, and composition.</li><li>Connect a mission or observation to the physical interpretation.</li><li>Use a quantitative or comparative argument with explicit assumptions.</li></ul></section><section class="slide glossary-slide" aria-labelledby="l07-terms-heading"><h2 id="l07-terms-heading">Terms for This Lecture</h2><div class="term-explorer" data-term-explorer><div class="term-list" role="tablist" aria-label="Lecture 07 terms"><button class="term-button" id="l07-term-1-tab" type="button" role="tab" aria-selected="true" aria-controls="l07-term-1-panel" data-term-target="l07-term-1-panel" tabindex="0">Regolith</button><button class="term-button" id="l07-term-2-tab" type="button" role="tab" aria-selected="false" aria-controls="l07-term-2-panel" data-term-target="l07-term-2-panel" tabindex="-1">Impact flux</button><button class="term-button" id="l07-term-3-tab" type="button" role="tab" aria-selected="false" aria-controls="l07-term-3-panel" data-term-target="l07-term-3-panel" tabindex="-1">Crater ray</button><button class="term-button" id="l07-term-4-tab" type="button" role="tab" aria-selected="false" aria-controls="l07-term-4-panel" data-term-target="l07-term-4-panel" tabindex="-1">Space weathering</button><button class="term-button" id="l07-term-5-tab" type="button" role="tab" aria-selected="false" aria-controls="l07-term-5-panel" data-term-target="l07-term-5-panel" tabindex="-1">Synchronous rotation</button><button class="term-button" id="l07-term-6-tab" type="button" role="tab" aria-selected="false" aria-controls="l07-term-6-panel" data-term-target="l07-term-6-panel" tabindex="-1">Volatile</button></div><div class="term-details"><article class="term-detail" id="l07-term-1-panel" role="tabpanel" aria-labelledby="l07-term-1-tab"><h3>Regolith</h3><p><strong>Definition:</strong> Loose fragmented material covering coherent rock on an airless or nearly airless body.</p><p><strong>Why it matters and connects:</strong> Its grain size, maturity, composition, and thickness record impacts, radiation exposure, and surface mixing.</p><p><strong>Boundary or common confusion:</strong> Regolith is not ordinary soil: it need not contain biology, water, or chemical weathering products.</p></article><article class="term-detail" id="l07-term-2-panel" role="tabpanel" aria-labelledby="l07-term-2-tab" hidden><h3>Impact flux</h3><p><strong>Definition:</strong> The rate at which projectiles of specified sizes strike a target area over time.</p><p><strong>Why it matters and connects:</strong> Crater chronology depends on how impact flux changes with epoch and location.</p><p><strong>Boundary or common confusion:</strong> Flux is not constant through solar-system history and differs among dynamically distinct targets.</p></article><article class="term-detail" id="l07-term-3-panel" role="tabpanel" aria-labelledby="l07-term-3-tab" hidden><h3>Crater ray</h3><p><strong>Definition:</strong> A bright or compositionally distinct streak of ejecta extending outward from a relatively fresh impact crater.</p><p><strong>Why it matters and connects:</strong> Rays expose and distribute material that has undergone less space weathering, making them useful relative-youth indicators.</p><p><strong>Boundary or common confusion:</strong> Brightness can depend on composition and illumination as well as age; rays fade rather than marking an exact date.</p></article><article class="term-detail" id="l07-term-4-panel" role="tabpanel" aria-labelledby="l07-term-4-tab" hidden><h3>Space weathering</h3><p><strong>Definition:</strong> Physical and chemical alteration of exposed surface grains by micrometeoroids, solar-wind particles, radiation, and thermal cycling.</p><p><strong>Why it matters and connects:</strong> It changes spectral slope, brightness, and absorption bands, complicating remote compositional interpretation.</p><p><strong>Boundary or common confusion:</strong> Its effects differ among silicate, carbonaceous, metallic, and icy surfaces; lunar behavior is not universal.</p></article><article class="term-detail" id="l07-term-5-panel" role="tabpanel" aria-labelledby="l07-term-5-tab" hidden><h3>Synchronous rotation</h3><p><strong>Definition:</strong> A spin state in which a body&#x27;s rotation period equals its orbital period, keeping nearly the same hemisphere toward its primary.</p><p><strong>Why it matters and connects:</strong> Tidal evolution explains why the Moon presents a near side and far side and affects surface illumination histories.</p><p><strong>Boundary or common confusion:</strong> Synchronous rotation does not mean the body does not rotate; it turns once per orbit.</p><div class="term-visual">\(P_{\rm spin}=P_{\rm orbit}\)</div></article><article class="term-detail" id="l07-term-6-panel" role="tabpanel" aria-labelledby="l07-term-6-tab" hidden><h3>Volatile</h3><p><strong>Definition:</strong> A substance that vaporizes, sublimates, or migrates readily at the temperatures and pressures of a planetary environment.</p><p><strong>Why it matters and connects:</strong> Water and other volatiles can survive in permanently shadowed cold traps even on otherwise airless worlds.</p><p><strong>Boundary or common confusion:</strong> Volatile is environment-dependent; a compound stable as ice in one location may be gas elsewhere.</p></article></div></div></section>
 <section class="slide"><h2>Opening Phenomenon</h2><p>Airless bodies preserve impact histories and space-weathering records with minimal atmospheric erosion.</p></section>
 <section class="slide"><h2>Airless Worlds Keep Surface Records</h2><div class="three"><article class="card"><p><strong>Regolith:</strong> broken, gardened surface material produced by repeated impacts.</p></article><article class="card"><p><strong>Crater rays:</strong> bright ejecta that darkens and matures with exposure.</p></article><article class="card"><p><strong>Space weathering:</strong> micrometeorites and solar wind alter color and reflectance.</p></article></div></section>
 <section class="slide"><h2>Why the Moon and Mercury Are Not Simple Twins</h2><p>Both are airless and cratered, but Mercury's higher solar heating, larger metal fraction, and stronger solar environment affect volatile retention, surface chemistry, and tectonic history.</p></section>
@@ -56,5 +71,33 @@ svg,img { width:100%; max-height:72vh; object-fit:contain; border:1px solid var(
 <section class="slide"><h2>Evidence Bridge: Regolith Records Exposure</h2><p>Airless regolith changes with micrometeorite gardening and solar-wind implantation. Maturity indicators help separate a genuinely young crater from an older surface that only looks bright because composition or illumination differs.</p></section>
 <section class="slide"><h2>Synthesis: Airless Surfaces Are Exposure Experiments</h2><ul><li>Impact features supply relative ages and excavation clues.</li><li>Space weathering changes optical properties over time.</li><li>Composition and temperature determine whether volatiles can survive without an atmosphere.</li></ul></section>
 <section class="slide"><h2>References and Visual Credits</h2><ul><li>OpenStax Astronomy 2e solar-system chapters and local reference copy.</li><li>NASA/OpenStax/ESA sources recorded in reference-log.md where external visuals are used.</li></ul></section>
-</main></body>
+</main>
+<script data-astr120-term-explorer>
+document.querySelectorAll("[data-term-explorer]").forEach((explorer)=>{
+  const tabs=[...explorer.querySelectorAll('[role="tab"]')];
+  const panels=[...explorer.querySelectorAll('[role="tabpanel"]')];
+  const select=(tab,moveFocus=false)=>{
+    tabs.forEach((item)=>{
+      const active=item===tab;
+      item.setAttribute("aria-selected",String(active));
+      item.tabIndex=active?0:-1;
+    });
+    panels.forEach((panel)=>{panel.hidden=panel.id!==tab.getAttribute("aria-controls");});
+    if(moveFocus)tab.focus();
+  };
+  tabs.forEach((tab,index)=>{
+    tab.addEventListener("click",()=>select(tab));
+    tab.addEventListener("keydown",(event)=>{
+      if(!["ArrowDown","ArrowUp","ArrowRight","ArrowLeft","Home","End"].includes(event.key))return;
+      event.preventDefault();
+      let next=index;
+      if(event.key==="Home")next=0;
+      else if(event.key==="End")next=tabs.length-1;
+      else next=(index+(["ArrowDown","ArrowRight"].includes(event.key)?1:-1)+tabs.length)%tabs.length;
+      select(tabs[next],true);
+    });
+  });
+});
+</script>
+</body>
 </html>

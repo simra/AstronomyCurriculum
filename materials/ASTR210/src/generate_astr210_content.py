@@ -26,17 +26,43 @@ CSS = """
 
 SLIDE_CSS = """
 :root{--ink:#17202a;--muted:#5b6773;--paper:#fbfcfd;--panel:#fff;--line:#d9e0e7;--navy:#102a43;--teal:#0f6b78;--teal-soft:#e5f4f6;--gold:#b87911;--warning:#8a4b08}
-*{box-sizing:border-box}body{margin:0;font-family:"Aptos","Segoe UI",sans-serif;color:var(--ink);background:var(--paper)}.deck{scroll-snap-type:y mandatory;height:100vh;overflow-y:auto}.slide{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;padding:50px 68px;border-bottom:1px solid var(--line);background:var(--panel)}.title{background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff}h1{font-size:clamp(2.4rem,5vw,4.5rem);margin:0 0 18px;line-height:1.05}h2{font-size:clamp(1.8rem,3.2vw,3.1rem);margin:0 0 22px;color:var(--navy)}.title h2{color:#fff;opacity:.94}p,li{font-size:clamp(1.03rem,1.55vw,1.45rem);line-height:1.35}ul,ol{max-width:1050px}.kicker{color:var(--gold);text-transform:uppercase;letter-spacing:.08em;font-weight:700}.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center}.visual-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:30px;align-items:center}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{border:1px solid var(--line);background:#fff;border-radius:6px;padding:14px 16px}.equation{font-size:1.32rem;padding:14px 18px;background:var(--teal-soft);border-left:5px solid var(--teal);margin:12px 0}figcaption,.small,.credit{color:var(--muted);font-size:.95rem;line-height:1.35;margin-top:8px}svg,img{width:100%;max-height:72vh;object-fit:contain;border:1px solid var(--line);background:#fff}.warning{border-left:5px solid var(--warning);background:#fff8e8;padding:14px 18px}@media print{.deck{height:auto;overflow:visible}.slide{min-height:7.5in;page-break-after:always}}
+*{box-sizing:border-box}body{margin:0;font-family:"Aptos","Segoe UI",sans-serif;color:var(--ink);background:var(--paper)}.deck{scroll-snap-type:y mandatory;height:100vh;overflow-y:auto}.slide{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;padding:50px 68px;border-bottom:1px solid var(--line);background:var(--panel)}.title{background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff}h1{font-size:clamp(2.4rem,5vw,4.5rem);margin:0 0 18px;line-height:1.05}h2{font-size:clamp(1.8rem,3.2vw,3.1rem);margin:0 0 22px;color:var(--navy)}.title h2{color:#fff;opacity:.94}p,li{font-size:clamp(1.03rem,1.55vw,1.45rem);line-height:1.35}ul,ol{max-width:1050px}.kicker{color:var(--gold);text-transform:uppercase;letter-spacing:.08em;font-weight:700}.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center}.visual-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:30px;align-items:center}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{border:1px solid var(--line);background:#fff;border-radius:6px;padding:14px 16px}.equation{font-size:1.32rem;padding:14px 18px;background:var(--teal-soft);border-left:5px solid var(--teal);margin:12px 0}figcaption,.small,.credit{color:var(--muted);font-size:.95rem;line-height:1.35;margin-top:8px}svg,img{width:100%;max-height:72vh;object-fit:contain;border:1px solid var(--line);background:#fff}.warning{border-left:5px solid var(--warning);background:#fff8e8;padding:14px 18px}
+.term-explorer{display:grid;grid-template-columns:minmax(220px,.72fr) minmax(0,1.8fr);gap:26px;align-items:stretch;min-height:56vh}.term-list{display:flex;flex-direction:column;gap:9px}.term-button{width:100%;padding:12px 14px;border:2px solid var(--line);border-radius:8px;background:#fff;color:var(--navy);font:inherit;font-size:1rem;font-weight:700;text-align:left;cursor:pointer}.term-button:hover{border-color:var(--teal)}.term-button:focus-visible{outline:4px solid var(--gold);outline-offset:2px}.term-button[aria-selected="true"]{color:#fff;background:var(--teal);border-color:var(--teal)}.term-detail{border:1px solid var(--line);border-radius:10px;padding:18px 22px;background:var(--paper);overflow:auto}.term-detail h3{margin:0 0 10px;color:var(--teal);font-size:clamp(1.35rem,2.2vw,2rem)}.term-detail p{font-size:clamp(.98rem,1.35vw,1.25rem);margin:.55rem 0}.term-detail[hidden]{display:none}.term-visual{margin-top:12px;padding:10px 14px;background:var(--teal-soft);border-left:4px solid var(--teal);font-size:1.05rem}
+@media(max-width:800px){.slide{padding:36px 24px}.term-explorer{grid-template-columns:1fr}.term-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media print{.deck{height:auto;overflow:visible}.slide{min-height:7.5in;page-break-after:always}.term-explorer{display:block}.term-list{display:none}.term-detail[hidden]{display:block}.term-detail{break-inside:avoid;margin:12px 0}}
+"""
+
+TERM_EXPLORER_JS = """
+<script>
+document.querySelectorAll("[data-term-explorer]").forEach((explorer) => {
+  const tabs = [...explorer.querySelectorAll('[role="tab"]')];
+  const panels = [...explorer.querySelectorAll('[role="tabpanel"]')];
+  const select = (tab) => {
+    tabs.forEach((item) => item.setAttribute("aria-selected", String(item === tab)));
+    panels.forEach((panel) => { panel.hidden = panel.id !== tab.dataset.termTarget; });
+  };
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => select(tab));
+    tab.addEventListener("keydown", (event) => {
+      if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : (index + (event.key === "ArrowDown" ? 1 : -1) + tabs.length) % tabs.length;
+      tabs[nextIndex].focus();
+      select(tabs[nextIndex]);
+    });
+  });
+});
+</script>
 """
 
 
-def page(title: str, body: str, css: str = CSS) -> str:
+def page(title: str, body: str, css: str = CSS, script: str = '') -> str:
     return (
         f"<!doctype html><html lang='en'><head><meta charset='utf-8'>"
         f"<meta name='viewport' content='width=device-width, initial-scale=1'>"
         f"<title>{escape(title)}</title>"
         f"<script id='MathJax-script' async src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>"
-        f"<style>{css}</style></head><body>{body}</body></html>"
+        f"<style>{css}</style></head><body>{body}{script}</body></html>"
     )
 
 
@@ -254,10 +280,10 @@ def svg_01(item) -> str:
                 s += _dot(x + 20 + (i * 61) % 200, y + 20 + (i * 41) % 100, r=2.6, fill='#ffce6b')
         s += f"<rect x='{x}' y='{y}' width='230' height='130' rx='8' fill='none' stroke='#102a43' stroke-width='1.5'/>"
         s += f"<text x='{x+10}' y='{y+150}' font-size='15' fill='#102a43' font-family='{FONT}'>{escape(label)}: {escape(sub)}</text>"
-    s += _box(420, 235, 190, 90, '#eef3f5', 'Raw patch (top-left)', f'{P1_RAW} ADU', text_color='#102a43')
+    s += _box(420, 235, 190, 90, '#eef3f5', 'Raw patch (top-left)', 'raw counts (patch)', text_color='#102a43')
     s += f"<path d='M610 280 L700 280' stroke='#5b6773' stroke-width='5' marker-end='url(#arrow{n:02d})'/>"
-    s += _box(700, 235, 230, 90, '#0f6b78', 'I_cal = (raw \u2212 D) / F', f'{fmt(P1_CAL,1)} ADU')
-    s += _svg_close(f'Bias, dark, and flat frames from the 2022-07-19 session calibrate the {P1_RAW} ADU raw patch to {fmt(P1_CAL,1)} ADU.')
+    s += _box(700, 235, 230, 90, '#0f6b78', 'Additive, then multiplicative', 'correction (see Lecture 3)')
+    s += _svg_close("Bias, dark, and flat frames from the 2022-07-19 session correct the raw patch's counts; Lecture 3 states the exact values and computes the calibrated result.")
     return s
 
 
@@ -706,7 +732,7 @@ LECTURES = [
         subtitle='Observation, calibration, and inference',
         goals=[
             'State why a raw astronomical image is not yet a measurement.',
-            'Identify the additive (bias, dark current) and multiplicative (flat field) corrections that convert counts into a defensible signal.',
+            'Recognize, from real evidence, that detector counts must be corrected by an additive term (bias, dark current) before being scaled by a multiplicative term (flat field), and explain why neither correction alone is sufficient \u2014 Lecture 3 develops the equation and arithmetic that make this computable.',
             'Propagate a simple calibration-frame uncertainty and report a result with units and an error bar.',
         ],
         why_matters='Photographic plates gave way to CCDs and CMOS sensors in the late 20th century because they are linear and reproducible, but linearity only helps if the observer removes the detector\u2019s own signature from every pixel. A "pretty picture" straight off the camera mixes source light with bias voltage, thermal electrons, and pixel-to-pixel sensitivity variations; none of those artifacts are physically part of the object being observed. This lecture uses a real amateur imaging session (Canon EOS M50 on a William Optics Zenithstar 73 refractor, captured with BackyardEOS and calibrated in Astro Pixel Processor) so every number below is a measured quantity, not a hypothetical one.',
@@ -733,8 +759,8 @@ LECTURES = [
             'This is real diffuse sky-background-plus-source signal above the calibration floor, not sensor noise \u2014 the dominant remaining uncertainty is photon (shot) statistics, developed in Lecture 4.',
         ],
         pitfall='Treating the raw pixel value as the physical brightness of the source. A brighter raw number can result from a warmer detector or a more sensitive pixel, not a brighter star.',
-        activity='In pairs, take the printed raw-count table from Lab 01 and calibrate two of the five real patches by hand before checking your arithmetic against a neighbor\u2019s.',
-        lab_connection='Lab 01 (Detector Calibration) requires calibrating five real aperture patches from this same imaging session using this exact dark/flat model and reporting the least-certain step.',
+        activity='In pairs, take the printed raw-count table from Lab 01 and predict, without computing, whether the corrected value at two of the five real patches should be higher or lower than its raw value, and roughly how much the additive and multiplicative corrections each contribute \u2014 then check your reasoning against a neighbor\u2019s before Lecture 3 supplies the equation to verify it exactly.',
+        lab_connection='Lab 01 (Detector Calibration) requires calibrating five real aperture patches from this same imaging session \u2014 applying the additive-then-multiplicative reasoning introduced conceptually here, using the exact equation Lecture 3 supplies \u2014 and reporting the least-certain step.',
         synthesis='A defensible astronomical measurement is a corrected number with an uncertainty and a documented calibration history \u2014 not the number the detector happened to display.',
         openstax='OpenStax Astronomy 2e, Chapter 1.3 (the nature of scientific measurement) and Chapter 6.3 (visible-light detectors and instruments).',
     ),
@@ -777,7 +803,7 @@ LECTURES = [
         subtitle='What a modern detector actually records',
         goals=[
             'Explain the physical origin of bias, dark current, and flat-field variations in a CCD.',
-            'Apply the full calibration equation to a second, independent worked example.',
+            "Derive and apply the calibration equation I_cal = (I_raw \u2212 D)/F to a real worked example, converting Lecture 1's qualitative additive/multiplicative reasoning into a computable tool.",
             'Distinguish additive corrections from multiplicative corrections.',
         ],
         why_matters='A CCD or CMOS sensor converts photons into electrons with high linearity, which is why it replaced photographic plates, but every pixel adds its own small, systematic offset and its own sensitivity. Understanding these effects at the hardware level explains why calibration frames must be taken on the same night, with the same instrument setup, as the science frames \u2014 exactly as Lecture 1\u2019s Canon EOS M50 example did.',
@@ -1175,6 +1201,706 @@ LECTURES = [
     ),
 ]
 
+# Exact terms used by the 14 decks.  Each entry supplies an original
+# definition, a lecture-facing purpose, a relationship to a measurable
+# quantity/model, and a boundary or common confusion.  The same source drives
+# both the interactive slide panel and the expanded notes section, preventing
+# deck/notes terminology drift.
+TERM_LIBRARY = {
+    'ADU (analog-to-digital unit)': (
+        'The numerical count reported by a detector electronics chain after accumulated charge has been digitized.',
+        'ADU is the raw observable in the calibration example; it is the starting point, not yet a physical flux.',
+        'Detector gain links counts to collected electrons, while bias, dark, and flat corrections determine which part of the count is attributable to incident light.',
+        'An ADU is not a photon and does not have the same physical scale across cameras or gain settings.',
+    ),
+    'bias frame': (
+        'A nominally zero-exposure image that maps the electronic offset added during detector readout.',
+        'It reveals why an unilluminated pixel can have a large positive value and establishes the additive calibration floor.',
+        'A master bias estimates the offset and read-noise pattern; a matched dark may already contain this bias pedestal.',
+        'A bias frame does not measure thermal charge, and subtracting both a bias and a dark that already includes bias would double-correct the data.',
+    ),
+    'dark current': (
+        'Thermally generated charge accumulated in a detector pixel during an exposure even when no photons arrive.',
+        'It can imitate faint source signal or produce hot pixels unless a matched dark exposure or detector model removes it.',
+        'Dark signal generally depends on exposure time and temperature and enters the additive part of the calibration and SNR models.',
+        'Dark current is a signal with shot noise; a dark subtraction removes its mean pattern but cannot erase the noise already accumulated.',
+    ),
+    'flat field': (
+        'A normalized image of relative pixel and optical throughput measured under spatially uniform illumination.',
+        'Dividing by the flat removes vignetting, dust shadows, and pixel-response variations that would otherwise bias flux comparisons.',
+        r'The flat is the multiplicative term \(F\) in \(I_{cal}=(I_{raw}-D)/F\), so values above and below one rescale counts in opposite directions.',
+        'A flat is valid only for the optical configuration, filter, focus, and detector state in which it was obtained.',
+    ),
+    'gain': (
+        'The conversion factor between collected photoelectrons and digitized detector counts, commonly expressed as electrons per ADU.',
+        'Gain is needed when a count measurement must enter a photon-statistics noise model in electron units.',
+        r'With gain \(g\), an idealized conversion is \(N_e=gN_{ADU}\); read noise and saturation specifications are also interpreted in this electron scale.',
+        'Changing gain does not create more photons or necessarily improve dynamic range; it changes the electronic conversion and noise tradeoff.',
+    ),
+    'calibration frame': (
+        'An exposure made to measure an instrumental contribution rather than the astronomical target itself.',
+        'Bias, dark, and flat frames make the science image interpretable by separating detector behavior from sky signal.',
+        'Calibration frames are combined into master products and applied through the reduction pipeline with their metadata and uncertainties.',
+        'A calibration frame is not automatically suitable merely because it has the right label; exposure, temperature, filter, and optical configuration must match.',
+    ),
+    'provenance': (
+        'The documented origin and processing history of a datum, including instrument settings, calibration inputs, software steps, and versions.',
+        'Provenance lets another observer determine how a displayed number was produced and whether it can be reproduced.',
+        'It connects raw files to calibrated products, uncertainty estimates, archive queries, and the final scientific claim.',
+        'A filename or citation alone is not complete provenance when decisive processing choices remain undocumented.',
+    ),
+    'airmass': (
+        'The atmospheric path length toward a target relative to the path at the zenith.',
+        'Airmass predicts how strongly extinction and atmospheric systematics affect the planned exposure.',
+        r'In the plane-parallel approximation \(X\approx\sec z\), and extinction contributes \(\Delta m=kX\).',
+        'The secant approximation becomes inaccurate near the horizon, where curvature and refraction matter.',
+    ),
+    'zenith angle': (
+        r'The angular separation \(z\) between the target and the point directly overhead; it equals 90 degrees minus altitude.',
+        'It is the geometric input used to estimate airmass and therefore the target’s atmospheric penalty.',
+        r'As \(z\) grows, \(\cos z\) decreases and \(X\approx1/\cos z\) rises steeply.',
+        'Zenith angle is not the same as altitude; confusing them reverses the observing geometry.',
+    ),
+    'extinction coefficient': (
+        'The magnitude attenuation per unit airmass in a specified passband under stated atmospheric conditions.',
+        'It turns target geometry into an expected loss of flux and helps decide whether an observing window is viable.',
+        r'The first-order model is \(m_{obs}=m_0+kX\), with \(k\) inferred from standards observed over a range of airmass.',
+        'The coefficient is not universal: wavelength, aerosols, water vapor, and time can change it.',
+    ),
+    'exposure time': (
+        'The interval during which a detector integrates incident photons for one recorded frame.',
+        'It sets accumulated signal, saturation risk, time resolution, and part of the noise budget.',
+        'Source and sky counts usually scale with time, while read noise is incurred once per exposure; this creates an optimization rather than a simple longer-is-better rule.',
+        'Longer exposure does not remove systematic errors and can blur time variability or saturate bright sources.',
+    ),
+    'overhead': (
+        'Observing time spent on readout, slewing, acquisition, focusing, calibration, or file handling rather than photon collection.',
+        'Ignoring overhead makes a schedule impossible even when the summed exposure times fit the night.',
+        r'Efficiency is \(t_{exp}/(t_{exp}+t_{overhead})\), so short exposures can lose a large fraction of the available time.',
+        'Overhead is not wasted time when it is required for calibration or reliable target acquisition.',
+    ),
+    'calibration cadence': (
+        'The planned frequency and timing with which standards or calibration frames are obtained.',
+        'It determines whether changing atmosphere and instrument response can be tracked during the science sequence.',
+        'Calibration cadence should be shorter than the timescale on which zero point, wavelength solution, or detector state drifts.',
+        'One calibration at the start of a night cannot diagnose changes that occur later.',
+    ),
+    'observing window': (
+        'The interval when a target satisfies the project’s altitude, darkness, timing, and instrument constraints.',
+        'It converts a target’s visibility into the subset of time when useful data can actually be acquired.',
+        'The window is set by hour angle and airmass together with twilight, Moon, cadence, and required calibration time.',
+        'Being above the horizon is not equivalent to being scientifically observable.',
+    ),
+    'quantum efficiency': (
+        'The fraction of incident photons at a given wavelength that produce collected detector electrons.',
+        'It sets wavelength-dependent sensitivity and therefore affects exposure planning and count-to-flux interpretation.',
+        'Expected electrons scale approximately as incident photons times quantum efficiency and total optical throughput.',
+        'Quantum efficiency is not constant with wavelength and is not the same as the gain from electrons to ADU.',
+    ),
+    'vignetting': (
+        'A position-dependent loss of illumination caused by the optical system, usually strongest toward the field edges.',
+        'It explains the radial flat-field pattern and why equal sources can have unequal raw counts at different detector positions.',
+        'A normalized flat maps vignetting so division restores a common photometric response across the field.',
+        'Flat correction compensates stable vignetting but cannot recover photons that were never detected with the same SNR as the field center.',
+    ),
+    'read noise': (
+        'Random electronic uncertainty introduced when the detector charge is measured and digitized.',
+        'It limits faint-source measurements and makes many very short exposures less efficient than fewer longer exposures.',
+        r'For an aperture of \(n_{pix}\) pixels, the variance contribution is \(n_{pix}R^2\), added in quadrature with photon-noise terms.',
+        'Read noise is not removed by bias subtraction; the mean bias pattern can be removed, but stochastic read noise remains.',
+    ),
+    'linearity': (
+        'The regime in which recorded counts are proportional to the number of collected electrons or incident photons.',
+        'Linearity is what permits calibrated counts to be compared, averaged, and converted into relative flux.',
+        r'A linear detector obeys \(C=aN_e+b\) over its usable range, allowing additive and multiplicative calibration models.',
+        'Near saturation or at very low signal, detector response can depart from linearity and invalidate simple scaling.',
+    ),
+    'Poisson noise': (
+        'Counting uncertainty that arises because independent photon arrivals fluctuate with variance approximately equal to the expected count.',
+        'It establishes a fundamental noise floor even for a perfectly calibrated detector.',
+        r'For \(N\) detected electrons, \(\sigma\approx\sqrt{N}\); source, sky, and dark counting variances add in the SNR denominator.',
+        'Poisson noise is random scatter, not a removable calibration pattern.',
+    ),
+    'sky background': (
+        'Photons recorded from airglow, scattered light, unresolved sources, and other non-target illumination.',
+        'Sky counts add noise inside the source aperture and can dominate a faint-source detection.',
+        r'The sky level is estimated from nearby pixels and contributes \(n_{pix}N_{sky}\) to the aperture variance.',
+        'Subtracting the estimated mean sky does not subtract its shot noise.',
+    ),
+    'dark current (SNR term)': (
+        'The expected thermal-electron contribution per pixel over the science exposure, included as a variance source in the SNR calculation.',
+        'It separates the uncertainty produced by thermal charge from the calibrated source and sky signals.',
+        r'For \(n_{pix}\) pixels, dark variance contributes \(n_{pix}N_{dark}\) when the counts are treated as Poisson.',
+        'This term is not the same as the residual mean after dark subtraction; the mean can be removed while its counting noise remains.',
+    ),
+    'aperture': (
+        'The chosen set of detector pixels whose background-subtracted counts are summed to measure a source.',
+        'Aperture size controls the tradeoff between captured source flux and added sky/read noise.',
+        'The SNR numerator grows with encircled source flux, while background and read-noise variance grow roughly with the number of included pixels.',
+        'A larger aperture is not automatically better and must not be confused with the telescope’s physical entrance aperture.',
+    ),
+    'detection threshold': (
+        'A stated signal-to-noise or false-alarm criterion used to decide whether a measured signal is distinguishable from noise.',
+        'It turns “I can see something” into a reproducible statistical decision.',
+        'A common convention is SNR near 5 for a secure isolated detection, but the false-positive rate also depends on how many locations or trials were searched.',
+        'A threshold is a convention tied to a noise model, not proof that the source is real under every systematic error.',
+    ),
+    'shot noise': (
+        'The Poisson fluctuation in the number of discrete photons or electrons counted during an exposure.',
+        'It explains why relative precision improves only as the square root of the signal.',
+        r'For signal \(S\), the fractional shot-noise floor is approximately \(1/\sqrt{S}\).',
+        'Shot noise is not detector malfunction and cannot be calibrated away after the photons have been counted.',
+    ),
+    'instrumental magnitude': (
+        'A logarithmic measure computed directly from a background-subtracted detector count rate before absolute calibration.',
+        'It places measured flux on a convenient relative scale that can be tied to catalog standards.',
+        r'The usual definition is \(m_{inst}=-2.5\log_{10}(C/t)\), and the calibrated magnitude adds a zero point and any needed color/extinction terms.',
+        'Instrumental magnitudes from different systems or nights are not directly comparable without calibration.',
+    ),
+    'zero point': (
+        'The additive constant that maps an instrumental magnitude scale onto a specified standard magnitude system.',
+        'It converts count rates into calibrated magnitudes and carries calibration uncertainty into every target result.',
+        r'For a standard, \(ZP=m_{cat}+2.5\log_{10}(C/t)\); independent standards test whether the value is stable.',
+        'A zero point can depend on filter, atmosphere, detector, and time; it is not a permanent property of the telescope.',
+    ),
+    'aperture radius': (
+        'The distance from a source center defining which pixels are included in circular-aperture photometry.',
+        'It controls how much of the point-spread function is captured and how much background noise enters.',
+        'A curve of growth plots enclosed counts against radius and helps identify a radius where added source flux becomes small.',
+        'A radius chosen for one seeing condition or crowded field may be inappropriate for another.',
+    ),
+    'sky annulus': (
+        'A ring around the source aperture used to estimate the local background level per pixel.',
+        'It provides the background subtraction needed to isolate source counts from sky and detector background.',
+        r'Net counts are \(C_{ap}-n_{ap}\bar C_{sky}\), so annulus contamination directly biases the measured flux.',
+        'The annulus must avoid source wings, neighboring stars, gradients, and bad pixels; “nearby” does not guarantee representative sky.',
+    ),
+    'count rate': (
+        'Background-subtracted detector counts divided by exposure time.',
+        'It permits photometric comparison among frames with different exposure durations.',
+        r'Magnitude calibration uses \(C/t\) inside the logarithm rather than total counts alone.',
+        'Count rate corrects exposure duration, not changes in transparency, airmass, or detector response.',
+    ),
+    'photometric standard': (
+        'A star with a well-characterized magnitude in a defined passband, observed to calibrate an instrumental system.',
+        'Standards anchor the zero point and reveal whether the night and reduction are photometrically consistent.',
+        'Catalog magnitude and measured count rate determine the zero point; additional standards test color and extinction residuals.',
+        'A bright isolated star is not automatically a standard, and catalog passbands must match the measurement system.',
+    ),
+    'curve of growth': (
+        'The cumulative background-subtracted source counts measured as aperture radius increases.',
+        'It shows where most source flux has been enclosed without adding excessive background noise.',
+        'The plateau indicates diminishing additional flux and supports an evidence-based aperture choice.',
+        'In crowded fields or spatially varying backgrounds, a curve may not plateau cleanly and can include contaminating flux.',
+    ),
+    'comparison star': (
+        'A non-variable field star measured alongside a target to track transparency and instrumental changes common to both.',
+        'It provides the reference needed to decide whether a target’s apparent change is intrinsic or caused by the observing system.',
+        'The target-to-comparison flux ratio becomes a differential magnitude or normalized light curve.',
+        'A comparison star must be checked for stability and suitable brightness/color; sharing the field does not guarantee suitability.',
+    ),
+    'differential magnitude': (
+        'The logarithmic brightness difference between a target and a comparison source measured in the same frame.',
+        'It suppresses common atmospheric and instrumental variations and exposes relative variability.',
+        r'\(\Delta m=-2.5\log_{10}(F_t/F_c)\); a deeper target dip increases the differential magnitude when the comparison stays stable.',
+        'It is a relative measurement and does not by itself supply an absolute calibrated magnitude.',
+    ),
+    'common-mode noise': (
+        'Variation that affects the target and reference stars similarly, such as transparency or throughput changes.',
+        'Differential photometry works by canceling this shared component before interpreting target variability.',
+        'Flux ratios or ensemble normalization remove variations correlated across many stars.',
+        'Color-dependent extinction, detector-position effects, or a variable comparison may not be common mode and will not cancel cleanly.',
+    ),
+    'light curve': (
+        'A sequence of brightness measurements plotted or modeled as a function of time.',
+        'It is the primary observable used to infer variability, transit depth, event timing, and periodicity.',
+        'Each point combines photometric measurement, timestamp, uncertainty, and often comparison-star normalization.',
+        'A smooth-looking curve can still be undersampled or systematically biased; cadence and error bars are part of the result.',
+    ),
+    'transit depth': (
+        'The fractional decrease in observed stellar flux during an occultation or transit.',
+        'It quantifies the amplitude of the lecture’s dip and is the signal that must exceed photometric noise.',
+        r'For an ideal dark planet and uniform stellar disk, \(\delta\approx(R_p/R_\star)^2\), while differential magnitude gives the observed flux ratio.',
+        'Limb darkening, blending, starspots, and systematics make the simple radius relation approximate.',
+    ),
+    'baseline': (
+        'Out-of-event measurements defining the normal brightness level against which a variation is compared.',
+        'A stable baseline is required to measure the depth and significance of a dip.',
+        'Normalization often divides the light curve by a fitted baseline constructed from pre- and post-event data.',
+        'A short or drifting baseline can absorb real variability or create an artificial trend.',
+    ),
+    'ensemble photometry': (
+        'Differential photometry that combines several comparison stars into a weighted reference.',
+        'It reduces reliance on any single comparison and can improve precision and robustness.',
+        'The ensemble reference is commonly a weighted mean flux, with weights based on uncertainty and stability.',
+        'Adding poor, variable, saturated, or color-mismatched stars can make the ensemble worse rather than better.',
+    ),
+    'centroid': (
+        'An estimated subpixel position of a source, usually computed from the intensity distribution around its image.',
+        'Accurate centroids are the measured image coordinates used to fit a plate solution and track motion.',
+        'Centroid uncertainty depends on point-spread function, SNR, sampling, and background, and propagates into astrometric residuals.',
+        'A centroid is not necessarily the brightest pixel and can be biased by blends, saturation, or asymmetric PSFs.',
+    ),
+    'plate scale': (
+        'The angular sky distance represented by one detector pixel, typically in arcseconds per pixel.',
+        'It converts measured pixel separations into angular separations and sets the sampling of the seeing disk.',
+        r'Locally, \(s=\Delta\theta/\Delta p\); a full WCS also includes rotation and distortion.',
+        'A single constant scale is only an approximation when optics introduce significant field distortion.',
+    ),
+    'World Coordinate System (WCS)': (
+        'Metadata and a transformation that map image pixel coordinates to celestial coordinates.',
+        'WCS lets an image be compared with catalogs and allows positions to be reported on the sky rather than in detector pixels.',
+        'A plate solution fits transformation parameters using matched reference stars and records them in image headers.',
+        'A WCS can be present but inaccurate; residuals and reference coverage must be inspected.',
+    ),
+    'astrometric residual': (
+        'The positional difference between a reference catalog coordinate and the coordinate predicted by the fitted plate solution.',
+        'Residuals diagnose whether the transformation is accurate enough for the intended position or motion measurement.',
+        'Residual vectors reveal translation, rotation, scale, and distortion errors; their RMS summarizes typical fit scatter.',
+        'A small global RMS can hide local patterns or a few misidentified reference stars.',
+    ),
+    'proper motion': (
+        'The angular change in a star’s sky position per unit time after accounting for coordinate conventions.',
+        'It is an astrophysical signal measured by comparing calibrated positions across epochs.',
+        r'Proper motion is \(\mu=\Delta\theta/\Delta t\) and must be distinguished from parallax and plate-solution error.',
+        'It is only the transverse angular motion; converting to tangential speed requires distance.',
+    ),
+    'reference catalog': (
+        'A tabulated set of sources with externally calibrated celestial positions and associated quality information.',
+        'It anchors the pixel-to-sky transformation and supplies the standards against which residuals are computed.',
+        'Matched catalog stars constrain translation, scale, rotation, and distortion in the plate solution.',
+        'Catalog positions have uncertainties, epochs, flags, and selection effects; they are not error-free truth.',
+    ),
+    'pixel-to-sky transformation': (
+        r'A mathematical mapping from detector coordinates \((x,y)\) to celestial coordinates such as right ascension and declination.',
+        'It is the model that turns measured centroids into scientifically comparable sky positions.',
+        'The transformation may range from a linear scale/rotation model to a polynomial distortion model encoded in WCS.',
+        'A transformation fitted over one region or instrument configuration should not be extrapolated without checking residuals.',
+    ),
+    'dispersion': (
+        'The change in wavelength per detector distance along the spectral direction, often expressed in nm per pixel.',
+        'It converts a line’s pixel location into wavelength and sets part of the available spectral sampling.',
+        r'A wavelength solution models \(\lambda(x)\), whose derivative \(d\lambda/dx\) is the local dispersion.',
+        'Dispersion is not the same as resolving power; closely sampled lines may still be broadened together by the instrument profile.',
+    ),
+    'arc lamp': (
+        'A calibration source that produces emission lines at known laboratory wavelengths.',
+        'Its line pattern supplies the pixel-wavelength correspondences used to calibrate a spectrum.',
+        'Identified arc lines are fitted by a wavelength-solution polynomial and checked through residuals.',
+        'A lamp exposure can drift relative to the science spectrum if instrument conditions change between exposures.',
+    ),
+    'wavelength solution': (
+        'A fitted function assigning a wavelength to each spectral pixel coordinate.',
+        'It turns a detector image into a spectrum from which line identities and velocities can be measured.',
+        r'The model \(\lambda(x)\) is constrained by known arc lines; fit residuals become part of the velocity uncertainty.',
+        'A visually good fit can still be wrong if lines are misidentified or the polynomial is extrapolated beyond calibration coverage.',
+    ),
+    'resolving power': (
+        r'A dimensionless measure \(R=\lambda/\Delta\lambda\) of the smallest wavelength separation an instrument can distinguish near \(\lambda\).',
+        'It determines whether neighboring lines can be measured separately or appear as one blended feature.',
+        r'At fixed \(R\), the resolvable interval is \(\Delta\lambda=\lambda/R\), set by optics, slit, seeing, and sampling.',
+        'High dispersion alone does not guarantee high resolving power if the line-spread function remains broad.',
+    ),
+    'line list': (
+        'A table of identified transitions and their laboratory wavelengths used for calibration or interpretation.',
+        'It supplies the trusted wavelength anchors needed to fit and verify a wavelength solution.',
+        'Observed peaks are matched to list entries, and consistency across many lines tests the identification.',
+        'A line list must match the lamp or species and wavelength convention; forcing an incorrect match can produce a plausible but false solution.',
+    ),
+    'spectral order': (
+        'One of the repeated wavelength bands produced by constructive interference in a diffraction grating, especially an echelle.',
+        'Order identification is necessary because different orders can overlap spatially or in wavelength.',
+        r'The grating equation \(m\lambda=d(\sin\alpha+\sin\beta)\) links order number \(m\) to wavelength and geometry.',
+        'An order is not a separate physical source spectrum; it is an instrument mapping that must be extracted and merged carefully.',
+    ),
+    'continuum': (
+        'The smoothly varying spectral flux level on which absorption or emission lines are superposed.',
+        'It defines the local reference used to measure line strength, shape, and equivalent width.',
+        'Continuum normalization divides by a fitted baseline so line departures can be compared across wavelength.',
+        'In crowded or molecular spectra a true line-free continuum may be absent, making placement model-dependent.',
+    ),
+    'rest wavelength': (
+        'The laboratory or source-frame wavelength assigned to a spectral transition before Doppler shifting.',
+        r'It is the reference \(\lambda_0\) against which an observed displacement is converted to velocity or redshift.',
+        r'The measured shift is \(\Delta\lambda=\lambda_{obs}-\lambda_0\), entering \(v/c\approx\Delta\lambda/\lambda_0\) at low speed.',
+        'Air and vacuum wavelength conventions differ slightly, so the convention must match the calibration.',
+    ),
+    'observed wavelength': (
+        'The calibrated wavelength at which a spectral feature appears in the recorded observer-frame spectrum.',
+        'It is the direct spectral measurement paired with a rest wavelength to infer motion.',
+        'Its uncertainty combines centroiding, wavelength-solution residuals, line shape, and instrumental drift.',
+        'A measured feature is not automatically the intended transition; identification and blending must be checked.',
+    ),
+    'redshift': (
+        r'A positive fractional wavelength increase \(z=(\lambda_{obs}-\lambda_0)/\lambda_0\).',
+        'It quantifies the consistent displacement of multiple lines toward longer wavelengths.',
+        r'For small speeds \(v\approx cz\); at high speeds or cosmological distances the physical interpretation requires relativistic or cosmological models.',
+        'Redshift is an observed ratio, not always a simple peculiar velocity.',
+    ),
+    'blueshift': (
+        'A negative wavelength shift in which a feature is observed at shorter wavelength than its rest value.',
+        'It is the sign expected for approaching radial motion in the low-speed Doppler interpretation.',
+        r'With the lecture convention, \(\Delta\lambda<0\) gives \(v<0\).',
+        'Calibration offsets can shift every line blueward, so sign alone does not establish physical approach.',
+    ),
+    'radial velocity': (
+        'The component of an object’s velocity along the observer’s line of sight.',
+        'It is inferred from calibrated line shifts and is the physical quantity tested by the three-line agreement.',
+        r'At \(v\ll c\), \(v/c\approx\Delta\lambda/\lambda_0\); multiple lines should yield a common value.',
+        'It excludes transverse motion and may include systemic, orbital, rotational, and observer-motion contributions.',
+    ),
+    'line blend': (
+        'A spectral feature formed by two or more unresolved transitions whose profiles overlap.',
+        'A blend can shift the apparent centroid and imitate a radial-velocity change.',
+        'Whether components blend depends on their separation relative to the line-spread function and resolving power.',
+        'Treating a blended centroid as a single isolated line yields a model-dependent, potentially biased velocity.',
+    ),
+    'systemic velocity': (
+        'The center-of-mass line-of-sight velocity of a source system relative to a stated reference frame.',
+        'It provides the common baseline around which orbital or internal line velocities vary.',
+        'Repeated multi-line measurements can separate a stable systemic component from time-dependent motion.',
+        'The value depends on the adopted reference frame and is not necessarily the velocity of every emitting component.',
+    ),
+    'parallax': (
+        'The apparent annual angular displacement of a nearby source caused by observing from different positions in Earth’s orbit.',
+        'It supplies a geometric distance indicator when the angular signal is measured with adequate precision.',
+        r'For parallax \(\pi\) in arcseconds, \(d(pc)=1/\pi\); the archive example uses milliarcseconds, so \(d=1000/\pi_{mas}\).',
+        'Naively inverting a low-SNR or negative measured parallax produces a biased or meaningless distance.',
+    ),
+    'fractional parallax error': (
+        r'The ratio of parallax uncertainty to measured parallax, \(\sigma_\pi/\pi\).',
+        'It provides a quick quality measure for deciding whether reciprocal distance is trustworthy.',
+        'A parallax-to-error cut greater than five is equivalent to fractional error below 20 percent.',
+        'A threshold is a selection choice, not a correction for all distance biases.',
+    ),
+    'selection function': (
+        'The probability that an object with given properties enters the observed or queried sample.',
+        'It explains how magnitude limits, quality cuts, sky coverage, and detection efficiency shape archive conclusions.',
+        'Completeness and contamination are evaluated relative to the defined selection function.',
+        'A catalog subset is not automatically representative of the underlying population.',
+    ),
+    'query reproducibility': (
+        'The ability to rerun an archive request and recover the same sample from documented service, table, fields, filters, and query text.',
+        'It makes the data-selection step inspectable in the same way as a reduction script.',
+        'The query record is part of provenance and defines the sample before any physical model is fitted.',
+        'A screenshot or final row count is insufficient if the exact cuts and data release are absent.',
+    ),
+    'catalog flag': (
+        'A coded field describing data quality, processing status, duplication, saturation, or another condition attached to a catalog row.',
+        'Flags let the analyst exclude or separately treat measurements known to violate assumptions.',
+        'Flag filters contribute directly to the selection function and should be preserved in the query record.',
+        'A zero or “good” flag does not guarantee suitability for every scientific question.',
+    ),
+    'completeness': (
+        'The fraction of the target population satisfying the scientific definition that is actually included in the sample.',
+        'It determines whether missing faint, crowded, or low-quality sources bias population inferences.',
+        'Completeness is measured relative to source properties and the selection function, often using injection tests or deeper comparison data.',
+        'A large catalog can still be incomplete in precisely the regime most important to the analysis.',
+    ),
+    'contamination': (
+        'The fraction of selected objects that do not belong to the intended population or fail the intended quality standard.',
+        'It measures the cost of permissive cuts and affects the credibility of trends inferred from the sample.',
+        'Tightening cuts often lowers contamination while also reducing completeness, creating a documented tradeoff.',
+        'Contamination is not identical to random measurement error; it concerns unwanted sample membership.',
+    ),
+    'image registration': (
+        'The transformation and resampling that align multiple images to a common pixel or sky-coordinate grid.',
+        'Registration ensures that real source signal lands at the same output location before frames are combined.',
+        'Centroids or WCS solutions constrain shifts, rotation, scale, and sometimes distortion.',
+        'Registration after stacking cannot undo source smearing already introduced by misalignment.',
+    ),
+    'median combine': (
+        'A stack in which each output pixel is the median of the aligned input-pixel values.',
+        'It rejects isolated cosmic-ray values without requiring their amplitudes to be modeled.',
+        'For an odd number of frames, one extreme outlier does not change the central ordered value.',
+        'The median is robust but statistically less efficient than the mean for purely Gaussian noise and small stacks.',
+    ),
+    'sigma-clipping': (
+        'An iterative combination method that estimates a center and scatter, rejects values beyond a chosen sigma threshold, and recomputes the result.',
+        'It retains much of the mean’s efficiency while rejecting cosmic rays and other outliers.',
+        'The threshold is defined relative to a noise estimate and therefore depends on stack depth and the validity of that estimate.',
+        'Aggressive clipping can remove real variable or moving-source signal, especially with few frames.',
+    ),
+    'cosmic ray': (
+        'An energetic-particle event that deposits charge in one exposure, often as a sharp bright pixel or track.',
+        'Its single-frame nature distinguishes it from a stationary astronomical source and motivates robust stacking.',
+        'Registered stacks expose cosmic rays as temporal outliers at a pixel while persistent source flux repeats.',
+        'Not every isolated bright pixel is a cosmic ray; hot pixels, satellites, and transients require different checks.',
+    ),
+    'independent noise': (
+        'Random fluctuations whose values in one exposure do not predict their values in another.',
+        'The square-root stacking gain assumes this independence across frames.',
+        r'Independent variances add, so averaging \(N\) comparable frames reduces standard error by \(1/\sqrt N\).',
+        'Flat-field errors, sky gradients, and guiding patterns repeated across frames are correlated systematics and do not average down this way.',
+    ),
+    'stack depth': (
+        'The number of usable aligned exposures, or equivalently the total integrated exposure represented by a stack.',
+        'It sets the expected random-noise improvement and the robustness available for outlier rejection.',
+        r'For equal independent frames, SNR grows approximately as \(\sqrt N\); total exposure grows as \(Nt\).',
+        'Nominal frame count overstates effective depth if frames differ greatly in quality or share correlated errors.',
+    ),
+    'outlier rejection': (
+        'A documented rule for identifying and excluding measurements inconsistent with the expected distribution or temporal behavior.',
+        'It prevents cosmic rays and defective pixels from dominating combined images.',
+        'Median combination and sigma-clipping are two rejection strategies with different efficiency and sample-size requirements.',
+        'Rejecting points solely because they disagree with the desired result is not valid outlier treatment.',
+    ),
+    'cadence': (
+        'The timing pattern of repeated observations, including the interval and any gaps between samples.',
+        'Cadence determines whether the light curve resolves the event shape or aliases it into a false pattern.',
+        'It must be compared with ingress, event duration, and period rather than only with total observing baseline.',
+        'Cadence is not synonymous with exposure time; readout and scheduling gaps also determine sample times.',
+    ),
+    'sampling interval': (
+        'The elapsed time between neighboring measurements in a time series.',
+        'It is the quantitative spacing used to judge whether a changing signal is adequately resolved.',
+        r'For a regular series, sampling frequency is \(f_s=1/\Delta t\); event morphology often requires many samples across the shortest relevant timescale.',
+        'A quoted average interval can hide irregular gaps that alter the window function.',
+    ),
+    'aliasing': (
+        'The appearance of an incorrect frequency or timescale when sampling cannot distinguish the true variation from another pattern.',
+        'It explains how a real periodic signal can appear constant or acquire a spurious period.',
+        'Regular sampling mixes the signal spectrum with the sampling window; frequencies separated by sampling frequencies can become degenerate.',
+        'More total observations do not automatically remove an alias if they preserve the same unfavorable timing pattern.',
+    ),
+    'undersampling': (
+        'Recording too few independent samples across a spatial or temporal feature to recover its shape or frequency.',
+        'The once-per-night sequence undersamples the 2.1-hour event and therefore cannot characterize its dip.',
+        r'A practical event criterion is \(\Delta t\ll T_{event}\), stricter than merely obtaining one point during the event.',
+        'Undersampling is a data-acquisition limitation; interpolation cannot recreate missing information reliably.',
+    ),
+    'ingress/egress': (
+        'The transition intervals during which an occulting body begins to cover or uncover the source.',
+        'Their duration and shape constrain event geometry and require finer sampling than the full event duration alone suggests.',
+        'Cadence and exposure integration convolve with these sharp transitions, smoothing their measured slopes.',
+        'The flat-bottom duration is not the same as ingress or egress duration.',
+    ),
+    'period': (
+        'The time required for a repeating phenomenon to complete one cycle.',
+        'It is inferred from repeated timing structure and determines how observations from different nights can be phased.',
+        r'Frequency and period obey \(f=1/P\), but aliases can create several candidate periods.',
+        'A single observed dip gives an event time, not a secure period without recurrence or external constraints.',
+    ),
+    'duty cycle': (
+        'The fraction of a relevant time span during which useful observations are actually being obtained.',
+        'It quantifies coverage gaps that control the chance of capturing short events.',
+        'For uniform exposures it is approximately total open-shutter time divided by elapsed campaign time.',
+        'High duty cycle does not guarantee appropriate cadence if individual samples are too long or poorly timed.',
+    ),
+    'random uncertainty': (
+        'Scatter that changes unpredictably among repeated measurements and is described statistically.',
+        'It determines how repeated measurements average and enters the quadrature error budget.',
+        r'Independent random variances add, and the uncertainty of a mean often falls as \(1/\sqrt N\).',
+        'Random-looking residuals can still conceal an unmodeled correlated systematic.',
+    ),
+    'systematic uncertainty': (
+        'Uncertainty associated with a shared calibration, model, or instrumental effect that shifts measurements coherently.',
+        'It limits claim accuracy even when repeatability and formal random errors are excellent.',
+        'Zero-point error propagates to every calibrated magnitude and generally does not average away by repeating the same setup.',
+        'A systematic is not necessarily a known correction; its magnitude may itself be uncertain.',
+    ),
+    'quadrature sum': (
+        'The square root of the sum of squared independent uncertainty components.',
+        'It gives the combined random uncertainty without incorrectly adding independent one-sigma errors linearly.',
+        r'\(\sigma_{tot}=\sqrt{\sum_i\sigma_i^2}\) follows from adding independent variances.',
+        'Correlated uncertainties require covariance terms and cannot be combined by simple quadrature.',
+    ),
+    'error budget': (
+        'An organized accounting of uncertainty sources, their sizes, assumptions, and contribution to a final result.',
+        'It shows which measurement or calibration limits the claim and where improved observations would matter most.',
+        'The budget connects photon statistics, calibration uncertainty, model terms, and systematic caveats to the reported error bar.',
+        'Listing only readily computed random errors while omitting dominant systematics produces a falsely precise result.',
+    ),
+    'claim strength': (
+        'The degree of confidence and specificity justified by the quality, uncertainty, and scope of the evidence.',
+        'It governs whether the report should state a detection, a tentative indication, an upper limit, or no conclusion.',
+        'Claim strength depends on effect size relative to uncertainty, replication, systematic checks, and model alternatives.',
+        'More decimal places or confident wording do not increase evidential strength.',
+    ),
+    'reproducibility': (
+        'The ability of an independent analyst to apply the documented inputs and procedures and obtain a consistent result.',
+        'It is the operational test of whether a reported measurement is more than an undocumented one-off outcome.',
+        'Reproducibility depends on provenance, calibration files, query text, code/version information, and stated decisions.',
+        'Reproducibility does not guarantee that the shared method is scientifically correct; it makes the method inspectable.',
+    ),
+    'methods section': (
+        'The report section that states how observations were obtained, calibrated, reduced, and analyzed.',
+        'It lets the technical audience reproduce the path from raw files to measured quantities.',
+        'It should connect instrument settings, calibration frames, pipeline steps, equations, and software choices in executable order.',
+        'A list of software names without parameters, inputs, and decisions is not a reproducible method.',
+    ),
+    'results section': (
+        'The report section that presents measurements and derived quantities with uncertainties, units, and relevant evidence.',
+        'It is where calibrated outputs such as magnitude, SNR, velocity, or event depth are stated without hiding their statistical support.',
+        'Each result should trace to a method and display the value, uncertainty, and conditions needed for interpretation.',
+        'Results should not silently mix interpretation with unsupported causal claims.',
+    ),
+    'limitations section': (
+        'The report section that identifies assumptions, systematics, incomplete coverage, and alternative explanations that bound the conclusion.',
+        'It calibrates the reader’s trust and prevents the conclusion from outrunning the data.',
+        'Cadence, comparison-star stability, calibration drift, sample selection, and model approximations are typical limitations linked to earlier analyses.',
+        'A limitation is not a generic disclaimer; it should state how the issue could change the result.',
+    ),
+    'reduction pipeline': (
+        'The ordered, parameterized sequence that converts raw observational files into calibrated measurements and derived products.',
+        'It provides the backbone of the methods section and a reproducible chain for checking each claim.',
+        'Inputs, calibration operations, quality checks, intermediate products, and final measurements should all be traceable through the pipeline.',
+        'Automation does not make a pipeline objective; undocumented defaults can encode major scientific choices.',
+    ),
+    'reproducibility statement': (
+        'A concise declaration of where the data, code, calibration products, query text, versions, and execution instructions needed to repeat the analysis can be found.',
+        'It gives the reader a practical route from the written report to the underlying evidence.',
+        'The statement completes provenance by naming persistent artifacts and the environment or versions required to regenerate results.',
+        'Saying “available on request” or naming only a repository without a version does not fully specify the analyzed state.',
+    ),
+    'technical audience': (
+        'Readers who understand the field’s methods and need enough precision to evaluate or repeat the work.',
+        'Writing for this audience requires explicit units, assumptions, calibration choices, uncertainty, and evidence rather than vague narrative.',
+        'The report’s methods and results should use standard terminology while defining project-specific choices and data products.',
+        'Technical writing is not made stronger by unexplained jargon; precision includes making the reasoning auditable.',
+    ),
+}
+
+
+def _term_entries(item: dict):
+    def repair_math(text: str) -> str:
+        # TERM_LIBRARY prose uses MathJax delimiters.  Restore the few
+        # backslash sequences Python otherwise interprets as control
+        # characters inside ordinary string literals.
+        return (text.replace('\a', r'\a')
+                    .replace('\b', r'\b')
+                    .replace('\f', r'\f')
+                    .replace('\t', r'\t')
+                    .replace('\v', r'\v'))
+
+    entries = []
+    for term in item['vocab']:
+        if term not in TERM_LIBRARY:
+            raise KeyError(f"Missing term content for lecture {item['n']:02d}: {term}")
+        definition, significance, relationship, limitation = (
+            repair_math(part) for part in TERM_LIBRARY[term]
+        )
+        entries.append((term, definition, significance, relationship, limitation))
+    return entries
+
+
+def term_explorer(item: dict) -> str:
+    n = item['n']
+    entries = _term_entries(item)
+    buttons = []
+    panels = []
+    for index, (term, definition, significance, relationship, limitation) in enumerate(entries, start=1):
+        tab_id = f"lecture-{n:02d}-term-{index}-tab"
+        panel_id = f"lecture-{n:02d}-term-{index}-panel"
+        selected = 'true' if index == 1 else 'false'
+        hidden = '' if index == 1 else ' hidden'
+        buttons.append(
+            f"<button class='term-button' id='{tab_id}' type='button' role='tab' "
+            f"aria-selected='{selected}' aria-controls='{panel_id}' data-term-target='{panel_id}'>{escape(term)}</button>"
+        )
+        panels.append(
+            f"<article class='term-detail' id='{panel_id}' role='tabpanel' aria-labelledby='{tab_id}'{hidden}>"
+            f"<h3>{escape(term)}</h3>"
+            f"<p><strong>Definition:</strong> {definition}</p>"
+            f"<p><strong>Why it matters here:</strong> {significance}</p>"
+            f"<p><strong>Relationships:</strong> {relationship}</p>"
+            f"<p><strong>Boundary / common confusion:</strong> {limitation}</p>"
+            f"</article>"
+        )
+    return (
+        f"<section class='slide glossary-slide' aria-labelledby='lecture-{n:02d}-terms-heading'>"
+        f"<h2 id='lecture-{n:02d}-terms-heading'>Terms for This Lecture</h2>"
+        f"<div class='term-explorer' data-term-explorer>"
+        f"<div class='term-list' role='tablist' aria-label='Lecture {n:02d} terms'>{''.join(buttons)}</div>"
+        f"<div class='term-details'>{''.join(panels)}</div></div></section>"
+    )
+
+
+def terms_in_context(item: dict) -> str:
+    entries = _term_entries(item)
+    definitions = []
+    evidence_link = item['evidence'][0]
+    model_link = item['model'][0]
+    for term, definition, significance, relationship, limitation in entries:
+        definitions.append(
+            f"<dt><strong>{escape(term)}</strong></dt>"
+            f"<dd><p>{definition} {significance}</p>"
+            f"<p>{relationship} {limitation}</p>"
+            f"<p><strong>Developed in this lecture:</strong> The term helps interpret this evidence: {evidence_link} "
+            f"It also constrains the working model: {model_link}</p></dd>"
+        )
+    return (
+        "<section><h2>Terms Developed in Context</h2>"
+        f"<p>These terms form the measurement chain for {escape(item['title'])}: each connects an observable to a model choice, "
+        "and each has a boundary that must be respected when making a scientific claim.</p>"
+        f"<dl>{''.join(definitions)}</dl></section>"
+    )
+
+
+def quantitative_slides(item: dict) -> str:
+    if item['n'] == 1:
+        return (
+            "<section class='slide'><h2>Conceptual Walkthrough</h2>"
+            "<p>Consider the top-left patch of the 2022-07-19 light frame, which reads a few hundred ADU above the calibration floor. "
+            "Two things must happen before this number means anything: an additive correction removes the bias-and-dark floor, leaving only "
+            "the real signal above it; then a multiplicative correction \u2014 dividing by the sensor's normalized sensitivity at this location, "
+            "which sits slightly below the frame's most sensitive center \u2014 removes the sensor's own uneven response.</p>"
+            "<p class='small'>Lecture 3 states the exact equation, patch values, and computed result, and works this arithmetic in full.</p></section>"
+        )
+    equation_note = (
+        "<p class='small'>This is the equation implied by Lecture 1's additive-then-multiplicative reasoning, "
+        "now stated so it can be computed directly.</p>"
+        if item['n'] == 3 else ""
+    )
+    return (
+        f"<section class='slide'><h2>Quantitative Tool</h2><div class='equation'>\\[ {item['equation']} \\]</div>{equation_note}</section>\n"
+        f"<section class='slide'><h2>Worked Example</h2><ol>{li(item['example'])}</ol></section>"
+    )
+
+
+def quantitative_notes(item: dict) -> str:
+    if item['n'] == 1:
+        return (
+            "<section><h2>Conceptual Walkthrough</h2><p>Consider the top-left patch of the 2022-07-19 light frame, "
+            "which reads a few hundred ADU above the calibration floor described in the Evidence above. Two things must happen before this "
+            "number means anything. First, an additive correction removes the bias-and-dark floor, leaving only the real signal above it. "
+            "Second, a multiplicative correction \u2014 dividing by the sensor's normalized sensitivity at this location, which sits slightly "
+            "below the frame's most sensitive center \u2014 removes the sensor's own uneven response. Only after both steps does the number "
+            "represent a defensible measurement, not a mix of source light and detector artifact. Lecture 3 states the exact equation and "
+            "specific patch values and works the arithmetic in full; Lab 01 has you compute the calibrated value yourself for this and four "
+            "other patches.</p></section>"
+        )
+    equation_note = (
+        "<p class='small'>This is the equation implied by Lecture 1's additive-then-multiplicative reasoning, "
+        "now stated so it can be computed directly.</p>"
+        if item['n'] == 3 else ""
+    )
+    return (
+        f"<section><h2>Working Equation</h2><p>\\[ {item['equation']} \\]</p>{equation_note}</section>\n"
+        f"<section><h2>Worked Example</h2><ol>{li(item['example'])}</ol></section>"
+    )
+
+
+def notes_model_items(item: dict) -> list[str]:
+    model = list(item['model'])
+    if item['n'] == 1:
+        model.append(
+            'This means subtracting an additive term and then dividing by a multiplicative term; '
+            'Lecture 3 introduces this reasoning as a single named working equation and shows how to apply it.'
+        )
+    return model
+
+
+def notes_activity(item: dict) -> str:
+    if item['n'] == 1:
+        return (
+            'In pairs, take the printed raw-count table from Lab 01 and predict, without computing, whether the corrected value '
+            'at each of two patches should be higher or lower than its raw value, and roughly how much the additive and multiplicative '
+            'corrections each contribute \u2014 then check your reasoning against a neighbor\u2019s before Lecture 3 supplies the equation '
+            'to verify it exactly.'
+        )
+    return item['activity']
+
 
 def slide_deck(item: dict) -> str:
     n = item['n']
@@ -1185,19 +1911,18 @@ def slide_deck(item: dict) -> str:
 <section class='slide'><h2>Learning Goals</h2><ol>{li(item['goals'])}</ol><p class='small'>Reading anchor: {escape(item['openstax'])}</p></section>
 <section class='slide'><h2>Why This Matters</h2><p>{item['why_matters']}</p></section>
 <section class='slide'><h2>Opening Phenomenon</h2><p>{item['phenomenon']}</p><p class='warning'><strong>First question:</strong> what here is directly measured, and what is inferred from a model?</p></section>
-<section class='slide'><h2>Vocabulary for Reasoning</h2><div class='three'>{cards(item['vocab'])}</div><p class='small'>Use these terms to describe evidence and relationships, not as isolated definitions.</p></section>
+{term_explorer(item)}
 <section class='slide'><h2>Evidence We Need to Explain</h2><ul>{li(item['evidence'])}</ul></section>
 <section class='slide'><h2>Model</h2><ul>{li(item['model'])}</ul></section>
-<section class='slide'><h2>Quantitative Tool</h2><div class='equation'>\\[ {item['equation']} \\]</div></section>
-<section class='slide'><h2>Worked Example</h2><ol>{li(item['example'])}</ol></section>
+{quantitative_slides(item)}
 <section class='slide visual-slide'><h2>Visual Reasoning</h2><div class='visual-grid'><div><p>{escape(prompt_intro)}</p><ul>{li(prompt_qs)}</ul></div><figure class='visual-figure'>{fig}<figcaption>{escape(fig_caption)}</figcaption></figure></div></section>
 <section class='slide'><h2>Common Pitfall</h2><p class='warning'>{item['pitfall']}</p></section>
 <section class='slide'><h2>Active Learning Segment</h2><p>{item['activity']}</p></section>
 <section class='slide'><h2>Lab or Observing Connection</h2><p>{item['lab_connection']}</p></section>
 <section class='slide'><h2>Synthesis</h2><p>{item['synthesis']}</p></section>
-<section class='slide'><h2>References</h2><ul><li>{escape(item['openstax'])}</li><li>Local reference copy: <code>references/openstax-astronomy-2e.pdf</code>.</li><li>Course dataset used in this lecture\u2019s worked example: <code>materials/ASTR210/data/</code>.</li></ul></section>
+<section class='slide'><h2>References</h2><ul><li>{escape(item['openstax'])}</li><li>Local reference copy: <code>references/openstax-astronomy-2e.pdf</code>.</li><li>Course dataset used in this lecture\u2019s {'conceptual walkthrough' if n == 1 else 'worked example'}: <code>materials/ASTR210/data/</code>.</li></ul></section>
 </main>"""
-    return page(f'ASTR 210 Lecture {n:02d} Slides', body, SLIDE_CSS)
+    return page(f'ASTR 210 Lecture {n:02d} Slides', body, SLIDE_CSS, TERM_EXPLORER_JS)
 
 
 def lecture_notes(item: dict) -> str:
@@ -1207,15 +1932,14 @@ def lecture_notes(item: dict) -> str:
 <section><h2>Context and Why This Matters</h2><p>{item['why_matters']}</p></section>
 <section><h2>Learning Goals</h2><ol>{li(item['goals'])}</ol></section>
 <section><h2>Opening Phenomenon</h2><p>{item['phenomenon']}</p></section>
-<section><h2>Vocabulary</h2><ul>{li(item['vocab'])}</ul></section>
+{terms_in_context(item)}
 <section><h2>Evidence</h2><ul>{li(item['evidence'])}</ul></section>
-<section><h2>Model</h2><ul>{li(item['model'])}</ul></section>
-<section><h2>Working Equation</h2><p>\\[ {item['equation']} \\]</p></section>
-<section><h2>Worked Example</h2><ol>{li(item['example'])}</ol></section>
+<section><h2>Model</h2><ul>{li(notes_model_items(item))}</ul></section>
+{quantitative_notes(item)}
 <section><h2>Common Misconception</h2><p class='notice'>{item['pitfall']}</p></section>
-<section><h2>Active-Learning Guidance</h2><p>{item['activity']}</p></section>
+<section><h2>Active-Learning Guidance</h2><p>{notes_activity(item)}</p></section>
 <section><h2>Lab / Observing Connection</h2><p>{item['lab_connection']}</p></section>
-<section><h2>Synthesis Questions</h2><ul><li>What was measured directly in this lecture\u2019s worked example, and what was inferred from the model?</li><li>Which uncertainty or systematic would most change the interpretation?</li><li>How does this technique connect to the technical observing report due at the end of the term?</li></ul></section>
+<section><h2>Synthesis Questions</h2><ul><li>What was measured directly in this lecture\u2019s {'conceptual walkthrough' if n == 1 else 'worked example'}, and what was inferred from the model?</li><li>Which uncertainty or systematic would most change the interpretation?</li><li>How does this technique connect to the technical observing report due at the end of the term?</li></ul></section>
 <section><h2>References</h2><ul><li>{escape(item['openstax'])}</li><li>Local reference copy: <code>references/openstax-astronomy-2e.pdf</code>.</li></ul></section>
 </main>"""
     return page(f'ASTR 210 Lecture {n:02d} Notes', body)
@@ -1224,8 +1948,10 @@ def lecture_notes(item: dict) -> str:
 def write_lectures():
     for item in LECTURES:
         n = item['n']
-        (LECTURE_DIR / f'lecture-{n:02d}-slides.html').write_text(slide_deck(item), encoding='utf-8')
-        (LECTURE_DIR / f'lecture-{n:02d}-notes.html').write_text(lecture_notes(item), encoding='utf-8')
+        with (LECTURE_DIR / f'lecture-{n:02d}-slides.html').open('w', encoding='utf-8', newline='\n') as handle:
+            handle.write(slide_deck(item))
+        with (LECTURE_DIR / f'lecture-{n:02d}-notes.html').open('w', encoding='utf-8', newline='\n') as handle:
+            handle.write(lecture_notes(item))
 
 
 if __name__ == '__main__':
