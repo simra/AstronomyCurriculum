@@ -26,6 +26,10 @@ After the second-pass approval below, Lecture 1, Lecture 3, Lab 01, and Problem 
 
 A later audit (2026-09-24) found that all 14 lecture decks had degraded to reusing one generic three-box "raw/observed → calibration/model → calibrated claim" SVG diagram, with only labels changing between lectures — exactly the repeated-generic-schematic defect the review skill is meant to catch. All 14 visual-reasoning diagrams were replaced with structurally distinct, lecture-specific figures (real plotted curves, calibration-frame textures, SNR bar charts, light curves, astrometric vectors, wavelength-solution plots, etc.), each grounded in that lecture's own real data. Verified via grep that no repeated diagram signature remains across the course. See the course-materials-review and lecture-slide-authoring skills for the new mechanical check this regression prompted.
 
+## Post-Approval Update: Resolved Lecture 1 / Lecture 3 Quantitative Redundancy
+
+A later audit (2026-09-27) found that Lecture 1 ("From Pretty Pictures to Measurements") and Lecture 3 ("CCD Detectors, Bias, Dark, and Flat Fields") both independently taught the identical named working equation, I_cal = (I_raw − D)/F, and both included a fully worked numeric calibration example (top-left patch in Lecture 1, center patch in Lecture 3) drawn from the same Canon EOS M50 dataset — making Lecture 1's quantitative learning goal redundant with Lecture 3's rather than building toward it. Lecture 1 (slides and notes) was revised so its quantitative learning goal, "Model" section, and worked-example content are now conceptual/qualitative only (additive-then-multiplicative reasoning, in words, with real evidence, no boxed equation and no computed I_cal answer), explicitly deferring the equation and arithmetic to Lecture 3; its visual-reasoning figure and active-learning/lab-connection prompts were reworded to match (predict direction/magnitude, don't compute). Lecture 3's learning goal and Quantitative Tool/Working Equation sections were reworded to state explicitly that Lecture 3 is the first lecture where the equation is introduced as a computable tool, converting Lecture 1's qualitative reasoning into arithmetic. Lab 01 and Problem Set 1, which independently perform their own arithmetic on all five patches, required no structural changes. See `reference-log.md` for the updated note on which artifact now owns the equation.
+
 ## Remaining Review Items
 
 - Human reviewer should confirm the local teaching style matches the depth level chosen here (15-slide decks, four-problem problem sets).
@@ -47,4 +51,4 @@ Approved for review release. Not yet approved for instructional use. This approv
 - **Accessibility review:** alt text, color contrast, and observing-accommodation alternatives have not been separately audited in this pass.
 - **Policy alignment:** syllabus language for local academic-integrity, safety, and weather policies should be finalized by the instructor of record.
 
-Last updated: 2026-09-24
+Last updated: 2026-09-27
